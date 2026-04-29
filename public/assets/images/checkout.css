@@ -1,0 +1,256 @@
+/* Checkout Page Styles */
+/* Add these to your globals.css or a checkout.css imported in the layout */
+
+.checkout-container {
+  max-width: 1050px;
+  margin: 30px auto;
+  padding: 0 16px;
+}
+
+.checkout-container .header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.checkout-container .header h1 {
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+
+.checkout-container .header p {
+  color: var(--text-light, #5f6368);
+  font-size: 1.05rem;
+}
+
+/* Step Progress Bar */
+.progress-bar {
+  margin-bottom: 32px;
+}
+
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #dadce0;
+  z-index: 1;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  flex: 1;
+  position: relative;
+}
+
+.step-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #dadce0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #5f6368;
+  transition: all 0.3s;
+  font-size: 1.05rem;
+}
+
+.step-item.completed .step-circle {
+  background: #530a4e;
+  border-color: #530a4e;
+  color: white;
+}
+
+.step-item.completed .step-circle::after {
+  content: '✓';
+  font-size: 1.1rem;
+}
+
+.step-item.active .step-circle {
+  border-color: #530a4e;
+  background: white;
+  color: #530a4e;
+  box-shadow: 0 0 0 4px rgba(83, 10, 78, 0.15);
+}
+
+.step-label {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #5f6368;
+  text-align: center;
+  min-width: 80px;
+}
+
+.step-item.active .step-label,
+.step-item.completed .step-label {
+  color: #202124;
+  font-weight: 600;
+}
+
+/* Main Layout */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+}
+
+/* Step Cards */
+.step {
+  display: none;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.step.active { display: block; }
+
+.step h2 {
+  font-size: 1.38rem;
+  margin-bottom: 18px;
+}
+
+/* Option Grid */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: 12px;
+}
+
+.option {
+  border: 2px solid #dadce0;
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.option:hover {
+  border-color: #530a4e;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.option.active {
+  border-color: #530a4e;
+  background: #f8f1f7;
+}
+
+.option .icon {
+  font-size: 1.75rem;
+  margin-bottom: 10px;
+  color: #530a4e;
+}
+
+.option strong {
+  display: block;
+  font-size: 1.05rem;
+}
+
+/* Contact Form */
+.contact-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #5f6368;
+  font-size: 0.95rem;
+}
+
+.contact-form input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid #dadce0;
+  border-radius: 12px;
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+
+.contact-form input:focus {
+  outline: none;
+  border-color: #530a4e;
+}
+
+/* Summary Card */
+.summary-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 20px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 0;
+  font-size: 1.02rem;
+}
+
+.summary-row.total {
+  font-size: 1.72rem;
+  font-weight: 700;
+  color: #530a4e;
+  margin-top: 12px;
+}
+
+/* Buttons */
+.btn {
+  padding: 13px 22px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.03rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn-primary {
+  background: #530a4e;
+  color: white;
+}
+
+.btn-primary:hover { background: #3f083a; }
+
+.btn-secondary {
+  background: #f1f3f4;
+  color: #202124;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.cta-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #530a4e;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .main-grid { grid-template-columns: 1fr; }
+  .steps { flex-wrap: wrap; gap: 12px; }
+  .steps::before { display: none; }
+}
