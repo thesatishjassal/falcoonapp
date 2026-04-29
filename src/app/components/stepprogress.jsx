@@ -1,7 +1,7 @@
 export default function StepProgress({ steps, currentStep }) {
   return (
-    <div className="progress-bar">
-      <div className="steps" id="progress-steps">
+    <div className="progress">
+      <div className="progress__steps">
         {steps.map((label, i) => {
           const stepNum = i + 1;
           const isCompleted = stepNum < currentStep;
@@ -10,13 +10,24 @@ export default function StepProgress({ steps, currentStep }) {
           return (
             <div
               key={stepNum}
-              className={`step-item${isActive ? " active" : ""}${isCompleted ? " completed" : ""}`}
-              data-step={stepNum}
+              className={`progress__item 
+                ${isActive ? "progress__item--active" : ""} 
+                ${isCompleted ? "progress__item--completed" : ""}`}
             >
-              <div className="step-circle">
-                {isCompleted ? "" : stepNum}
+              <div className="progress__circle">
+                {isCompleted ? "✔" : stepNum}
               </div>
-              <div className="step-label">{label}</div>
+
+              <div className="progress__label">{label}</div>
+
+              {/* Connector line */}
+              {i < steps.length - 1 && (
+                <div
+                  className={`progress__line ${
+                    isCompleted ? "progress__line--active" : ""
+                  }`}
+                />
+              )}
             </div>
           );
         })}

@@ -2,48 +2,71 @@ const AUTO_OPTIONS = [
   {
     price: 2999,
     label: "WhatsApp",
-    icon: "fa-whatsapp",
-    iconPrefix: "fab",
+    icon: "💬",
     desc: "Instant replies & follow-ups",
   },
   {
     price: 2999,
     label: "Email Automation",
-    icon: "fa-envelope",
-    iconPrefix: "fas",
+    icon: "📧",
     desc: "Smart sequences",
   },
   {
     price: 4999,
     label: "Both",
-    icon: "fa-robot",
-    iconPrefix: "fas",
+    icon: "🤖",
     desc: "Complete automation",
   },
 ];
 
 export default function StepAutomation({ selected, onChange, onNext, onBack }) {
   return (
-    <div className="step active">
-      <h2>Automation</h2>
-      <div className="options-grid">
-        {AUTO_OPTIONS.map((opt) => (
-          <div
-            key={opt.label}
-            className={`option ${selected.label === opt.label ? "active" : ""}`}
-            onClick={() => onChange({ label: opt.label, price: opt.price })}
-          >
-            <div className="icon">
-              <i className={`${opt.iconPrefix} ${opt.icon}`} />
+    <div className="automation">
+      <h2 className="automation__title">Automation</h2>
+      <p className="automation__subtitle">
+        Automate your communication & save time
+      </p>
+
+      <div className="automation__grid">
+        {AUTO_OPTIONS.map((opt) => {
+          const isActive = selected?.label === opt.label;
+
+          return (
+            <div
+              key={opt.label}
+              className={`automation__card ${
+                isActive ? "automation__card--active" : ""
+              }`}
+              onClick={() => onChange({ label: opt.label, price: opt.price })}
+            >
+              <div className="automation__icon">{opt.icon}</div>
+
+              <div className="automation__content">
+                <strong className="automation__label">{opt.label}</strong>
+                <p className="automation__desc">{opt.desc}</p>
+              </div>
+
+              <div className="automation__price">₹{opt.price}</div>
+
+              {isActive && <span className="automation__check">✔</span>}
             </div>
-            <strong>{opt.label}</strong>
-            <p>{opt.desc}</p>
-          </div>
-        ))}
+          );
+        })}
       </div>
-      <div className="actions">
-        <button className="btn btn-secondary" onClick={onBack}>← Back</button>
-        <button className="btn btn-primary" onClick={onNext}>Continue →</button>
+
+      <div className="automation__actions">
+        <button
+          className="automation__btn automation__btn--secondary"
+          onClick={onBack}
+        >
+          ← Back
+        </button>
+        <button
+          className="automation__btn automation__btn--primary"
+          onClick={onNext}
+        >
+          Continue →
+        </button>
       </div>
     </div>
   );

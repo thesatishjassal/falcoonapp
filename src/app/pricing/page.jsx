@@ -21,6 +21,7 @@ const DEFAULT_STATE = {
 };
 
 export default function CheckoutPage() {
+  const [showSummary, setShowSummary] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [selections, setSelections] = useState(DEFAULT_STATE);
 
@@ -44,27 +45,29 @@ export default function CheckoutPage() {
 
   return (
     <>
-      <div className="checkout-container py-4">
-        <div className="header">
+      <div className="checkout">
+        <div className="checkout__header">
           <h1>Build Your Funnel</h1>
           <p>Choose smart • Pay once • Launch fast</p>
         </div>
-
         <StepProgress steps={STEPS} currentStep={currentStep} />
-
-        <div className="main-grid">
-          <div>
+        <div className="checkout__layout  main-grid">
+          <div className="checkout__main">
             {currentStep === 1 && (
               <StepLaunch
                 selected={selections.launch}
-                onChange={(val) => setSelections((s) => ({ ...s, launch: val }))}
+                onChange={(val) =>
+                  setSelections((s) => ({ ...s, launch: val }))
+                }
                 onNext={nextStep}
               />
             )}
             {currentStep === 2 && (
               <StepPayment
                 selected={selections.payment}
-                onChange={(val) => setSelections((s) => ({ ...s, payment: val }))}
+                onChange={(val) =>
+                  setSelections((s) => ({ ...s, payment: val }))
+                }
                 onNext={nextStep}
                 onBack={prevStep}
               />
@@ -72,7 +75,9 @@ export default function CheckoutPage() {
             {currentStep === 3 && (
               <StepAutomation
                 selected={selections.automation}
-                onChange={(val) => setSelections((s) => ({ ...s, automation: val }))}
+                onChange={(val) =>
+                  setSelections((s) => ({ ...s, automation: val }))
+                }
                 onNext={nextStep}
                 onBack={prevStep}
               />
@@ -81,7 +86,9 @@ export default function CheckoutPage() {
               <StepHosting
                 selected={selections.hosting}
                 addonDashboard={selections.addons.clientDashboard}
-                onChange={(val) => setSelections((s) => ({ ...s, hosting: val }))}
+                onChange={(val) =>
+                  setSelections((s) => ({ ...s, hosting: val }))
+                }
                 onAddonChange={(val) =>
                   setSelections((s) => ({
                     ...s,
@@ -95,20 +102,25 @@ export default function CheckoutPage() {
             {currentStep === 5 && (
               <StepContact
                 contact={selections.contact}
-                onChange={(val) => setSelections((s) => ({ ...s, contact: val }))}
+                onChange={(val) =>
+                  setSelections((s) => ({ ...s, contact: val }))
+                }
                 onSubmit={handleSubmit}
                 onBack={prevStep}
               />
             )}
           </div>
-
-          <OrderSummary
-            selections={selections}
-            total={total}
-            onContinue={nextStep}
-            isLastStep={currentStep === 5}
-          />
-        </div>
+          <div className="checkout__summary">
+            {/* {showSummary && ( */}
+            <OrderSummary
+              selections={selections}
+              total={total}
+              onContinue={nextStep}
+              isLastStep={currentStep === 5}
+            />
+            {/* )} */}
+          </div>
+        </div>{" "}
       </div>
     </>
   );

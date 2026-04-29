@@ -1,6 +1,6 @@
 const HOST_OPTIONS = [
-  { price: 0, label: "I have my own hosting", icon: "fa-server" },
-  { price: 3999, label: "Need hosting + domain", icon: "fa-globe" },
+  { price: 0, label: "I have my own hosting", icon: "🖥️" },
+  { price: 3999, label: "Need hosting + domain", icon: "🌐" },
 ];
 
 export default function StepHosting({
@@ -12,37 +12,71 @@ export default function StepHosting({
   onBack,
 }) {
   return (
-    <div className="step active">
-      <h2>Hosting &amp; Domain</h2>
-      <div className="options-grid">
-        {HOST_OPTIONS.map((opt) => (
-          <div
-            key={opt.label}
-            className={`option${selected.label === opt.label ? " active" : ""}`}
-            onClick={() => onChange({ label: opt.label, price: opt.price })}
-          >
-            <div className="icon">
-              <i className={`fas ${opt.icon}`} />
+    <div className="hosting">
+      <h2 className="hosting__title">Hosting & Domain</h2>
+      <p className="hosting__subtitle">Choose your hosting setup</p>
+
+      <div className="hosting__grid">
+        {HOST_OPTIONS.map((opt) => {
+          const isActive = selected?.label === opt.label;
+
+          return (
+            <div
+              key={opt.label}
+              className={`hosting__card ${
+                isActive ? "hosting__card--active" : ""
+              }`}
+              onClick={() => onChange({ label: opt.label, price: opt.price })}
+            >
+              <div className="hosting__icon">{opt.icon}</div>
+
+              <div className="hosting__content">
+                <strong className="hosting__label">{opt.label}</strong>
+              </div>
+
+              <div className="hosting__price">
+                {opt.price === 0 ? "Free" : `₹${opt.price}`}
+              </div>
+
+              {isActive && <span className="hosting__check">✔</span>}
             </div>
-            <strong>{opt.label}</strong>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      <h2 style={{ margin: "24px 0 12px" }}>Add-ons</h2>
-      <label style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "1.02rem", cursor: "pointer" }}>
-        <input
-          type="checkbox"
-          className="addon"
-          checked={addonDashboard}
-          onChange={(e) => onAddonChange(e.target.checked)}
-        />
-        Client Dashboard — ₹2,999
-      </label>
+      {/* ADD-ONS */}
+      <div className="hosting__addons">
+        <h3 className="hosting__addons-title">Add-ons</h3>
 
-      <div className="actions">
-        <button className="btn btn-secondary" onClick={onBack}>← Back</button>
-        <button className="btn btn-primary" onClick={onNext}>Continue →</button>
+        <div
+          className={`hosting__addon-card ${
+            addonDashboard ? "hosting__addon-card--active" : ""
+          }`}
+          onClick={() => onAddonChange(!addonDashboard)}
+        >
+          <div className="hosting__addon-icon">📊</div>
+
+          <div className="hosting__addon-content">
+            <strong>Client Dashboard</strong>
+            <p>Manage users, data & analytics</p>
+          </div>
+
+          <div className="hosting__addon-price">₹2,999</div>
+
+          {addonDashboard && <span className="hosting__check">✔</span>}
+        </div>
+      </div>
+
+      <div className="hosting__actions">
+        <button
+          className="hosting__btn hosting__btn--secondary"
+          onClick={onBack}
+        >
+          ← Back
+        </button>
+        <button className="hosting__btn hosting__btn--primary" onClick={onNext}>
+          Continue →
+        </button>
       </div>
     </div>
   );

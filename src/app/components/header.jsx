@@ -17,8 +17,12 @@ export default function Header() {
         {/* CTA */}
         <div className="falcoon-header__cta">
           <nav className="falcoon-header__nav">
-            <Link href="/pricing" className="falcoon-header__link">Pricing</Link>
-            <Link href="/about" className="falcoon-header__link">About</Link>
+            <Link href="/pricing" className="falcoon-header__link">
+              Pricing
+            </Link>
+            <Link href="/about" className="falcoon-header__link">
+              About
+            </Link>
             <Link href="/help" className="falcoon-header__link">
               Support <span className="falcoon-header__icon">?</span>
             </Link>
@@ -29,7 +33,12 @@ export default function Header() {
           >
             Book Free Strategy Call
             <span className="falcoon-header__calendar">
-              <Image src="/assets/images/calendar_month.svg" alt="" width={20} height={20} />
+              <Image
+                src="/assets/images/calendar_month.svg"
+                alt=""
+                width={20}
+                height={20}
+              />
             </span>
           </a>
         </div>
