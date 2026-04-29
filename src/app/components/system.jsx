@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function System() {
   return (
-    <section className="falcoon-header container-fluid">
+    <section className="container-fluid">
       <div className="container falcoon-header__wrapper">
         {/* Top Text */}
         <div className="falcoon-header__content text-center">
