@@ -4876,7 +4876,7 @@ main.careers {
 /* 📱 MOBILE */
 @media (max-width: 600px) {
   .falcoon-clients__grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 rows visible */
+    grid-template-columns: repeat(3, 1fr); /* 2 rows visible */
   }
 
   .falcoon-clients__card {
