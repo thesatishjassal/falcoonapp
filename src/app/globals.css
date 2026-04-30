@@ -3847,5 +3847,28 @@ body.modal-open {
   .order-sheet { display: flex; }
 
   /* padding so content doesn't hide behind fixed bar */
-  .checkout { padding-bottom: 80px; }
+.checkout {
+    padding-bottom: 0px;
+}
+.checkout__header {
+    text-align: center;
+    margin: 25px auto;
+    padding: 0px;
+}
+.progress {
+    margin-bottom: 10px;
+}
+.launch__title {
+    font-size: 20px;
+    font-weight: 600;
+}.launch__subtitle {
+    font-size: 15px;
+}
+.launch {
+    padding: 0px;
+}
+.launch__grid {
+    gap: 10px;
+    display: grid;
+}
 }
