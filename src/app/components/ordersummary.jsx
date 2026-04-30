@@ -36,8 +36,8 @@ export default function OrderSummary({ selections, total, onContinue, isLastStep
           <span>Total</span>
           <span style={{ color: "#530a4e" }}>₹{total.toLocaleString("en-IN")}</span>
         </div>
-        <button className="summary__btn" onClick={onContinue}>
-          {isLastStep ? "Place Order 🎉" : "Continue →"}
+        <button className="summary__btn">
+          Place Order 🎉"
         </button>
         <div className="summary__trust">🔒 Secure checkout · No hidden charges</div>
       </div>

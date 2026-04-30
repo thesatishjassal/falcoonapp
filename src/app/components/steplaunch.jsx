@@ -24,7 +24,7 @@ export default function StepLaunch({ selected, onChange, onNext }) {
     <div className="launch">
       <div className="mobile_none">
         <h2 className="launch__title">What do you want to launch?</h2>
-        <p className="launch__subtitle">Choose one to get started quickly</p>
+        {/* <p className="launch__subtitle">Choose one to get started quickly</p> */}
       </div>
 
       <div className="launch__grid">

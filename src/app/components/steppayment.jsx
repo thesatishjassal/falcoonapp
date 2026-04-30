@@ -18,9 +18,9 @@ export default function StepPayment({ selected, onChange, onNext, onBack }) {
     <div className="payment">
       <div className="mobile_none">
         <h2 className="payment__title">Payment Gateway</h2>
-        <p className="payment__subtitle">
+        {/* <p className="payment__subtitle">
           Choose how you want to receive payments
-        </p>
+        </p> */}
       </div>
 
       <div className="payment__grid">

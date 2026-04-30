@@ -5,7 +5,7 @@ export default function StepContact({ contact, onChange, onSubmit, onBack }) {
   return (
     <div className="contact"> <div className="mobile_none"> 
       <h2 className="contact__title">Contact Details</h2>
-      <p className="contact__subtitle">We’ll use this to set up your account</p>
+      {/* <p className="contact__subtitle">We’ll use this to set up your account</p> */}
 </div>
       <div className="contact__form">
         {/* NAME */}

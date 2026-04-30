@@ -2652,8 +2652,8 @@ body {
 
 /* MODIFIER */
 .launch__card--active {
-  border: 2px solid #000;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    border: 1px solid #000;
+    box-shadow: 0 6px 18px #0000001a;
 }
 
 .launch__icon {
@@ -2696,9 +2696,9 @@ body {
 }
 /* BLOCK */
 .payment {
-  max-width: 720px;
-  margin: auto;
-  padding: 20px;
+    max-width: 720px;
+    margin: auto;
+    padding: 0px;
 }
 
 /* ELEMENTS */
@@ -2908,7 +2908,6 @@ body {
 .automation__btn--secondary {
   color: #333;
   background: #f5f5f5;
-  text-align: left;
 }
 /* BLOCK */
 .hosting {
@@ -3506,14 +3505,10 @@ body.modal-open {
 }
 
 @media (max-width: 600px) {
-  .launch__actions,
-  .payment__actions,
-  .automation__actions,
-  .hosting__actions,
-  .contact__actions {
-    flex-direction: column !important;
-  }
-
+.launch__actions, .payment__actions, .automation__actions, .hosting__actions, .contact__actions {
+    flex-direction: row;
+    gap: 90px;
+}
   button {
     width: 100%;
   }
@@ -3888,7 +3883,12 @@ body.modal-open {
   .order-mobile-bar { display: flex; }
   .order-sheet-overlay { display: block; }
   .order-sheet { display: flex; }
-
+.mobile_none{
+  display: none;
+}.mobile_none h2 {
+    margin-bottom: 30px;
+    font-size: 22px;
+}
   /* padding so content doesn't hide behind fixed bar */
 .checkout {
     padding-bottom: 0px;
