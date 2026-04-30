@@ -630,7 +630,7 @@ span.regular_font {
     text-align: left;
     cursor: pointer;
     transition: var(--transition);
-    background: #530a4e;
+    background: #ffffff;
     border: 1px solid #4d49491c;
     border-radius: 20px;
     width: 100%;
@@ -638,6 +638,7 @@ span.regular_font {
     padding: 25px;
     display: block;
     position: relative;
+    box-shadow:0 10px 30px #0000000f;
 }
 .falcoon-card:hover {
   transform: translateY(-6px);
@@ -706,8 +707,8 @@ span.regular_font {
 }
 
 h3.falcoon-card__title {
+    color: #181818;
     margin-bottom: 0;
-    color: #fff;
 }
 
 /* Header */
@@ -4815,21 +4816,20 @@ main.careers {
     margin: 0 10px;
   }
 }.falcoon-clients {
-  padding: 70px 0;
-  background: #530a4e;
-  text-align: center;
+    text-align: center;
+    background: hsl(40deg 100% 98.24%);
+    padding: 70px 0;
 }
 
 /* Title */
 .falcoon-clients__title {
-  color: #fff;
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 40px;
+    color: #050505;
+    margin-bottom: 40px;
+    font-size: 26px;
+    font-weight: 600;
 }
-
 .falcoon-clients__title span {
-  color: #ffd6f9;
+    color: #530a4e;
 }
 
 /* GRID (MAIN FIX) */
@@ -5152,5 +5152,592 @@ main.careers {
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}/* ================= HERO ================= */
+.falcoon-faq-hero {
+  padding: 60px 0 40px;
+  text-align: center;
+  background: linear-gradient(to bottom, #fff, #fafafa);
+}
+
+.falcoon-faq-hero__tag {
+  background: rgba(108, 12, 99, 0.1);
+  color: #6c0c63;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.falcoon-faq-hero__title {
+  font-size: 38px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.falcoon-faq-hero__title span {
+  color: #6c0c63;
+}
+
+.falcoon-faq-hero__desc {
+  margin-top: 10px;
+  color: #555;
+}
+
+.falcoon-faq-hero__trust {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 13px;
+}
+
+.falcoon-faq-hero__actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ================= MAIN FAQ ================= */
+.falcoon-faq-section {
+  padding: 30px 0;
+}
+
+.falcoon-faq-section__title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.falcoon-faq-item {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.falcoon-faq-item.active {
+  border-color: #6c0c63;
+}
+
+.falcoon-faq-question {
+  display: flex;
+  justify-content: space-between;
+}
+
+.falcoon-faq-answer {
+  margin-top: 10px;
+  color: #555;
+}
+
+/* ================= RELATED ================= */
+.falcoon-related-faq {
+  padding: 40px 0;
+}
+
+.falcoon-related-faq__list {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.falcoon-related-faq__item {
+  border-bottom: 1px solid #ddd;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.falcoon-related-faq__item:last-child {
+  border-bottom: none;
+}
+
+.falcoon-related-faq__question {
+  display: flex;
+  justify-content: space-between;
+}
+
+.falcoon-related-faq__answer {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .falcoon-faq-hero__title {
+    font-size: 26px;
+  }
+
+  .falcoon-faq-hero__actions {
+    flex-direction: column;
+  }
+
+  .falcoon-faq-hero__actions a {
+    width: 100%;
+  }
+}.falcoon-terms {
+  background: #f9fafb;
+  color: #1a1a1a;
+}
+
+/* HERO */
+.falcoon-terms__hero {
+  padding: 60px 20px 30px;
+  text-align: center;
+  background: #ffffff;
+  border-bottom: 1px solid #eee;
+}
+
+.falcoon-terms__hero h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.falcoon-terms__hero p {
+  margin-top: 6px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* CONTENT */
+.falcoon-terms__content {
+  padding: 40px 20px 60px;
+}
+
+.falcoon-terms__wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* SECTION */
+.falcoon-terms__section {
+  margin-bottom: 30px;
+}
+
+.falcoon-terms__section h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.falcoon-terms__section p {
+  color: #444;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.falcoon-terms__section ul {
+  padding-left: 18px;
+}
+
+.falcoon-terms__section li {
+  margin-bottom: 6px;
+  color: #444;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .falcoon-terms__hero h1 {
+    font-size: 24px;
+  }
+
+  .falcoon-terms__section h2 {
+    font-size: 18px;
+  }
+
+  .falcoon-terms__section p {
+    font-size: 14px;
+  }
+}.falcoon-integrations {
+  padding: 60px 20px;
+  background: #f9fafb;
+}
+
+/* TITLE */
+.falcoon-integrations__title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.falcoon-integrations__sub {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 6px;
+  margin-bottom: 30px;
+}
+
+/* GRID */
+.falcoon-integrations__grid {
+  display: grid;
+  gap: 20px;
+}
+
+/* CARD */
+.falcoon-integrations__card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.falcoon-integrations__card h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.falcoon-integrations__card p {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 15px;
+}
+
+/* FLOW */
+.falcoon-integrations__flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* STEP */
+.falcoon-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f3f4f6;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.falcoon-step__icon {
+  font-size: 14px;
+}
+
+/* ARROW */
+.falcoon-step__arrow {
+  margin-left: 4px;
+  color: #9ca3af;
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+  .falcoon-integrations__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .falcoon-integrations__title {
+    font-size: 32px;
+  }
+}/* SECTION */
+.falcoon-blog {
+  background: #f9fafb;
+  padding-bottom: 60px;
+}
+
+/* HERO */
+.falcoon-blog__hero {
+    text-align: center;
+    padding: 30px 20px 60px;
+}
+
+.falcoon-blog__hero h1 {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.falcoon-blog__hero h1 span {
+  color: #22c55e;
+}
+
+.falcoon-blog__hero p {
+  margin-top: 10px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* HERO BUTTONS */
+.falcoon-blog__hero-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.falcoon-btn--light {
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+/* FEATURED */
+.falcoon-blog__featured {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 25px;
+}
+
+.falcoon-blog__featured img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.falcoon-blog__featured-content {
+  padding: 15px;
+}
+
+/* GRID */
+.falcoon-blog__grid {
+  display: grid;
+  gap: 15px;
+}
+
+/* CARD */
+.falcoon-blog__card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.falcoon-blog__card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.falcoon-blog__content {
+  padding: 12px;
+}
+
+.tag {
+  font-size: 11px;
+  background: #eef2ff;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* VIDEO */
+.falcoon-video {
+  position: relative;
+  cursor: pointer;
+}
+
+.falcoon-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: red;
+  color: #fff;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+/* MODAL */
+.falcoon-video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.falcoon-video-box {
+  width: 90%;
+  aspect-ratio: 16/9;
+}
+
+.falcoon-video-box iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+/* 📱 MOBILE FIX */
+@media (max-width: 480px) {
+  .falcoon-blog__hero-actions {
+    flex-direction: column;
+  }
+
+  .falcoon-blog__hero h1 {
+    font-size: 22px;
+  }
+
+  .falcoon-blog__card img {
+    height: 130px;
+  }
+}
+
+/* 💻 DESKTOP */
+@media (min-width: 768px) {
+  .falcoon-blog__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .falcoon-blog__hero h1 {
+    font-size: 36px;
+  }
+}
+
+.falcoon-blog__content {
+  padding: 12px;
+}
+
+.falcoon-blog__content span {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.falcoon-blog__content h3 {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/* CTA */
+.falcoon-blog__cta {
+  margin-top: 40px;
+  text-align: center;
+  padding: 30px 15px;
+  background: #000;
+  color: #fff;
+  border-radius: 16px;
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+  .falcoon-blog__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .falcoon-blog__hero h1 {
+    font-size: 36px;
+  }
+}/* VIDEO CARD */
+.falcoon-video {
+  position: relative;
+  cursor: pointer;
+}
+
+.falcoon-video img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* PLAY BUTTON */
+.falcoon-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ff0000;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 50%;
+  font-size: 18px;
+}
+
+/* MODAL */
+.falcoon-video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.falcoon-video-box {
+  width: 90%;
+  max-width: 700px;
+  aspect-ratio: 16/9;
+}
+
+.falcoon-video-box iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}/* SECTION */
+.falcoon-help {
+  background: #fff;
+  padding-bottom: 60px;
+}
+
+/* HERO */
+.falcoon-help__hero {
+  text-align: center;
+  padding: 60px 20px 30px;
+  border-bottom: 1px solid #eee;
+}
+
+.falcoon-help__hero h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.falcoon-help__hero p {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* SECTION BLOCK */
+.falcoon-help__section {
+  max-width: 700px;
+  margin: 40px auto;
+}
+
+.falcoon-help__section h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* ITEM */
+.falcoon-help__item {
+  margin-bottom: 20px;
+}
+
+.falcoon-help__item h4 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.falcoon-help__item p {
+  font-size: 14px;
+  color: #4b5563;
+  margin-top: 6px;
+  line-height: 1.6;
+}
+
+/* CTA */
+.falcoon-help__cta {
+  max-width: 700px;
+  margin: 50px auto 0;
+  text-align: center;
+  background: #000;
+  color: #fff;
+  padding: 30px;
+  border-radius: 16px;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .falcoon-help__hero h1 {
+    font-size: 22px;
+  }
+
+  .falcoon-help__section {
+    padding: 0 15px;
   }
 }
