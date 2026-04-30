@@ -50,9 +50,9 @@ export default function CheckoutPage() {
           <h1>Build Your Funnel</h1>
           <p>Choose smart • Pay once • Launch fast</p>
         </div>
-        <StepProgress steps={STEPS} currentStep={currentStep} />
         <div className="checkout__layout  main-grid">
           <div className="checkout__main">
+        <StepProgress steps={STEPS} currentStep={currentStep} />
             {currentStep === 1 && (
               <StepLaunch
                 selected={selections.launch}

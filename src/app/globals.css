@@ -1733,7 +1733,6 @@ section.falcoon-services {
   background-image: url("https://images.pexels.com/photos/6044806/pexels-photo-6044806.jpeg?_gl=1*k7nbg*_ga*MTgxMjIzMzQwOS4xNzcxNjY2Nzc3*_ga_8JE65Q40S6*czE3NzYzMzA5NzkkbzE4JGcxJHQxNzc2MzMxODY4JGo1NSRsMCRoMA..");
   background-size: cover;
   border-radius: 10px !important;
-  padding: 0px 0 0px !important;
   background-position: center center;
 }
 .about__hero .dark_overlay {
@@ -2081,17 +2080,20 @@ body {
    ============================================ */
 
 .about {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 20px;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
 
 /* ── Hero ──────────────────────────────────── */
 .about__hero {
-  padding: 100px 0 70px;
+  padding:50px 0 70px;
   text-align: center;
 }
-
+.mobile_none h2 {
+    margin-bottom: 30px;
+    font-size: 22px;
+}
 .about__hero-inner {
   max-width: 720px;
   margin: 0 auto;
@@ -2187,11 +2189,11 @@ body {
 
 /* ── Story Section ─────────────────────────── */
 .about__story {
-  padding: 60px 40px;
-  background: var(--color-primary);
-  text-align: center;
-  border-radius: 30px;
-  margin: 20px 0 40px;
+    background: var(--color-primary);
+    text-align: center;
+    border-radius: 30px;
+    margin: 20px 0 40px;
+    padding: 40px 40px;
 }
 
 .about__story-content {
@@ -2223,10 +2225,10 @@ body {
 
 /* ── CTA Section ───────────────────────────── */
 .about__cta {
-  text-align: center;
-  padding: 70px 30px;
-  max-width: 1024px;
-  margin: 0 auto 60px;
+    text-align: center;
+    max-width: 1024px;
+    margin: 0 auto 60px;
+    padding: 40px 30px;
 }
 
 .about__cta-title {
@@ -3507,7 +3509,7 @@ body.modal-open {
 @media (max-width: 600px) {
 .launch__actions, .payment__actions, .automation__actions, .hosting__actions, .contact__actions {
     flex-direction: row;
-    gap: 90px;
+    gap: 50px;
 }
   button {
     width: 100%;
