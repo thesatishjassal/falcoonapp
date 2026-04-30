@@ -33,14 +33,17 @@ export default function Header() {
         {/* Desktop Nav + CTA */}
         <div className="falcoon-header__cta">
           <nav className="falcoon-header__nav">
-            <Link href="/pricing" className="falcoon-header__link">
-              Pricing
-            </Link>
             <Link href="/about" className="falcoon-header__link">
               About
             </Link>
+            <Link href="/pricing" className="falcoon-header__link">
+              Pricing
+            </Link>
             <Link href="/help" className="falcoon-header__link">
               Support <span className="falcoon-header__icon">?</span>
+            </Link>
+                 <Link href="/careers" className="falcoon-header__link">
+              Careers 
             </Link>
           </nav>
           <a

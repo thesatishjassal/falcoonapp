@@ -37,7 +37,7 @@ export default function StepHosting({
               </div>
 
               <div className="hosting__price">
-                {opt.price === 0 ? "Free" : `₹${opt.price}`}
+                {opt.price === 0 ? "N/A" : `₹${opt.price}`}
               </div>
 
               {isActive && <span className="hosting__check">✔</span>}
