@@ -13,8 +13,10 @@ export default function StepHosting({
 }) {
   return (
     <div className="hosting">
-      <h2 className="hosting__title">Hosting & Domain</h2>
-      <p className="hosting__subtitle">Choose your hosting setup</p>
+      <div className="mobile_none">
+        <h2 className="hosting__title">Hosting & Domain</h2>
+        <p className="hosting__subtitle">Choose your hosting setup</p>
+      </div>
 
       <div className="hosting__grid">
         {HOST_OPTIONS.map((opt) => {

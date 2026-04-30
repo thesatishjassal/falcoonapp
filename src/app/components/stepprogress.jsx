@@ -1,37 +1,42 @@
 export default function StepProgress({ steps, currentStep }) {
   return (
     <div className="progress">
-      <div className="progress__steps">
+
+      {/* ── Pill track ── */}
+      <div className="progress__track">
         {steps.map((label, i) => {
-          const stepNum = i + 1;
-          const isCompleted = stepNum < currentStep;
-          const isActive = stepNum === currentStep;
+          const n = i + 1;
+          const isActive    = n === currentStep;
+          const isCompleted = n < currentStep;
 
           return (
             <div
-              key={stepNum}
-              className={`progress__item 
-                ${isActive ? "progress__item--active" : ""} 
-                ${isCompleted ? "progress__item--completed" : ""}`}
+              key={n}
+              className={[
+                "progress__step",
+                isActive    ? "progress__step--active"    : "",
+                isCompleted ? "progress__step--completed" : "",
+              ].join(" ")}
             >
-              <div className="progress__circle">
-                {isCompleted ? "✔" : stepNum}
-              </div>
-
-              <div className="progress__label">{label}</div>
-
-              {/* Connector line */}
-              {i < steps.length - 1 && (
-                <div
-                  className={`progress__line ${
-                    isCompleted ? "progress__line--active" : ""
-                  }`}
-                />
-              )}
+              <span className="progress__step-num">
+                {isCompleted ? "✔" : n}
+              </span>
+              <span className="progress__step-label">{label}</span>
             </div>
           );
         })}
       </div>
+
+      {/* ── Sub info line ── */}
+      <div className="progress__info">
+        <span className="progress__info-text">
+          Step {currentStep} of {steps.length}
+        </span>
+        <span className="progress__info-current">
+          {steps[currentStep - 1]}
+        </span>
+      </div>
+
     </div>
   );
 }

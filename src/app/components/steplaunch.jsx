@@ -22,8 +22,10 @@ const LAUNCH_OPTIONS = [
 export default function StepLaunch({ selected, onChange, onNext }) {
   return (
     <div className="launch">
-      <h2 className="launch__title">What do you want to launch?</h2>
-      <p className="launch__subtitle">Choose one to get started quickly</p>
+      <div className="mobile_none">
+        <h2 className="launch__title">What do you want to launch?</h2>
+        <p className="launch__subtitle">Choose one to get started quickly</p>
+      </div>
 
       <div className="launch__grid">
         {LAUNCH_OPTIONS.map((opt) => {

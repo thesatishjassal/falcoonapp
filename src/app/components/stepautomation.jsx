@@ -22,10 +22,10 @@ const AUTO_OPTIONS = [
 export default function StepAutomation({ selected, onChange, onNext, onBack }) {
   return (
     <div className="automation">
-      <h2 className="automation__title">Automation</h2>
+      <div className="mobile_none">      <h2 className="automation__title">Automation</h2>
       <p className="automation__subtitle">
         Automate your communication & save time
-      </p>
+      </p></div>
 
       <div className="automation__grid">
         {AUTO_OPTIONS.map((opt) => {

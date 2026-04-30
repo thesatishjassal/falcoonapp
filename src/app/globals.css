@@ -2791,9 +2791,9 @@ body {
 }
 /* BLOCK */
 .automation {
-  max-width: 720px;
-  margin: auto;
-  padding: 20px;
+    max-width: 720px;
+    margin: auto;
+    padding: 0px;
 }
 
 /* ELEMENTS */
@@ -2912,9 +2912,9 @@ body {
 }
 /* BLOCK */
 .hosting {
-  max-width: 720px;
-  margin: auto;
-  padding: 20px;
+    max-width: 720px;
+    margin: auto;
+    padding: 0px;
 }
 
 /* TITLES */
@@ -3061,11 +3061,10 @@ body {
 }
 /* BLOCK */
 .contact {
-  max-width: 720px;
-  margin: auto;
-  padding: 20px;
+    max-width: 720px;
+    margin: auto;
+    padding: 0px;
 }
-
 /* TITLES */
 .contact__title {
   font-size: 24px;
@@ -3234,80 +3233,123 @@ body {
   color: #777;
   text-align: center;
 }
-/* BLOCK */
+/* ── Progress wrapper ── */
 .progress {
-  margin-bottom: 30px;
+  margin-bottom: 24px;
+  padding: 0 16px;
 }
 
-/* STEPS CONTAINER */
-.progress__steps {
+/* ── Pill track ── */
+.progress__track {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  background: #ede9f4;
+  border-radius: 999px;
+  padding: 4px;
+  gap: 2px;
 }
 
-/* STEP ITEM */
-.progress__item {
-  display: flex;
-  align-items: center;
-  position: relative;
+/* ── Each step pill ── */
+.progress__step {
   flex: 1;
-}
-
-/* CIRCLE */
-.progress__circle {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: #f5f5f5;
-  border: 1px solid #ddd;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  gap: 5px;
+  padding: 8px 6px;
+  border-radius: 999px;
+  font-size: 12px;
   font-weight: 500;
-  z-index: 2;
+  color: #888;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: default;
 }
 
-/* LABEL */
-.progress__label {
-  margin-left: 10px;
-  font-size: 13px;
-  color: #777;
+/* active pill expands */
+.progress__step--active {
+  flex: 2.5;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
 }
 
-/* ACTIVE */
-.progress__item--active .progress__circle {
-  background: black;
-  color: white;
-  border-color: black;
+/* completed = shrinks to dot only */
+.progress__step--completed {
+  color: var(--color-primary);
 }
 
-.progress__item--active .progress__label {
-  color: #000;
-  font-weight: 500;
+/* ── Number bubble ── */
+.progress__step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: rgba(83, 10, 78, 0.1);
+  color: #530a4e;
+  transition: var(--transition);
 }
 
-/* COMPLETED */
-.progress__item--completed .progress__circle {
-  background: black;
-  color: white;
-  border-color: black;
+.progress__step--active .progress__step-num {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
-/* CONNECTOR LINE */
-.progress__line {
-  position: absolute;
-  top: 50%;
-  left: calc(34px + 10px);
-  right: 0;
-  height: 2px;
-  background: #eee;
-  z-index: 1;
+.progress__step--completed .progress__step-num {
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 10px;
 }
 
-.progress__line--active {
-  background: black;
+/* ── Label ── */
+.progress__step-label {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: var(--transition);
+}
+
+/* hide label on inactive & completed — show only on active */
+.progress__step:not(.progress__step--active) .progress__step-label {
+  display: none;
+}
+
+/* ── Info row below track ── */
+.progress__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding: 0 2px;
+}
+
+.progress__info-text {
+  font-size: 12px;
+  color: #999;
+}
+
+.progress__info-current {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* ── Responsive: tighten on very small screens ── */
+@media (max-width: 400px) {
+  .progress {
+    padding: 0 12px;
+  }
+  .progress__step-num {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+  }
 }
 /* BLOCK */
 .falcoon-modal {
@@ -3475,6 +3517,7 @@ body.modal-open {
   button {
     width: 100%;
   }
+
 }
 .checkout__header {
   text-align: center;
@@ -3855,9 +3898,9 @@ body.modal-open {
     margin: 25px auto;
     padding: 0px;
 }
-.progress {
+/* .progress {
     margin-bottom: 10px;
-}
+} */
 .launch__title {
     font-size: 20px;
     font-weight: 600;
