@@ -1,61 +1,106 @@
-function fmt(price) {
-  return `₹${price.toLocaleString("en-IN")}`;
-}
+"use client";
+import { useState } from "react";
 
-export default function OrderSummary({ selections, total, onContinue }) {
-  const { launch, payment, automation, hosting, addons } = selections;
-  const addonTotal = addons.clientDashboard ? 2999 : 0;
+export default function OrderSummary({ selections, total, onContinue, isLastStep }) {
+  const [sheetOpen, setSheetOpen] = useState(false);
+
+  const rows = [
+    { icon: "🚀", label: selections.launch.label,   sub: "Launch package",   price: selections.launch.price },
+    { icon: "💳", label: selections.payment.label,  sub: "Payment gateway",  price: selections.payment.price },
+    { icon: "🤖", label: selections.automation.label || "No automation", sub: "Automation", price: selections.automation.price },
+    { icon: "☁️", label: selections.hosting.label,  sub: "Hosting",          price: selections.hosting.price },
+    ...(selections.addons.clientDashboard
+      ? [{ icon: "📊", label: "Client Dashboard", sub: "Add-on", price: 2999 }]
+      : []),
+  ];
+
+  const fmt = (n) => n === 0 ? "Free" : `₹${n.toLocaleString("en-IN")}`;
 
   return (
-    <div className="summary">
-      <h3 className="summary__title">Order Summary</h3>
-
-      <div className="summary__list">
-        <div className="summary__row">
-          <span>{launch.label}</span>
-          <span>{fmt(launch.price)}</span>
+    <>
+      {/* ── Desktop sidebar (hidden on mobile) ── */}
+      <div className="summary summary--desktop">
+        <p className="summary__title">Order Summary</p>
+        <div className="summary__list">
+          {rows.map((r, i) => (
+            <div className="summary__row" key={i}>
+              <span>{r.icon} {r.label}</span>
+              <span style={{ color: r.price === 0 ? "#2e7d32" : "#202124", fontWeight: 600 }}>
+                {fmt(r.price)}
+              </span>
+            </div>
+          ))}
         </div>
-
-        <div className="summary__row">
-          <span>{payment.label}</span>
-          <span>{fmt(payment.price)}</span>
+        <div className="summary__divider" />
+        <div className="summary__total">
+          <span>Total</span>
+          <span style={{ color: "#530a4e" }}>₹{total.toLocaleString("en-IN")}</span>
         </div>
-
-        <div className="summary__row">
-          <span>Automation</span>
-          <span>{automation.price > 0 ? fmt(automation.price) : "—"}</span>
-        </div>
-
-        <div className="summary__row">
-          <span>Hosting</span>
-          <span>{hosting.price > 0 ? fmt(hosting.price) : "—"}</span>
-        </div>
-
-        <div className="summary__row">
-          <span>Add-ons</span>
-          <span>{addonTotal > 0 ? fmt(addonTotal) : "—"}</span>
-        </div>
+        <button className="summary__btn" onClick={onContinue}>
+          {isLastStep ? "Place Order 🎉" : "Continue →"}
+        </button>
+        <div className="summary__trust">🔒 Secure checkout · No hidden charges</div>
       </div>
 
-      <div className="summary__divider" />
-
-      <div className="summary__total">
-        <span>Total</span>
-        <span>{fmt(total)}</span>
+      {/* ── Mobile: fixed bottom bar + slide-up sheet ── */}
+      <div className="order-mobile-bar">
+        <div className="order-mobile-bar__total">
+          <span className="order-mobile-bar__label">Total</span>
+          <span className="order-mobile-bar__amount">₹{total.toLocaleString("en-IN")}</span>
+        </div>
+        <button
+          className="order-mobile-bar__btn"
+          onClick={() => setSheetOpen(true)}
+        >
+          View Order
+          <span className={`order-mobile-bar__chevron ${sheetOpen ? "up" : ""}`}>▲</span>
+        </button>
       </div>
 
-      <button className="summary__btn" onClick={onContinue}>
-        Continue →
-      </button>
+      {/* Overlay */}
+      <div
+        className={`order-sheet-overlay ${sheetOpen ? "visible" : ""}`}
+        onClick={() => setSheetOpen(false)}
+      />
 
-      <a
-        href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
-        className="summary__cta"
-      >
-        📞 Book Free Strategy Call
-      </a>
-
-      <p className="summary__trust">🔒 Secure checkout • No hidden charges</p>
-    </div>
+      {/* Sheet */}
+      <div className={`order-sheet ${sheetOpen ? "open" : ""}`}>
+        <div className="order-sheet__pill" />
+        <div className="order-sheet__header">
+          <h3 className="order-sheet__title">Order Summary</h3>
+          <button className="order-sheet__close" onClick={() => setSheetOpen(false)}>✕</button>
+        </div>
+        <div className="order-sheet__body">
+          {rows.map((r, i) => (
+            <div className="order-sheet__row" key={i}>
+              <div className="order-sheet__row-left">
+                <div className="order-sheet__row-icon">{r.icon}</div>
+                <div>
+                  <div className="order-sheet__row-label">{r.label}</div>
+                  <div className="order-sheet__row-sub">{r.sub}</div>
+                </div>
+              </div>
+              <div className={`order-sheet__row-price ${r.price === 0 ? "free" : ""}`}>
+                {fmt(r.price)}
+              </div>
+            </div>
+          ))}
+          <div className="order-sheet__divider" />
+          <div className="order-sheet__total-row">
+            <span>Total</span>
+            <span className="order-sheet__total-price">₹{total.toLocaleString("en-IN")}</span>
+          </div>
+        </div>
+        <div className="order-sheet__footer">
+          <button
+            className="order-sheet__cta"
+            onClick={() => { setSheetOpen(false); onContinue(); }}
+          >
+            {isLastStep ? "Place Order 🎉" : "Continue to Next Step →"}
+          </button>
+          <p className="order-sheet__trust">🔒 Secure checkout · No hidden charges</p>
+        </div>
+      </div>
+    </>
   );
 }
