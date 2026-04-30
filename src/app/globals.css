@@ -3459,8 +3459,15 @@ body.modal-open {
     font-size: 12px;
   }
 }
+
+@media (min-width: 4200px) and (max-width: 320px) { 
+  .falcoon-services__grid {
+    grid-template-columns: repeat(1, 1fr);
+}
+ }
+
 @media (max-width: 600px) {
-  .launch__actions,
+  .launch__actions, 
   .payment__actions,
   .automation__actions,
   .hosting__actions,
@@ -3638,4 +3645,4 @@ body.modal-open {
 }.about__story {
     padding: 30px 24px;
 }
-}
+} 
