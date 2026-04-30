@@ -5067,4 +5067,90 @@ main.careers {
   text-align: center;
   font-size: 28px;
   margin-bottom: 50px;
+}.falcoon-hero {
+  padding: 80px 0;
+  background: #f9fafb;
+}
+
+.falcoon-hero__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+/* TITLE */
+.falcoon-hero__title {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #111;
+}
+
+/* HIGHLIGHT TEXT */
+.falcoon-hero__highlight {
+  color: #6c2bd9;
+  font-weight: 800;
+}
+
+/* CURSOR */
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* DESCRIPTION */
+.falcoon-hero__desc {
+  margin-top: 16px;
+  font-size: 16px;
+  color: #555;
+}
+
+/* BUTTONS */
+.falcoon-hero__actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* IMAGE */
+.falcoon-hero__visual img {
+  max-width: 100%;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 768px) {
+  .falcoon-hero__container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .falcoon-hero__title {
+    font-size: 28px;
+  }
+
+  .falcoon-hero__visual {
+    display: none; /* as you wanted */
+  }
+}.falcoon-hero__highlight {
+  font-weight: 800;
+  transition: color 0.4s ease;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
