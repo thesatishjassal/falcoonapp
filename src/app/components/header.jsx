@@ -1,14 +1,26 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const headerRef = useRef(null);
   const closeMenu = () => setIsOpen(false);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClick = (e) => {
+      if (headerRef.current && !headerRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [isOpen]);
+
   return (
-    <header className="falcoon-header">
+    <header className="falcoon-header" ref={headerRef}>
       <div className="falcoon-header__container falcoon-container">
 
         {/* Logo */}
@@ -18,11 +30,15 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Desktop nav */}
+        {/* Desktop Nav + CTA */}
         <div className="falcoon-header__cta">
           <nav className="falcoon-header__nav">
-            <Link href="/pricing" className="falcoon-header__link">Pricing</Link>
-            <Link href="/about" className="falcoon-header__link">About</Link>
+            <Link href="/pricing" className="falcoon-header__link">
+              Pricing
+            </Link>
+            <Link href="/about" className="falcoon-header__link">
+              About
+            </Link>
             <Link href="/help" className="falcoon-header__link">
               Support <span className="falcoon-header__icon">?</span>
             </Link>
@@ -33,12 +49,17 @@ export default function Header() {
           >
             Book Free Strategy Call
             <span className="falcoon-header__calendar">
-              <Image src="/assets/images/calendar_month.svg" alt="" width={20} height={20} />
+              <Image
+                src="/assets/images/calendar_month.svg"
+                alt=""
+                width={20}
+                height={20}
+              />
             </span>
           </a>
         </div>
 
-        {/* Burger */}
+        {/* Burger Toggle */}
         <button
           className={`falcoon-header__toggle ${isOpen ? "open" : ""}`}
           onClick={() => setIsOpen(!isOpen)}
@@ -54,13 +75,27 @@ export default function Header() {
 
       <div className={`falcoon-mobile-drawer ${isOpen ? "open" : ""}`}>
         <nav className="falcoon-mobile-drawer__nav">
-          <Link href="/pricing" className="falcoon-mobile-drawer__link" onClick={closeMenu}>
-            Pricing <span className="falcoon-mobile-drawer__arrow">›</span>
+          <Link
+            href="/pricing"
+            className="falcoon-mobile-drawer__link"
+            onClick={closeMenu}
+          >
+            Pricing
+            <span className="falcoon-mobile-drawer__arrow">›</span>
           </Link>
-          <Link href="/about" className="falcoon-mobile-drawer__link" onClick={closeMenu}>
-            About <span className="falcoon-mobile-drawer__arrow">›</span>
+          <Link
+            href="/about"
+            className="falcoon-mobile-drawer__link"
+            onClick={closeMenu}
+          >
+            About
+            <span className="falcoon-mobile-drawer__arrow">›</span>
           </Link>
-          <Link href="/help" className="falcoon-mobile-drawer__link" onClick={closeMenu}>
+          <Link
+            href="/help"
+            className="falcoon-mobile-drawer__link"
+            onClick={closeMenu}
+          >
             Support <span className="falcoon-header__icon">?</span>
             <span className="falcoon-mobile-drawer__arrow">›</span>
           </Link>
