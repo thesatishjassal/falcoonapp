@@ -79,14 +79,6 @@ export default function Header() {
       <div className={`falcoon-mobile-drawer ${isOpen ? "open" : ""}`}>
         <nav className="falcoon-mobile-drawer__nav">
           <Link
-            href="/pricing"
-            className="falcoon-mobile-drawer__link"
-            onClick={closeMenu}
-          >
-            Pricing
-            <span className="falcoon-mobile-drawer__arrow">›</span>
-          </Link>
-          <Link
             href="/about"
             className="falcoon-mobile-drawer__link"
             onClick={closeMenu}
@@ -95,11 +87,27 @@ export default function Header() {
             <span className="falcoon-mobile-drawer__arrow">›</span>
           </Link>
           <Link
+            href="/pricing"
+            className="falcoon-mobile-drawer__link"
+            onClick={closeMenu}
+          >
+            Pricing
+            <span className="falcoon-mobile-drawer__arrow">›</span>
+          </Link>
+          <Link
             href="/help"
             className="falcoon-mobile-drawer__link"
             onClick={closeMenu}
           >
             Support <span className="falcoon-header__icon">?</span>
+            <span className="falcoon-mobile-drawer__arrow">›</span>
+          </Link>
+            <Link
+            href="/help"
+            className="falcoon-mobile-drawer__link"
+            onClick={closeMenu}
+          >
+            Careers 
             <span className="falcoon-mobile-drawer__arrow">›</span>
           </Link>
         </nav>
