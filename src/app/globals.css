@@ -627,18 +627,17 @@ span.regular_font {
 
 /* Card */
 .falcoon-card {
-  background: #fff;
-  border-radius: 20px;
-  padding: 25px;
-  text-align: left;
-  position: relative;
-  cursor: pointer;
-  /* box-shadow: var(--shadow-soft); */
-  transition: var(--transition);
-  border: 1px solid #4d49491c;
-  display: block;
-  width: 100%;
-  height: max-content;
+    text-align: left;
+    cursor: pointer;
+    transition: var(--transition);
+    background: #530a4e;
+    border: 1px solid #4d49491c;
+    border-radius: 20px;
+    width: 100%;
+    height: max-content;
+    padding: 25px;
+    display: block;
+    position: relative;
 }
 .falcoon-card:hover {
   transform: translateY(-6px);
@@ -707,7 +706,8 @@ span.regular_font {
 }
 
 h3.falcoon-card__title {
-  margin-bottom: 0;
+    margin-bottom: 0;
+    color: #fff;
 }
 
 /* Header */
@@ -763,14 +763,13 @@ h3.falcoon-card__title {
 
 /* Card */
 .falcoon-service-card {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 15px;
-  position: relative;
-  transition: var(--transition);
-  text-align: center;
-  border: 1px solid #530a4e24;
-  /* transform: rotate(3deg); */
+    transition: var(--transition);
+    text-align: center;
+    background: #fff9ff;
+    border: 1px solid #530a4e24;
+    border-radius: 20px;
+    padding: 15px;
+    position: relative;
 }
 /* .falcoon-service-card:hover {
       transform: translateY(-6px);
