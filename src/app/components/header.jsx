@@ -103,7 +103,7 @@ export default function Header() {
             <span className="falcoon-mobile-drawer__arrow">›</span>
           </Link>
             <Link
-            href="/help"
+            href="/careers"
             className="falcoon-mobile-drawer__link"
             onClick={closeMenu}
           >
