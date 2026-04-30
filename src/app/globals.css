@@ -5740,4 +5740,113 @@ main.careers {
   .falcoon-help__section {
     padding: 0 15px;
   }
+}/* WRAPPER */
+.falcoon-support {
+  position: fixed;
+  bottom: 20px;
+  right: 16px;
+  z-index: 999;
+}
+
+/* MAIN BUTTON */
+.falcoon-support__main {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.falcoon-support__main:hover {
+  transform: scale(1.05);
+}
+
+/* MENU */
+.falcoon-support__menu {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.falcoon-support__menu.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ITEMS */
+.falcoon-support__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #fff;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transition: 0.3s;
+}
+
+/* COLORS */
+.falcoon-support__item.whatsapp {
+  background: #25D366;
+}
+
+.falcoon-support__item.call {
+  background: #007bff;
+}
+
+.falcoon-support__item.help {
+  background: #444;
+}
+
+/* HOVER */
+.falcoon-support__item:hover {
+  transform: translateY(-2px);
+}
+
+/* 📱 MOBILE */
+@media (max-width: 768px) {
+  .falcoon-support__main {
+    width: 52px;
+    height: 52px;
+  }
+
+  .falcoon-support__item {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}.live-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 10px;
+  height: 10px;
+  background: #25D366;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}.falcoon-support__tooltip {
+  position: absolute;
+  right: 70px;
+  bottom: 10px;
+  background: #111;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
 }

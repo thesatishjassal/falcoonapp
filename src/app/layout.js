@@ -3,7 +3,7 @@ import "./globals.css";
 import Script from "next/script";
 import Header from "./components/header";
 import Footer from "./components/footer";
-
+import SupportFloat from "./components/supportfloat";
 export const metadata = {
   title: "Falcoon",
   description: "Fitness funnel system",
@@ -34,7 +34,10 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
         />
 
-        {children}
+        {children}<button className="falcoon-support__main">
+  💬
+  <span className="live-dot"></span>
+</button><SupportFloat /> 
         <Footer />
       </body>
     </html>
