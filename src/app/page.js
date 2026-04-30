@@ -12,6 +12,7 @@ import FunnelModal from "./components/funnelmodal";
 import { useState } from "react";
 import ClientLogos from "./components/clientlogos";
 import Team from "./components/team";
+import Testimonials from "./components/testimonials";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,6 +27,7 @@ export default function Home() {
       {/* <Team /> */}
       <Services />
       <System />
+      <Testimonials />
       <Benefits />
       <CTA />
       <FAQ />
