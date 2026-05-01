@@ -90,24 +90,32 @@ export default function ContactPage() {
       </div>
 
       <div className="falcoon-map">
-        {/* MAP */}
-        <iframe
-          src="https://maps.google.com/maps?q=Delhi&t=&z=13&ie=UTF8&iwloc=&output=embed"
-          loading="lazy"
-        />
+        <div className="falcoon-map__container">
+          {/* MAP */}
+          <iframe
+            src="https://maps.google.com/maps?q=Delhi&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            loading="lazy"
+            className="falcoon-map__iframe"
+          />
 
-        {/* OVERLAY CARD */}
-        <div className="falcoon-map__card">
-          <h4>Our Office</h4>
-          <p>Delhi, India</p>
+          {/* FLOATING CARD */}
+          <div className="falcoon-map__card">
+            <p className="falcoon-map__label">📍 OUR OFFICE</p>
+            <h4>Delhi, India</h4>
 
-          <a
-            href="https://maps.google.com?q=Delhi"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Get Directions →
-          </a>
+            <p className="falcoon-map__small">
+              Available for remote & global projects
+            </p>
+
+            <a
+              href="https://maps.google.com?q=Delhi"
+              target="_blank"
+              rel="noreferrer"
+              className="falcoon-map__btn"
+            >
+              Get Directions →
+            </a>
+          </div>
         </div>
       </div>
     </section>

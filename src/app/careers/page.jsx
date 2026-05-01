@@ -105,8 +105,8 @@ const DEPTS = [
 export default function CareersPage() {
   const [activeDept, setActiveDept] = useState("All");
   const [openRole, setOpenRole] = useState(null);
-const [isModalOpen, setIsModalOpen] = useState(false);
-const [selectedRole, setSelectedRole] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("");
   const filtered =
     activeDept === "All" ? ROLES : ROLES.filter((r) => r.dept === activeDept);
 

@@ -3,69 +3,56 @@ export default function StepContact({ contact, onChange, onSubmit, onBack }) {
     onChange({ ...contact, [field]: e.target.value });
 
   return (
-    <div className="contact"> <div className="mobile_none"> 
-      <h2 className="contact__title">Contact Details</h2>
-      {/* <p className="contact__subtitle">We’ll use this to set up your account</p> */}
-</div>
+    <div className="contact">
+      <div className="contact__header">
+        <h2>Almost Done 🎉</h2>
+        <p>Enter your details to receive your custom proposal instantly</p>
+      </div>
+
       <div className="contact__form">
-        {/* NAME */}
         <div className="contact__field">
-          <label className="contact__label">Full Name</label>
-          <div className="contact__input-wrapper">
-            <span className="contact__icon">👤</span>
-            <input
-              className="contact__input"
-              type="text"
-              placeholder="Enter your full name"
-              value={contact.name}
-              onChange={handleChange("name")}
-            />
-          </div>
+          <label>Full Name</label>
+          <input
+            type="text"
+            placeholder="Satish Jassal"
+            value={contact.name}
+            onChange={handleChange("name")}
+          />
         </div>
 
-        {/* EMAIL */}
         <div className="contact__field">
-          <label className="contact__label">Email Address</label>
-          <div className="contact__input-wrapper">
-            <span className="contact__icon">📧</span>
-            <input
-              className="contact__input"
-              type="email"
-              placeholder="you@example.com"
-              value={contact.email}
-              onChange={handleChange("email")}
-            />
-          </div>
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="you@example.com"
+            value={contact.email}
+            onChange={handleChange("email")}
+          />
         </div>
 
-        {/* PHONE */}
         <div className="contact__field">
-          <label className="contact__label">Phone Number</label>
-          <div className="contact__input-wrapper">
-            <span className="contact__icon">📱</span>
-            <input
-              className="contact__input"
-              type="tel"
-              placeholder="+91 98765 43210"
-              value={contact.phone}
-              onChange={handleChange("phone")}
-            />
-          </div>
+          <label>Phone</label>
+          <input
+            type="tel"
+            placeholder="+91 98765 43210"
+            value={contact.phone}
+            onChange={handleChange("phone")}
+          />
         </div>
       </div>
 
+      {/* TRUST LINE */}
+      <p className="contact__trust">
+        🔒 Your details are सुरक्षित. No spam. Only your proposal.
+      </p>
+
       <div className="contact__actions">
-        <button
-          className="contact__btn contact__btn--secondary"
-          onClick={onBack}
-        >
+        <button className="contact__btn--secondary" onClick={onBack}>
           ← Back
         </button>
-        <button
-          className="contact__btn contact__btn--primary"
-          onClick={onSubmit}
-        >
-          Proceed to Payment →
+
+        <button className="contact__btn--primary" onClick={onSubmit}>
+          📄 Get My Proposal →
         </button>
       </div>
     </div>

@@ -6,8 +6,8 @@ const PURPOSE_ITEMS = [
     heading: "Mission",
     text: (
       <>
-        To make it <strong>simple and easy</strong> for every fitness professional
-        in India to sell and launch their products online.
+        To make it <strong>simple and easy</strong> for every fitness
+        professional in India to sell and launch their products online.
       </>
     ),
     image: "https://images.pexels.com/photos/8381747/pexels-photo-8381747.jpeg",
@@ -17,7 +17,8 @@ const PURPOSE_ITEMS = [
   {
     heading: "Vision",
     text: "To become India's most trusted platform for fitness coaches to build successful online businesses nationwide.",
-    image: "https://images.pexels.com/photos/18955785/pexels-photo-18955785.jpeg",
+    image:
+      "https://images.pexels.com/photos/18955785/pexels-photo-18955785.jpeg",
     alt: "Fitness professional in India",
     reverse: true,
   },
@@ -48,30 +49,31 @@ export default function AboutUs() {
       <main className="about">
         {/* ── Hero ─────────────────────────────── */}
         <section className="about__hero">
-          <div className="about_overlay"></div>
-          <div className="about__hero-inner">
-            <h1 className="about__hero-title">About Falcoon</h1>
-            <p className="about__hero-desc">
-              We help fitness professionals across India sell and launch their
-              products and programs online.
-            </p>
+          <div className="about_overlay">
+            <div className="about__hero-inner">
+              <h1 className="about__hero-title">About Falcoon</h1>
+              <p className="about__hero-desc">
+                We help fitness professionals across India sell and launch their
+                products and programs online.
+              </p>
+            </div>
           </div>
         </section>
 
         {/* ── Purpose ──────────────────────────── */}
- <section className="about__purpose">
-  <h2 className="about__purpose-title">Our Purpose</h2>
+        <section className="about__purpose">
+          <h2 className="about__purpose-title">Our Purpose</h2>
 
-  <div className="purpose-grid">
-    {PURPOSE_ITEMS.map((item) => (
-      <div key={item.heading} className="purpose-card">
-        <img src={item.image} alt={item.alt} />
-        <h3>{item.heading}</h3>
-        <p>{item.text}</p>
-      </div>
-    ))}
-  </div>
-</section>
+          <div className="purpose-grid">
+            {PURPOSE_ITEMS.map((item) => (
+              <div key={item.heading} className="purpose-card">
+                <img src={item.image} alt={item.alt} />
+                <h3>{item.heading}</h3>
+                <p>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* ── Story ────────────────────────────── */}
         <section className="about__story">
@@ -80,10 +82,6 @@ export default function AboutUs() {
             <p>
               We created Falcoon to help talented fitness professionals across
               India turn their expertise into successful online businesses.
-            </p>
-            <p>
-              Our simple goal: Make it easy for them to{" "}
-              <strong>launch and sell</strong> their products with confidence.
             </p>
           </div>
         </section>
