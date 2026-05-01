@@ -6981,7 +6981,7 @@ img.falcoon-system__image {
 /* PURPOSE GRID */
 .purpose-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-top: 20px;
 }
