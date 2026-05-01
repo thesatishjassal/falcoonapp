@@ -51,7 +51,7 @@ export default function Hero({ onOpenModal }) {
         <div className="falcoon-hero__content">
           {/* 🔥 TAG */}
           <p className="falcoon-hero__tag">
-            🚀 FOR COACHES, CREATORS & SERVICE BUSINESSES
+            🚀 FOR COACHES, DOCTORS & DIETITIONS
           </p>
 
           {/* 🔥 HEADLINE */}
