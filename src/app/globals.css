@@ -5873,7 +5873,7 @@ main.careers {
   margin-top: 24px;
   display: flex;
   gap: 0px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 /* IMAGE */
@@ -5887,7 +5887,9 @@ main.careers {
     grid-template-columns: 1fr;
     text-align: center;
   }
-
+  .falcoon-hero__actions {
+    flex-wrap: wrap;
+  }
   .falcoon-hero__title {
     font-size: 34px;
   }
@@ -7144,7 +7146,7 @@ img.falcoon-system__image {
     overflow: hidden;
   }
   .falcoon-hero__actions a {
-    width: 100%;
+    width: 100% !important;
     justify-content: center;
   }
   .falcoon-videos__video {
