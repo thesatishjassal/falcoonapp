@@ -5,16 +5,14 @@ import Image from "next/image";
 
 export default function Hero({ onOpenModal }) {
   const words = [
-    "Sales",
-    "Leads",
-    "Payments",
-    "Automation",
-    "Coaching",
-    "Products",
-    "Client-Generating Machine"
+    "Client-Generating Machine",
+    "Sales Engine",
+    "Automation System",
+    "Revenue Funnel",
+    "Lead Machine",
   ];
 
-  const colors = ["#FF9933", "#138808", "#000000"]; // orange, green, black
+  const colors = ["#FF9933", "#138808", "#000000"];
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
@@ -23,16 +21,14 @@ export default function Hero({ onOpenModal }) {
 
   useEffect(() => {
     const currentWord = words[currentWordIndex];
-    let typingSpeed = isDeleting ? 60 : 110;
+    let typingSpeed = isDeleting ? 60 : 100;
 
     const timeout = setTimeout(() => {
       if (!isDeleting) {
         setDisplayText(currentWord.substring(0, displayText.length + 1));
 
         if (displayText === currentWord) {
-          setTimeout(() => {
-            setIsDeleting(true);
-          }, 1200);
+          setTimeout(() => setIsDeleting(true), 1200);
         }
       } else {
         setDisplayText(currentWord.substring(0, displayText.length - 1));
@@ -40,8 +36,6 @@ export default function Hero({ onOpenModal }) {
         if (displayText === "") {
           setIsDeleting(false);
           setCurrentWordIndex((prev) => (prev + 1) % words.length);
-
-          // change color when word changes
           setColorIndex((prev) => (prev + 1) % colors.length);
         }
       }
@@ -53,12 +47,16 @@ export default function Hero({ onOpenModal }) {
   return (
     <section className="falcoon-hero">
       <div className="falcoon-hero__container falcoon-container">
-        
         {/* LEFT */}
         <div className="falcoon-hero__content">
+          {/* 🔥 TAG */}
+          <p className="falcoon-hero__tag">
+            🚀 FOR COACHES, CREATORS & SERVICE BUSINESSES
+          </p>
+
+          {/* 🔥 HEADLINE */}
           <h1 className="falcoon-hero__title">
-           Turn Your Website Into a 
-            {/* Turn Your Fitness Expertise Into{" "} */}
+            Turn Your Website Into a <br />
             <span
               className="falcoon-hero__highlight"
               style={{ color: colors[colorIndex] }}
@@ -68,33 +66,42 @@ export default function Hero({ onOpenModal }) {
             </span>
           </h1>
 
+          {/* 🔥 SUBTEXT */}
           <p className="falcoon-hero__desc">
-Custom websites, automation & SaaS solutions for professionals and businesses.
+            We build high-converting websites with automation, booking & payment
+            systems — so you get clients on autopilot.
           </p>
 
+          {/* 🔥 CTA */}
           <div className="falcoon-hero__actions">
-             <a
+            <a
               href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
-              className="falcoon-btn falcoon-btn--outline"
+              className="falcoon-btn falcoon-btn--primary"
             >
-               Get Free Strategy Call
+              Get Free Strategy Call
             </a>
+
             <button
-              className="falcoon-btn_outline "
+              className="falcoon-btn falcoon-btn--outline"
               onClick={onOpenModal}
             >
               View Live Projects
             </button>
-
-           
           </div>
-          {/* <p className="falcoon-hero__trust">
-  Trusted by 50+ professionals • Real projects • Real results
-</p> */}
+
+          {/* 🔥 TRUST */}
+          <p className="falcoon-hero__trust">
+            ⭐ 5.0 Rating • 50+ Projects Delivered • Real Results
+          </p>
         </div>
 
-        {/* RIGHT IMAGE */}
+        {/* RIGHT */}
         <div className="falcoon-hero__visual">
+          {/* 🔥 FLOATING CARD (LIVE FEEL) */}
+          <div className="falcoon-hero__floating">
+            <span>🔥 Rahul booked a call</span>
+          </div>
+
           <Image
             src="/assets/images/falcoon_hero-image.png"
             alt="Falcoon Funnel Visual"

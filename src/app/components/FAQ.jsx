@@ -30,7 +30,6 @@ export default function FAQ() {
   return (
     <section className="falcoon-faq">
       <div className="falcoon-container falcoon-faq__grid">
-
         {/* LEFT SIDE */}
         <div className="falcoon-faq__left">
           <span className="falcoon-faq__badge">FAQ</span>
@@ -47,10 +46,6 @@ export default function FAQ() {
           <button className="falcoon-faq__cta">
             Book Free Strategy Call →
           </button>
-
-          <p className="falcoon-faq__trust">
-            No pressure • Just clarity
-          </p>
         </div>
 
         {/* RIGHT SIDE */}
@@ -81,7 +76,6 @@ export default function FAQ() {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
