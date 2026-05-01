@@ -78,15 +78,26 @@ export default function Hero({ onOpenModal }) {
               href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
               className="falcoon-btn falcoon-btn--primary"
             >
-              Get Free Strategy Call
+              Get Free Strategy Call{" "}
+              <span className="falcoon-btn__arrow">
+                <img
+                  src="/assets/images/calendar_month_white.svg"
+                  className="calendar_icon"
+                  alt=""
+                />
+              </span>
             </a>
 
-            <button
-              className="falcoon-btn falcoon-btn--outline"
-              onClick={onOpenModal}
-            >
-              View Projects
-            </button>
+            <a href="#our_Work" className="falcoon-btn falcoon-btn--outline">
+              View Projects{" "}
+              <span className="falcoon-btn__arrow">
+                <img
+                  src="/assets/images/art_track_24dp_530A4E_FILL0_wght400_GRAD0_opsz24.svg"
+                  className="calendar_icon"
+                  alt=""
+                />
+              </span>
+            </a>
           </div>
 
           {/* 🔥 TRUST */}

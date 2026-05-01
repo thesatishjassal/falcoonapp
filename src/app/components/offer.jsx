@@ -1,9 +1,15 @@
 const cards = [
   {
+    bgColor: "green",
     iconColor: "falcoon-card__icon--green",
     icon: (
       <svg viewBox="0 0 16 16" fill="none">
-        <path d="M8 2.5l1.5 4h4l-3.2 2.3 1.2 3.9L8 10.2l-3.5 2.5 1.2-3.9L2.5 6.5h4L8 2.5z" stroke="#1D9E75" strokeWidth="1.2" strokeLinejoin="round"/>
+        <path
+          d="M8 2.5l1.5 4h4l-3.2 2.3 1.2 3.9L8 10.2l-3.5 2.5 1.2-3.9L2.5 6.5h4L8 2.5z"
+          stroke="#1D9E75"
+          strokeWidth="1.2"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
     badge: null,
@@ -13,35 +19,71 @@ const cards = [
     checks: ["Custom landing page", "Lead capture forms", "WhatsApp follow-up"],
   },
   {
+    bgColor: "orange",
     iconColor: "falcoon-card__icon--orange",
     icon: (
       <svg viewBox="0 0 16 16" fill="none">
-        <rect x="2" y="4" width="12" height="9" rx="1.5" stroke="#D85A30" strokeWidth="1.2"/>
-        <path d="M5 4V3a3 3 0 0 1 6 0v1" stroke="#D85A30" strokeWidth="1.2" strokeLinecap="round"/>
-        <circle cx="8" cy="8.5" r="1" fill="#D85A30"/>
+        <rect
+          x="2"
+          y="4"
+          width="12"
+          height="9"
+          rx="1.5"
+          stroke="#D85A30"
+          strokeWidth="1.2"
+        />
+        <path
+          d="M5 4V3a3 3 0 0 1 6 0v1"
+          stroke="#D85A30"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+        <circle cx="8" cy="8.5" r="1" fill="#D85A30" />
       </svg>
     ),
     badge: "Most popular",
     featured: true,
     title: "Sell Packages\n& Products",
     desc: "Set prices and collect payments in minutes.",
-    checks: ["1:1, group & digital products", "UPI, card & EMI support", "Auto invoices & receipts"],
+    checks: [
+      "1:1, group & digital products",
+      "UPI, card & EMI support",
+      "Auto invoices & receipts",
+    ],
   },
   {
+    bgColor: "blue",
     iconColor: "falcoon-card__icon--blue",
     icon: (
       <svg viewBox="0 0 16 16" fill="none">
-        <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="#185FA5" strokeWidth="1.2"/>
-        <path d="M2 7h12M5 2v2M11 2v2" stroke="#185FA5" strokeWidth="1.2" strokeLinecap="round"/>
-        <rect x="5" y="9" width="2" height="2" rx="0.5" fill="#185FA5"/>
-        <rect x="9" y="9" width="2" height="2" rx="0.5" fill="#185FA5"/>
+        <rect
+          x="2"
+          y="3"
+          width="12"
+          height="11"
+          rx="1.5"
+          stroke="#185FA5"
+          strokeWidth="1.2"
+        />
+        <path
+          d="M2 7h12M5 2v2M11 2v2"
+          stroke="#185FA5"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+        <rect x="5" y="9" width="2" height="2" rx="0.5" fill="#185FA5" />
+        <rect x="9" y="9" width="2" height="2" rx="0.5" fill="#185FA5" />
       </svg>
     ),
     badge: null,
     featured: false,
     title: "Automate Bookings\n& Payments",
     desc: "Clients book themselves. You wake up to confirmed sessions.",
-    checks: ["Real-time availability", "Auto reminders sent", "Zero back-and-forth"],
+    checks: [
+      "Real-time availability",
+      "Auto reminders sent",
+      "Zero back-and-forth",
+    ],
   },
 ];
 
@@ -68,7 +110,6 @@ export default function Offer() {
   return (
     <section className="falcoon-offer">
       <div className="falcoon-offer__container falcoon-container">
-
         {/* Header */}
         <div className="falcoon-offer__header">
           <div className="falcoon-offer__pill">
@@ -92,7 +133,7 @@ export default function Offer() {
           {cards.map((card, i) => (
             <div
               key={i}
-              className={`falcoon-card ${card.featured ? "falcoon-card--featured" : ""}`}
+              className={`falcoon-card ${card.featured ? "falcoon-card--featured" : ""} ${card.bgColor}`}
             >
               {/* Card Head */}
               <div className="falcoon-card__head">
@@ -156,7 +197,6 @@ export default function Offer() {
             Get started free →
           </a>
         </div>
-
       </div>
     </section>
   );

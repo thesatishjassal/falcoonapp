@@ -820,14 +820,17 @@ span.regular_font {
 
 /* Card */
 .falcoon-card {
-  background: var(--color-white);
-  border: 1px solid #e8e6df;
-  border-radius: 14px;
-  padding: 22px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  transition: border-color 0.2s ease;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition);
+  background: #fff;
+  border: 1px solid #b6b4b4cf;
+  border-radius: 20px;
+  width: 100%;
+  height: max-content;
+  padding: 25px;
+  display: block;
+  position: relative;
 }
 
 .falcoon-card:hover {
@@ -862,13 +865,13 @@ span.regular_font {
 }
 
 .falcoon-card__icon--green {
-  background: #e1f5ee;
+  background: #c1edde;
 }
 .falcoon-card__icon--orange {
-  background: #faece7;
+  background: #fdd3c4;
 }
 .falcoon-card__icon--blue {
-  background: #e6f1fb;
+  background: #cadff3;
 }
 
 /* Badge */
@@ -892,10 +895,9 @@ span.regular_font {
 
 .falcoon-card__title {
   color: var(--color-title);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   line-height: 1.35;
-  /* margin-bottom: 10px !important; */
 }
 .falcoon-card__desc {
   color: var(--color-text);
@@ -7037,20 +7039,26 @@ img.falcoon-system__image {
 }
 
 .falcoon-btn--primary {
-  color: rgb(255, 255, 255);
+  color: #fff;
   background: #530a4e;
   border-radius: 30px;
   padding: 12px 20px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .falcoon-btn--outline {
-  border: 1px solid rgb(83 10 78);
+  color: #530a4e;
+  background: #fff;
+  border: 1px solid #530a4e;
   border-radius: 30px;
   margin-left: 10px;
   padding: 12px 20px;
-  background: #ffffff;
-  color: #530a4e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .falcoon-hero__trust {
@@ -7139,4 +7147,13 @@ img.falcoon-system__image {
   .falcoon-videos__video {
     height: 400px;
   }
+}
+.falcoon-card.green {
+  background: #e1f5ee;
+}
+.falcoon-card.falcoon-card--featured.orange {
+  background: #faece7;
+}
+.falcoon-card.blue {
+  background: #e6f1fb;
 }
