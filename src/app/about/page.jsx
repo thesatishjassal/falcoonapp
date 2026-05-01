@@ -48,6 +48,7 @@ export default function AboutUs() {
       <main className="about">
         {/* ── Hero ─────────────────────────────── */}
         <section className="about__hero">
+          <div className="about_overlay"></div>
           <div className="about__hero-inner">
             <h1 className="about__hero-title">About Falcoon</h1>
             <p className="about__hero-desc">
@@ -58,37 +59,19 @@ export default function AboutUs() {
         </section>
 
         {/* ── Purpose ──────────────────────────── */}
-        <section className="about__purpose">
-          <h2 className="about__purpose-title">Our Purpose</h2>
+ <section className="about__purpose">
+  <h2 className="about__purpose-title">Our Purpose</h2>
 
-          {PURPOSE_ITEMS.map((item) => (
-            <div
-              key={item.heading}
-              className={`purpose-item${item.reverse ? " purpose-item--reverse" : ""}`}
-            >
-              {item.reverse && (
-                <img
-                  src={item.image}
-                  alt={item.alt}
-                  className="purpose-item__image"
-                />
-              )}
-
-              <div className="purpose-item__content">
-                <h3 className="purpose-item__heading">{item.heading}</h3>
-                <p className="purpose-item__text">{item.text}</p>
-              </div>
-
-              {!item.reverse && (
-                <img
-                  src={item.image}
-                  alt={item.alt}
-                  className="purpose-item__image"
-                />
-              )}
-            </div>
-          ))}
-        </section>
+  <div className="purpose-grid">
+    {PURPOSE_ITEMS.map((item) => (
+      <div key={item.heading} className="purpose-card">
+        <img src={item.image} alt={item.alt} />
+        <h3>{item.heading}</h3>
+        <p>{item.text}</p>
+      </div>
+    ))}
+  </div>
+</section>
 
         {/* ── Story ────────────────────────────── */}
         <section className="about__story">

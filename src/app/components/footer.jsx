@@ -1,10 +1,14 @@
+"use client"
+import { usePathname } from "next/navigation";
+
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname === "/pricing") return null;
+
   return (
     <footer className="falcoon-footer">
       <div className="falcoon-container">
-
         <div className="falcoon-footer__grid">
-
           {/* BRAND */}
           <div className="falcoon-footer__col">
             <img
@@ -19,10 +23,18 @@ export default function Footer() {
             </p>
 
             <div className="falcoon-footer__social">
-              <a href="#">FB</a>
-              <a href="#">IG</a>
-              <a href="#">LN</a>
-              <a href="#">YT</a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                FB
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                IG
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                LN
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                YT
+              </a>
             </div>
           </div>
 
@@ -57,7 +69,6 @@ export default function Footer() {
             <p>📞 +91 7888467258</p>
             <p>📧 hello@falcoon.in</p>
           </div>
-
         </div>
 
         {/* BOTTOM */}
@@ -70,7 +81,6 @@ export default function Footer() {
             <a href="#">Cookies</a>
           </div>
         </div>
-
       </div>
     </footer>
   );
