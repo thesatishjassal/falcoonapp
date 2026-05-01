@@ -34,10 +34,7 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
         />
 
-        {children}<button className="falcoon-support__main">
-  💬
-  <span className="live-dot"></span>
-</button><SupportFloat /> 
+        {children}<SupportFloat /> 
         <Footer />
       </body>
     </html>
