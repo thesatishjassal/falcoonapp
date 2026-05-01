@@ -5870,8 +5870,8 @@ main.careers {
 .falcoon-hero__actions {
   margin-top: 24px;
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 0px;
+  flex-wrap: nowrap;
 }
 
 /* IMAGE */
