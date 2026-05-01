@@ -5873,7 +5873,7 @@ main.careers {
   margin-top: 24px;
   display: flex;
   gap: 0px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 /* IMAGE */
@@ -7143,7 +7143,10 @@ img.falcoon-system__image {
     grid-template-columns: repeat(2, 1fr);
     overflow: hidden;
   }
-
+  .falcoon-hero__actions a {
+    width: 100%;
+    justify-content: center;
+  }
   .falcoon-videos__video {
     height: 400px;
   }
