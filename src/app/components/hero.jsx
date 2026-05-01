@@ -11,6 +11,7 @@ export default function Hero({ onOpenModal }) {
     "Automation",
     "Coaching",
     "Products",
+    "Client-Generating Machine"
   ];
 
   const colors = ["#FF9933", "#138808", "#000000"]; // orange, green, black
@@ -56,7 +57,8 @@ export default function Hero({ onOpenModal }) {
         {/* LEFT */}
         <div className="falcoon-hero__content">
           <h1 className="falcoon-hero__title">
-            Turn Your Fitness Expertise Into{" "}
+           Turn Your Website Into a 
+            {/* Turn Your Fitness Expertise Into{" "} */}
             <span
               className="falcoon-hero__highlight"
               style={{ color: colors[colorIndex] }}
@@ -67,25 +69,28 @@ export default function Hero({ onOpenModal }) {
           </h1>
 
           <p className="falcoon-hero__desc">
-            We help fitness professionals sell services with funnels, booking,
-            payments, and automation that actually convert.
+Custom websites, automation & SaaS solutions for professionals and businesses.
           </p>
 
           <div className="falcoon-hero__actions">
-            <button
-              className="falcoon-btn falcoon-btn--dark"
-              onClick={onOpenModal}
-            >
-              Start My Fitness Funnel →
-            </button>
-
-            <a
+             <a
               href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
               className="falcoon-btn falcoon-btn--outline"
             >
-              Book Free Strategy
+               Get Free Strategy Call
             </a>
+            <button
+              className="falcoon-btn_outline "
+              onClick={onOpenModal}
+            >
+              View Live Projects
+            </button>
+
+           
           </div>
+          {/* <p className="falcoon-hero__trust">
+  Trusted by 50+ professionals • Real projects • Real results
+</p> */}
         </div>
 
         {/* RIGHT IMAGE */}

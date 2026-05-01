@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 
 const faqs = [
@@ -30,39 +29,59 @@ export default function FAQ() {
 
   return (
     <section className="falcoon-faq">
-      <div className="falcoon-container">
-        {/* Left */}
+      <div className="falcoon-container falcoon-faq__grid">
+
+        {/* LEFT SIDE */}
         <div className="falcoon-faq__left">
-          <h2 className="falcoon-faq__title">Frequently Asked Questions</h2>
+          <span className="falcoon-faq__badge">FAQ</span>
+
+          <h2 className="falcoon-faq__title">
+            Everything you need to know before you start
+          </h2>
+
           <p className="falcoon-faq__subtitle">
-            Can&apos;t find the answer you&apos;re looking for?{" "}
-            <a href="#" className="falcoon-faq__link">Reach out to us</a>
+            Still unsure? We’ll walk you through everything on a free call.
+          </p>
+
+          {/* CTA (IMPORTANT) */}
+          <button className="falcoon-faq__cta">
+            Book Free Strategy Call →
+          </button>
+
+          <p className="falcoon-faq__trust">
+            No pressure • Just clarity
           </p>
         </div>
 
-        {/* Right */}
+        {/* RIGHT SIDE */}
         <div className="falcoon-faq__right">
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className={`falcoon-faq__item${activeIndex === i ? " active" : ""}`}
+              className={`falcoon-faq__item ${
+                activeIndex === i ? "active" : ""
+              }`}
+              onClick={() => setActiveIndex(activeIndex === i ? -1 : i)}
             >
-              <div
-                className="falcoon-faq__header"
-                onClick={() => setActiveIndex(activeIndex === i ? -1 : i)}
-              >
+              <div className="falcoon-faq__header">
                 <span className="falcoon-faq__number">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h4 className="falcoon-faq__question">{faq.question}</h4>
-                <span className="falcoon-faq__icon">⌄</span>
+
+                <h4>{faq.question}</h4>
+
+                <span className="falcoon-faq__icon">
+                  {activeIndex === i ? "−" : "+"}
+                </span>
               </div>
+
               {activeIndex === i && (
                 <p className="falcoon-faq__answer">{faq.answer}</p>
               )}
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );

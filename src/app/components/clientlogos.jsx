@@ -20,7 +20,7 @@ export default function ClientLogos() {
     <section className="falcoon-clients">
       <div className="falcoon-container">
         <h2 className="falcoon-clients__title">
-          Trusted by <span>100+ Brands</span>
+          Trusted by <span>Professionals & Growing Brands</span>
         </h2>
 
         <div className="falcoon-clients__grid">

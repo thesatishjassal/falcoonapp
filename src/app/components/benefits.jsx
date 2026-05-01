@@ -1,58 +1,59 @@
 "use client";
-
 import { useState } from "react";
 
 export default function ProcessSection() {
+  const [active, setActive] = useState(0);
+
   const steps = [
     {
-      title: "Understanding Your Goals",
-      desc: "We analyze your niche, audience, and offer to create a strategy that actually converts. No guesswork — only data-driven decisions.",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQqkUDU3T_z3SDvlOBQhW7fnPwyqDAZeFUMg&s",
+      title: "We learn your niche & goals",
+      desc: "We map your audience, offer, and competitors — so everything we build is designed to convert your specific clients.",
     },
     {
-      title: "Video Record & Editing",
-      desc: "We craft high-converting scripts and engaging short-form videos designed to capture attention and drive action.",
-      image:
-        "https://www.entrepreneur.com/wp-content/uploads/sites/2/2018/01/20180109204555-GettyImages-658621130.jpeg",
+      title: "We create your content & videos",
+      desc: "High-converting scripts and engaging short-form content designed to capture attention.",
     },
     {
-      title: "Landing Page & Content",
-      desc: "We design a clean, conversion-focused landing page with persuasive copy and strong CTAs.",
-      image:
-        "https://contentwriters.com/blog/wp-content/uploads/content-writer.jpg",
+      title: "We build your landing page",
+      desc: "Clean, conversion-focused landing page with persuasive copy and strong CTAs.",
     },
     {
-      title: "Funnel & AI Automation",
-      desc: "We build a complete funnel with automation and AI workflows so your business runs 24/7.",
-      image:
-        "https://blogv2new.clickfunnels.com/wp-content/uploads/2024/06/How-AI-Can-Benefit-Businesses-Of-All-Sizes-Info.png",
+      title: "We set up your funnel & automation",
+      desc: "Full funnel with AI automation so your system runs 24/7.",
     },
     {
-      title: "Ads, Payments & Automation",
-      desc: "We integrate payments, launch ads, and connect everything to start generating revenue.",
-      image:
-        "https://images.ctfassets.net/lzny33ho1g45/4dsMhlI58z5WrjOnNykcbi/bf8dc73061ff582f2700b61e8e6585be/Group_14833.jpg",
+      title: "We launch ads & connect payments",
+      desc: "We integrate payments, launch ads, and activate your revenue system.",
     },
   ];
 
-  const [active, setActive] = useState(0);
-
   return (
     <section className="falcoon-process">
-<h2 className="falcoon-process__title">
-  How We Work ⚡
-</h2>
-      <div className="falcoon-container falcoon-grid">
-        {/* LEFT IMAGE (DYNAMIC) */}
-        <div className="falcoon-col falcoon-col-left">
-          <div className="falcoon-process__image-card">
-            <img src={steps[active].image} alt="process" />
-          </div>
+      <div className="falcoon-container">
+
+        {/* HEADER */}
+        <div className="falcoon-process__header">
+          <span className="falcoon-process__badge">• HOW IT WORKS</span>
+
+          <h2 className="falcoon-process__title">
+            From signup to <span>first paying client</span> — here's your path
+          </h2>
+
+          <p className="falcoon-process__subtitle">
+            Five steps. Done with you. Most coaches are live within a week.
+          </p>
         </div>
 
-        {/* RIGHT ACCORDION */}
-        <div className="falcoon-col">
+        <div className="falcoon-process__grid">
+
+          {/* LEFT VISUAL */}
+          <div className="falcoon-process__visual">
+            <div className="falcoon-process__card">
+              🎯
+            </div>
+          </div>
+
+          {/* RIGHT STEPS */}
           <div className="falcoon-process__accordion">
             {steps.map((step, i) => (
               <div
@@ -67,7 +68,7 @@ export default function ProcessSection() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
 
-                  <h5>{step.title}</h5>
+                  <h4>{step.title}</h4>
 
                   <span className="falcoon-process__icon">
                     {active === i ? "−" : "+"}
@@ -80,8 +81,8 @@ export default function ProcessSection() {
               </div>
             ))}
           </div>
-        </div>
 
+        </div>
       </div>
     </section>
   );
