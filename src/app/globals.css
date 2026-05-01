@@ -379,8 +379,7 @@ span.regular_font {
 /* Actions */
 .falcoon-hero__actions {
   display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
+  gap: 0px;
   margin-top: 70px;
 }
 .falcoon-services__cta .falcoon-btn {

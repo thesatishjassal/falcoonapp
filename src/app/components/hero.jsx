@@ -85,7 +85,7 @@ export default function Hero({ onOpenModal }) {
               className="falcoon-btn falcoon-btn--outline"
               onClick={onOpenModal}
             >
-              View Live Projects
+              View Projects
             </button>
           </div>
 
