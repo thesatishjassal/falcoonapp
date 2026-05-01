@@ -471,7 +471,7 @@ span.regular_font {
 
 @media (max-width: 576px) {
   .falcoon-hero__title {
-    font-size: 28px;
+    font-size: 30px;
   }
 }
 
@@ -5888,7 +5888,7 @@ main.careers {
   }
 
   .falcoon-hero__title {
-    font-size: 28px;
+    font-size: 30px;
   }
 
   .falcoon-hero__visual {
