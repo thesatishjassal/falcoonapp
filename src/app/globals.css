@@ -8016,3 +8016,127 @@ img.falcoon-system__image {
     padding: 16px;
   }
 }
+/* =========================
+   TABLET (≤ 992px)
+========================= */
+@media (max-width: 992px) {
+  .falcoon-contact-ui__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* FORM */
+  .falcoon-contact-ui__form {
+    order: 2;
+  }
+
+  /* INFO CARDS */
+  .falcoon-contact-ui__info {
+    order: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* HERO */
+  .falcoon-contact-ui__hero h1 {
+    font-size: 30px;
+  }
+
+  .falcoon-contact-ui__hero p {
+    font-size: 14px;
+  }
+
+  /* INPUT ROW → STACK */
+  .falcoon-contact-ui__form .row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* =========================
+   MOBILE (≤ 576px)
+========================= */
+@media (max-width: 576px) {
+  .falcoon-contact-ui {
+    padding: 50px 0;
+  }
+
+  /* HERO */
+  .falcoon-contact-ui__hero {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .falcoon-contact-ui__hero h1 {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .falcoon-contact-ui__hero p {
+    font-size: 13px;
+  }
+
+  /* GRID */
+  .falcoon-contact-ui__grid {
+    gap: 20px;
+  }
+
+  /* FORM */
+  .falcoon-contact-ui__form {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  /* INPUTS */
+  .falcoon-contact-ui__form input,
+  .falcoon-contact-ui__form textarea {
+    padding: 13px;
+    font-size: 14px;
+  }
+
+  /* BUTTON */
+  .falcoon-contact-ui__form button {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  /* CHECKBOX */
+  .services {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  /* INFO CARDS → SINGLE COLUMN */
+  .falcoon-contact-ui__info {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* CARD */
+  .falcoon-contact-ui__card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .falcoon-contact-ui__card h4 {
+    font-size: 14px;
+  }
+
+  .falcoon-contact-ui__card p,
+  .falcoon-contact-ui__card a {
+    font-size: 12.5px;
+  }
+
+  /* ICON */
+  .falcoon-contact-ui__card i {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+}
