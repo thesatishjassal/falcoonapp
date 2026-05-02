@@ -5,7 +5,6 @@ export default function System() {
   return (
     <section className="falcoon-system">
       <div className="falcoon-container">
-
         {/* HEADER */}
         <div className="falcoon-system__header">
           <span className="falcoon-system__badge">HOW IT WORKS</span>
@@ -23,7 +22,7 @@ export default function System() {
         {/* IMAGE / FLOW */}
         <div className="falcoon-system__visual">
           <img
-            src="/assets/images/falcoon_system.svg"
+            src="/assets/images/falcoon_system.png"
             alt="Falcoon Funnel System"
             className="falcoon-system__image"
             priority
@@ -39,7 +38,7 @@ export default function System() {
           {/* <h3 className="falcoon-system__cta-highlight">
             Falcoon gives you a complete system.
           </h3> */}
- <a
+          <a
             href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
             className="falcoon-header__btn"
           >
@@ -58,7 +57,6 @@ export default function System() {
             Free call • No pressure • Actionable plan
           </p>
         </div>
-
       </div>
     </section>
   );

@@ -1,87 +1,75 @@
-"use client"
-import { usePathname } from "next/navigation";
+"use client";
+import { useEffect, useState } from "react";
 
-export default function Footer() {
-  const pathname = usePathname();
-  if (pathname === "/pricing") return null;
+export default function IntegrationFlows() {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const flows = [
+    {
+      title: "Sell Coaching",
+      desc: "Instagram → Clients",
+      steps: ["Ads", "Landing", "Checkout", "Payment", "Delivery"],
+    },
+    {
+      title: "Digital Products",
+      desc: "Auto selling system",
+      steps: ["Google Ads", "Page", "Checkout", "Payment", "Access"],
+    },
+  ];
+
+  // Auto animate steps
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % 5);
+    }, 1200);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <footer className="falcoon-footer">
-      <div className="falcoon-container">
-        <div className="falcoon-footer__grid">
-          {/* BRAND */}
-          <div className="falcoon-footer__col">
-            <img
-              src="/assets/images/falcoon_logo.png"
-              alt="Falcoon"
-              className="falcoon-footer__logo"
-            />
+    <section className="flows">
+      <div className="container">
+        <h2 className="title">How Your System Works</h2>
 
-            <p className="falcoon-footer__desc">
-              Falcoon helps businesses grow with modern digital solutions,
-              automation, and high-converting systems.
-            </p>
+        {flows.map((flow, i) => (
+          <div className="flow" key={i}>
+            <div className="flow-left">
+              <h3>{flow.title}</h3>
+              <p>{flow.desc}</p>
+            </div>
 
-            <div className="falcoon-footer__social">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                FB
-              </a>
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                IG
-              </a>
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                LN
-              </a>
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                YT
-              </a>
+            <div className="flow-right">
+              {flow.steps.map((step, index) => (
+                <div key={index} className="step-wrapper">
+                  <div
+                    className={`step-circle ${
+                      index <= activeStep ? "active" : ""
+                    }`}
+                  >
+                    {index + 1}
+                  </div>
+
+                  <span
+                    className={`step-text ${
+                      index <= activeStep ? "active" : ""
+                    }`}
+                  >
+                    {step}
+                  </span>
+
+                  {index !== flow.steps.length - 1 && (
+                    <div
+                      className={`step-line ${
+                        index < activeStep ? "filled" : ""
+                      }`}
+                    />
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-
-          {/* PRODUCT */}
-          <div className="falcoon-footer__col">
-            <h4>Product</h4>
-            <a href="/pricing">Pricing</a>
-            <a href="/integrations">Integrations</a>
-            <a href="/case-studies">Case Studies</a>
-          </div>
-
-          {/* COMPANY */}
-          <div className="falcoon-footer__col">
-            <h4>Company</h4>
-            <a href="/about">About Us</a>
-            <a href="/careers">Careers</a>
-            <a href="/blog">Blog</a>
-          </div>
-
-          {/* SUPPORT */}
-          <div className="falcoon-footer__col">
-            <h4>Support</h4>
-            <a href="/help">Help Center</a>
-            <a href="/faqs">FAQs</a>
-            <a href="/terms">Terms & Conditions</a>
-          </div>
-
-          {/* CONTACT */}
-          <div className="falcoon-footer__col">
-            <h4>Contact</h4>
-            <p>📍 Punjab, India</p>
-            <p>📞 +91 7888467258</p>
-            <p>📧 hello@falcoon.in</p>
-          </div>
-        </div>
-
-        {/* BOTTOM */}
-        <div className="falcoon-footer__bottom">
-          <p>© 2026 Falcoon. All rights reserved.</p>
-
-          <div className="falcoon-footer__legal">
-            <a href="#">Privacy</a>
-            <a href="/terms">Terms</a>
-            <a href="#">Cookies</a>
-          </div>
-        </div>
+        ))}
       </div>
-    </footer>
+    </section>
   );
 }
