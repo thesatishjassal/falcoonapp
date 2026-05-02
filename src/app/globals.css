@@ -4746,35 +4746,6 @@ body.modal-open {
     display: none;
   }
 }
-.falcoon-contact-new {
-  background: linear-gradient(135deg, #fff, var(--color-bg-soft));
-  padding: 80px 0;
-  display: block;
-  margin: 0 auto;
-}
-
-/* LAYOUT */
-.falcoon-contact-new__wrap {
-  grid-template-columns: 1fr 420px;
-  align-items: center;
-  gap: 40px;
-  display: grid;
-  max-width: 1024px;
-}
-
-/* LEFT */
-.falcoon-contact-new__left h1 {
-  font-size: 40px;
-  line-height: 1.2;
-  color: var(--color-title);
-}
-
-.falcoon-contact-new__left .desc {
-  margin-top: 15px;
-  color: var(--color-text);
-  max-width: 400px;
-}
-
 /* TAG */
 .tag {
   color: var(--color-primary);
@@ -4950,87 +4921,112 @@ body.modal-open {
   }
 }
 .falcoon-footer {
-  background: #111;
-  color: #ccc;
-  padding: 60px 0 20px;
+  background: #0b0b0c;
+  color: #9aa0a6;
+  padding: 22px 0 12px;
+  border-top: 1px solid #1a1a1a;
 }
 
-/* GRID */
-.falcoon-footer__grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
-  gap: 30px;
-  margin-bottom: 40px;
+/* ROW */
+.falcoon-footer__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 14px;
 }
 
-/* LOGO */
-.falcoon-footer__logo {
-  max-width: 110px;
-  margin-bottom: 15px;
+/* LINKS */
+.falcoon-footer__links {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
 }
 
-/* DESC */
-.falcoon-footer__desc {
+.falcoon-footer__links a {
   font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 15px;
-}
-
-/* COLUMN */
-.falcoon-footer__col h4 {
-  color: #fff;
-  margin-bottom: 12px;
-  font-size: 15px;
-}
-
-.falcoon-footer__col a {
-  display: block;
-  color: #aaa;
-  font-size: 14px;
-  margin-bottom: 8px;
+  color: #8b949e;
   text-decoration: none;
-  transition: var(--transition);
+  position: relative;
+  transition: 0.25s;
 }
 
-.falcoon-footer__col a:hover {
+.falcoon-footer__links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 1px;
+  background: #530a4e;
+  transition: 0.3s;
+}
+
+.falcoon-footer__links a:hover {
   color: #fff;
-  transform: translateX(4px);
 }
 
-/* SOCIAL */
-.falcoon-footer__social {
+.falcoon-footer__links a:hover::after {
+  width: 100%;
+}
+
+/* CONTACT */
+.falcoon-footer__contact {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
-.falcoon-footer__social a {
-  width: 34px;
-  height: 34px;
-  border: 1px solid #333;
-  display: flex;
+/* CHIP STYLE (Google-like) */
+.falcoon-chip {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+  gap: 6px;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #111;
+  border: 1px solid #1f1f1f;
+  color: #8b949e;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.falcoon-chip i {
+  font-size: 12px;
+}
+
+/* HIGHLIGHT (phone + email) */
+.falcoon-chip--highlight {
+  background: rgba(83, 10, 78, 0.12);
+  border-color: rgba(83, 10, 78, 0.4);
+  color: #d6a8d3;
+}
+
+/* hover feel (very subtle like Google) */
+.falcoon-chip:hover {
+  transform: translateY(-1px);
+  border-color: #530a4e;
+  color: #fff;
 }
 
 /* BOTTOM */
 .falcoon-footer__bottom {
-  border-top: 1px solid #222;
-  padding-top: 15px;
+  border-top: 1px solid #1a1a1a;
+  padding-top: 10px;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 /* LEGAL */
 .falcoon-footer__legal {
   display: flex;
-  gap: 15px;
+  gap: 14px;
 }
 
 .falcoon-footer__legal a {
-  color: #888;
+  color: #777;
   text-decoration: none;
 }
 
@@ -5038,22 +5034,18 @@ body.modal-open {
   color: #fff;
 }
 
-/* 📱 MOBILE */
+/* MOBILE */
 @media (max-width: 768px) {
-  .falcoon-footer__grid {
-    grid-template-columns: 1fr 1fr;
+  .falcoon-footer__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   .falcoon-footer__bottom {
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
     text-align: center;
-  }
-}
-
-@media (max-width: 576px) {
-  .falcoon-footer__grid {
-    grid-template-columns: 1fr;
   }
 } /* ═══════════════════════════════════════
    FALCOON CAREERS PAGE
@@ -7617,5 +7609,410 @@ img.falcoon-system__image {
 
   .line {
     display: none;
+  }
+}
+/* SECTION */
+.falcoon-contact-ui {
+  padding: 80px 0;
+  background: linear-gradient(to bottom, #fff, #fafafa);
+}
+
+/* HERO */
+.falcoon-contact-ui__hero {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 50px;
+}
+
+.falcoon-contact-ui__hero h1 {
+  font-size: 36px;
+  font-weight: 600;
+  color: #202124;
+}
+
+.falcoon-contact-ui__hero p {
+  margin-top: 10px;
+  color: #5f6368;
+}
+
+/* GRID */
+.falcoon-contact-ui__grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* FORM */
+.falcoon-contact-ui__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.falcoon-contact-ui__form input,
+.falcoon-contact-ui__form textarea {
+  padding: 12px 14px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+
+.falcoon-contact-ui__form input:focus,
+.falcoon-contact-ui__form textarea:focus {
+  border-color: #530a4e;
+}
+
+/* ROW (2 INPUTS) */
+.falcoon-contact-ui__form .row {
+  display: flex;
+  gap: 12px;
+}
+
+/* CHECKBOX */
+.services {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* BUTTON */
+.falcoon-contact-ui__form button {
+  margin-top: 10px;
+  padding: 12px;
+  background: #530a4e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.falcoon-contact-ui__form button:hover {
+  opacity: 0.9;
+}
+
+/* RIGHT SIDE INFO */
+.falcoon-contact-ui__info {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  font-size: 14px;
+}
+
+.falcoon-contact-ui__info h4 {
+  font-size: 14px;
+  color: #202124;
+  margin-bottom: 4px;
+}
+
+.falcoon-contact-ui__info a {
+  color: #530a4e;
+  text-decoration: none;
+}
+
+.falcoon-contact-ui__info a:hover {
+  text-decoration: underline;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .falcoon-contact-ui__grid {
+    grid-template-columns: 1fr;
+  }
+}
+.falcoon-faq-new {
+  background: var(--color-bg-soft);
+  padding: 100px 0;
+}
+
+/* HERO */
+.falcoon-faq-new__hero {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.falcoon-faq-new__hero h1 {
+  font-size: 42px;
+  color: var(--color-title);
+  margin-bottom: 10px;
+}
+
+.falcoon-faq-new__hero p {
+  color: var(--color-text);
+  font-size: 16px;
+}
+
+/* GRID */
+.falcoon-faq-new__grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 40px;
+}
+
+/* FAQ ITEMS */
+.falcoon-faq-new__item {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  border: 1px solid #eee;
+  transition: var(--transition);
+}
+
+.falcoon-faq-new__item:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+.falcoon-faq-new__item.active {
+  border-color: var(--color-primary);
+}
+
+/* QUESTION */
+.falcoon-faq-new__question {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  color: var(--color-title);
+}
+
+/* ANSWER */
+.falcoon-faq-new__answer {
+  margin-top: 10px;
+  color: var(--color-text);
+  font-size: 14px;
+}
+
+/* CTA CARD */
+.falcoon-faq-new__card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 30px;
+  height: fit-content;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid #eee;
+}
+
+.falcoon-faq-new__card h3 {
+  margin-bottom: 10px;
+  color: var(--color-title);
+}
+
+.falcoon-faq-new__card p {
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
+/* CONTACT */
+.falcoon-faq-new__card .contact p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/* MOBILE */
+@media (max-width: 992px) {
+  .falcoon-faq-new__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .falcoon-faq-new__card {
+    margin-top: 30px;
+  }
+}
+/* CARD */
+.falcoon-faq-new__card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid #eee;
+  text-align: center;
+}
+
+/* CALENDAR VISUAL */
+.falcoon-faq-new__card-visual {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.calendar {
+  width: 80px;
+  height: 80px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+
+/* top strip */
+.calendar-top {
+  height: 18px;
+  background: var(--color-primary);
+}
+
+/* grid */
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 10px;
+}
+
+.calendar-body span {
+  height: 8px;
+  border-radius: 3px;
+  background: #eee;
+}
+
+.calendar-body span.active {
+  background: var(--color-primary);
+}
+
+/* TEXT */
+.falcoon-faq-new__card h3 {
+  color: var(--color-title);
+  margin-bottom: 6px;
+}
+
+.falcoon-faq-new__card p {
+  color: var(--color-text);
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+/* CONTACT LIST */
+.falcoon-faq-new__contact {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ITEM */
+.falcoon-faq-new__contact .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  font-size: 14px;
+  color: var(--color-title);
+  transition: var(--transition);
+}
+
+/* ICON */
+.falcoon-faq-new__contact i {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f3e8f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: 12px;
+}
+
+/* HOVER */
+.falcoon-faq-new__contact .item:hover {
+  border-color: var(--color-primary);
+  background: #fff;
+  transform: translateY(-2px);
+}
+
+/* 📱 MOBILE IMPROVEMENTS */
+@media (max-width: 576px) {
+  .falcoon-faq-new__card {
+    padding: 20px;
+  }
+
+  .falcoon-faq-new__contact .item {
+    font-size: 13px;
+    padding: 9px 10px;
+  }
+
+  .calendar {
+    width: 70px;
+    height: 70px;
+  }
+}
+/* GRID */
+.falcoon-contact-ui__info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+/* CARD */
+.falcoon-contact-ui__card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  border: 1px solid #eee;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 120px;
+}
+
+/* ICON */
+.falcoon-contact-ui__card i {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #f3e8f2;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* TITLE */
+.falcoon-contact-ui__card h4 {
+  font-size: 15px;
+  color: var(--color-title);
+  margin: 0;
+}
+
+/* TEXT */
+.falcoon-contact-ui__card p {
+  font-size: 13px;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* LINKS */
+.falcoon-contact-ui__card a {
+  font-size: 13px;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* HOVER */
+.falcoon-contact-ui__card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+  border-color: #ddd;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 576px) {
+  .falcoon-contact-ui__info {
+    grid-template-columns: 1fr;
+  }
+
+  .falcoon-contact-ui__card {
+    padding: 16px;
   }
 }

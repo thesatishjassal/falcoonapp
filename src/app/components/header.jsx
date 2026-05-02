@@ -41,9 +41,9 @@ export default function Header() {
             <Link href="/help" className="falcoon-header__link">
               Support <span className="falcoon-header__icon">?</span>
             </Link>
-            {/* <Link href="/careers" className="falcoon-header__link">
-              Careers 
-            </Link> */}
+            <Link href="/faq" className="falcoon-header__link">
+              Faq
+            </Link>
           </nav>
           <a
             href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
@@ -100,12 +100,20 @@ export default function Header() {
             Support <span className="falcoon-header__icon">?</span>
             <span className="falcoon-mobile-drawer__arrow">›</span>
           </Link>
-          <Link
+          {/* <Link
             href="/careers"
             className="falcoon-mobile-drawer__link"
             onClick={closeMenu}
           >
             Careers
+            <span className="falcoon-mobile-drawer__arrow">›</span>
+          </Link> */}
+          <Link
+            href="/faq"
+            className="falcoon-mobile-drawer__link"
+            onClick={closeMenu}
+          >
+            Faq
             <span className="falcoon-mobile-drawer__arrow">›</span>
           </Link>
         </nav>
