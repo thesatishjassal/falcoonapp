@@ -6533,6 +6533,7 @@ main.careers {
   bottom: 20px;
   left: 16px;
   z-index: 999;
+  display: none;
 }
 
 /* MAIN BUTTON */
