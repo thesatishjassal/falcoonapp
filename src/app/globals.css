@@ -2364,6 +2364,7 @@ div#funnelModal
   .falcoon-offer__cta {
     background: #530a4e;
     border-radius: 50px;
+    color: #fff;
   }
   .falcoon-problem__item {
     padding-left: 0px;

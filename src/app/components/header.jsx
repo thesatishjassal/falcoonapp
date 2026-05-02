@@ -22,7 +22,6 @@ export default function Header() {
   return (
     <header className="falcoon-header" ref={headerRef}>
       <div className="falcoon-header__container falcoon-container">
-
         {/* Logo */}
         <div className="falcoon-header__logo">
           <Link href="/" onClick={closeMenu}>
@@ -42,9 +41,9 @@ export default function Header() {
             <Link href="/help" className="falcoon-header__link">
               Support <span className="falcoon-header__icon">?</span>
             </Link>
-                 <Link href="/careers" className="falcoon-header__link">
+            {/* <Link href="/careers" className="falcoon-header__link">
               Careers 
-            </Link>
+            </Link> */}
           </nav>
           <a
             href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
@@ -75,7 +74,6 @@ export default function Header() {
         </button>
       </div>
 
-
       <div className={`falcoon-mobile-drawer ${isOpen ? "open" : ""}`}>
         <nav className="falcoon-mobile-drawer__nav">
           <Link
@@ -102,12 +100,12 @@ export default function Header() {
             Support <span className="falcoon-header__icon">?</span>
             <span className="falcoon-mobile-drawer__arrow">›</span>
           </Link>
-            <Link
+          <Link
             href="/careers"
             className="falcoon-mobile-drawer__link"
             onClick={closeMenu}
           >
-            Careers 
+            Careers
             <span className="falcoon-mobile-drawer__arrow">›</span>
           </Link>
         </nav>

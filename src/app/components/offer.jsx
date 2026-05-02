@@ -193,8 +193,8 @@ export default function Offer() {
               <strong>340+ coaches</strong> already on Falcoon
             </p>
           </div>
-          <a href="#get-started" className="falcoon-offer__cta">
-            Get started free →
+          <a tel="+91 7888467258" className="falcoon-offer__cta">
+            call Now
           </a>
         </div>
       </div>
