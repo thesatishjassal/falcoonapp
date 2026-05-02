@@ -1,13 +1,14 @@
 "use client";
+import { useState } from "react";
 
 export default function FalcoonVideos() {
+  const [activeVideo, setActiveVideo] = useState(null);
+
   const videos = [
     "/assets/videos/1.mp4",
     "/assets/videos/2.mp4",
     "/assets/videos/3.mp4",
     "/assets/videos/4.mp4",
-    // "/assets/vide
-    //s/5.mp4",
     "/assets/videos/6.mp4",
     "/assets/videos/7.mp4",
   ];
@@ -17,27 +18,48 @@ export default function FalcoonVideos() {
       <div className="falcoon-container">
         {/* HEADER */}
         <div className="falcoon-videos__header">
-          <h2 className="falcoon-videos__title">🎥 Our Real Work</h2>
-          <p className="falcoon-videos__subtitle">
-            See how we build high-converting websites & automation systems
-          </p>
+          <h2>Our Work in Action</h2>
+          <p>Click any video to watch full screen</p>
         </div>
 
-        {/* VIDEO LIST */}
-        <div className="falcoon-videos__list">
+        {/* GRID */}
+        <div className="falcoon-videos__grid">
           {videos.map((video, index) => (
-            <div key={index} className="falcoon-videos__card">
-              <video
-                src={video}
-                controls
-                muted
-                loop
-                playsInline
-                className="falcoon-videos__video"
-              />
+            <div
+              key={index}
+              className="video-card"
+              onClick={() => setActiveVideo(video)}
+            >
+              <video src={video} muted loop playsInline />
             </div>
           ))}
         </div>
+
+        {/* MODAL */}
+        {activeVideo && (
+          <div className="video-modal" onClick={() => setActiveVideo(null)}>
+            <div
+              className="video-modal__content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* CLOSE BUTTON */}
+              <button
+                className="video-close"
+                onClick={() => setActiveVideo(null)}
+              >
+                ✕
+              </button>
+
+              {/* VIDEO PLAYER */}
+              <video
+                src={activeVideo}
+                controls
+                autoPlay
+                className="video-modal__player"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
