@@ -103,10 +103,13 @@ export default function FAQPage() {
               <div className="item">
                 <div className="item-left">
                   <i className="fas fa-envelope"></i>
-                  <span>hello@facoo.in</span>
+                  <span>thesatishjassal@gmail.com</span>
                 </div>
 
-                <a href="mailto:hello@facoo.in">
+                <a
+                  href="mailto:thesatishjassal@gmail.com
+"
+                >
                   <i class="fa-solid fa-angle-right"></i>
                 </a>
               </div>

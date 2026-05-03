@@ -214,7 +214,7 @@ export default function ContactPage() {
                 <p>Send us your query anytime</p>
 
                 <a
-                  href="mailto:hello@facoo.in"
+                  href="mailto:thesatishjassal@gmail.com"
                   className="falcoon-contact-ui__cta"
                 >
                   Send Email →

@@ -3,7 +3,6 @@
 export default function TermsPage() {
   return (
     <main className="falcoon-terms">
-
       {/* HERO */}
       <section className="falcoon-terms__hero">
         <div className="falcoon-container">
@@ -15,20 +14,21 @@ export default function TermsPage() {
       {/* CONTENT */}
       <section className="falcoon-terms__content">
         <div className="falcoon-container falcoon-terms__wrapper">
-
           <div className="falcoon-terms__section">
             <h2>1. Introduction</h2>
             <p>
-              Welcome to Falcoon. By accessing our website and services, you agree to comply
-              with these terms. Please read them carefully before using our platform.
+              Welcome to Falcoon. By accessing our website and services, you
+              agree to comply with these terms. Please read them carefully
+              before using our platform.
             </p>
           </div>
 
           <div className="falcoon-terms__section">
             <h2>2. Services</h2>
             <p>
-              Falcoon provides digital solutions including funnels, booking systems,
-              payment integrations, and marketing automation for fitness professionals.
+              Falcoon provides digital solutions including funnels, booking
+              systems, payment integrations, and marketing automation for
+              fitness professionals.
             </p>
           </div>
 
@@ -68,7 +68,8 @@ export default function TermsPage() {
           <div className="falcoon-terms__section">
             <h2>7. Termination</h2>
             <p>
-              We reserve the right to suspend or terminate access if terms are violated.
+              We reserve the right to suspend or terminate access if terms are
+              violated.
             </p>
           </div>
 
@@ -83,13 +84,12 @@ export default function TermsPage() {
           <div className="falcoon-terms__section">
             <h2>9. Contact</h2>
             <p>
-              For any questions, contact us at <strong>support@falcoon.in</strong>
+              For any questions, contact us at{" "}
+              <strong>thesatishjassal@gmail.com</strong>
             </p>
           </div>
-
         </div>
       </section>
-
     </main>
   );
 }

@@ -35,11 +35,12 @@ export default function Footer() {
             </a>
 
             <a
-              href="mailto:hello@facoo.in"
+              href="mailto:thesatishjassal@gmail.com
+"
               className="falcoon-chip falcoon-chip--highlight"
             >
               <i className="fa-solid fa-envelope"></i>
-              hello@facoo.in
+              thesatishjassal@gmail.com
             </a>
           </div>
         </div>

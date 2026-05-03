@@ -284,7 +284,7 @@ export default function CareersPage() {
               and we'll reach out when the right opportunity opens up.
             </p>
             <a
-              href="mailto:careers@falcoon.in?subject=General Application"
+              href="mailto:thesatishjassal@gmail.com?subject=General Application"
               className="careers__cta-btn"
             >
               Send a General Application ✉️
