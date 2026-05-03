@@ -43,7 +43,15 @@ export default function FAQ() {
           </p>
 
           {/* CTA (IMPORTANT) */}
-          <button className="falcoon-faq__cta">
+          <button
+            onClick={() => {
+              window.open(
+                "https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call",
+                "_blank",
+              );
+            }}
+            className="falcoon-faq__cta"
+          >
             Book Free Strategy Call →
           </button>
         </div>

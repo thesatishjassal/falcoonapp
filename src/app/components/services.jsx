@@ -49,7 +49,6 @@ export default function Services() {
   return (
     <section className="falcoon-services">
       <div className="falcoon-container">
-
         {/* HEADER */}
         <div className="falcoon-services__header">
           <span className="falcoon-services__badge">
@@ -62,7 +61,8 @@ export default function Services() {
           </h2>
 
           <p className="falcoon-services__desc">
-            Whether you train in-person, online, or both — Falcoon works for your niche.
+            Whether you train in-person, online, or both — Falcoon works for
+            your niche.
           </p>
         </div>
 
@@ -70,7 +70,6 @@ export default function Services() {
         <div className="falcoon-services__grid">
           {niches.map((niche, i) => (
             <div key={i} className="falcoon-niche-card">
-
               <div className="falcoon-niche-card__top">
                 <div
                   className="falcoon-niche-card__icon"
@@ -79,21 +78,14 @@ export default function Services() {
                   <span>{niche.emoji}</span>
                 </div>
 
-                <h3 className="falcoon-niche-card__title">
-                  {niche.title}
-                </h3>
+                <h3 className="falcoon-niche-card__title">{niche.title}</h3>
               </div>
 
               <div className="falcoon-niche-card__divider" />
 
-              <p className="falcoon-niche-card__desc">
-                {niche.hook}
-              </p>
+              <p className="falcoon-niche-card__desc">{niche.hook}</p>
 
-              <span className="falcoon-niche-card__tag">
-                ✓ {niche.tag}
-              </span>
-
+              <span className="falcoon-niche-card__tag">✓ {niche.tag}</span>
             </div>
           ))}
         </div>
@@ -101,14 +93,17 @@ export default function Services() {
         {/* CTA BAR */}
         <div className="falcoon-services__cta-bar">
           <p>
-            <strong>Your niche is covered.</strong> Set up your profile in under 10 minutes.
+            <strong>Your niche is covered.</strong> Lets get you set up with a
+            free strategy call.
           </p>
 
-          <a href="#get-started" className="falcoon-services__cta-btn">
+          <a
+            href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+            className="falcoon-services__cta-btn"
+          >
             Start free →
           </a>
         </div>
-
       </div>
     </section>
   );

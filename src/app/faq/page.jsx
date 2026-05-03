@@ -80,21 +80,36 @@ export default function FAQPage() {
             <h3>Still have questions?</h3>
             <p>Book a call or reach us anytime.</p>
 
-            <button className="falcoon-btn falcoon-btn--dark">
-              Book Free Call →
-            </button>
+            <a
+              href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+              className="falcoon-btn falcoon-btn--dark"
+            >
+              Schedule a Call <i class="fa-solid fa-calendar"></i>
+            </a>
 
             {/* CONTACT LIST */}
             <div className="falcoon-faq-new__contact">
-              <a href="tel:+917888467258" className="item">
-                <i className="fas fa-phone"></i>
-                <span>+91 7888467258</span>
-              </a>
+              <div className="item">
+                <div className="item-left">
+                  <i className="fas fa-phone"></i>
+                  <span>+91 7888467258</span>
+                </div>
 
-              <a href="mailto:hello@facoo.in" className="item">
-                <i className="fas fa-envelope"></i>
-                <span>hello@facoo.in</span>
-              </a>
+                <a href="tel:+917888467258">
+                  <i class="fa-solid fa-angle-right"></i>
+                </a>
+              </div>
+
+              <div className="item">
+                <div className="item-left">
+                  <i className="fas fa-envelope"></i>
+                  <span>hello@facoo.in</span>
+                </div>
+
+                <a href="mailto:hello@facoo.in">
+                  <i class="fa-solid fa-angle-right"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>

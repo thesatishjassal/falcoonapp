@@ -9,11 +9,11 @@ export default function ClientLogos() {
     "https://thesatishjassal.vercel.app/_next/image?url=%2Fclients%2Fnd360.png&w=3840&q=75",
     "https://thesatishjassal.vercel.app/_next/image?url=%2Fclients%2Faoroa-tour-travels.png&w=3840&q=75",
     "https://thesatishjassal.vercel.app/_next/image?url=%2Fclients%2Fjaimaatoursandtravels.png&w=3840&q=75",
-    "https://thesatishjassal.vercel.app/_next/image?url=%2Fclients%2Fsandhutaxiservice.png&w=3840&q=75",
+    "https://sethidjhouse.com/wp-content/uploads/2026/03/sethidjhouse.jpeg",
     "https://panvik.com/wp-content/uploads/2025/01/logo-removebg-preview.png",
     "https://www.sukhmanitaxiservices.in/assets/Images/logo-alt.png",
     "https://www.kheratourandtravel.in/Images/logo.png",
-    "https://gurupunjabcabs.in/assets/img/logo-dark.png"
+    "https://boxbud.co.uk/wp-content/uploads/2023/11/boxbud_png.png",
   ];
 
   return (

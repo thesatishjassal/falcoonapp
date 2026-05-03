@@ -1,11 +1,15 @@
 "use client";
 
-export default function CtaBanner({ onOpenModal }) {
+export default function CtaBanner() {
+  const onOpenModal = () => {
+    window.open(
+      "https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call",
+      "_blank",
+    );
+  };
   return (
     <section className="falcoon-cta">
-
       <div className="falcoon-cta__overlay">
-
         {/* TRUST BADGE */}
         <span className="falcoon-cta__badge">
           ⚡ Limited spots available this month
@@ -18,7 +22,8 @@ export default function CtaBanner({ onOpenModal }) {
 
         {/* SUBTEXT */}
         <p className="falcoon-cta__subtitle">
-          We build your complete funnel, content & automation so you can focus on coaching.
+          We build your complete funnel, content & automation so you can focus
+          on coaching.
         </p>
 
         {/* CTA */}
@@ -31,7 +36,6 @@ export default function CtaBanner({ onOpenModal }) {
         <p className="falcoon-cta__trust">
           No commitment • Done-for-you system • Results-focused
         </p>
-
       </div>
     </section>
   );

@@ -46,7 +46,7 @@ export default function OrderSummary({
       : []),
   ];
 
-  const fmt = (n) => (n === 0 ? "Free" : `₹${n.toLocaleString("en-IN")}`);
+  const fmt = (n) => (n === 0 ? "N/A" : `₹${n.toLocaleString("en-IN")}`);
 
   return (
     <>
@@ -95,7 +95,7 @@ export default function OrderSummary({
               target="_blank"
               rel="noreferrer"
             >
-              Book Free Strategy Call
+              Book N/A Strategy Call
             </a>
           </p>
         )}
@@ -160,7 +160,7 @@ export default function OrderSummary({
 
               <div
                 className={`order-sheet__row-price ${
-                  r.price === 0 ? "free" : ""
+                  r.price === 0 ? "N/A" : ""
                 }`}
               >
                 {fmt(r.price)}
@@ -199,7 +199,7 @@ export default function OrderSummary({
                 target="_blank"
                 rel="noreferrer"
               >
-                Book Free Strategy Call
+                Book N/A Strategy Call
               </a>
             </p>
           )}

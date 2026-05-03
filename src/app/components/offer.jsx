@@ -193,8 +193,13 @@ export default function Offer() {
               <strong>340+ coaches</strong> already on Falcoon
             </p>
           </div>
-          <a tel="+91 7888467258" className="falcoon-offer__cta">
-            call Now
+          <a
+            href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+            className="falcoon-offer__cta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Shedule a Free Strategy Call <i class="fa-solid fa-angle-right"></i>
           </a>
         </div>
       </div>
