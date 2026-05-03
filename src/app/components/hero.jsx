@@ -88,7 +88,10 @@ export default function Hero({ onOpenModal }) {
               </span>
             </a>
 
-            <a href="#our_Work" className="falcoon-btn falcoon-btn--outline">
+            <a
+              href="#our_Work"
+              className="falcoon-btn falcoon-btn--outline mobile_hide"
+            >
               View Projects{" "}
               <span className="falcoon-btn__arrow">
                 <img
