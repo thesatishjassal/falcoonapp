@@ -4613,7 +4613,7 @@ body.modal-open {
     display: flex;
   }
   .mobile_none {
-    display: none;
+    display: none !important;
   }
   .mobile_none h2 {
     margin-bottom: 30px;
