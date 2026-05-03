@@ -190,7 +190,7 @@ export default function Offer() {
               ))}
             </div>
             <p className="falcoon-offer__bar-text">
-              <strong>340+ coaches</strong> already on Falcoon
+              <strong>50+ coaches</strong> already on Falcoon
             </p>
           </div>
           <a
