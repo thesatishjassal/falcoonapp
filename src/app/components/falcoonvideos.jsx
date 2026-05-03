@@ -19,18 +19,25 @@ export default function FalcoonVideos() {
         {/* HEADER */}
         <div className="falcoon-videos__header">
           <h2>Our Work in Action</h2>
-          <p>Click any video to watch full screen</p>
+          <p>Scroll → and tap to watch</p>
         </div>
 
-        {/* GRID */}
-        <div className="falcoon-videos__grid">
+        {/* HORIZONTAL SCROLL */}
+        <div className="videos-row">
           {videos.map((video, index) => (
             <div
               key={index}
               className="video-card"
               onClick={() => setActiveVideo(video)}
             >
-              <video src={video} muted loop playsInline />
+              <iframe
+                src={video + "?mute=1&controls=0"}
+                title={`video-${index}`}
+                frameBorder="0"
+              />
+
+              {/* Play overlay */}
+              <div className="play-btn">▶</div>
             </div>
           ))}
         </div>
@@ -42,7 +49,6 @@ export default function FalcoonVideos() {
               className="video-modal__content"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* CLOSE BUTTON */}
               <button
                 className="video-close"
                 onClick={() => setActiveVideo(null)}
@@ -50,11 +56,12 @@ export default function FalcoonVideos() {
                 ✕
               </button>
 
-              {/* VIDEO PLAYER */}
-              <video
-                src={activeVideo}
-                controls
-                autoPlay
+              <iframe
+                src={activeVideo + "?autoplay=0&controls=0"}
+                title="active-video"
+                frameBorder="0"
+                allow="encrypted-media"
+                allowFullScreen
                 className="video-modal__player"
               />
             </div>
