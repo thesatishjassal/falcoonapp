@@ -312,19 +312,16 @@ span.regular_font {
 .falcoon-header__btn {
   background: var(--color-white);
   color: var(--color-primary);
-  border: none;
-  padding: 10px 18px;
   border-radius: var(--radius-pill);
-  font-weight: 600;
-  font-size: 14px;
   cursor: pointer;
-
-  display: flex;
+  transition: var(--transition);
+  border: none;
   align-items: center;
   gap: 8px;
-
-  /* box-shadow: var(--shadow-btn); */
-  transition: var(--transition);
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex !important;
 }
 
 .falcoon-header__btn:hover {
@@ -8656,4 +8653,104 @@ p.summary__micro {
 .contact__btn--primary:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+/* BLOCK */
+.growth {
+  max-width: 720px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* ELEMENTS */
+.growth__title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.growth__subtitle {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.growth__section {
+  margin-bottom: 24px;
+}
+
+.growth__label {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.growth__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+/* DEFAULT CARD */
+.growth__card {
+  padding: 16px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+  position: relative;
+}
+
+/* HOVER */
+.growth__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ✅ ACTIVE (SELECTED STATE) */
+.growth__card--active {
+  border: 2px solid #530a4e;
+  background: #faf5fa;
+  box-shadow: 0 8px 20px rgba(83, 10, 78, 0.15);
+  transform: scale(1.02);
+}
+
+/* OPTIONAL: CHECK ICON */
+.growth__card--active::after {
+  content: "\f00c"; /* Font Awesome check */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #530a4e;
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.growth__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.growth__btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: 10px;
+  background: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.growth__btn--secondary {
+  flex: 1;
+  padding: 14px;
+  border-radius: 10px;
+  background: #f5f5f5;
+  border: none;
+  cursor: pointer;
 }

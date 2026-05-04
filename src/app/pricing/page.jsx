@@ -7,20 +7,33 @@ import StepAutomation from "../../app/components/stepautomation";
 import StepHosting from "../../app/components/stephosting";
 import StepContact from "../../app/components/stepcontact";
 import OrderSummary from "../../app/components/ordersummary";
+import StepGrowth from "../../app/components/stepgrowth";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const STEPS = ["Launch", "Payment", "Automation", "Hosting", "Details"];
-
+const STEPS = [
+  "Launch",
+  "Payment",
+  "Automation",
+  "Hosting",
+  "Growth", // ✅ NEW
+  "Details",
+];
 const DEFAULT_STATE = {
   launch: { price: 14999, label: "Fitness Program" },
   payment: { price: 2999, label: "Razorpay" },
   automation: { price: 0, label: null },
   hosting: { price: 0, label: "I have my own hosting" },
   addons: { clientDashboard: false },
+
+  // ✅ MUST EXIST
+  growth: {
+    vsl: null,
+    adsBudget: null,
+  },
+
   contact: { name: "", email: "", phone: "" },
 };
-
 export default function CheckoutPage() {
   const [showSummary, setShowSummary] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
@@ -150,6 +163,17 @@ export default function CheckoutPage() {
               />
             )}
             {currentStep === 5 && (
+              <StepGrowth
+                selected={selections.growth} // ✅ correct
+                onChange={(val) =>
+                  setSelections((s) => ({ ...s, growth: val }))
+                }
+                onNext={nextStep}
+                onBack={prevStep}
+              />
+            )}
+
+            {currentStep === 6 && (
               <StepContact
                 contact={selections.contact}
                 onChange={(val) =>
