@@ -7,7 +7,7 @@ import StepAutomation from "../../app/components/stepautomation";
 import StepHosting from "../../app/components/stephosting";
 import StepContact from "../../app/components/stepcontact";
 import OrderSummary from "../../app/components/ordersummary";
-import StepGrowth from "../../app/components/stepgrowth";
+// import StepGrowth from "../../app/components/stepgrowth";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -16,7 +16,7 @@ const STEPS = [
   "Payment",
   "Automation",
   "Hosting",
-  "Growth", // ✅ NEW
+  // "Growth", // ✅ NEW
   "Details",
 ];
 const DEFAULT_STATE = {
@@ -27,10 +27,10 @@ const DEFAULT_STATE = {
   addons: { clientDashboard: false },
 
   // ✅ MUST EXIST
-  growth: {
-    vsl: null,
-    adsBudget: null,
-  },
+  // growth: {
+  //   vsl: null,
+  //   adsBudget: null,
+  // },
 
   contact: { name: "", email: "", phone: "" },
 };
@@ -162,7 +162,7 @@ export default function CheckoutPage() {
                 onBack={prevStep}
               />
             )}
-            {currentStep === 5 && (
+            {/* {currentStep === 5 && (
               <StepGrowth
                 selected={selections.growth} // ✅ correct
                 onChange={(val) =>
@@ -171,9 +171,9 @@ export default function CheckoutPage() {
                 onNext={nextStep}
                 onBack={prevStep}
               />
-            )}
+            )} */}
 
-            {currentStep === 6 && (
+            {currentStep === 5 && (
               <StepContact
                 contact={selections.contact}
                 onChange={(val) =>
