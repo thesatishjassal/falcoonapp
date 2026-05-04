@@ -8,6 +8,7 @@ import StepHosting from "../../app/components/stephosting";
 import StepContact from "../../app/components/stepcontact";
 import OrderSummary from "../../app/components/ordersummary";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const STEPS = ["Launch", "Payment", "Automation", "Hosting", "Details"];
 
@@ -32,7 +33,7 @@ export default function CheckoutPage() {
     selections.automation.price +
     selections.hosting.price +
     (selections.addons.clientDashboard ? 2999 : 0);
-
+  const router = useRouter();
   const nextStep = () => setCurrentStep((s) => Math.min(s + 1, 5));
   const prevStep = () => setCurrentStep((s) => Math.max(s - 1, 1));
 
@@ -70,7 +71,8 @@ export default function CheckoutPage() {
         setLoadingText("Done 🚀");
         setTimeout(() => {
           setLoading(false);
-          // alert("Proposal sent successfully 🚀");
+          // 🔥 redirect instead of alert
+          router.push("/thank-you");
         }, 600);
       } else {
         setLoading(false);

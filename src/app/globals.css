@@ -199,6 +199,20 @@ span.regular_font {
     gap: 15px;
     grid-template-columns: repeat(3, 1fr);
   }
+  .thankyou__actions {
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .thankyou__actions {
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+  }
   .falcoon-process__item {
     padding: 10px;
   }
@@ -8549,4 +8563,67 @@ iframe {
 .checkout {
   padding: 16px;
   margin: 30px auto 50px !important;
+}
+.thankyou {
+  background: #f6f7fb;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  display: flex;
+}
+.thankyou__card {
+  background: #fff;
+  padding: 50px 40px;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+.checkmark {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #530a4e;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 20px;
+}
+
+.thankyou h1 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.thankyou p {
+  font-size: 14px;
+  color: #5f6368;
+  line-height: 1.6;
+}
+
+.thankyou__actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.thankyou__actions a {
+  padding: 12px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.thankyou__actions a:first-child {
+  background: #530a4e;
+  color: #fff;
+}
+
+.thankyou__actions .secondary {
+  background: #f1f3f4;
+  color: #202124;
 }
