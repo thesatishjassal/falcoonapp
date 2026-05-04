@@ -101,6 +101,7 @@ export default function ContactPage() {
                   placeholder="First name"
                   value={form.firstName}
                   onChange={handleChange}
+                  disabled={loading}
                 />
                 {errors.firstName && (
                   <span className="error">{errors.firstName}</span>
@@ -112,6 +113,7 @@ export default function ContactPage() {
                   name="lastName"
                   placeholder="Last name"
                   value={form.lastName}
+                  disabled={loading}
                   onChange={handleChange}
                 />
               </div>
@@ -122,6 +124,7 @@ export default function ContactPage() {
                 name="email"
                 placeholder="Email"
                 value={form.email}
+                disabled={loading}
                 onChange={handleChange}
               />
               {errors.email && <span className="error">{errors.email}</span>}
@@ -132,6 +135,7 @@ export default function ContactPage() {
                 name="phone"
                 placeholder="Phone number"
                 value={form.phone}
+                disabled={loading}
                 onChange={handleChange}
               />
               {errors.phone && <span className="error">{errors.phone}</span>}
@@ -143,6 +147,7 @@ export default function ContactPage() {
                 rows="4"
                 placeholder="Leave us a message..."
                 value={form.message}
+                disabled={loading}
                 onChange={handleChange}
               />
               {errors.message && (
@@ -163,8 +168,15 @@ export default function ContactPage() {
               </label>
             </div>
 
-            <button type="submit" disabled={loading}>
-              {loading ? "Sending..." : "Send message"}
+            <button type="submit" disabled={loading} className="submit-btn">
+              {loading ? (
+                <span className="btn-loading">
+                  <span className="spinner"></span>
+                  Sending...
+                </span>
+              ) : (
+                "Send message"
+              )}
             </button>
 
             {/* SMART CTA BELOW FORM */}
