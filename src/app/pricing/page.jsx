@@ -24,7 +24,8 @@ export default function CheckoutPage() {
   const [showSummary, setShowSummary] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [selections, setSelections] = useState(DEFAULT_STATE);
-
+  const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState("");
   const total =
     selections.launch.price +
     selections.payment.price +
@@ -35,14 +36,52 @@ export default function CheckoutPage() {
   const nextStep = () => setCurrentStep((s) => Math.min(s + 1, 5));
   const prevStep = () => setCurrentStep((s) => Math.max(s - 1, 1));
 
-  const handleSubmit = () => {
-    if (!selections.contact.name.trim()) {
-      alert("Please fill your name");
-      return;
-    }
-    alert(`Thank you ${selections.contact.name}!\nYour order is ready.`);
-  };
+  const handleSubmit = async () => {
+    const { name, email, phone } = selections.contact;
 
+    if (!name.trim()) return alert("Please enter your name");
+    if (!email.trim()) return alert("Please enter your email");
+    if (!/\S+@\S+\.\S+/.test(email)) return alert("Enter valid email");
+    if (!phone.trim()) return alert("Please enter your phone");
+
+    try {
+      setLoading(true);
+
+      // 👇 Fake smart progress (feels premium)
+      setLoadingText("Calculating your quotation...");
+      await new Promise((r) => setTimeout(r, 800));
+
+      setLoadingText("Preparing your proposal...");
+      await new Promise((r) => setTimeout(r, 800));
+
+      setLoadingText("Sending to your email...");
+
+      const res = await fetch("/api/proposal", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ selections, total }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setLoadingText("Done 🚀");
+        setTimeout(() => {
+          setLoading(false);
+          // alert("Proposal sent successfully 🚀");
+        }, 600);
+      } else {
+        setLoading(false);
+        // alert(data.error || "Failed ❌");
+      }
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      // alert("Something went wrong ❌");
+    }
+  };
   return (
     <>
       <div className="checkout">
@@ -50,9 +89,18 @@ export default function CheckoutPage() {
           <h1>Build Your Funnel</h1>
           <p>Choose smart • Pay once • Launch fast</p>
         </div>
+        {loading && (
+          <div className="falcoon-loader">
+            <div className="falcoon-loader__box">
+              <div className="spinner" />
+
+              <p>{loadingText}</p>
+            </div>
+          </div>
+        )}
         <div className="checkout__layout  main-grid">
           <div className="checkout__main">
-        <StepProgress steps={STEPS} currentStep={currentStep} />
+            <StepProgress steps={STEPS} currentStep={currentStep} />
             {currentStep === 1 && (
               <StepLaunch
                 selected={selections.launch}
