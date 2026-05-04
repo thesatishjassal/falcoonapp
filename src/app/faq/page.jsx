@@ -100,7 +100,7 @@ export default function FAQPage() {
               href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
               className="falcoon-btn falcoon-btn--dark"
             >
-              Schedule a Call <i class="fa-solid fa-calendar"></i>
+              Schedule a Call <i className="fa-solid fa-calendar"></i>
             </a>
 
             {/* CONTACT LIST */}
@@ -112,7 +112,7 @@ export default function FAQPage() {
                 </div>
 
                 <a href="tel:+917888467258">
-                  <i class="fa-solid fa-angle-right"></i>
+                  <i className="fa-solid fa-angle-right"></i>
                 </a>
               </div>
 
@@ -126,7 +126,7 @@ export default function FAQPage() {
                   href="mailto:thesatishjassal@gmail.com
 "
                 >
-                  <i class="fa-solid fa-angle-right"></i>
+                  <i className="fa-solid fa-angle-right"></i>
                 </a>
               </div>
             </div>

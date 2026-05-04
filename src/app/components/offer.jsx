@@ -199,7 +199,8 @@ export default function Offer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Shedule a Free Strategy Call <i class="fa-solid fa-angle-right"></i>
+            Shedule a Free Strategy Call{" "}
+            <i className="fa-solid fa-angle-right"></i>
           </a>
         </div>
       </div>

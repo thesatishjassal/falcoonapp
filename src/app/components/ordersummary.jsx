@@ -46,7 +46,9 @@ export default function OrderSummary({
       : []),
   ];
 
-  const fmt = (n) => (n === 0 ? "N/A" : `₹${n.toLocaleString("en-IN")}`);
+  const fmt = (n) => (n === 0 ? "Included" : `₹${n.toLocaleString("en-IN")}`);
+
+  const CTA_TEXT = isLastStep ? "🚀 Get My Client-Ready Funnel" : "Continue →";
 
   return (
     <>
@@ -76,32 +78,33 @@ export default function OrderSummary({
 
         <div className="summary__total">
           <span>Total</span>
-          <span style={{ color: "#530a4e" }}>
+          <span style={{ color: "#530a4e", fontWeight: 700 }}>
             ₹{total.toLocaleString("en-IN")}
           </span>
         </div>
 
-        {/* ✅ PRIMARY CTA */}
-        <button className="summary__btn" onClick={onContinue}>
-          {isLastStep ? "📄 Get My Proposal" : "Continue →"}
-        </button>
-
-        {/* ✅ SECONDARY CTA */}
+        {/* 🔥 MICROCOPY (Conversion Booster) */}
         {isLastStep && (
-          <p className="summary__alt">
-            or{" "}
-            <a
-              href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Book N/A Strategy Call
-            </a>
+          <p className="summary__micro">
+            Get your custom funnel + automation system instantly
           </p>
         )}
 
+        {/* ✅ PRIMARY CTA */}
+        <button
+          className="summary__btn summary__btn--primary"
+          onClick={() => {
+            window.open(
+              "https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call",
+              "_blank",
+            );
+          }}
+        >
+          Talk to a Funnel Expert
+        </button>
+        {/* 🔒 TRUST */}
         <div className="summary__trust">
-          🔒 Secure process · No hidden charges
+          🔒 Secure checkout · Instant proposal · No hidden charges
         </div>
       </div>
 
@@ -160,7 +163,7 @@ export default function OrderSummary({
 
               <div
                 className={`order-sheet__row-price ${
-                  r.price === 0 ? "N/A" : ""
+                  r.price === 0 ? "included" : ""
                 }`}
               >
                 {fmt(r.price)}
@@ -178,8 +181,15 @@ export default function OrderSummary({
           </span>
         </div>
 
+        {/* 🔥 MOBILE MICROCOPY */}
+        {isLastStep && (
+          <p className="order-sheet__micro">
+            Get your client-ready funnel instantly
+          </p>
+        )}
+
         <div className="order-sheet__footer">
-          {/* ✅ PRIMARY CTA */}
+          {/* CTA */}
           <button
             className="order-sheet__cta"
             onClick={() => {
@@ -187,10 +197,10 @@ export default function OrderSummary({
               onContinue();
             }}
           >
-            {isLastStep ? "📄 Get My Proposal" : "Continue →"}
+            {CTA_TEXT}
           </button>
 
-          {/* ✅ SECONDARY CTA */}
+          {/* Secondary CTA */}
           {isLastStep && (
             <p className="order-sheet__alt">
               or{" "}
@@ -199,13 +209,13 @@ export default function OrderSummary({
                 target="_blank"
                 rel="noreferrer"
               >
-                Book N/A Strategy Call
+                Talk to a Funnel Expert
               </a>
             </p>
           )}
 
           <p className="order-sheet__trust">
-            🔒 Secure process · No hidden charges
+            🔒 Secure checkout · No hidden charges
           </p>
         </div>
       </div>

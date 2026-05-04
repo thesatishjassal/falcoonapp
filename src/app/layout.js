@@ -15,8 +15,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <Header />
+      <Header>
+        {" "}
         {/* ✅ Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -28,20 +28,20 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
           integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700&family=Oswald:wght@200..700&family=Prompt:wght@100..900&display=swap"
           rel="stylesheet"
         />
-
         {/* ✅ Material Icons */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
         />
-
+      </Header>
+      <body>
         {children}
         <SupportFloat />
         <Footer />
@@ -54,7 +54,7 @@ export default function RootLayout({ children }) {
               s1.async=true;
               s1.src='https://embed.tawk.to/69f5eeb382a2b91c3a6307b8/1jnkaorrr';
               s1.charset='UTF-8';
-              s1.setAttribute('crossorigin','*');
+              s1.setAttribute('crossOrigin','*');
               s0.parentNode.insertBefore(s1,s0);
             })();
           `}
