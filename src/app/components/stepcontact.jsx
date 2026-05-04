@@ -14,7 +14,7 @@ export default function StepContact({ contact, onChange, onSubmit, onBack }) {
           <label>Full Name</label>
           <input
             type="text"
-            placeholder="Satish Jassal"
+            placeholder="John Doe"
             value={contact.name}
             onChange={handleChange("name")}
           />
