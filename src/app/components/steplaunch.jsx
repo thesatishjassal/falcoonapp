@@ -22,7 +22,7 @@ const LAUNCH_OPTIONS = [
 export default function StepLaunch({ selected, onChange, onNext }) {
   return (
     <div className="launch">
-      <div className="mobile_none">
+      <div className="mobile">
         <h2 className="launch__title">What do you want to launch?</h2>
         {/* <p className="launch__subtitle">Choose one to get started quickly</p> */}
       </div>

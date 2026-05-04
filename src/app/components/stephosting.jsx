@@ -13,7 +13,7 @@ export default function StepHosting({
 }) {
   return (
     <div className="hosting">
-      <div className="mobile_none">
+      <div className="mobile">
         <h2 className="hosting__title">Hosting & Domain</h2>
         {/* <p className="hosting__subtitle">Choose your hosting setup</p> */}
       </div>

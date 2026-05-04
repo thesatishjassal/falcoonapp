@@ -16,7 +16,7 @@ const PAYMENT_OPTIONS = [
 export default function StepPayment({ selected, onChange, onNext, onBack }) {
   return (
     <div className="payment">
-      <div className="mobile_none">
+      <div className="mobile">
         <h2 className="payment__title">Payment Gateway</h2>
         {/* <p className="payment__subtitle">
           Choose how you want to receive payments
