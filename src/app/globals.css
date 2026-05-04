@@ -4198,7 +4198,9 @@ body.modal-open {
     grid-template-columns: repeat(1, 1fr);
   }
 }
-
+.mobile h2 {
+  margin-bottom: 30px !important;
+}
 @media (max-width: 600px) {
   .launch__actions,
   .payment__actions,
@@ -4213,8 +4215,8 @@ body.modal-open {
     border-radius: 50px !important;
   }
   .mobile h2 {
-    font-size: 18px;
-    margin-bottom: 30px;
+    font-size: 18px !important;
+    margin-bottom: 30px !important;
     font-weight: 400 !important;
   }
 }
