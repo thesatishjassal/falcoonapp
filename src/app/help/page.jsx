@@ -58,7 +58,7 @@ export default function ContactPage() {
     setSuccess("");
 
     try {
-      await axios.post("http://localhost:5000/api/contact", form);
+      await axios.post("/api/contact", form);
       setSuccess("Message sent successfully 🚀");
       setForm({
         firstName: "",
