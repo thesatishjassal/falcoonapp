@@ -8169,11 +8169,6 @@ img.falcoon-system__image {
     display: flex;
   }
   /* INFO CARDS → SINGLE COLUMN */
-  .falcoon-contact-ui__info {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
   /* CARD */
   .falcoon-contact-ui__card {
     padding: 14px;
