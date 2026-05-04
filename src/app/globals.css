@@ -8059,7 +8059,8 @@ img.falcoon-system__image {
 /* 📱 MOBILE */
 @media (max-width: 576px) {
   .falcoon-contact-ui__info {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .falcoon-contact-ui__card {
@@ -8126,9 +8127,8 @@ img.falcoon-system__image {
   }
   a.falcoon-contact-ui__cta {
     display: block;
-    position: absolute;
-    right: 15px;
-    bottom: 30px;
+    position: sticky !important;
+    margin-top: 20px;
   }
   .falcoon-contact-ui__hero p {
     font-size: 13px;
@@ -8137,12 +8137,14 @@ img.falcoon-system__image {
   /* GRID */
   .falcoon-contact-ui__grid {
     gap: 20px;
+    flex-direction: column-reverse !important;
+    display: flex;
   }
 
   /* FORM */
   .falcoon-contact-ui__form {
-    padding: 16px;
     border-radius: 14px;
+    padding: 0px;
   }
 
   /* INPUTS */
@@ -8161,12 +8163,11 @@ img.falcoon-system__image {
 
   /* CHECKBOX */
   .services {
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px;
     font-size: 13px;
+    display: flex;
   }
-
   /* INFO CARDS → SINGLE COLUMN */
   .falcoon-contact-ui__info {
     grid-template-columns: 1fr;
