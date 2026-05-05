@@ -64,7 +64,7 @@ s0.parentNode.insertBefore(s1,s0);
         </Script>{" "}
         <div className="left_cta_wrapper">
           <Link href="/pricing" className="left_cta_tab">
-            <span className="left_cta_text">Pricing</span>
+            <span className="left_cta_text">Get Free Quotation</span>
           </Link>
         </div>
       </body>
