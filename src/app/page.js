@@ -14,6 +14,7 @@ import ClientLogos from "./components/clientlogos";
 import Team from "./components/team";
 import Testimonials from "./components/testimonials";
 import FalcoonVideos from "./components/falcoonvideos";
+import QuoteCTA from "./components/quoteCTA";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,16 +22,17 @@ export default function Home() {
   return (
     <>
       <Hero onOpenModal={() => setIsModalOpen(true)} />
-      <ClientLogos />
-      <FunnelModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <Problem />
       <Offer />
+      <Benefits />
+      {/* <FunnelModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
       {/* <Team /> */}
       <Services />
-      <System />
+      {/* <QuoteCTA /> */}
+      {/* <System /> */}
+      <ClientLogos />
       <Testimonials />
       {/* <FalcoonVideos /> */}
-      <Benefits />
       <CTA />
       <FAQ />
     </>

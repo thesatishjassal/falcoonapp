@@ -5,13 +5,30 @@ import Image from "next/image";
 
 export default function Hero({ onOpenModal }) {
   const words = [
-    "Client-Generating Machine",
-    "Sales Engine",
-    "Automation System",
-    "Revenue Funnel",
-    "Lead Machine",
+    "Sell Fitness Programs",
+    "Sell Fitness Products",
+    "Sell Online Consultations",
+  ];
+  const greetings = [
+    "Yoga Teacher",
+    "Gym Trainer",
+    "Fitness Coach",
+    "Personal Trainer",
+    "Online Coach",
+    "Nutritionist",
   ];
 
+  const [greetingIndex, setGreetingIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGreetingIndex((prev) => (prev + 1) % greetings.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const greetingText = greetings[greetingIndex];
   const colors = ["#FF9933", "#138808", "#000000"];
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -51,12 +68,13 @@ export default function Hero({ onOpenModal }) {
         <div className="falcoon-hero__content">
           {/* 🔥 TAG */}
           <p className="falcoon-hero__tag">
-            🚀 FOR COACHES, DOCTORS & DIETITIONS
+            🙏 Namaste{" "}
+            <span className="falcoon-hero__tag-highlight">{greetingText}</span>
           </p>
 
-          {/* 🔥 HEADLINE */}
+          {/* 🔥 UPDATED HEADLINE */}
           <h1 className="falcoon-hero__title">
-            Turn Your Website Into a <br />
+            We Help Fitness Professionals To <br />
             <span
               className="falcoon-hero__highlight"
               style={{ color: colors[colorIndex] }}
@@ -66,7 +84,7 @@ export default function Hero({ onOpenModal }) {
             </span>
           </h1>
 
-          {/* 🔥 SUBTEXT */}
+          {/* 🔥 SUBTEXT (unchanged) */}
           <p className="falcoon-hero__desc">
             We build high-converting websites with automation, booking & payment
             systems — so you get clients on autopilot.
@@ -111,7 +129,7 @@ export default function Hero({ onOpenModal }) {
 
         {/* RIGHT */}
         <div className="falcoon-hero__visual">
-          {/* 🔥 FLOATING CARD (LIVE FEEL) */}
+          {/* 🔥 FLOATING CARD */}
           <div className="falcoon-hero__floating">
             <span>🔥 Rahul booked a call</span>
           </div>

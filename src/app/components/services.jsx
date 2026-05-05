@@ -5,47 +5,47 @@ const niches = [
     emoji: "🏋️",
     bg: "#FFF3E0",
     title: "Personal Trainers",
-    hook: "Manage 1:1 clients, sessions & payments without the chaos.",
-    tag: "Gym & home coaches",
+    hook: "Manage clients & get paid",
+    tag: "1:1 coaching",
   },
   {
     emoji: "🧘",
     bg: "#F3E5F5",
-    title: "Yoga & Mindfulness",
-    hook: "Sell drop-ins, memberships & retreats from one link.",
+    title: "Yoga Coaches",
+    hook: "Sell classes & memberships",
     tag: "Classes & workshops",
   },
   {
     emoji: "🥗",
     bg: "#E8F5E9",
-    title: "Nutrition & Diet Experts",
-    hook: "Offer meal plans, consultations & follow-ups professionally.",
-    tag: "Dietitians & coaches",
+    title: "Nutrition Experts",
+    hook: "Sell plans & consultations",
+    tag: "Diet coaching",
   },
   {
     emoji: "💪",
     bg: "#FCE4EC",
-    title: "Fitness & Transformation",
-    hook: "Run body transformation programs with built-in payments.",
-    tag: "Online coaches",
+    title: "Online Coaches",
+    hook: "Run transformation programs",
+    tag: "Online fitness",
   },
   {
     emoji: "📱",
     bg: "#E3F2FD",
-    title: "Online Fitness Creators",
-    hook: "Monetise your audience with digital products & subscriptions.",
-    tag: "Influencers & creators",
+    title: "Fitness Creators",
+    hook: "Monetise your audience",
+    tag: "Content creators",
   },
   {
     emoji: "🏢",
     bg: "#F1F8E9",
-    title: "Gym & Studio Owners",
-    hook: "Automate memberships, class bookings & walk-in payments.",
-    tag: "Studios & facilities",
+    title: "Gym Owners",
+    hook: "Automate bookings & payments",
+    tag: "Studios & gyms",
   },
 ];
 
-export default function Services() {
+export default function BuildFor() {
   return (
     <section className="falcoon-services">
       <div className="falcoon-container">
@@ -57,12 +57,11 @@ export default function Services() {
           </span>
 
           <h2 className="falcoon-services__title">
-            Built for <span>every type</span> of fitness professional
+            Built for <span>fitness professionals</span>
           </h2>
 
           <p className="falcoon-services__desc">
-            Whether you train in-person, online, or both — Falcoon works for
-            your niche.
+            Find yourself below — this is built exactly for you.
           </p>
         </div>
 
@@ -81,27 +80,26 @@ export default function Services() {
                 <h3 className="falcoon-niche-card__title">{niche.title}</h3>
               </div>
 
-              <div className="falcoon-niche-card__divider" />
-
+              {/* SHORT BENEFIT */}
               <p className="falcoon-niche-card__desc">{niche.hook}</p>
 
-              <span className="falcoon-niche-card__tag">✓ {niche.tag}</span>
+              {/* LIGHT TAG */}
+              <span className="falcoon-niche-card__tag">{niche.tag}</span>
             </div>
           ))}
         </div>
 
-        {/* CTA BAR */}
+        {/* CTA */}
         <div className="falcoon-services__cta-bar">
           <p>
-            <strong>Your niche is covered.</strong> Lets get you set up with a
-            free strategy call.
+            <strong>This works for your niche.</strong> Let’s build your funnel.
           </p>
 
           <a
             href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
             className="falcoon-services__cta-btn"
           >
-            Start free →
+            Get Started →
           </a>
         </div>
       </div>

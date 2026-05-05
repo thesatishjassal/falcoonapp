@@ -4,6 +4,7 @@ import Script from "next/script";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import SupportFloat from "./components/supportfloat";
+import Link from "next/link";
 export const metadata = {
   title: "Falcoon",
   description: "Fitness funnel system",
@@ -47,7 +48,6 @@ export default function RootLayout({ children }) {
         {children}
         <SupportFloat />
         <Footer />
-
         {/* Tawk Script */}
         <Script id="tawk-to" strategy="afterInteractive">
           {`
@@ -62,7 +62,12 @@ export default function RootLayout({ children }) {
               s0.parentNode.insertBefore(s1,s0);
             })();
           `}
-        </Script>
+        </Script>{" "}
+        <div className="left_cta_wrapper">
+          <Link href="/pricing" className="left_cta_tab">
+            <span className="left_cta_text">Pricing</span>
+          </Link>
+        </div>
       </body>
     </html>
   );
