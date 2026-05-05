@@ -11,13 +11,19 @@ export const metadata = {
     google: "wmeKQp8rNpuVbdsm0s7OthyTLKw21J10-xRqGc4IV7s",
   },
 };
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Header>
-        {" "}
-        {/* ✅ Google Fonts */}
+      <head>
+        {/* ✅ Font Awesome (ONLY THIS) */}
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+
+        {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -25,26 +31,24 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         />
         <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/fontawesome.min.css"
-          integrity="sha512-M5Kq4YVQrjg5c2wsZSn27Dkfm/2ALfxmun0vUE3mPiJyK53hQBHYCVAtvMYEC7ZXmYLg8DVG4tF8gD27WmDbsg=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"
-        />
-        <link
           href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700&family=Oswald:wght@200..700&family=Prompt:wght@100..900&display=swap"
           rel="stylesheet"
         />
-        {/* ✅ Material Icons */}
+
+        {/* Material Icons */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
         />
-      </Header>
+      </head>
+
       <body>
+        <Header />
         {children}
         <SupportFloat />
         <Footer />
+
+        {/* Tawk Script */}
         <Script id="tawk-to" strategy="afterInteractive">
           {`
             var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();

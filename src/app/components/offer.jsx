@@ -1,89 +1,43 @@
+"use client";
+
 const cards = [
   {
     bgColor: "green",
     iconColor: "falcoon-card__icon--green",
-    icon: (
-      <svg viewBox="0 0 16 16" fill="none">
-        <path
-          d="M8 2.5l1.5 4h4l-3.2 2.3 1.2 3.9L8 10.2l-3.5 2.5 1.2-3.9L2.5 6.5h4L8 2.5z"
-          stroke="#1D9E75"
-          strokeWidth="1.2"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
+    icon: <i className="fa-solid fa-dumbbell"></i>,
     badge: null,
     featured: false,
-    title: "Turn Followers Into\nPaying Clients",
-    desc: "A clean sales page that converts — no tech skills needed.",
-    checks: ["Custom landing page", "Lead capture forms", "WhatsApp follow-up"],
+    title: "Sell Fitness Programs",
+    desc: "We build high-converting funnels so you can sell your coaching programs without tech stress.",
+    checks: [
+      "Landing pages that convert",
+      "Offer structuring",
+      "Lead capture + WhatsApp flow",
+    ],
   },
   {
     bgColor: "orange",
     iconColor: "falcoon-card__icon--orange",
-    icon: (
-      <svg viewBox="0 0 16 16" fill="none">
-        <rect
-          x="2"
-          y="4"
-          width="12"
-          height="9"
-          rx="1.5"
-          stroke="#D85A30"
-          strokeWidth="1.2"
-        />
-        <path
-          d="M5 4V3a3 3 0 0 1 6 0v1"
-          stroke="#D85A30"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-        />
-        <circle cx="8" cy="8.5" r="1" fill="#D85A30" />
-      </svg>
-    ),
-    badge: "Most popular",
+    icon: <i className="fa-solid fa-box"></i>,
+    badge: null,
     featured: true,
-    title: "Sell Packages\n& Products",
-    desc: "Set prices and collect payments in minutes.",
+    title: "Sell Products",
+    desc: "Sell digital or physical products with a clean checkout experience.",
     checks: [
-      "1:1, group & digital products",
-      "UPI, card & EMI support",
-      "Auto invoices & receipts",
+      "Digital & physical setup",
+      "Order & checkout pages",
+      "Upsells & bundles",
     ],
   },
   {
     bgColor: "blue",
     iconColor: "falcoon-card__icon--blue",
-    icon: (
-      <svg viewBox="0 0 16 16" fill="none">
-        <rect
-          x="2"
-          y="3"
-          width="12"
-          height="11"
-          rx="1.5"
-          stroke="#185FA5"
-          strokeWidth="1.2"
-        />
-        <path
-          d="M2 7h12M5 2v2M11 2v2"
-          stroke="#185FA5"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-        />
-        <rect x="5" y="9" width="2" height="2" rx="0.5" fill="#185FA5" />
-        <rect x="9" y="9" width="2" height="2" rx="0.5" fill="#185FA5" />
-      </svg>
-    ),
+    icon: <i className="fa-solid fa-calendar-check"></i>,
     badge: null,
     featured: false,
-    title: "Automate Bookings\n& Payments",
-    desc: "Clients book themselves. You wake up to confirmed sessions.",
-    checks: [
-      "Real-time availability",
-      "Auto reminders sent",
-      "Zero back-and-forth",
-    ],
+    title: "Sell Consultations",
+    desc: "Clients book and pay before calls — no back-and-forth needed.",
+    checks: ["Call booking funnels", "Auto scheduling", "Prepaid appointments"],
   },
 ];
 
@@ -94,17 +48,7 @@ const avatars = [
   { initials: "RJ", bg: "#FAEEDA", color: "#854F0B" },
 ];
 
-const CheckIcon = () => (
-  <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-    <path
-      d="M1.5 4L3 5.5L6.5 2"
-      stroke="#1D9E75"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+const CheckIcon = () => <i className="fa-solid fa-check"></i>;
 
 export default function Offer() {
   return (
@@ -114,17 +58,19 @@ export default function Offer() {
         <div className="falcoon-offer__header">
           <div className="falcoon-offer__pill">
             <span className="falcoon-offer__pill-dot" />
-            The solution
+            Done-for-you funnels
           </div>
+
           <h2 className="falcoon-offer__title">
-            One system to run your{" "}
+            We build your{" "}
             <span className="falcoon-offer__title-accent">
-              entire coaching business
+              fitness revenue funnels
             </span>
           </h2>
+
           <p className="falcoon-offer__desc">
-            No more juggling apps. Falcoon handles your clients, bookings, and
-            payments — all in one place.
+            Sell programs, products, and consultations — without tech headaches.
+            You focus on coaching. We handle the funnel.
           </p>
         </div>
 
@@ -133,28 +79,20 @@ export default function Offer() {
           {cards.map((card, i) => (
             <div
               key={i}
-              className={`falcoon-card ${card.featured ? "falcoon-card--featured" : ""} ${card.bgColor}`}
+              className={`falcoon-card ${
+                card.featured ? "falcoon-card--featured" : ""
+              } ${card.bgColor}`}
             >
               {/* Card Head */}
               <div className="falcoon-card__head">
                 <div className={`falcoon-card__icon ${card.iconColor}`}>
                   {card.icon}
                 </div>
-                {/* {card.badge && (
-                  <span className="falcoon-card__badge">{card.badge}</span>
-                )} */}
               </div>
 
               {/* Card Body */}
               <div className="falcoon-card__body">
-                <h3 className="falcoon-card__title">
-                  {card.title.split("\n").map((line, j) => (
-                    <span key={j}>
-                      {line}
-                      {j < card.title.split("\n").length - 1 && <br />}
-                    </span>
-                  ))}
-                </h3>
+                <h3 className="falcoon-card__title">{card.title}</h3>
                 <p className="falcoon-card__desc">{card.desc}</p>
               </div>
 
@@ -175,7 +113,7 @@ export default function Offer() {
           ))}
         </div>
 
-        {/* Bottom Bar */}
+        {/* Payment Trust (same structure area reused) */}
         <div className="falcoon-offer__bar">
           <div className="falcoon-offer__bar-left">
             <div className="falcoon-offer__avatars">
@@ -189,19 +127,37 @@ export default function Offer() {
                 </div>
               ))}
             </div>
+
             <p className="falcoon-offer__bar-text">
-              <strong>50+ coaches</strong> already on Falcoon
+              <strong>50+ fitness coaches</strong> scaling with Falcoon funnels
             </p>
           </div>
+
           <a
             href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
             className="falcoon-offer__cta"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Shedule a Free Strategy Call{" "}
-            <i className="fa-solid fa-angle-right"></i>
+            Build My Funnel <i className="fa-solid fa-arrow-right"></i>
           </a>
+        </div>
+
+        {/* Payment badges (added below WITHOUT changing structure) */}
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <p style={{ fontSize: "13px", color: "#666" }}>Accept payments via</p>
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              justifyContent: "center",
+              marginTop: "8px",
+            }}
+          >
+            <span>Stripe</span>
+            <span>PayPal</span>
+            <span>Razorpay</span>
+          </div>
         </div>
       </div>
     </section>

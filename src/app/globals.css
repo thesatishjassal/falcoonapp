@@ -8750,3 +8750,65 @@ p.summary__micro {
   border: none;
   cursor: pointer;
 }
+.falcoon-card__icon i {
+  font-size: 25px;
+}
+.falcoon-card__icon--green i {
+  color: #008d5b;
+}
+.falcoon-card__icon--orange i {
+  color: #f84403;
+}
+.falcoon-card__icon--blue i {
+  color: #016dce;
+}
+.falcoon-card--featured.orange span.falcoon-card__check-icon {
+  background: #f84403;
+  color: #fff;
+  padding: 8px;
+}
+.falcoon-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.falcoon-card__icon i {
+  font-size: 18px;
+  color: #530a4e;
+  transition: all 0.3s ease;
+}
+
+.falcoon-card:hover .falcoon-card__icon {
+  transform: scale(1.1);
+}
+
+.falcoon-card:hover .falcoon-card__icon i {
+  transform: translateY(-2px);
+}
+.falcoon-card {
+  transition: all 0.3s ease;
+}
+
+.falcoon-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+.falcoon-offer__cta {
+  transition: all 0.3s ease;
+}
+
+.falcoon-offer__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(83, 10, 78, 0.25);
+}
+
+.falcoon-offer__cta i {
+  margin-left: 6px;
+  transition: transform 0.3s ease;
+}
+
+.falcoon-offer__cta:hover i {
+  transform: translateX(4px);
+}
