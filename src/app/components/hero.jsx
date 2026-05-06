@@ -135,7 +135,7 @@ export default function Hero({ onOpenModal }) {
           </div>
 
           <img
-            src="/assets/images/falcoon_hero-image-v2.png"
+            src="/assets/images/falcoon_hero-image.png"
             alt="Falcoon Funnel Visual"
           />
         </div>
