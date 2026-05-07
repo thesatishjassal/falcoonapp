@@ -22,6 +22,7 @@ export default function Home() {
   return (
     <>
       <Hero onOpenModal={() => setIsModalOpen(true)} />
+      <ClientLogos />
       <Problem />
       <Offer />
       <Benefits />
@@ -30,7 +31,6 @@ export default function Home() {
       <Services />
       {/* <QuoteCTA /> */}
       {/* <System /> */}
-      <ClientLogos />
       <Testimonials />
       {/* <FalcoonVideos /> */}
       <CTA />

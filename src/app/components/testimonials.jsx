@@ -33,7 +33,7 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="falcoon-testimonials">
+    <section className="falcoon-testimonials" id="our_Work">
       <div className="falcoon-container">
         <h2 className="falcoon-testimonials__title">
           What our clients say 💬
@@ -46,7 +46,7 @@ export default function Testimonials() {
               <p className="falcoon-testimonial__text">“{t.text}”</p>
 
               <div className="falcoon-testimonial__user">
-                <img src={t.image} alt={t.name} />
+                {/* <img src={t.image} alt={t.name} /> */}
                 <div>
                   <h4>{t.name}</h4>
                   <span>{t.role}</span>

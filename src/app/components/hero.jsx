@@ -110,7 +110,7 @@ export default function Hero({ onOpenModal }) {
               href="#our_Work"
               className="falcoon-btn falcoon-btn--outline mobile_none"
             >
-              View Projects{" "}
+              View Clients{" "}
               <span className="falcoon-btn__arrow">
                 <img
                   src="/assets/images/art_track_24dp_530A4E_FILL0_wght400_GRAD0_opsz24.svg"
@@ -134,11 +134,9 @@ export default function Hero({ onOpenModal }) {
             <span>🔥 Rahul booked a call</span>
           </div>
 
-          <Image
-            src="/assets/images/falcoon_hero-image.png"
+          <img
+            src="/assets/images/falcoon_hero-image-v2.png"
             alt="Falcoon Funnel Visual"
-            width={600}
-            height={500}
           />
         </div>
       </div>
