@@ -7355,21 +7355,19 @@ img.falcoon-system__image {
   font-weight: 600;
 }
 
-.summary__btn,
-.order-sheet__cta {
-  background: var(--color-primary);
-  color: #fff;
-  cursor: pointer;
-  border: none;
-  border-radius: 999px;
-  width: 100%;
-  padding: 14px;
-  font-weight: 600;
-  transition: all 0.3s;
-  display: block;
-  text-align: center;
+.summary__btn, .order-sheet__cta {
+    background: #ffffff;
+    color: var(--color-primary);
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--color-primary);
+    border-radius: 999px;
+    width: 100%;
+    padding: 14px;
+    font-weight: 600;
+    transition: all .3s;
+    display: block;
 }
-
 .summary__btn:hover,
 .order-sheet__cta:hover {
   transform: translateY(-2px);
