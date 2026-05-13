@@ -203,16 +203,9 @@ s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
 })();
           `}
-<<<<<<< HEAD
-        </Script><Script>  {`function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
-o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,
-o.onload=function(){window.trackingFunctions.onLoad({appId:"6a0179f627ecf500194c1d1f"})},
-document.head.appendChild(o)}initApollo();`}</Script>
-=======
         </Script>
 
         {/* ✅ Floating CTA */}
->>>>>>> 25570f3267d5d16bb181224e37efa7cb8a7d5baa
         <div className="left_cta_wrapper">
           <Link href="/pricing" className="left_cta_tab">
             <span className="left_cta_text">Get Free Quotation</span>
