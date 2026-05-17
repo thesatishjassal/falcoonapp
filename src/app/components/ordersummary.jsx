@@ -46,7 +46,7 @@ export default function OrderSummary({
       : []),
   ];
 
-  const fmt = (n) => (n === 0 ? "Included" : `₹${n.toLocaleString("en-IN")}`);
+  const fmt = (n) => (n === 0 ? "Not Selected" : `₹${n.toLocaleString("en-IN")}`);
 
   const CTA_TEXT = isLastStep ? "🚀 Get My Client-Ready Funnel" : "Continue →";
 
@@ -163,7 +163,7 @@ export default function OrderSummary({
 
               <div
                 className={`order-sheet__row-price ${
-                  r.price === 0 ? "included" : ""
+                  r.price === 0 ? "Not Selected" : ""
                 }`}
               >
                 {fmt(r.price)}
