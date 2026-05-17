@@ -95,7 +95,37 @@ export default function CheckoutPage() {
       console.error(err);
       setLoading(false);
       // alert("Something went wrong ❌");
+    } // ================================
+    // ✅ WATI API (ADDED AFTER EMAIL)
+    // ================================
+    try {
+      await fetch("https://live-server.wati.io/api/v1/sendTemplateMessage", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer wati_f4caa084-4e0b-4674-9134-8e7acdf5cbb4.a41Lz3VAkfWgC50a3-gcVgZkxPeg6k7MsVFKgS--xuIrJT_UCazYtivoDrjJkm0WpLb-jcSBrgWFjfg9kdjUzRt2eqKilkhD_eGoKsXS6OGUPFjvtk_2auUv4a3RhbNe
+`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          whatsappNumber: phone, // client number from form
+          template_name: "quotation_alert",
+          broadcast_name: "lead_notification",
+          parameters: [
+            {
+              name: "1",
+              value: name,
+            },
+            {
+              name: "2",
+              value: `Your quotation is ready. Total: ₹${total}`,
+            },
+          ],
+        }),
+      });
+    } catch (err) {
+      console.error("WATI API Error:", err);
     }
+    // ================================
   };
   return (
     <>
