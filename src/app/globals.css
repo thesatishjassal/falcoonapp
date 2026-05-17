@@ -394,7 +394,7 @@ span.regular_font {
 /* HERO */
 .falcoon-hero {
   background: linear-gradient(#fffcf6 90%, #fff 100%);
-  padding: 120px 130px;
+  padding: 120px 130px !important;
   margin-top: -66px;
 }
 /* Container */
