@@ -98,17 +98,17 @@ export default function CheckoutPage() {
     } // ================================
     // ✅ WATI API (ADDED AFTER EMAIL)
     // ================================
-    await fetch("/api/wati/send", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        phone,
-        name,
-        total,
-      }),
-    });
+    // await fetch("/api/wati/send", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     phone,
+    //     name,
+    //     total,
+    //   }),
+    // });
     // ================================
   };
   return (
