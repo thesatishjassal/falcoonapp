@@ -130,9 +130,9 @@ export default function Hero({ onOpenModal }) {
         {/* RIGHT */}
         <div className="falcoon-hero__visual">
           {/* 🔥 FLOATING CARD */}
-          <div className="falcoon-hero__floating">
+          {/* <div className="falcoon-hero__floating">
             <span>🔥 Rahul booked a call</span>
-          </div>
+          </div> */}
 
           <img
             src="/assets/images/falcoon_hero-image-v2.png"
