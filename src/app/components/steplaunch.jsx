@@ -15,7 +15,7 @@ const LAUNCH_OPTIONS = [
     desc: "Sell online training programs",
   },
   {
-    price: 14999,
+    price: 10999,
     label: "Product",
     icon: "📦",
     desc: "Sell physical or digital products",
