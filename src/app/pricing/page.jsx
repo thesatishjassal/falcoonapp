@@ -20,7 +20,7 @@ const STEPS = [
   "Details",
 ];
 const DEFAULT_STATE = {
-  launch: { price: 14999, label: "Fitness Program" },
+  launch: { price: 7999, label: "Counseling" },
   payment: { price: 2999, label: "Razorpay" },
   automation: { price: 0, label: null },
   hosting: { price: 0, label: "I have my own hosting" },

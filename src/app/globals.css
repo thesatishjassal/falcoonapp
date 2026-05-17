@@ -484,19 +484,19 @@ span.regular_font {
 }
 /* Image */
 .falcoon-hero__visual {
-    justify-content: end;
-    display: flex;
+  justify-content: end;
+  display: flex;
 }
 
 .falcoon-hero__visual img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
 }
 .falcoon-hero .falcoon-container {
-    width: 100%;
-    max-width: 1166px !important;
-    margin: 0 auto;
+  width: 100%;
+  max-width: 1166px !important;
+  margin: 0 auto;
 }
 /* 📱 Responsive */
 @media (max-width: 992px) {
@@ -3301,7 +3301,7 @@ body {
 .launch__grid {
   gap: 16px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
 }
 
 .launch__card {
@@ -3364,6 +3364,34 @@ body {
   color: white;
   font-weight: 500;
   cursor: pointer;
+} /* RECOMMENDED BADGE */
+.launch__card--recommended {
+  position: relative;
+  border: 2px solid #10b981 !important;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15) !important;
+}
+
+.launch__badge {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+  background: #10b981;
+  border-radius: 9999px;
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: -10px;
+}
+
+/* Optional: Make recommended card stand out more on hover */
+.launch__card--recommended:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(16, 185, 129, 0.2) !important;
 }
 /* BLOCK */
 .payment {
@@ -3480,7 +3508,7 @@ body {
 .automation__grid {
   gap: 16px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
 }
 
 .automation__card {
@@ -5881,15 +5909,15 @@ main.careers {
   font-size: 28px;
 }
 .falcoon-hero {
-    background: linear-gradient(#fffcf6 90%, #fff 100%);
-    padding: 80px 130px;
+  background: linear-gradient(#fffcf6 90%, #fff 100%);
+  padding: 80px 130px;
 }
 
 .falcoon-hero__container {
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 0px;
-    display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0px;
+  display: grid;
 }
 
 /* TITLE */
@@ -7355,18 +7383,19 @@ img.falcoon-system__image {
   font-weight: 600;
 }
 
-.summary__btn, .order-sheet__cta {
-    background: #ffffff;
-    color: var(--color-primary);
-    cursor: pointer;
-    text-align: center;
-    border: 1px solid var(--color-primary);
-    border-radius: 999px;
-    width: 100%;
-    padding: 14px;
-    font-weight: 600;
-    transition: all .3s;
-    display: block;
+.summary__btn,
+.order-sheet__cta {
+  background: #ffffff;
+  color: var(--color-primary);
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid var(--color-primary);
+  border-radius: 999px;
+  width: 100%;
+  padding: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: block;
 }
 .summary__btn:hover,
 .order-sheet__cta:hover {
@@ -9203,4 +9232,32 @@ section.falcoon-selector a.falcoon-btn.falcoon-btn--outline {
 .falcoon-process__cta-btn:hover {
   transform: translateY(-2px);
   opacity: 0.95;
+}
+/* RECOMMENDED STYLES */
+.automation__card--recommended {
+  position: relative;
+  border: 2px solid #10b981 !important;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15) !important;
+}
+
+.automation__badge {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+  background: #10b981;
+  border-radius: 9999px;
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-block;
+  position: absolute;
+  top: -10px;
+  left: 0;
+}
+
+.automation__card--recommended:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(16, 185, 129, 0.25) !important;
 }
