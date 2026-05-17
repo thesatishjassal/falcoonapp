@@ -386,6 +386,9 @@ span.regular_font {
   .falcoon-header__toggle {
     display: block;
   }
+  .falcoon-hero {
+    margin-top: 0px !important;
+  }
 }
 
 /* HERO */
