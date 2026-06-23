@@ -9499,7 +9499,7 @@ a {
   margin: 0 auto 36px;
 }
 .hero__actions {
-  /* flex-wrap: wrap; */
+  flex-wrap: nowrap !important;
   justify-content: center;
   gap: 14px;
   display: flex;
