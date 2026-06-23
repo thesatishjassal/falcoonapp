@@ -1,3 +1,4 @@
+"use client";
 import Head from "next/head";
 import { useState } from "react";
 
@@ -63,7 +64,7 @@ export default function Home() {
         />
       </Head>
 
-      <div className="site-header">
+      {/* <div className="site-header">
         <div className="site-header__inner">
           <div className="site-header__brand">
             <div className="site-header__brand-mark">F</div>
@@ -87,7 +88,7 @@ export default function Home() {
             <button className="btn btn--primary">Get started</button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <main>
         {/* HERO */}
