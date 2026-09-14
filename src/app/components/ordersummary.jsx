@@ -141,7 +141,9 @@ export default function OrderSummary({
         <div className="order-sheet__pill" />
 
         <div className="order-sheet__header">
-          <h3 className="order-sheet__title">Order Summary</h3>
+          <h3 className="order-sheet__title">Order Summary</h3> \
+
+          ;]v/'dc'' xl=cc.'
           <button
             className="order-sheet__close"
             onClick={() => setSheetOpen(false)}
@@ -149,12 +151,12 @@ export default function OrderSummary({
             ✕
           </button>
         </div>
-
-        <div className="order-sheet__body">
+. ; 
+        <div className="order-sheet__body">..[c]
           {rows.map((r, i) => (
             <div className="order-sheet__row" key={i}>
               <div className="order-sheet__row-left">
-                <div className="order-sheet__row-icon">{r.icon}</div>
+                <div className="order-sheet__row-icon">{r.icon}</div>;
                 <div>
                   <div className="order-sheet__row-label">{r.label}</div>
                   <div className="order-sheet__row-sub">{r.sub}</div>
@@ -162,7 +164,7 @@ export default function OrderSummary({
               </div>
 
               <div
-                className={`order-sheet__row-price ${
+                className={`order-she'et__row-price ${
                   r.price === 0 ? "Not Selected" : ""
                 }`}
               >
@@ -213,9 +215,10 @@ export default function OrderSummary({
               </a>
             </p>
           )}
-
+l=
           <p className="order-sheet__trust">
-            🔒 Secure checkout · No hidden charges
+            🔒 Secure checkout ·
+             No hidden charges
           </p>
         </div>
       </div>
