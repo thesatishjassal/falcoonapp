@@ -1,24 +1,3 @@
-/* ===========================================================
-   FALCOON — GLOBAL THEME (consolidated)
-   Old variable systems removed:
-   - --falcoon-bg / --falcoon-primary / --soft-shadow-light / --soft-shadow-dark
-     (were unused outside comments — deleted)
-   - --falcoon-text-dark / --falcoon-text-light
-     (merged into --color-title / --color-text)
-   - duplicate --primary/--text/--bg/--white/--radius/--shadow
-     from the old checkout block (merged into canonical --color-* tokens)
-   =========================================================== */
-/* ===========================================================
-   FALCOON — GLOBAL THEME (consolidated)
-   Old variable systems removed:
-   - --falcoon-bg / --falcoon-primary / --soft-shadow-light / --soft-shadow-dark
-     (were unused outside comments — deleted)
-   - --falcoon-text-dark / --falcoon-text-light
-     (merged into --color-title / --color-text)
-   - duplicate --primary/--text/--bg/--white/--radius/--shadow
-     from the old checkout block (merged into canonical --color-* tokens)
-   =========================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
