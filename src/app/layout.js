@@ -302,7 +302,7 @@ export default function RootLayout({ children }) {
         {/* ─────────────────────────────────────────
             Tawk.to Live Chat
         ───────────────────────────────────────── */}
-        <Script id="tawk-to" strategy="afterInteractive">
+        {/* <Script id="tawk-to" strategy="afterInteractive">
           {`
             var Tawk_API = Tawk_API || {};
             var Tawk_LoadStart = new Date();
@@ -319,7 +319,7 @@ export default function RootLayout({ children }) {
               s0.parentNode.insertBefore(s1, s0);
             })();
           `}
-        </Script>
+        </Script> */}
 
         {/* ─────────────────────────────────────────
             Floating Quotation CTA
