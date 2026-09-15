@@ -1,0 +1,239 @@
+/* Same tokens as the rest of the classic theme.
+   Safe to delete this :root block if it's already declared globally. */
+:root {
+  --ink: #241f1c;
+  --ink-soft: #665c53;
+  --ivory: #f7f1e4;
+  --ivory-deep: #ece2cc;
+  --cream-card: #fffdf7;
+  --gold: #c39a56;
+  --gold-dark: #96702f;
+  --gold-pale: #f1e4c8;
+  --line: rgba(36, 31, 28, 0.13);
+  --line-soft: rgba(36, 31, 28, 0.07);
+  --shadow: 0 10px 28px rgba(36, 31, 28, 0.08), 0 2px 8px rgba(36, 31, 28, 0.04);
+  --shadow-lift: 0 22px 48px rgba(36, 31, 28, 0.16);
+  --radius: 16px;
+  --radius-pill: 999px;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Karla", Arial, sans-serif;
+}
+
+.classic-header * {
+  box-sizing: border-box;
+}
+
+.classic-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(247, 241, 228, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-soft);
+  font-family: var(--sans);
+}
+
+.classic-header-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* ── Logo ── */
+.classic-header-logo a {
+  display: flex;
+  align-items: center;
+}
+.classic-header-logo img {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+/* ── Desktop nav + CTA ── */
+.classic-header-cta {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+@media (max-width: 900px) {
+  .classic-header-cta {
+    display: none;
+  }
+}
+
+.classic-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.classic-header-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  position: relative;
+}
+.classic-header-link:hover {
+  color: var(--ink);
+}
+.classic-header-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+.classic-header-link:hover::after {
+  transform: scaleX(1);
+}
+
+.classic-header-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  font-size: 10px;
+  color: var(--ink-soft);
+}
+
+.classic-header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.classic-header-btn:hover {
+  background: var(--gold-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(150, 112, 47, 0.3);
+}
+.classic-header-calendar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  filter: invert(93%) sepia(9%) saturate(400%) hue-rotate(345deg)
+    brightness(103%);
+}
+
+/* ── Burger toggle ── */
+.classic-header-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--cream-card);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+@media (max-width: 900px) {
+  .classic-header-toggle {
+    display: flex;
+  }
+}
+.classic-burger-bar {
+  width: 18px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+.classic-header-toggle.open .classic-burger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.classic-header-toggle.open .classic-burger-bar:nth-child(2) {
+  opacity: 0;
+}
+.classic-header-toggle.open .classic-burger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile drawer ── */
+.classic-mobile-drawer {
+  max-height: 0;
+  overflow: hidden;
+  background: var(--cream-card);
+  border-top: 1px solid var(--line-soft);
+  transition: max-height 0.3s ease;
+}
+.classic-mobile-drawer.open {
+  max-height: 420px;
+}
+
+.classic-mobile-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 24px;
+}
+.classic-mobile-drawer-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.classic-mobile-drawer-link:last-child {
+  border-bottom: none;
+}
+.classic-mobile-drawer-arrow {
+  color: var(--ink-soft);
+  font-size: 16px;
+}
+
+.classic-mobile-drawer-cta {
+  padding: 18px 24px 24px;
+}
+.classic-mobile-drawer-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 15px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+}

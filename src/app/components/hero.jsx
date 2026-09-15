@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import "./hero.css";
 
 export default function Hero({ onOpenModal }) {
   const words = [
@@ -38,23 +39,17 @@ export default function Hero({ onOpenModal }) {
 
     const timeout = setTimeout(() => {
       if (!isDeleting) {
-        setDisplayText(
-          currentWord.substring(0, displayText.length + 1)
-        );
+        setDisplayText(currentWord.substring(0, displayText.length + 1));
 
         if (displayText === currentWord) {
           setTimeout(() => setIsDeleting(true), 1200);
         }
       } else {
-        setDisplayText(
-          currentWord.substring(0, displayText.length - 1)
-        );
+        setDisplayText(currentWord.substring(0, displayText.length - 1));
 
         if (displayText === "") {
           setIsDeleting(false);
-          setCurrentWordIndex(
-            (prev) => (prev + 1) % words.length
-          );
+          setCurrentWordIndex((prev) => (prev + 1) % words.length);
         }
       }
     }, typingSpeed);
@@ -63,42 +58,38 @@ export default function Hero({ onOpenModal }) {
   }, [displayText, isDeleting, currentWordIndex]);
 
   return (
-    <section className="falcoon-hero">
-      <div className="falcoon-hero__container falcoon-container">
-
-        <div className="falcoon-hero__content">
-
-          <p className="falcoon-hero__tag">
+    <section className="classic-hero-section">
+      <div className="classic-wrap">
+        <div className="classic-hero-content">
+          <p className="classic-hero-tag">
             For UK{" "}
-            <span className="falcoon-hero__tag-highlight">
+            <span className="classic-hero-tag-highlight">
               {greetings[greetingIndex]}
             </span>
           </p>
 
-          <h1 className="falcoon-hero__title">
+          <h1 className="classic-hero-title">
             We Help Fitness Professionals
             <br />
-
-            <span className="falcoon-hero__highlight">
+            <span className="classic-hero-highlight">
               {displayText}
               <span className="cursor">|</span>
             </span>
           </h1>
 
-          <p className="falcoon-hero__desc">
-            We build high-converting websites, funnels and
-            automated sales systems that help UK fitness
-            professionals attract leads, book clients and
-            sell their services online.
+          <p className="classic-hero-desc">
+            We build high-converting websites, funnels and automated sales
+            systems that help UK fitness professionals attract leads, book
+            clients and sell their services online.
           </p>
 
-          <div className="falcoon-hero__actions">
+          <div className="classic-hero-actions">
             <a
               href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
-              className="falcoon-btn falcoon-btn--primary"
+              className="classic-btn classic-btn--primary"
             >
               Get Free Strategy Call
-              <span className="falcoon-btn__arrow">
+              <span className="classic-btn__arrow">
                 <img
                   src="/assets/images/calendar_month_white.svg"
                   className="calendar_icon"
@@ -109,10 +100,10 @@ export default function Hero({ onOpenModal }) {
 
             <a
               href="#our_Work"
-              className="falcoon-btn falcoon-btn--outline mobile_none"
+              className="classic-btn classic-btn--outline classic-mobile-none"
             >
               View Our Work
-              <span className="falcoon-btn__arrow">
+              <span className="classic-btn__arrow">
                 <img
                   src="/assets/images/art_track_24dp_530A4E_FILL0_wght400_GRAD0_opsz24.svg"
                   className="calendar_icon"
@@ -122,12 +113,10 @@ export default function Hero({ onOpenModal }) {
             </a>
           </div>
 
-          <p className="falcoon-hero__trust">
+          <p className="classic-hero-trust">
             Built for UK Fitness Professionals
           </p>
-
         </div>
-
       </div>
     </section>
   );

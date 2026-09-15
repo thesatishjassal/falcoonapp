@@ -1,130 +1,204 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import "./header.css";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const headerRef = useRef(null);
+
   const closeMenu = () => setIsOpen(false);
 
   useEffect(() => {
     if (!isOpen) return;
+
     const handleClick = (e) => {
-      if (headerRef.current && !headerRef.current.contains(e.target)) {
+      if (
+        headerRef.current &&
+        !headerRef.current.contains(e.target)
+      ) {
         setIsOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
   }, [isOpen]);
 
   return (
-    <header className="falcoon-header" ref={headerRef}>
-      <div className="falcoon-header__container falcoon-container">
+    <header className="classic-header" ref={headerRef}>
+      <div className="classic-header-container">
+
         {/* Logo */}
-        <div className="falcoon-header__logo">
-          <Link href="/" onClick={closeMenu}>
-            <img src="/assets/images/falcoon_logo.png" alt="Falcoon Logo" />
+        <div className="classic-header-logo">
+          <Link href="/" onClick={closeMenu} aria-label="Falcoon Home">
+<svg width="220" height="60" viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg">
+  <text
+    x="6" y="46"
+    font-family="Fraunces, Georgia, 'Times New Roman', serif"
+    font-style="italic"
+    font-weight="600"
+    font-size="56"
+    fill="#241f1c"
+  >f</text>
+  <text
+    x="30" y="41"
+    font-family="Fraunces, Georgia, 'Times New Roman', serif"
+    font-weight="600"
+    font-size="30"
+    letter-spacing="0.2"
+    fill="#241f1c"
+  >alcoon</text>
+</svg>
           </Link>
         </div>
 
-        {/* Desktop Nav + CTA */}
-        <div className="falcoon-header__cta">
-          <nav className="falcoon-header__nav">
-            <Link href="/about" className="falcoon-header__link">
+        {/* Desktop Navigation + CTA */}
+        <div className="classic-header-cta">
+          <nav className="classic-header-nav" aria-label="Main navigation">
+
+            <Link
+              href="/about"
+              className="classic-header-link"
+            >
               About
             </Link>
-            <Link href="/pricing" className="falcoon-header__link">
+
+            <Link
+              href="/pricing"
+              className="classic-header-link"
+            >
               Pricing
             </Link>
-            <Link href="/help" className="falcoon-header__link">
-              Support <span className="falcoon-header__icon">?</span>
+
+            <Link
+              href="/help"
+              className="classic-header-link"
+            >
+              Support{" "}
+              <span className="classic-header-icon">?</span>
             </Link>
-            <Link href="/faq" className="falcoon-header__link">
-              Faq
+
+            <Link
+              href="/faq"
+              className="classic-header-link"
+            >
+              FAQ
             </Link>
+
           </nav>
+
           <a
             href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
-            className="falcoon-header__btn"
+            className="classic-header-btn"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Book Free Strategy Call
-            <span className="falcoon-header__calendar">
+
+            <span className="classic-header-calendar">
               <Image
                 src="/assets/images/calendar_month.svg"
                 alt=""
-                width={20}
-                height={20}
+                width={16}
+                height={16}
               />
             </span>
           </a>
         </div>
 
-        {/* Burger Toggle */}
+        {/* Mobile Toggle */}
         <button
-          className={`falcoon-header__toggle ${isOpen ? "open" : ""}`}
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle navigation"
+          type="button"
+          className={`classic-header-toggle ${
+            isOpen ? "open" : ""
+          }`}
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-label={
+            isOpen ? "Close navigation" : "Open navigation"
+          }
           aria-expanded={isOpen}
         >
-          <span className="burger-bar" />
-          <span className="burger-bar" />
-          <span className="burger-bar" />
+          <span className="classic-burger-bar" />
+          <span className="classic-burger-bar" />
+          <span className="classic-burger-bar" />
         </button>
+
       </div>
 
-      <div className={`falcoon-mobile-drawer ${isOpen ? "open" : ""}`}>
-        <nav className="falcoon-mobile-drawer__nav">
+      {/* Mobile Drawer */}
+      <div
+        className={`classic-mobile-drawer ${
+          isOpen ? "open" : ""
+        }`}
+      >
+        <nav className="classic-mobile-drawer-nav">
+
           <Link
             href="/about"
-            className="falcoon-mobile-drawer__link"
+            className="classic-mobile-drawer-link"
             onClick={closeMenu}
           >
-            About
-            <span className="falcoon-mobile-drawer__arrow">›</span>
+            <span>About</span>
+            <span className="classic-mobile-drawer-arrow">
+              ›
+            </span>
           </Link>
+
           <Link
             href="/pricing"
-            className="falcoon-mobile-drawer__link"
+            className="classic-mobile-drawer-link"
             onClick={closeMenu}
           >
-            Pricing
-            <span className="falcoon-mobile-drawer__arrow">›</span>
+            <span>Pricing</span>
+            <span className="classic-mobile-drawer-arrow">
+              ›
+            </span>
           </Link>
+
           <Link
             href="/help"
-            className="falcoon-mobile-drawer__link"
+            className="classic-mobile-drawer-link"
             onClick={closeMenu}
           >
-            Support <span className="falcoon-header__icon">?</span>
-            <span className="falcoon-mobile-drawer__arrow">›</span>
+            <span>
+              Support{" "}
+              <span className="classic-header-icon">?</span>
+            </span>
+
+            <span className="classic-mobile-drawer-arrow">
+              ›
+            </span>
           </Link>
-          {/* <Link
-            href="/careers"
-            className="falcoon-mobile-drawer__link"
-            onClick={closeMenu}
-          >
-            Careers
-            <span className="falcoon-mobile-drawer__arrow">›</span>
-          </Link> */}
+
           <Link
             href="/faq"
-            className="falcoon-mobile-drawer__link"
+            className="classic-mobile-drawer-link"
             onClick={closeMenu}
           >
-            Faq
-            <span className="falcoon-mobile-drawer__arrow">›</span>
+            <span>FAQ</span>
+
+            <span className="classic-mobile-drawer-arrow">
+              ›
+            </span>
           </Link>
+
         </nav>
 
-        <div className="falcoon-mobile-drawer__cta">
+        <div className="classic-mobile-drawer-cta">
           <a
             href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
-            className="falcoon-mobile-drawer__btn"
+            className="classic-mobile-drawer-btn"
             onClick={closeMenu}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            📅 Book Free Strategy Call
+            Book Free Strategy Call
           </a>
         </div>
       </div>

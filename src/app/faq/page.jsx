@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import "./faq.css";
 
 const faqs = [
   {
@@ -27,12 +28,12 @@ const faqs = [
     a: "Most fitness professionals start seeing inquiries within days once traffic is driven to their funnel. Results depend on your outreach or ads.",
   },
   {
-    q: "Can I integrate payments like Stripe or Razorpay?",
-    a: "Yes. You can accept payments directly through your funnel using Stripe, Razorpay, or other supported platforms.",
+    q: "Can I integrate payments like Stripe or GoCardless?",
+    a: "Yes. You can accept payments directly through your funnel using Stripe, GoCardless, or other supported UK payment platforms.",
   },
   {
     q: "What kind of support do you provide?",
-    a: "We provide full support — from setup to scaling. You’ll get guidance on improving conversions and getting more clients.",
+    a: "We provide full support — from setup to scaling. You'll get guidance on improving conversions and getting more clients.",
   },
   {
     q: "Is there a contract or can I cancel anytime?",
@@ -44,45 +45,44 @@ export default function FAQPage() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="falcoon-faq-new">
-      <div className="falcoon-container">
+    <section className="classic-faq">
+      <div className="classic-wrap">
         {/* HERO */}
-        <div className="falcoon-faq-new__hero">
+        <div className="classic-faq-hero">
+          <div className="classic-eyebrow">★ Built for UK fitness brands</div>
           <h1>Frequently asked questions</h1>
           <p>Everything you need to know before getting started</p>
         </div>
 
         {/* GRID */}
-        <div className="falcoon-faq-new__grid">
+        <div className="classic-faq-grid">
           {/* LEFT SIDE */}
-          <div className="falcoon-faq-new__left">
+          <div className="classic-faq-left">
             {faqs.map((item, i) => (
               <div
                 key={i}
-                className={`falcoon-faq-new__item ${
-                  active === i ? "active" : ""
-                }`}
+                className={`classic-faq-item ${active === i ? "active" : ""}`}
                 onClick={() => setActive(active === i ? -1 : i)}
               >
-                <div className="falcoon-faq-new__question">
+                <div className="classic-faq-question">
                   <span>{item.q}</span>
                   <span className="icon">{active === i ? "−" : "+"}</span>
                 </div>
 
                 {active === i && (
-                  <div className="falcoon-faq-new__answer">{item.a}</div>
+                  <div className="classic-faq-answer">{item.a}</div>
                 )}
               </div>
             ))}
           </div>
 
           {/* RIGHT SIDE (CTA CARD) */}
-          <div className="falcoon-faq-new__card">
+          <div className="classic-faq-card">
             {/* TOP IMAGE (calendar style) */}
-            <div className="falcoon-faq-new__card-visual">
-              <div className="calendar">
-                <div className="calendar-top"></div>
-                <div className="calendar-body">
+            <div className="classic-faq-card-visual">
+              <div className="classic-calendar">
+                <div className="classic-calendar-top"></div>
+                <div className="classic-calendar-body">
                   <span></span>
                   <span></span>
                   <span className="active"></span>
@@ -98,33 +98,33 @@ export default function FAQPage() {
 
             <a
               href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
-              className="falcoon-btn falcoon-btn--dark"
+              className="classic-faq-cta-btn"
             >
               Schedule a Call <i className="fa-solid fa-calendar"></i>
             </a>
 
             {/* CONTACT LIST */}
-            <div className="falcoon-faq-new__contact">
-              <div className="item">
-                <div className="item-left">
+            <div className="classic-faq-contact">
+              <div className="classic-faq-contact-item">
+                <div className="classic-faq-contact-left">
                   <i className="fas fa-phone"></i>
-                  <span>+91 7888467258</span>
+                  <span>+44 7888 467258</span>
                 </div>
 
-                <a href="tel:+917888467258">
+                <a href="tel:+447888467258" className="classic-faq-arrow">
                   <i className="fa-solid fa-angle-right"></i>
                 </a>
               </div>
 
-              <div className="item">
-                <div className="item-left">
+              <div className="classic-faq-contact-item">
+                <div className="classic-faq-contact-left">
                   <i className="fas fa-envelope"></i>
-                  <span>thesatishjassal@gmail.com</span>
+                  <span>hello@falcoon.co.uk</span>
                 </div>
 
                 <a
-                  href="mailto:thesatishjassal@gmail.com
-"
+                  href="mailto:hello@falcoon.co.uk"
+                  className="classic-faq-arrow"
                 >
                   <i className="fa-solid fa-angle-right"></i>
                 </a>

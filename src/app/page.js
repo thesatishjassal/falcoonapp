@@ -23,12 +23,12 @@ export default function Home() {
     <>
       <Hero onOpenModal={() => setIsModalOpen(true)} />
       <ClientLogos />
-      <Problem />
+      {/* <Problem /> */}
       <Offer />
       <Benefits />
       {/* <FunnelModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} /> */}
       {/* <Team /> */}
-      <Services />
+      {/* <Services /> */}
       {/* <QuoteCTA /> */}
       {/* <System /> */}
       <Testimonials />

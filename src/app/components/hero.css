@@ -1,0 +1,187 @@
+/* Same tokens as pricing.css / about.css / contact.css / faq.css.
+   Safe to delete this :root block if it's already declared globally. */
+:root {
+  --ink: #241f1c;
+  --ink-soft: #665c53;
+  --ivory: #f7f1e4;
+  --ivory-deep: #ece2cc;
+  --cream-card: #fffdf7;
+  --gold: #c39a56;
+  --gold-dark: #96702f;
+  --gold-pale: #f1e4c8;
+  --line: rgba(36, 31, 28, 0.13);
+  --line-soft: rgba(36, 31, 28, 0.07);
+  --shadow: 0 10px 28px rgba(36, 31, 28, 0.08), 0 2px 8px rgba(36, 31, 28, 0.04);
+  --shadow-lift: 0 22px 48px rgba(36, 31, 28, 0.16);
+  --radius: 16px;
+  --radius-pill: 999px;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Karla", Arial, sans-serif;
+}
+
+.classic-hero-section * {
+  box-sizing: border-box;
+}
+
+.classic-hero-section {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--sans);
+  padding: 70px 0 76px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* soft gold glow, echoes the core-card / story-card treatment */
+.classic-hero-section::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 640px;
+  height: 320px;
+  background: radial-gradient(circle, var(--gold-pale), transparent 70%);
+  pointer-events: none;
+}
+
+.classic-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+}
+
+.classic-hero-content {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.classic-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--gold-dark);
+  background: var(--gold-pale);
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 22px;
+}
+.classic-hero-tag-highlight {
+  color: var(--ink);
+  min-width: 128px;
+  text-align: left;
+  display: inline-block;
+}
+
+.classic-hero-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 5vw, 54px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.14;
+  margin: 0 0 18px;
+}
+.classic-hero-highlight {
+  color: var(--gold-dark);
+  display: inline-block;
+  min-height: 1.14em;
+}
+.classic-hero-highlight .cursor {
+  color: var(--gold-dark);
+  font-weight: 400;
+  animation: classic-blink 1s step-end infinite;
+}
+@keyframes classic-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.classic-hero-desc {
+  color: var(--ink-soft);
+  font-size: 16.5px;
+  line-height: 1.65;
+  max-width: 560px;
+  margin: 0 auto 32px;
+}
+
+.classic-hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.classic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border-radius: var(--radius-pill);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.classic-btn--primary {
+  background: var(--ink);
+  color: var(--ivory);
+  border: 1px solid var(--ink);
+}
+.classic-btn--primary:hover {
+  background: var(--gold-dark);
+  border-color: var(--gold-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(150, 112, 47, 0.3);
+}
+.classic-btn--outline {
+  background: var(--cream-card);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.classic-btn--outline:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+.classic-btn__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.classic-btn__arrow img {
+  width: 16px;
+  height: 16px;
+}
+
+.classic-hero-trust {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .classic-hero-section {
+    padding: 60px 0 52px;
+  }
+  .classic-mobile-none {
+    display: none;
+  }
+}

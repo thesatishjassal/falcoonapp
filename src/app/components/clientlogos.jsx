@@ -1,5 +1,7 @@
 "use client";
 
+import "./clients.css";
+
 export default function ClientLogos() {
   const logos = [
     "https://thesatishjassal.vercel.app/_next/image?url=%2Fclients%2Fdigitalchaabi.png&w=3840&q=75",
@@ -17,15 +19,15 @@ export default function ClientLogos() {
   ];
 
   return (
-    <section className="falcoon-clients">
-      <div className="falcoon-container">
-        <h2 className="falcoon-clients__title">
+    <section className="classic-clients">
+      <div className="classic-wrap">
+        <h2 className="classic-clients-title">
           Trusted by <span>Professionals & Growing Brands</span>
         </h2>
 
-        <div className="falcoon-clients__grid">
+        <div className="classic-clients-grid">
           {logos.map((logo, i) => (
-            <div className="falcoon-clients__card" key={i}>
+            <div className="classic-clients-card" key={i}>
               <img src={logo} alt="client logo" />
             </div>
           ))}

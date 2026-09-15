@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import "./contact.css";
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -75,27 +76,29 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="falcoon-contact-ui">
-      <div className="falcoon-container">
+    <section className="classic-contact">
+      <div className="classic-wrap">
         {/* HERO */}
-        <div className="falcoon-contact-ui__hero">
+        <div className="classic-contact-hero">
+          <div className="classic-eyebrow">★ Built for UK fitness brands</div>
           <h1>Contact our team</h1>
           <p>
-            Got any questions about your business or scaling? We’re here to
-            help.
+            Got any questions about your business or scaling? We&apos;re here
+            to help.
           </p>
         </div>
 
         {/* GRID */}
-        <div className="falcoon-contact-ui__grid">
+        <div className="classic-contact-grid">
           {/* FORM */}
-          <form className="falcoon-contact-ui__form" onSubmit={handleSubmit}>
-            {/* SUCCESS MESSAGE */}
-            {success && <div className="form-success">{success}</div>}
-            {errors.api && <div className="form-error">{errors.api}</div>}
+          <form className="classic-contact-form" onSubmit={handleSubmit}>
+            {success && <div className="classic-form-success">{success}</div>}
+            {errors.api && (
+              <div className="classic-form-error">{errors.api}</div>
+            )}
 
-            <div className="row">
-              <div>
+            <div className="classic-form-row">
+              <div className="classic-field">
                 <input
                   name="firstName"
                   placeholder="First name"
@@ -104,11 +107,11 @@ export default function ContactPage() {
                   disabled={loading}
                 />
                 {errors.firstName && (
-                  <span className="error">{errors.firstName}</span>
+                  <span className="classic-error">{errors.firstName}</span>
                 )}
               </div>
 
-              <div>
+              <div className="classic-field">
                 <input
                   name="lastName"
                   placeholder="Last name"
@@ -119,7 +122,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div>
+            <div className="classic-field">
               <input
                 name="email"
                 placeholder="Email"
@@ -127,10 +130,12 @@ export default function ContactPage() {
                 disabled={loading}
                 onChange={handleChange}
               />
-              {errors.email && <span className="error">{errors.email}</span>}
+              {errors.email && (
+                <span className="classic-error">{errors.email}</span>
+              )}
             </div>
 
-            <div>
+            <div className="classic-field">
               <input
                 name="phone"
                 placeholder="Phone number"
@@ -138,10 +143,12 @@ export default function ContactPage() {
                 disabled={loading}
                 onChange={handleChange}
               />
-              {errors.phone && <span className="error">{errors.phone}</span>}
+              {errors.phone && (
+                <span className="classic-error">{errors.phone}</span>
+              )}
             </div>
 
-            <div>
+            <div className="classic-field">
               <textarea
                 name="message"
                 rows="4"
@@ -151,27 +158,31 @@ export default function ContactPage() {
                 onChange={handleChange}
               />
               {errors.message && (
-                <span className="error">{errors.message}</span>
+                <span className="classic-error">{errors.message}</span>
               )}
             </div>
 
             {/* SERVICES */}
-            <div className="services">
+            <div className="classic-services">
               <label>
                 <input type="checkbox" /> Funnel Setup
               </label>
               <label>
-                <input type="checkbox" /> Ads & Leads
+                <input type="checkbox" /> Ads &amp; Leads
               </label>
               <label>
                 <input type="checkbox" /> Automation
               </label>
             </div>
 
-            <button type="submit" disabled={loading} className="submit-btn">
+            <button
+              type="submit"
+              disabled={loading}
+              className="classic-submit-btn"
+            >
               {loading ? (
-                <span className="btn-loading">
-                  <span className="spinner"></span>
+                <span className="classic-btn-loading">
+                  <span className="classic-spinner"></span>
                   Sending...
                 </span>
               ) : (
@@ -180,7 +191,7 @@ export default function ContactPage() {
             </button>
 
             {/* SMART CTA BELOW FORM */}
-            <div className="form-cta">
+            <div className="classic-form-cta">
               <p>Need faster help?</p>
               <a
                 href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
@@ -193,72 +204,77 @@ export default function ContactPage() {
           </form>
 
           {/* RIGHT SIDE */}
-          <div className="falcoon-contact-ui__info">
-            <div className="falcoon-contact-ui__card">
-              <div className="whatapp_wrapper">
+          <div className="classic-contact-info">
+            <div className="classic-contact-card">
+              <div className="classic-contact-icon">
                 <img
                   src="/assets/images/whatsapp-svgrepo-com.svg"
                   alt="WhatsApp"
-                  className="falcoon-contact-ui__icon"
                 />
               </div>
 
-              <div className="falcoon-contact-ui__content">
+              <div className="classic-contact-content">
                 <h4>Chat on WhatsApp</h4>
                 <p>Speak to our team instantly</p>
 
                 <a
-                  href="https://wa.me/917888467258"
+                  href="https://wa.me/447888467258"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="falcoon-contact-ui__cta"
+                  className="classic-contact-cta"
                 >
                   Message Now →
                 </a>
               </div>
             </div>
 
-            <div className="falcoon-contact-ui__card">
-              <i className="fas fa-envelope"></i>
+            <div className="classic-contact-card">
+              <div className="classic-contact-icon">
+                <i className="fas fa-envelope"></i>
+              </div>
 
-              <div className="falcoon-contact-ui__content">
+              <div className="classic-contact-content">
                 <h4>Email</h4>
                 <p>Send us your query anytime</p>
 
                 <a
-                  href="mailto:thesatishjassal@gmail.com"
-                  className="falcoon-contact-ui__cta"
+                  href="mailto:hello@falcoon.co.uk"
+                  className="classic-contact-cta"
                 >
                   Send Email →
                 </a>
               </div>
             </div>
 
-            <div className="falcoon-contact-ui__card">
-              <i className="fas fa-phone"></i>
+            <div className="classic-contact-card">
+              <div className="classic-contact-icon">
+                <i className="fas fa-phone"></i>
+              </div>
 
-              <div className="falcoon-contact-ui__content">
+              <div className="classic-contact-content">
                 <h4>Call</h4>
                 <p>Talk directly with our team</p>
 
-                <a href="tel:+917888467258" className="falcoon-contact-ui__cta">
+                <a href="tel:+447888467258" className="classic-contact-cta">
                   Call Now →
                 </a>
               </div>
             </div>
 
-            <div className="falcoon-contact-ui__card">
-              <i className="fas fa-map-marker-alt"></i>
+            <div className="classic-contact-card">
+              <div className="classic-contact-icon">
+                <i className="fas fa-map-marker-alt"></i>
+              </div>
 
-              <div className="falcoon-contact-ui__content">
+              <div className="classic-contact-content">
                 <h4>Location</h4>
-                <p>Jalandhar, Punjab</p>
+                <p>London, United Kingdom</p>
 
                 <a
                   href="https://maps.app.goo.gl/d56MWasrmE1ChWZDA"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="falcoon-contact-ui__cta"
+                  className="classic-contact-cta"
                 >
                   View Map →
                 </a>

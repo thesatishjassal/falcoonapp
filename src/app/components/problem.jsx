@@ -1,3 +1,5 @@
+import "./problem.css";
+
 export default function Problem() {
   const problems = [
     {
@@ -23,21 +25,21 @@ export default function Problem() {
   ];
 
   return (
-    <section className="falcoon-problem">
-      <div className="falcoon-container">
-        {/* 🔥 HEADER */}
-        <div className="falcoon-problem__header">
-          <h2 className="falcoon-problem__title">
+    <section className="classic-problem">
+      <div className="classic-wrap">
+        {/* HEADER */}
+        <div className="classic-problem-header">
+          <h2 className="classic-problem-title">
             Why Most Fitness Coaches <br />
             <span className="accent">Struggle to Grow</span>
           </h2>
         </div>
 
-        {/* 🔥 GRID */}
-        <div className="falcoon-problem__grid">
+        {/* GRID */}
+        <div className="classic-problem-grid">
           {problems.map((item, i) => (
-            <div key={i} className="falcoon-problem__card">
-              <div className="falcoon-problem__icon">{item.icon}</div>
+            <div key={i} className="classic-problem-card">
+              <div className="classic-problem-icon">{item.icon}</div>
 
               <h3>{item.title}</h3>
               <p>{item.sub}</p>
@@ -45,11 +47,11 @@ export default function Problem() {
           ))}
         </div>
 
-        {/* 🔥 BOTTOM HOOK */}
-        <div className="falcoon-problem__hook">
+        {/* BOTTOM HOOK */}
+        <div className="classic-problem-hook">
           <p>
-            It’s not your skills. <br />
-            <strong>It’s your system.</strong>
+            It&apos;s not your skills. <br />
+            <strong>It&apos;s your system.</strong>
           </p>
         </div>
       </div>

@@ -1,13 +1,13 @@
 "use client";
 
+import "./offer.css";
+
 const cards = [
   {
-    bgColor: "green",
-    iconColor: "falcoon-card__icon--green",
     icon: <i className="fa-solid fa-dumbbell"></i>,
     badge: "💪 MOST POPULAR",
     featured: false,
-    title: "Sell Fitness Programs",
+    title: "Sell Fitness Programmes",
     desc: "Turn your coaching into a system that brings clients daily — not randomly.",
     checks: [
       "High-converting landing pages",
@@ -16,8 +16,6 @@ const cards = [
     ],
   },
   {
-    bgColor: "orange",
-    iconColor: "falcoon-card__icon--orange",
     icon: <i className="fa-solid fa-box"></i>,
     badge: "🔥 HIGH INCOME",
     featured: true,
@@ -30,8 +28,6 @@ const cards = [
     ],
   },
   {
-    bgColor: "blue",
-    iconColor: "falcoon-card__icon--blue",
     icon: <i className="fa-solid fa-calendar-check"></i>,
     badge: "⚡ EASY CASHFLOW",
     featured: false,
@@ -44,6 +40,7 @@ const cards = [
     ],
   },
 ];
+
 const avatars = [
   { initials: "AK", bg: "#E6F1FB", color: "#185FA5" },
   { initials: "PR", bg: "#E1F5EE", color: "#0F6E56" },
@@ -51,61 +48,65 @@ const avatars = [
   { initials: "RJ", bg: "#FAEEDA", color: "#854F0B" },
 ];
 
+const paymentMethods = ["Stripe", "PayPal", "GoCardless"];
+
 const CheckIcon = () => <i className="fa-solid fa-check"></i>;
 
 export default function Offer() {
   return (
-    <section className="falcoon-offer">
-      <div className="falcoon-offer__container falcoon-container">
+    <section className="classic-offer">
+      <div className="classic-wrap">
         {/* Header */}
-        <div className="falcoon-offer__header">
-          <div className="falcoon-offer__pill">
-            <span className="falcoon-offer__pill-dot" />
+        <div className="classic-offer-header">
+          <div className="classic-offer-pill">
+            <span className="classic-offer-pill-dot" />
             Done-for-you funnels
           </div>
 
-          <h2 className="falcoon-offer__title">
+          <h2 className="classic-offer-title">
             We build your{" "}
-            <span className="falcoon-offer__title-accent">
+            <span className="classic-offer-title-accent">
               fitness revenue funnels
             </span>
           </h2>
 
-          <p className="falcoon-offer__desc">
-            Sell programs, products, and consultations — without tech headaches.
-            You focus on coaching. We handle the funnel.
+          <p className="classic-offer-desc">
+            Sell programmes, products, and consultations — without tech
+            headaches. You focus on coaching. We handle the funnel.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="falcoon-offer__grid">
+        <div className="classic-offer-grid">
           {cards.map((card, i) => (
             <div
               key={i}
-              className={`falcoon-card ${
-                card.featured ? "falcoon-card--featured" : ""
-              } ${card.bgColor}`}
+              className={`classic-card ${
+                card.featured ? "classic-card--featured" : ""
+              }`}
             >
+              {card.badge && (
+                <span className="classic-card-badge">{card.badge}</span>
+              )}
+
               {/* Card Head */}
-              <div className="falcoon-card__head">
-                <div className={`falcoon-card__icon ${card.iconColor}`}>
-                  {card.icon}
-                </div>
+              <div className="classic-card-head">
+                <div className="classic-card-icon">{card.icon}</div>
               </div>
 
               {/* Card Body */}
-              <div className="falcoon-card__body">
-                <h3 className="falcoon-card__title">{card.title}</h3>
-                <p className="falcoon-card__desc">{card.desc}</p>
+              <div className="classic-card-body">
+                <h3 className="classic-card-title">{card.title}</h3>
+                <p className="classic-card-desc">{card.desc}</p>
               </div>
 
-              <div className="falcoon-card__divider" />
+              <div className="classic-card-divider" />
 
               {/* Checklist */}
-              <ul className="falcoon-card__checks">
+              <ul className="classic-card-checks">
                 {card.checks.map((item, j) => (
-                  <li key={j} className="falcoon-card__check">
-                    <span className="falcoon-card__check-icon">
+                  <li key={j} className="classic-card-check">
+                    <span className="classic-card-check-icon">
                       <CheckIcon />
                     </span>
                     {item}
@@ -116,14 +117,14 @@ export default function Offer() {
           ))}
         </div>
 
-        {/* Payment Trust (same structure area reused) */}
-        <div className="falcoon-offer__bar">
-          <div className="falcoon-offer__bar-left">
-            <div className="falcoon-offer__avatars">
+        {/* Trust bar */}
+        <div className="classic-offer-bar">
+          <div className="classic-offer-bar-left">
+            <div className="classic-offer-avatars">
               {avatars.map((a, i) => (
                 <div
                   key={i}
-                  className="falcoon-offer__avatar"
+                  className="classic-offer-avatar"
                   style={{ background: a.bg, color: a.color }}
                 >
                   {a.initials}
@@ -131,14 +132,15 @@ export default function Offer() {
               ))}
             </div>
 
-            <p className="falcoon-offer__bar-text">
-              <strong>50+ fitness coaches</strong> scaling with Falcoon funnels
+            <p className="classic-offer-bar-text">
+              <strong>50+ UK fitness coaches</strong> scaling with Falcoon
+              funnels
             </p>
           </div>
 
           <a
             href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
-            className="falcoon-offer__cta"
+            className="classic-offer-cta"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -146,20 +148,15 @@ export default function Offer() {
           </a>
         </div>
 
-        {/* Payment badges (added below WITHOUT changing structure) */}
-        <div style={{ marginTop: "20px", textAlign: "center" }}>
-          <p style={{ fontSize: "13px", color: "#666" }}>Accept payments via</p>
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              justifyContent: "center",
-              marginTop: "8px",
-            }}
-          >
-            <span>Stripe</span>
-            <span>PayPal</span>
-            <span>Razorpay</span>
+        {/* Payment methods */}
+        <div className="classic-offer-payments">
+          <p>Accept payments via</p>
+          <div className="classic-offer-payments-list">
+            {paymentMethods.map((method) => (
+              <span key={method} className="classic-offer-payment-badge">
+                {method}
+              </span>
+            ))}
           </div>
         </div>
       </div>

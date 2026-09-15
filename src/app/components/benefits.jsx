@@ -1,18 +1,20 @@
 "use client";
 
+import "./process.css";
+
 const steps = [
   {
     step: "01",
     title: "We understand your business",
     desc: "We jump on a quick call to understand your business, goals, and what you want to sell.",
-    img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=280&fit=crop&auto=format",
+    img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=450&fit=crop&auto=format",
     alt: "Team discovery call",
   },
   {
     step: "02",
     title: "We create your content & videos",
     desc: "We write high-converting copy and help you record simple videos for your funnel.",
-    img: "https://www.shutterstock.com/shutterstock/videos/3801470865/thumb/1.jpg?ip=x480",
+    img: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=600&h=450&fit=crop&auto=format",
     alt: "Professional video recording setup",
   },
   {
@@ -25,7 +27,7 @@ const steps = [
   {
     step: "04",
     title: "We set up automation & payments",
-    desc: "We connect email, WhatsApp, Google Calendar, meetings, and payments (Stripe, PayPal, Razorpay).",
+    desc: "We connect email, WhatsApp, Google Calendar, meetings, and payments (Stripe, PayPal, GoCardless).",
     img: "https://docs.n8n.io/_images/advanced-ai/ai-intro01.png",
     alt: "Automation and integrations",
   },
@@ -47,51 +49,49 @@ const steps = [
 
 export default function ProcessSection() {
   return (
-    <section className="falcoon-process">
-      <div className="falcoon-container">
+    <section className="classic-process">
+      <div className="classic-wrap">
         {/* HEADER */}
-        <div className="falcoon-process__header">
-          <span className="falcoon-process__badge">• HOW IT WORKS</span>
-          <h2 className="falcoon-process__title">
+        <div className="classic-process-header">
+          <span className="classic-process-badge">★ How it works</span>
+          <h2 className="classic-process-title">
             How we build your <span>revenue funnel</span>
           </h2>
-          <p className="falcoon-process__subtitle">
+          <p className="classic-process-subtitle">
             Simple, done-for-you process — from idea to paying clients.
           </p>
         </div>
 
-        {/* GRID */}
-        <div className="falcoon-process__grid-6">
+        {/* TIMELINE */}
+        <div className="classic-process-timeline">
           {steps.map((step, i) => (
-            <div key={i} className="falcoon-process__card">
-              <div className="falcoon-process__img-wrap">
+            <div key={i} className="classic-process-row">
+              <div className="classic-process-marker">{step.step}</div>
+
+              <div className="classic-process-media">
                 <img src={step.img} alt={step.alt} />
-                <span className="falcoon-process__step">{step.step}</span>
               </div>
 
-              <h3 className="falcoon-process__card-title">{step.title}</h3>
-
-              <p className="falcoon-process__card-desc">{step.desc}</p>
+              <div className="classic-process-text">
+                <span className="classic-process-ghost-num">
+                  {step.step}
+                </span>
+                <h3 className="classic-process-card-title">{step.title}</h3>
+                <p className="classic-process-card-desc">{step.desc}</p>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* NOTE */}
-        {/* <div className="falcoon-process__note">
-          <p>
-            <strong>Note:</strong> Advertising costs are separate. Our full
-            funnel setup, automation, and support are included — anytime you
-            need help.
-          </p>
-        </div> */}
-
-        {/* 🔥 CTA SECTION ADDED */}
-        <div className="falcoon-process__cta">
+        {/* CTA */}
+        <div className="classic-process-cta">
           <h3>Ready to build your revenue funnel?</h3>
-          <p>Get pricing and a custom proposal for your business in minutes.</p>
+          <p>
+            Get pricing and a custom proposal for your business in minutes.
+          </p>
 
-          <a href="/pricing" className="falcoon-process__cta-btn">
-            View Pricing & Get Proposal →
+          <a href="/pricing" className="classic-process-cta-btn">
+            View Pricing &amp; Get Proposal →
           </a>
         </div>
       </div>

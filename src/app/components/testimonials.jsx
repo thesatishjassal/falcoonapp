@@ -1,30 +1,32 @@
 "use client";
 
+import "./testimonials.css";
+
 export default function Testimonials() {
   const testimonials = [
     {
-      name: "Rohit Sharma",
-      role: "Gym Owner, Ludhiana",
+      name: "James Turner",
+      role: "Gym Owner, Manchester",
       image: "https://randomuser.me/api/portraits/men/32.jpg",
       text: "Falcoon helped me automate my gym operations completely. From memberships to payments, everything is smooth now. I saved hours every day.",
       result: "+40% time saved",
     },
     {
-      name: "Dr. Neha Mehta",
-      role: "Consultant Psychologist, Clinical Psychologist",
+      name: "Dr. Emily Carter",
+      role: "Consultant Psychologist, Clinical Psychology",
       image: "https://randomuser.me/api/portraits/women/44.jpg",
       text: "My client bookings increased after using Falcoon. The system looks professional and clients trust it more than WhatsApp bookings.",
       result: "+60% bookings",
     },
     {
-      name: "Amanpreet Singh",
-      role: "Fitness Studio Owner",
+      name: "Daniel Wright",
+      role: "Fitness Studio Owner, Leeds",
       image: "https://randomuser.me/api/portraits/men/76.jpg",
       text: "Before Falcoon, I was managing everything manually. Now I track clients, payments, and progress in one place.",
       result: "All-in-one system",
     },
     {
-      name: "Pooja Bansal",
+      name: "Charlotte Bennett",
       role: "Tarot Card Reader",
       image: "https://randomuser.me/api/portraits/women/68.jpg",
       text: "Very simple to use and clean UI. My clients love the booking experience. It feels like a premium service.",
@@ -33,30 +35,30 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="falcoon-testimonials" id="our_Work">
-      <div className="falcoon-container">
-        <h2 className="falcoon-testimonials__title">
+    <section className="classic-testimonials" id="our_Work">
+      <div className="classic-wrap">
+        <h2 className="classic-testimonials-title">
           What our clients say 💬
         </h2>
 
-        <div className="falcoon-testimonials__grid">
+        <div className="classic-testimonials-grid">
           {testimonials.map((t, i) => (
-            <div key={i} className="falcoon-testimonial__card">
-              
-              <p className="falcoon-testimonial__text">“{t.text}”</p>
+            <div key={i} className="classic-testimonial-card">
+              <div className="classic-testimonial-quote">"</div>
 
-              <div className="falcoon-testimonial__user">
-                {/* <img src={t.image} alt={t.name} /> */}
+              <p className="classic-testimonial-text">{t.text}</p>
+
+              <div className="classic-testimonial-user">
+                <div className="classic-testimonial-avatar">
+                  <img src={t.image} alt={t.name} />
+                </div>
                 <div>
                   <h4>{t.name}</h4>
                   <span>{t.role}</span>
                 </div>
               </div>
 
-              <div className="falcoon-testimonial__result">
-                {t.result}
-              </div>
-
+              <div className="classic-testimonial-result">{t.result}</div>
             </div>
           ))}
         </div>

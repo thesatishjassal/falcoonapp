@@ -1,0 +1,301 @@
+/* Same tokens as pricing.css / about.css / contact.css.
+   Safe to delete this :root block if it's already declared globally. */
+:root {
+  --ink: #241f1c;
+  --ink-soft: #665c53;
+  --ivory: #f7f1e4;
+  --ivory-deep: #ece2cc;
+  --cream-card: #fffdf7;
+  --gold: #c39a56;
+  --gold-dark: #96702f;
+  --gold-pale: #f1e4c8;
+  --line: rgba(36, 31, 28, 0.13);
+  --line-soft: rgba(36, 31, 28, 0.07);
+  --shadow: 0 10px 28px rgba(36, 31, 28, 0.08), 0 2px 8px rgba(36, 31, 28, 0.04);
+  --shadow-lift: 0 22px 48px rgba(36, 31, 28, 0.16);
+  --radius: 16px;
+  --radius-pill: 999px;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Karla", Arial, sans-serif;
+}
+
+.classic-faq * {
+  box-sizing: border-box;
+}
+
+.classic-faq {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--sans);
+  padding: 72px 0 80px;
+}
+
+.classic-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Hero ── */
+.classic-faq-hero {
+  text-align: center;
+  margin-bottom: 44px;
+}
+.classic-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  background: var(--gold-pale);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 18px;
+}
+.classic-faq-hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin: 0 0 12px;
+}
+.classic-faq-hero p {
+  color: var(--ink-soft);
+  font-size: 16px;
+  margin: 0 auto;
+}
+
+/* ── Grid ── */
+.classic-faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 372px;
+  gap: 32px;
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .classic-faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Question list ── */
+.classic-faq-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.classic-faq-item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--cream-card);
+  padding: 6px 20px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+.classic-faq-item:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow);
+}
+.classic-faq-item.active {
+  border-color: var(--ink);
+  box-shadow: var(--shadow);
+  background: linear-gradient(160deg, #fff, var(--gold-pale) 260%);
+}
+
+.classic-faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+.classic-faq-question .icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ivory-deep);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+.classic-faq-item.active .classic-faq-question .icon {
+  background: var(--ink);
+  color: var(--ivory);
+}
+
+.classic-faq-answer {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  padding: 0 0 18px;
+  max-width: 620px;
+}
+
+/* ── CTA card ── */
+.classic-faq-card {
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--cream-card);
+  box-shadow: var(--shadow-lift);
+  padding: 28px;
+}
+.classic-faq-card::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, var(--gold-pale), transparent 70%);
+}
+
+.classic-faq-card-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.classic-calendar {
+  width: 84px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--ivory);
+  box-shadow: var(--shadow);
+}
+.classic-calendar-top {
+  height: 16px;
+  background: var(--ink);
+}
+.classic-calendar-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+  padding: 12px;
+}
+.classic-calendar-body span {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 4px;
+  background: var(--ivory-deep);
+}
+.classic-calendar-body span.active {
+  background: var(--gold);
+}
+
+.classic-faq-card h3 {
+  position: relative;
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px;
+  text-align: center;
+}
+.classic-faq-card > p {
+  position: relative;
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.classic-faq-cta-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.classic-faq-cta-btn:hover {
+  background: var(--gold-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(150, 112, 47, 0.3);
+}
+
+/* ── Contact list ── */
+.classic-faq-contact {
+  position: relative;
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.classic-faq-contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--ivory);
+  padding: 12px 14px;
+  transition: all 0.2s ease;
+}
+.classic-faq-contact-item:hover {
+  border-color: var(--gold);
+}
+.classic-faq-contact-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.classic-faq-contact-left i {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--ivory-deep);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.classic-faq-contact-item a.classic-faq-arrow {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ivory-deep);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.classic-faq-contact-item:hover a.classic-faq-arrow {
+  background: var(--ink);
+  color: var(--ivory);
+}
