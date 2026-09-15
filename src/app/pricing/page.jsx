@@ -56,7 +56,6 @@ const UK_CITIES = [
   "Stoke-on-Trent",
   "Watford",
   "Peterborough",
-  "Other UK city",
 ];
 
 /* ─────────────────────────────────────────────
@@ -756,7 +755,7 @@ export default function PricingPage() {
       .toLowerCase();
 
     if (!query) {
-      return UK_CITIES.slice(0, 8);
+      return UK_CITIES.slice(0);
     }
 
     return UK_CITIES.filter((city) =>
