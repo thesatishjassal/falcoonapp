@@ -97,7 +97,7 @@ export default function FAQPage() {
             <p>Book a call or reach us anytime.</p>
 
             <a
-              href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+              href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
               className="classic-faq-cta-btn"
             >
               Schedule a Call <i className="fa-solid fa-calendar"></i>

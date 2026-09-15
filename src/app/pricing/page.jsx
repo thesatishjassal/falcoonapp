@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 const CORE_PRICE = 249;
 
 const CALENDLY_URL =
-  "https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call";
+  "https://calendly.com/thesatishjassal/free-strategy-call-uk";
 
 /* ─────────────────────────────────────────────
    UK CITIES

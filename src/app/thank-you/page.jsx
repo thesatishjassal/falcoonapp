@@ -16,7 +16,7 @@ export default function ThankYouPage() {
 
         <div className="thankyou__actions">
           <a
-            href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+            href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
             target="_blank"
           >
             Book Strategy Call

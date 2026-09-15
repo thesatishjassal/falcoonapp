@@ -70,7 +70,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+              href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
               target="_blank"
               rel="noopener noreferrer"
               className="falcoon-footer__cta"

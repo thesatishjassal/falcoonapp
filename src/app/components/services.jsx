@@ -83,7 +83,7 @@ export default function BuildFor() {
           </p>
 
           <a
-            href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+            href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
             className="classic-buildfor-cta-btn"
           >
             Get Started →

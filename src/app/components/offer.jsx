@@ -139,7 +139,7 @@ export default function Offer() {
           </div>
 
           <a
-            href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+            href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
             className="classic-offer-cta"
             target="_blank"
             rel="noopener noreferrer"

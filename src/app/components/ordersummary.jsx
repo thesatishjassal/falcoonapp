@@ -95,7 +95,7 @@ export default function OrderSummary({
           className="summary__btn summary__btn--primary"
           onClick={() => {
             window.open(
-              "https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call",
+              "https://calendly.com/thesatishjassal/free-strategy-call-uk",
               "_blank",
             );
           }}
@@ -207,7 +207,7 @@ export default function OrderSummary({
             <p className="order-sheet__alt">
               or{" "}
               <a
-                href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+                href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
                 target="_blank"
                 rel="noreferrer"
               >

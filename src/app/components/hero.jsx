@@ -85,7 +85,7 @@ export default function Hero({ onOpenModal }) {
 
           <div className="classic-hero-actions">
             <a
-              href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+              href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
               className="classic-btn classic-btn--primary"
             >
               Get Free Strategy Call

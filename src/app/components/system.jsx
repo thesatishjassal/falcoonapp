@@ -39,7 +39,7 @@ export default function System() {
             Falcoon gives you a complete system.
           </h3> */}
           <a
-            href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+            href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
             className="falcoon-header__btn"
           >
             Book Free Strategy Call

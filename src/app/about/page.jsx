@@ -135,7 +135,7 @@ export default function AboutUs() {
               Let&apos;s help you launch and sell successfully.
             </p>
             <a
-              href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+              href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
               className="classic-btn"
             >
               Book Free Strategy Call

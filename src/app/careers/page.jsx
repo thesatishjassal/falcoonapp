@@ -243,7 +243,7 @@ export default function CareersPage() {
                         Apply Now →
                       </button>
                       <a
-                        href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+                        href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
                         className="careers__chat-btn"
                         target="_blank"
                         rel="noopener noreferrer"

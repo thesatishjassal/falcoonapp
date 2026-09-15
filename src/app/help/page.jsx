@@ -194,7 +194,7 @@ export default function ContactPage() {
             <div className="classic-form-cta">
               <p>Need faster help?</p>
               <a
-                href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+                href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
                 target="_blank"
                 rel="noopener noreferrer"
               >

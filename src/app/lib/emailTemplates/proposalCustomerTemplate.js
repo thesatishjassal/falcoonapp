@@ -1,5 +1,5 @@
 const CALENDLY_URL =
-  "https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call";
+  "https://calendly.com/thesatishjassal/free-strategy-call-uk";
 
 const WHATSAPP_URL =
   "https://wa.me/917888467258";

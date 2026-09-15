@@ -94,7 +94,7 @@ export default function Header() {
           </nav>
 
           <a
-            href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+            href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
             className="classic-header-btn"
             target="_blank"
             rel="noopener noreferrer"
@@ -192,7 +192,7 @@ export default function Header() {
 
         <div className="classic-mobile-drawer-cta">
           <a
-            href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+            href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
             className="classic-mobile-drawer-btn"
             onClick={closeMenu}
             target="_blank"

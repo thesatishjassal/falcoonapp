@@ -46,7 +46,7 @@ export default function FAQ() {
           <button
             onClick={() => {
               window.open(
-                "https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call",
+                "https://calendly.com/thesatishjassal/free-strategy-call-uk",
                 "_blank"
               );
             }}

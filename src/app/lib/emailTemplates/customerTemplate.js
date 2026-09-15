@@ -38,7 +38,7 @@ export function getCustomerTemplate({ firstName }) {
             <!-- CTA -->
             <tr>
               <td style="padding-bottom:32px;">
-                <a href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
+                <a href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
                   style="display:inline-block;padding:12px 20px;background:#530A4E;color:#ffffff;
                   text-decoration:none;border-radius:8px;font-size:14px;font-weight:500;">
                   Book Free Strategy Call
