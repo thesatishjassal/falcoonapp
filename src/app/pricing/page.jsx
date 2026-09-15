@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const CORE_PRICE = 249;
 
@@ -76,6 +76,12 @@ const INTEGRATIONS = [
   },
 ];
 
+const ADDON_GROUPS = [
+  { label: "Ads & traffic", items: ADS },
+  { label: "Automation", items: AUTOMATIONS },
+  { label: "Integrations", items: INTEGRATIONS },
+];
+
 const ALL_ADDONS = [...ADS, ...AUTOMATIONS, ...INTEGRATIONS];
 
 const PLANS = [
@@ -96,7 +102,7 @@ const AUDIENCE_CARDS = [
     title: "Fitness Program",
     desc: "A structured plan sold as a one-off — e.g. a 12-week transformation programme.",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="9" />
         <circle cx="12" cy="12" r="5" />
         <circle cx="12" cy="12" r="1" />
@@ -108,7 +114,7 @@ const AUDIENCE_CARDS = [
     title: "Fitness Product",
     desc: "A physical or digital product — supplements, guides, apps, meal plans.",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 8l-9-5-9 5 9 5 9-5z" />
         <path d="M3 8v8l9 5 9-5V8" />
         <path d="M12 13v8" />
@@ -120,26 +126,46 @@ const AUDIENCE_CARDS = [
     title: "Coaching & Counselling",
     desc: "1:1 or small-group coaching sold on a call or via application.",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
       </svg>
     ),
   },
 ];
 
+const STEPS = [
+  { id: "audience", label: "Who you sell to" },
+  { id: "addons", label: "Add-ons" },
+  { id: "support", label: "Support" },
+];
+
 const currency = (n) => "£" + n.toLocaleString("en-GB");
 
-function FeatureCard({ item, active, recommended, onToggle }) {
+function AddonRow({ item, active, recommended, onToggle }) {
   return (
-    <div className={`feature-card ${active ? "active" : ""}`} onClick={onToggle}>
-      <div className="feature-check">{active ? "✓" : ""}</div>
-      <div className="feature-body">
-        <div className="feature-row">
-          <span className="feature-name">{item.name}</span>
-          <span className="feature-price">+{currency(item.price)}</span>
+    <div
+      className={`addon-row ${active ? "active" : ""}`}
+      onClick={onToggle}
+      role="switch"
+      aria-checked={active}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onToggle();
+        }
+      }}
+    >
+      <div className="addon-main">
+        <div className="addon-top">
+          <span className="addon-name">{item.name}</span>
+          {recommended && <span className="addon-tag">Recommended</span>}
         </div>
-        <div className="feature-desc">{item.desc}</div>
-        {recommended && <span className="feature-badge">★ Recommended for you</span>}
+        <div className="addon-desc">{item.desc}</div>
+      </div>
+      <div className="addon-right">
+        <span className="addon-price">+{currency(item.price)}</span>
+        <span className={`switch ${active ? "on" : ""}`} aria-hidden="true" />
       </div>
     </div>
   );
@@ -149,7 +175,30 @@ export default function PricingPage() {
   const [audience, setAudience] = useState(null);
   const [addons, setAddons] = useState(new Set());
   const [plan, setPlan] = useState("none");
-  const [showBundleRow, setShowBundleRow] = useState(false);
+  const [step, setStep] = useState(0);
+  const [coreOpen, setCoreOpen] = useState(false);
+  const [showMiniBar, setShowMiniBar] = useState(false);
+  const [justAdded, setJustAdded] = useState(false);
+  const [checkoutState, setCheckoutState] = useState("idle");
+  const heroRef = useRef(null);
+  const panelRef = useRef(null);
+
+  useEffect(() => {
+    if (!heroRef.current) return;
+    const el = heroRef.current;
+    const obs = new IntersectionObserver(
+      ([entry]) => setShowMiniBar(!entry.isIntersecting),
+      { rootMargin: "-1px 0px 0px 0px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (panelRef.current) {
+      panelRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [step]);
 
   const toggleAddon = (id) => {
     setAddons((prev) => {
@@ -161,7 +210,6 @@ export default function PricingPage() {
 
   const selectAudience = (id) => {
     setAudience(id);
-    setShowBundleRow(true);
   };
 
   const applyBundle = () => {
@@ -173,6 +221,8 @@ export default function PricingPage() {
       });
       return next;
     });
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 1800);
   };
 
   const oneTime = useMemo(() => {
@@ -188,37 +238,79 @@ export default function PricingPage() {
   const addonsDone = addons.size > 0;
   const supportDone = plan !== "none";
 
+  const goStep = (i) => setStep(Math.max(0, Math.min(STEPS.length - 1, i)));
+
+  const runCheckout = () => {
+    setCheckoutState("loading");
+    setTimeout(() => setCheckoutState("done"), 900);
+  };
+
   return (
     <>
-
+      {/* STICKY MINI BAR — always know your price */}
+      <div className={`mini-bar ${showMiniBar ? "show" : ""}`}>
+        <div className="mini-bar-inner">
+          <span className="mini-bar-brand">Falcoon</span>
+          <div className="mini-bar-right">
+            <span className="mini-bar-total">{currency(oneTime)}</span>
+            <button className="mini-bar-btn" onClick={runCheckout}>
+              Get started
+            </button>
+          </div>
+        </div>
+      </div>
 
       <div className="wrap">
-        {/* <div className="top">
-          <div className="brand">
-            <span className="brand-mark">F</span>Falcoon
-          </div>
-          <div className="top-note">Fitness funnel builder · GBP</div>
-        </div> */}
-        <div className="hero">
-          <div className="hero-eyebrow">★ Built for UK fitness brands</div>
+        <div className="hero" ref={heroRef}>
+          <div className="hero-eyebrow">Built for UK fitness brands</div>
           <h1>Every funnel starts the same way. What you add on top is up to you.</h1>
           <p>
             The core funnel is included in every build. Pick your audience, add only what you need, and see your
             fixed price update as you go.
           </p>
         </div>
-        <div className="steps-track">
-          <div className="step-pill done">
-            <span className="num">✓</span>Core funnel
+
+        {/* CORE FUNNEL — collapsed banner, not a full step */}
+        <div className="core-banner">
+          <div className="core-banner-left">
+            <span className="core-check">✓</span>
+            <div>
+              <div className="core-banner-title">Core Funnel Build — included, always</div>
+              <div className="core-banner-sub">Landing page, checkout page, and thank-you page.</div>
+            </div>
           </div>
-          <div className={`step-pill ${audienceDone ? "done" : ""}`}>
-            <span className="num">{audienceDone ? "✓" : "1"}</span>Who you sell to
+          <div className="core-banner-right">
+            <span className="core-banner-price">{currency(CORE_PRICE)}</span>
+            <button
+              className="core-banner-toggle"
+              onClick={() => setCoreOpen((v) => !v)}
+              aria-expanded={coreOpen}
+            >
+              {coreOpen ? "Hide details" : "See details"}
+            </button>
           </div>
-          <div className={`step-pill ${addonsDone ? "done" : ""}`}>
-            <span className="num">{addonsDone ? "✓" : "2"}</span>Add-ons
+        </div>
+        <div className={`core-details ${coreOpen ? "open" : ""}`}>
+          <div className="core-detail-item">
+            <span className="core-detail-num">1</span>
+            <div>
+              <strong>Landing Page</strong>
+              <p>Your offer, presented and ready to convert cold or warm traffic.</p>
+            </div>
           </div>
-          <div className={`step-pill ${supportDone ? "done" : ""}`}>
-            <span className="num">{supportDone ? "✓" : "3"}</span>Support
+          <div className="core-detail-item">
+            <span className="core-detail-num">2</span>
+            <div>
+              <strong>Checkout Page</strong>
+              <p>A distraction-free order form with your pricing built in.</p>
+            </div>
+          </div>
+          <div className="core-detail-item">
+            <span className="core-detail-num">3</span>
+            <div>
+              <strong>Thank You Page</strong>
+              <p>Confirms the order and tells the buyer exactly what happens next.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -226,192 +318,162 @@ export default function PricingPage() {
       <div className="wrap">
         <div className="layout">
           <div>
-            {/* CORE FUNNEL */}
-            <div className="block">
-              <div className="block-head">
-                <div className="block-num">✓</div>
-                <div>
-                  <div className="block-index">Included in every build</div>
-                  <h2 className="block-title">The core funnel</h2>
-                  <p className="block-sub">This is the base flow every client gets — nothing to configure, it's built for you.</p>
-                </div>
-              </div>
-              <div className="core-card">
-                <div className="core-header">
-                  <div className="core-title">Core Funnel Build</div>
-                  <div className="core-price">
-                    £249 <span>one-time</span>
-                  </div>
-                </div>
-                <div className="core-steps">
-                  <div className="core-step">
-                    <div className="core-step-num">1</div>
-                    <div>
-                      <div className="core-step-name">Landing Page</div>
-                      <div className="core-step-desc">Your offer, presented and ready to convert cold or warm traffic.</div>
-                    </div>
-                  </div>
-                  <div className="core-step">
-                    <div className="core-step-num">2</div>
-                    <div>
-                      <div className="core-step-name">Checkout Page</div>
-                      <div className="core-step-desc">A distraction-free order form with your pricing built in.</div>
-                    </div>
-                  </div>
-                  <div className="core-step">
-                    <div className="core-step-num">3</div>
-                    <div>
-                      <div className="core-step-name">Thank You Page</div>
-                      <div className="core-step-desc">Confirms the order and tells the buyer exactly what happens next.</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="core-note">🔒 Always included — every add-on below plugs straight into this base flow.</div>
-              </div>
-            </div>
-
-            {/* AUDIENCE */}
-            <div className="block">
-              <div className="block-head">
-                <div className="block-num">1</div>
-                <div>
-                  <div className="block-index">Step 1 · Takes 5 seconds</div>
-                  <h2 className="block-title">What are you selling?</h2>
-                  <p className="block-sub">This tells us which add-ons to recommend below — it never changes your price.</p>
-                </div>
-              </div>
-              <div className="audience-grid">
-                {AUDIENCE_CARDS.map((card) => (
-                  <div
-                    key={card.id}
-                    className={`audience-card ${audience === card.id ? "active" : ""}`}
-                    onClick={() => selectAudience(card.id)}
+            {/* STEP NAV */}
+            <div className="step-track" role="tablist" aria-label="Configuration steps">
+              {STEPS.map((s, i) => {
+                const done = i === 0 ? audienceDone : i === 1 ? addonsDone : supportDone;
+                return (
+                  <button
+                    key={s.id}
+                    role="tab"
+                    aria-selected={step === i}
+                    className={`step-pill ${step === i ? "current" : ""} ${done ? "done" : ""}`}
+                    onClick={() => goStep(i)}
                   >
-                    <div className="tick">{audience === card.id ? "✓" : ""}</div>
-                    <div className="audience-icon">{card.icon}</div>
-                    <h4>{card.title}</h4>
-                    <p>{card.desc}</p>
-                  </div>
-                ))}
-              </div>
-              <div className={`bundle-row ${showBundleRow ? "show" : ""}`}>
-                <button className="bundle-btn" onClick={applyBundle}>
-                  ✨ Add the recommended add-ons for me
-                </button>
-                <span className="bundle-hint">You can still adjust anything below.</span>
-              </div>
+                    <span className="num">{done ? "✓" : i + 1}</span>
+                    {s.label}
+                  </button>
+                );
+              })}
             </div>
 
-            {/* ADD-ONS */}
-            <div className="block">
-              <div className="block-head">
-                <div className="block-num">2</div>
-                <div>
-                  <div className="block-index">Step 2 · All optional</div>
-                  <h2 className="block-title">Ads, automation &amp; integrations</h2>
-                  <p className="block-sub">Add only what your funnel actually needs — gold badges show what fits your audience.</p>
-                </div>
-              </div>
+            <div className="panel" ref={panelRef}>
+              {/* STEP 1 — AUDIENCE */}
+              {step === 0 && (
+                <div className="step-body">
+                  <h2 className="step-title">What are you selling?</h2>
+                  <p className="step-sub">This tells us which add-ons to recommend — it never changes your price.</p>
 
-              <div className="group-block">
-                <div className="group-label-row">
-                  <div className="group-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M3 11l18-5v12L3 14v-3z" />
-                      <path d="M11.6 16.8a3 3 0 11-5.8-1.6" />
-                    </svg>
+                  <div className="audience-grid" role="radiogroup" aria-label="Audience">
+                    {AUDIENCE_CARDS.map((card) => (
+                      <div
+                        key={card.id}
+                        role="radio"
+                        aria-checked={audience === card.id}
+                        tabIndex={0}
+                        className={`audience-card ${audience === card.id ? "active" : ""}`}
+                        onClick={() => selectAudience(card.id)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            selectAudience(card.id);
+                          }
+                        }}
+                      >
+                        <div className="tick">{audience === card.id ? "✓" : ""}</div>
+                        <div className="audience-icon">{card.icon}</div>
+                        <h4>{card.title}</h4>
+                        <p>{card.desc}</p>
+                      </div>
+                    ))}
                   </div>
-                  <div className="group-label">Ads &amp; traffic</div>
-                </div>
-                <div className="feature-grid">
-                  {ADS.map((item) => (
-                    <FeatureCard
-                      key={item.id}
-                      item={item}
-                      active={addons.has(item.id)}
-                      recommended={!!audience && item.recommendedFor.includes(audience)}
-                      onToggle={() => toggleAddon(item.id)}
-                    />
-                  ))}
-                </div>
-              </div>
 
-              <div className="group-block">
-                <div className="group-label-row">
-                  <div className="group-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
+                  <div className="step-actions">
+                    <span className="step-skip-hint">
+                      {audienceDone ? "Nice — recommendations are ready below." : "You can also skip this."}
+                    </span>
+                    <button className="btn-primary" onClick={() => goStep(1)}>
+                      {audienceDone ? "Continue" : "Skip for now"}
+                    </button>
                   </div>
-                  <div className="group-label">Automation</div>
                 </div>
-                <div className="feature-grid">
-                  {AUTOMATIONS.map((item) => (
-                    <FeatureCard
-                      key={item.id}
-                      item={item}
-                      active={addons.has(item.id)}
-                      recommended={!!audience && item.recommendedFor.includes(audience)}
-                      onToggle={() => toggleAddon(item.id)}
-                    />
-                  ))}
-                </div>
-              </div>
+              )}
 
-              <div className="group-block">
-                <div className="group-label-row">
-                  <div className="group-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4 9h6V4a1 1 0 00-1-1H5a1 1 0 00-1 1v5z" />
-                      <path d="M14 9h6a1 1 0 011 1v4a1 1 0 01-1 1h-6" />
-                      <path d="M9 9v6a3 3 0 003 3v3" />
-                    </svg>
-                  </div>
-                  <div className="group-label">Integrations</div>
-                </div>
-                <div className="feature-grid">
-                  {INTEGRATIONS.map((item) => (
-                    <FeatureCard
-                      key={item.id}
-                      item={item}
-                      active={addons.has(item.id)}
-                      recommended={!!audience && item.recommendedFor.includes(audience)}
-                      onToggle={() => toggleAddon(item.id)}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
+              {/* STEP 2 — ADDONS */}
+              {step === 1 && (
+                <div className="step-body">
+                  <h2 className="step-title">Ads, automation &amp; integrations</h2>
+                  <p className="step-sub">All optional. Toggle on anything your funnel needs.</p>
 
-            {/* SUPPORT PLAN */}
-            <div className="block">
-              <div className="block-head">
-                <div className="block-num">3</div>
-                <div>
-                  <div className="block-index">Step 3 · Optional</div>
-                  <h2 className="block-title">Ongoing support</h2>
-                  <p className="block-sub">A monthly plan for hosting, edits, and troubleshooting after launch.</p>
-                </div>
-              </div>
-              <div className="plan-grid">
-                {PLANS.map((p) => (
-                  <div key={p.id} className={`plan-card ${plan === p.id ? "active" : ""}`} onClick={() => setPlan(p.id)}>
-                    {p.recommended && <span className="plan-recommended">Popular</span>}
-                    <div className="plan-name">{p.name}</div>
-                    <div className="plan-price">
-                      {p.price === 0 ? "Included" : currency(p.price)} {p.period && <span>{p.period}</span>}
+                  {audience && (
+                    <button className={`bundle-btn ${justAdded ? "added" : ""}`} onClick={applyBundle}>
+                      {justAdded ? "✓ Added your recommended add-ons" : `Add what's recommended for ${AUDIENCE_LABEL[audience]}`}
+                    </button>
+                  )}
+
+                  {ADDON_GROUPS.map((group) => (
+                    <div className="addon-group" key={group.label}>
+                      <div className="addon-group-label">{group.label}</div>
+                      <div className="addon-list">
+                        {group.items.map((item) => (
+                          <AddonRow
+                            key={item.id}
+                            item={item}
+                            active={addons.has(item.id)}
+                            recommended={!!audience && item.recommendedFor.includes(audience)}
+                            onToggle={() => toggleAddon(item.id)}
+                          />
+                        ))}
+                      </div>
                     </div>
-                    <div className="plan-desc">{p.desc}</div>
+                  ))}
+
+                  <div className="step-actions">
+                    <button className="btn-secondary" onClick={() => goStep(0)}>
+                      Back
+                    </button>
+                    <button className="btn-primary" onClick={() => goStep(2)}>
+                      Continue
+                    </button>
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
+
+              {/* STEP 3 — SUPPORT */}
+              {step === 2 && (
+                <div className="step-body">
+                  <h2 className="step-title">Ongoing support</h2>
+                  <p className="step-sub">A monthly plan for hosting, edits, and troubleshooting after launch.</p>
+
+                  <div className="plan-grid" role="radiogroup" aria-label="Support plan">
+                    {PLANS.map((p) => (
+                      <div
+                        key={p.id}
+                        role="radio"
+                        aria-checked={plan === p.id}
+                        tabIndex={0}
+                        className={`plan-card ${plan === p.id ? "active" : ""}`}
+                        onClick={() => setPlan(p.id)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            setPlan(p.id);
+                          }
+                        }}
+                      >
+                        {p.recommended && <span className="plan-recommended">Popular</span>}
+                        <div className="plan-name">{p.name}</div>
+                        <div className="plan-price">
+                          {p.price === 0 ? "Included" : currency(p.price)} {p.period && <span>{p.period}</span>}
+                        </div>
+                        <div className="plan-desc">{p.desc}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="step-actions">
+                    <button className="btn-secondary" onClick={() => goStep(1)}>
+                      Back
+                    </button>
+                    <button className="btn-primary" onClick={runCheckout}>
+                      {checkoutState === "loading" ? "Preparing checkout…" : `Get started — ${currency(oneTime)}`}
+                    </button>
+                  </div>
+
+                  {checkoutState === "done" && (
+                    <div className="checkout-note">
+                      This is a demo — wire this button to your real payment step whenever you're ready.
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* LIVE SUMMARY */}
+          {/* LIVE SUMMARY — desktop sidebar */}
           <div className="summary">
             <h3>Your funnel</h3>
-            <div className="summary-tag">{audience ? `Funnel for: ${AUDIENCE_LABEL[audience]}` : "No audience selected yet"}</div>
+            <div className="summary-tag">{audience ? `For: ${AUDIENCE_LABEL[audience]}` : "No audience selected yet"}</div>
 
             <div className="summary-list">
               <div className="summary-row core">
@@ -426,7 +488,7 @@ export default function PricingPage() {
               ))}
             </div>
 
-            <div className="summary-divider"></div>
+            <div className="summary-divider" />
 
             <div className="summary-total-row">
               <span className="summary-total-label">One-time build</span>
@@ -436,36 +498,37 @@ export default function PricingPage() {
               {activePlan && activePlan.price > 0 ? `+ ${currency(activePlan.price)}${activePlan.period} ongoing support` : ""}
             </div>
 
-            <button className="summary-btn" onClick={() => alert("This is a demo checkout flow — wire this button up to your real payment step.")}>
-              Get started — {currency(oneTime)}
+            <button className="summary-btn" onClick={runCheckout}>
+              {checkoutState === "loading" ? "Preparing checkout…" : `Get started — ${currency(oneTime)}`}
             </button>
-            <div className="summary-trust">🔒 Fixed pricing · No hidden fees · Built for UK fitness brands</div>
+            <div className="summary-trust">Fixed pricing · No hidden fees · Built for UK fitness brands</div>
           </div>
         </div>
       </div>
 
+      {/* MOBILE STICKY CHECKOUT BAR */}
       <div className="mobile-bar">
         <div className="mobile-bar-total">
           <small>Your total</small>
           {currency(oneTime)}
         </div>
-        <button className="mobile-bar-btn" onClick={() => alert("This is a demo checkout flow — wire this button up to your real payment step.")}>
-          Get started
+        <button className="mobile-bar-btn" onClick={runCheckout}>
+          {checkoutState === "loading" ? "…" : "Get started"}
         </button>
       </div>
 
       <style jsx global>{`
         :root {
           --ink: #241f1c;
-          --ink-soft: #665c53;
+          --ink-soft: #5b5148;
           --ivory: #f7f1e4;
           --ivory-deep: #ece2cc;
           --cream-card: #fffdf7;
           --gold: #c39a56;
           --gold-dark: #96702f;
           --gold-pale: #f1e4c8;
-          --line: rgba(36, 31, 28, 0.13);
-          --line-soft: rgba(36, 31, 28, 0.07);
+          --line: rgba(36, 31, 28, 0.14);
+          --line-soft: rgba(36, 31, 28, 0.08);
           --shadow: 0 10px 28px rgba(36, 31, 28, 0.08), 0 2px 8px rgba(36, 31, 28, 0.04);
           --shadow-lift: 0 22px 48px rgba(36, 31, 28, 0.16);
           --radius: 16px;
@@ -479,276 +542,324 @@ export default function PricingPage() {
         html {
           scroll-behavior: smooth;
         }
+        @media (prefers-reduced-motion: reduce) {
+          html {
+            scroll-behavior: auto;
+          }
+          * {
+            transition-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
+          }
+        }
+
+        button {
+          font-family: var(--sans);
+        }
+        button:focus-visible,
+        [role="radio"]:focus-visible,
+        [role="switch"]:focus-visible,
+        [role="tab"]:focus-visible {
+          outline: 2.5px solid var(--gold-dark);
+          outline-offset: 2px;
+        }
 
         .wrap {
           max-width: 1180px;
           margin: 0 auto;
-          padding: 0 24px;
+          padding: 0 20px;
         }
 
-        .top {
+        /* MINI STICKY BAR */
+        .mini-bar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 60;
+          background: var(--cream-card);
+          border-bottom: 1px solid var(--line);
+          transform: translateY(-100%);
+          transition: transform 0.25s ease;
+        }
+        .mini-bar.show {
+          transform: translateY(0);
+        }
+        .mini-bar-inner {
+          max-width: 1180px;
+          margin: 0 auto;
+          padding: 12px 20px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 24px 0;
-          border-bottom: 1px solid var(--line);
         }
-        .brand {
+        .mini-bar-brand {
           font-family: var(--serif);
           font-weight: 700;
-          font-size: 21px;
-          letter-spacing: -0.01em;
+          font-size: 16px;
+        }
+        .mini-bar-right {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 14px;
         }
-        .brand-mark {
-          width: 32px;
-          height: 32px;
-          border-radius: 9px;
+        .mini-bar-total {
+          font-family: var(--serif);
+          font-weight: 700;
+          font-size: 16px;
+        }
+        .mini-bar-btn {
+          border: none;
+          background: var(--ink);
+          color: var(--ivory);
+          font-weight: 700;
+          font-size: 13px;
+          padding: 9px 16px;
+          border-radius: var(--radius-pill);
+          cursor: pointer;
+        }
+        @media (max-width: 700px) {
+          .mini-bar-btn {
+            display: none;
+          }
+        }
+
+        .hero {
+          padding: 44px 0 8px;
+          text-align: center;
+        }
+        .hero-eyebrow {
+          display: inline-flex;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.02em;
+          color: var(--gold-dark);
+          background: var(--gold-pale);
+          padding: 6px 14px;
+          border-radius: var(--radius-pill);
+          margin-bottom: 16px;
+        }
+        .hero h1 {
+          font-family: var(--serif);
+          font-size: clamp(28px, 4.4vw, 46px);
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          margin: 0 0 12px;
+          max-width: 720px;
+          margin-inline: auto;
+          line-height: 1.15;
+        }
+        .hero p {
+          color: var(--ink-soft);
+          font-size: 16px;
+          max-width: 520px;
+          margin: 0 auto;
+          line-height: 1.55;
+        }
+
+        /* CORE BANNER */
+        .core-banner {
+          margin-top: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          background: var(--cream-card);
+          border: 1px solid var(--line);
+          border-radius: var(--radius);
+          padding: 16px 18px;
+          flex-wrap: wrap;
+        }
+        .core-banner-left {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          min-width: 0;
+        }
+        .core-check {
+          flex-shrink: 0;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
           background: var(--ink);
           color: var(--ivory);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 15px;
-          font-family: var(--serif);
           font-weight: 700;
         }
-        .top-note {
-          font-size: 12.5px;
+        .core-banner-title {
+          font-weight: 700;
+          font-size: 14.5px;
+        }
+        .core-banner-sub {
+          font-size: 13px;
           color: var(--ink-soft);
-          letter-spacing: 0.02em;
+          margin-top: 2px;
+        }
+        .core-banner-right {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex-shrink: 0;
+        }
+        .core-banner-price {
+          font-family: var(--serif);
+          font-weight: 700;
+          font-size: 16px;
+        }
+        .core-banner-toggle {
+          border: 1px solid var(--line);
+          background: transparent;
+          color: var(--ink);
+          font-size: 12.5px;
+          font-weight: 700;
+          padding: 8px 14px;
+          border-radius: var(--radius-pill);
+          cursor: pointer;
+          min-height: 36px;
+        }
+        .core-banner-toggle:hover {
+          border-color: var(--gold);
         }
 
-        .hero {
-          padding: 60px 0 6px;
-          text-align: center;
+        .core-details {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 14px;
         }
-        .hero-eyebrow {
-          display: inline-flex;
+        .core-details.open {
+          max-height: 400px;
+          margin-top: 12px;
+        }
+        @media (max-width: 700px) {
+          .core-details {
+            grid-template-columns: 1fr;
+          }
+        }
+        .core-detail-item {
+          display: flex;
+          gap: 12px;
+          background: var(--ivory-deep);
+          border-radius: 12px;
+          padding: 14px;
+        }
+        .core-detail-num {
+          flex-shrink: 0;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: var(--ink);
+          color: var(--ivory);
+          display: flex;
           align-items: center;
-          gap: 8px;
+          justify-content: center;
           font-size: 12px;
           font-weight: 700;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          color: var(--gold-dark);
-          background: var(--gold-pale);
-          padding: 6px 14px;
-          border-radius: var(--radius-pill);
-          margin-bottom: 18px;
         }
-        .hero h1 {
-          font-family: var(--serif);
-          font-size: clamp(32px, 4.4vw, 50px);
-          font-weight: 600;
-          letter-spacing: -0.02em;
-          margin: 0 0 14px;
-          max-width: 760px;
-          margin-inline: auto;
-          line-height: 1.12;
+        .core-detail-item strong {
+          font-size: 13.5px;
+          display: block;
+          margin-bottom: 3px;
         }
-        .hero p {
+        .core-detail-item p {
+          margin: 0;
+          font-size: 12.5px;
           color: var(--ink-soft);
-          font-size: 16.5px;
-          max-width: 540px;
-          margin: 0 auto;
+          line-height: 1.5;
         }
 
-        .steps-track {
+        .layout {
+          display: grid;
+          grid-template-columns: 1fr 360px;
+          gap: 32px;
+          padding: 32px 0 56px;
+          align-items: start;
+        }
+        @media (max-width: 960px) {
+          .layout {
+            grid-template-columns: 1fr;
+            padding-bottom: 16px;
+          }
+        }
+
+        /* STEP TRACK */
+        .step-track {
           display: flex;
-          justify-content: center;
-          gap: 10px;
-          margin: 34px auto 0;
+          gap: 8px;
+          margin-bottom: 18px;
           flex-wrap: wrap;
         }
         .step-pill {
           display: flex;
           align-items: center;
           gap: 8px;
-          font-size: 12.5px;
-          font-weight: 600;
+          font-size: 13px;
+          font-weight: 700;
           color: var(--ink-soft);
           background: var(--cream-card);
           border: 1px solid var(--line);
-          padding: 7px 14px 7px 8px;
+          padding: 9px 16px 9px 9px;
           border-radius: var(--radius-pill);
-          transition: all 0.3s ease;
+          cursor: pointer;
+          min-height: 40px;
         }
         .step-pill .num {
-          width: 19px;
-          height: 19px;
+          width: 21px;
+          height: 21px;
           border-radius: 50%;
           background: var(--ivory-deep);
           color: var(--ink-soft);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 10.5px;
+          font-size: 11px;
           font-weight: 800;
-          transition: all 0.3s ease;
+          flex-shrink: 0;
         }
         .step-pill.done {
           color: var(--ink);
-          border-color: var(--gold);
         }
         .step-pill.done .num {
           background: var(--gold);
           color: #fff;
         }
-
-        .layout {
-          display: grid;
-          grid-template-columns: 1fr 372px;
-          gap: 38px;
-          padding: 52px 0 60px;
-          align-items: start;
+        .step-pill.current {
+          border-color: var(--ink);
+          background: var(--ink);
+          color: var(--ivory);
         }
-        @media (max-width: 960px) {
-          .layout {
-            grid-template-columns: 1fr;
-            padding-bottom: 20px;
+        .step-pill.current .num {
+          background: var(--ivory);
+          color: var(--ink);
+        }
+
+        .panel {
+          background: var(--cream-card);
+          border: 1px solid var(--line);
+          border-radius: var(--radius);
+          padding: 26px;
+          scroll-margin-top: 80px;
+        }
+        @media (max-width: 700px) {
+          .panel {
+            padding: 20px 16px;
           }
         }
 
-        .block {
-          margin-bottom: 48px;
-        }
-
-        .block-head {
-          margin-bottom: 18px;
-          display: flex;
-          align-items: flex-start;
-          gap: 12px;
-        }
-        .block-num {
-          flex-shrink: 0;
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          border: 1.5px solid var(--gold);
-          color: var(--gold-dark);
-          font-family: var(--serif);
-          font-weight: 700;
-          font-size: 14px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-top: 1px;
-        }
-        .block-index {
-          font-size: 11.5px;
-          color: var(--gold-dark);
-          font-weight: 700;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          margin-bottom: 5px;
-        }
-        .block-title {
+        .step-title {
           font-family: var(--serif);
           font-size: 22px;
           font-weight: 600;
-          letter-spacing: -0.01em;
-          margin: 0 0 4px;
+          margin: 0 0 6px;
         }
-        .block-sub {
+        .step-sub {
           color: var(--ink-soft);
           font-size: 14px;
-          margin: 0;
-          max-width: 480px;
-        }
-
-        .core-card {
-          border: 1.5px solid var(--ink);
-          border-radius: var(--radius);
-          background: var(--cream-card);
-          padding: 24px;
-          box-shadow: var(--shadow);
-          position: relative;
-          overflow: hidden;
-        }
-        .core-card::before {
-          content: "";
-          position: absolute;
-          top: -40px;
-          right: -40px;
-          width: 140px;
-          height: 140px;
-          background: radial-gradient(circle, var(--gold-pale), transparent 70%);
-        }
-        .core-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 18px;
-          position: relative;
-        }
-        .core-title {
-          font-weight: 800;
-          font-size: 15.5px;
-        }
-        .core-price {
-          font-family: var(--serif);
-          font-weight: 700;
-          font-size: 19px;
-        }
-        .core-price span {
-          font-family: var(--sans);
-          font-size: 12px;
-          font-weight: 500;
-          color: var(--ink-soft);
-        }
-        .core-steps {
-          display: flex;
-          flex-direction: column;
-          gap: 0;
-          position: relative;
-        }
-        .core-step {
-          display: flex;
-          align-items: flex-start;
-          gap: 14px;
-          padding: 13px 0;
-          border-bottom: 1px solid var(--line-soft);
-        }
-        .core-step:last-child {
-          border-bottom: none;
-        }
-        .core-step-num {
-          flex-shrink: 0;
-          width: 27px;
-          height: 27px;
-          border-radius: 50%;
-          background: var(--ink);
-          color: var(--ivory);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 12px;
-          font-weight: 700;
-          margin-top: 1px;
-          font-family: var(--serif);
-        }
-        .core-step-name {
-          font-size: 14px;
-          font-weight: 700;
-          margin-bottom: 2px;
-        }
-        .core-step-desc {
-          font-size: 12.5px;
-          color: var(--ink-soft);
-        }
-        .core-note {
-          margin-top: 16px;
-          font-size: 12.5px;
-          color: var(--ink-soft);
-          background: var(--ivory-deep);
-          padding: 11px 14px;
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
+          margin: 0 0 22px;
+          line-height: 1.5;
         }
 
         .audience-grid {
@@ -763,26 +874,24 @@ export default function PricingPage() {
         }
         .audience-card {
           position: relative;
-          border: 1px solid var(--line);
+          border: 1.5px solid var(--line);
           border-radius: var(--radius);
-          background: var(--cream-card);
-          padding: 20px;
+          background: #fff;
+          padding: 18px;
           cursor: pointer;
-          transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+          transition: border-color 0.15s ease, background 0.15s ease;
+          min-height: 44px;
         }
         .audience-card:hover {
-          box-shadow: var(--shadow);
-          transform: translateY(-3px);
           border-color: var(--gold);
         }
         .audience-card.active {
           border-color: var(--ink);
-          box-shadow: var(--shadow-lift);
           background: linear-gradient(160deg, #fff, var(--gold-pale) 220%);
         }
         .audience-icon {
-          width: 34px;
-          height: 34px;
+          width: 36px;
+          height: 36px;
           border-radius: 9px;
           background: var(--ivory-deep);
           color: var(--ink);
@@ -790,7 +899,6 @@ export default function PricingPage() {
           align-items: center;
           justify-content: center;
           margin-bottom: 12px;
-          transition: all 0.25s ease;
         }
         .audience-card.active .audience-icon {
           background: var(--ink);
@@ -798,188 +906,203 @@ export default function PricingPage() {
         }
         .audience-card h4 {
           margin: 0 0 6px;
-          font-size: 15px;
+          font-size: 15.5px;
           font-weight: 700;
         }
         .audience-card p {
           margin: 0;
-          font-size: 12.5px;
+          font-size: 13px;
           color: var(--ink-soft);
+          line-height: 1.5;
         }
         .audience-card .tick {
           position: absolute;
           top: 16px;
           right: 16px;
-          width: 19px;
-          height: 19px;
+          width: 22px;
+          height: 22px;
           border-radius: 50%;
           border: 1.5px solid var(--line);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 10px;
+          font-size: 11px;
           color: #fff;
-          transition: all 0.2s ease;
         }
         .audience-card.active .tick {
           background: var(--ink);
           border-color: var(--ink);
         }
 
-        .bundle-row {
+        .step-actions {
           display: flex;
           align-items: center;
-          gap: 12px;
-          margin-top: 16px;
-          max-height: 0;
-          opacity: 0;
-          overflow: hidden;
-          transition: all 0.35s ease;
+          justify-content: space-between;
+          gap: 14px;
+          margin-top: 24px;
+          flex-wrap: wrap;
         }
-        .bundle-row.show {
-          max-height: 60px;
-          opacity: 1;
-          margin-top: 16px;
-        }
-        .bundle-btn {
-          font-family: var(--sans);
+        .step-skip-hint {
           font-size: 13px;
+          color: var(--ink-soft);
+        }
+        .btn-primary {
+          border: none;
+          background: var(--ink);
+          color: var(--ivory);
+          font-weight: 700;
+          font-size: 14px;
+          padding: 13px 22px;
+          border-radius: var(--radius-pill);
+          cursor: pointer;
+          min-height: 46px;
+        }
+        .btn-primary:hover {
+          background: var(--gold-dark);
+        }
+        .btn-secondary {
+          border: 1px solid var(--line);
+          background: transparent;
+          color: var(--ink);
+          font-weight: 700;
+          font-size: 14px;
+          padding: 13px 20px;
+          border-radius: var(--radius-pill);
+          cursor: pointer;
+          min-height: 46px;
+        }
+        .btn-secondary:hover {
+          border-color: var(--gold);
+        }
+
+        .bundle-btn {
+          display: block;
+          width: 100%;
+          text-align: left;
+          font-size: 13.5px;
           font-weight: 700;
           color: var(--ink);
           background: var(--gold-pale);
           border: 1px solid var(--gold);
-          padding: 10px 16px;
-          border-radius: var(--radius-pill);
+          padding: 13px 16px;
+          border-radius: 12px;
           cursor: pointer;
-          transition: all 0.2s ease;
-          white-space: nowrap;
+          margin-bottom: 22px;
+          min-height: 46px;
+          transition: background 0.15s ease;
         }
         .bundle-btn:hover {
           background: var(--gold);
           color: #fff;
         }
-        .bundle-hint {
-          font-size: 12.5px;
-          color: var(--ink-soft);
+        .bundle-btn.added {
+          background: var(--ink);
+          color: var(--ivory);
+          border-color: var(--ink);
         }
 
-        .group-block {
-          margin-bottom: 26px;
+        .addon-group {
+          margin-bottom: 22px;
         }
-        .group-block:last-child {
+        .addon-group:last-child {
           margin-bottom: 0;
         }
-        .group-label-row {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          margin-bottom: 12px;
-        }
-        .group-icon {
-          width: 26px;
-          height: 26px;
-          border-radius: 7px;
-          background: var(--ivory-deep);
-          color: var(--gold-dark);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-        .group-label {
-          font-size: 12.5px;
+        .addon-group-label {
+          font-size: 12px;
           font-weight: 700;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
-          color: var(--ink-soft);
+          color: var(--gold-dark);
+          margin-bottom: 8px;
         }
-
-        .feature-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 12px;
-        }
-        @media (max-width: 700px) {
-          .feature-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-        .feature-card {
-          position: relative;
+        .addon-list {
           display: flex;
-          align-items: flex-start;
-          gap: 14px;
-          border: 1px solid var(--line);
-          border-radius: var(--radius);
-          background: var(--cream-card);
-          padding: 16px 18px;
-          cursor: pointer;
-          transition: all 0.22s ease;
+          flex-direction: column;
+          gap: 8px;
         }
-        .feature-card:hover {
-          box-shadow: var(--shadow);
+        .addon-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          border: 1px solid var(--line);
+          border-radius: 12px;
+          background: #fff;
+          padding: 14px 16px;
+          cursor: pointer;
+          min-height: 44px;
+          transition: border-color 0.15s ease, background 0.15s ease;
+        }
+        .addon-row:hover {
           border-color: var(--gold);
         }
-        .feature-card.active {
+        .addon-row.active {
           border-color: var(--ink);
-          box-shadow: var(--shadow);
-          background: linear-gradient(160deg, #fff, var(--gold-pale) 260%);
+          background: var(--gold-pale);
         }
-        .feature-check {
-          flex-shrink: 0;
-          width: 21px;
-          height: 21px;
-          border-radius: 7px;
-          border: 1.5px solid var(--line);
+        .addon-main {
+          min-width: 0;
+        }
+        .addon-top {
           display: flex;
           align-items: center;
-          justify-content: center;
-          margin-top: 2px;
-          transition: all 0.2s ease;
+          gap: 8px;
+          flex-wrap: wrap;
         }
-        .feature-card.active .feature-check {
-          background: var(--ink);
-          border-color: var(--ink);
-          color: #fff;
-        }
-        .feature-body {
-          flex: 1;
-        }
-        .feature-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
-          gap: 10px;
-        }
-        .feature-name {
+        .addon-name {
           font-size: 14.5px;
           font-weight: 700;
         }
-        .feature-price {
+        .addon-tag {
+          font-size: 10.5px;
+          font-weight: 700;
+          background: var(--ink);
+          color: var(--ivory);
+          padding: 2px 8px;
+          border-radius: var(--radius-pill);
+        }
+        .addon-desc {
+          font-size: 12.5px;
+          color: var(--ink-soft);
+          margin-top: 3px;
+          line-height: 1.5;
+        }
+        .addon-right {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex-shrink: 0;
+        }
+        .addon-price {
           font-size: 13px;
           font-weight: 700;
           color: var(--gold-dark);
           white-space: nowrap;
         }
-        .feature-desc {
-          font-size: 12.5px;
-          color: var(--ink-soft);
-          margin-top: 4px;
-          line-height: 1.5;
+        .switch {
+          width: 42px;
+          height: 25px;
+          border-radius: 999px;
+          background: var(--ivory-deep);
+          position: relative;
+          flex-shrink: 0;
+          transition: background 0.2s ease;
         }
-        .feature-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          font-size: 10px;
-          font-weight: 700;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
+        .switch::after {
+          content: "";
+          position: absolute;
+          top: 3px;
+          left: 3px;
+          width: 19px;
+          height: 19px;
+          border-radius: 50%;
+          background: #fff;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+          transition: transform 0.2s ease;
+        }
+        .switch.on {
           background: var(--ink);
-          color: var(--ivory);
-          padding: 3px 9px;
-          border-radius: var(--radius-pill);
-          margin-top: 7px;
+        }
+        .switch.on::after {
+          transform: translateX(17px);
         }
 
         .plan-grid {
@@ -993,21 +1116,20 @@ export default function PricingPage() {
           }
         }
         .plan-card {
-          border: 1px solid var(--line);
+          border: 1.5px solid var(--line);
           border-radius: var(--radius);
-          background: var(--cream-card);
+          background: #fff;
           padding: 18px;
           cursor: pointer;
-          transition: all 0.22s ease;
           position: relative;
+          min-height: 44px;
+          transition: border-color 0.15s ease, background 0.15s ease;
         }
         .plan-card:hover {
-          box-shadow: var(--shadow);
           border-color: var(--gold);
         }
         .plan-card.active {
           border-color: var(--ink);
-          box-shadow: var(--shadow);
           background: linear-gradient(160deg, #fff, var(--gold-pale) 260%);
         }
         .plan-name {
@@ -1038,21 +1160,29 @@ export default function PricingPage() {
           right: 14px;
           font-size: 9.5px;
           font-weight: 700;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
           background: var(--gold);
           color: #fff;
           padding: 3px 9px;
           border-radius: var(--radius-pill);
         }
 
+        .checkout-note {
+          margin-top: 16px;
+          font-size: 12.5px;
+          color: var(--ink-soft);
+          background: var(--ivory-deep);
+          padding: 12px 14px;
+          border-radius: 10px;
+        }
+
+        /* SUMMARY */
         .summary {
           position: sticky;
           top: 24px;
           background: var(--cream-card);
           border: 1px solid var(--line);
           border-radius: var(--radius);
-          padding: 28px;
+          padding: 26px;
           box-shadow: var(--shadow-lift);
         }
         .summary h3 {
@@ -1064,14 +1194,14 @@ export default function PricingPage() {
         .summary .summary-tag {
           font-size: 12.5px;
           color: var(--ink-soft);
-          margin-bottom: 20px;
+          margin-bottom: 18px;
         }
         .summary-list {
           display: flex;
           flex-direction: column;
-          gap: 0px;
+          gap: 9px;
           margin-bottom: 8px;
-          max-height: 340px;
+          max-height: 300px;
           overflow-y: auto;
         }
         .summary-row {
@@ -1104,7 +1234,7 @@ export default function PricingPage() {
         }
         .summary-total-value {
           font-family: var(--serif);
-          font-size: 30px;
+          font-size: 28px;
           font-weight: 700;
           letter-spacing: -0.01em;
         }
@@ -1112,12 +1242,12 @@ export default function PricingPage() {
           font-size: 12.5px;
           color: var(--gold-dark);
           font-weight: 600;
-          margin-bottom: 22px;
+          margin-bottom: 20px;
           min-height: 16px;
         }
         .summary-btn {
           width: 100%;
-          padding: 16px;
+          padding: 15px;
           border: none;
           border-radius: var(--radius-pill);
           background: var(--ink);
@@ -1125,19 +1255,12 @@ export default function PricingPage() {
           font-weight: 700;
           font-size: 14.5px;
           cursor: pointer;
-          transition: all 0.25s ease;
-          font-family: var(--sans);
+          min-height: 48px;
         }
         .summary-btn:hover {
           background: var(--gold-dark);
-          transform: translateY(-2px);
-          box-shadow: 0 12px 24px rgba(150, 112, 47, 0.3);
         }
         .summary-trust {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 6px;
           text-align: center;
           font-size: 11.5px;
           color: var(--ink-soft);
@@ -1145,11 +1268,11 @@ export default function PricingPage() {
         }
         @media (max-width: 960px) {
           .summary {
-            position: static;
-            margin-bottom: 90px;
+            display: none;
           }
         }
 
+        /* MOBILE BOTTOM BAR */
         .mobile-bar {
           display: none;
           position: fixed;
@@ -1158,9 +1281,9 @@ export default function PricingPage() {
           bottom: 0;
           background: var(--cream-card);
           border-top: 1px solid var(--line);
-          padding: 14px 20px;
+          padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
           box-shadow: 0 -8px 24px rgba(36, 31, 28, 0.12);
-          z-index: 50;
+          z-index: 55;
           align-items: center;
           justify-content: space-between;
           gap: 14px;
@@ -1178,19 +1301,22 @@ export default function PricingPage() {
           display: block;
         }
         .mobile-bar-btn {
-          padding: 12px 20px;
+          padding: 13px 22px;
           border: none;
           border-radius: var(--radius-pill);
           background: var(--ink);
           color: var(--ivory);
           font-weight: 700;
-          font-size: 13.5px;
+          font-size: 14px;
           cursor: pointer;
-          font-family: var(--sans);
+          min-height: 46px;
         }
         @media (max-width: 960px) {
           .mobile-bar {
             display: flex;
+          }
+          .panel {
+            margin-bottom: 90px;
           }
         }
       `}</style>

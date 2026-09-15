@@ -46,8 +46,23 @@ export const metadata = {
   creator: "Falcoon",
   publisher: "Falcoon",
 
+  // Helps some search engines classify the site/business type
+  category: "Business & Marketing Services",
+
+  applicationName: "Falcoon",
+
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: true,
+  },
+
   alternates: {
     canonical: "https://falcoon.in",
+    // Explicit UK-locale signal — prevents ambiguity with other en-* markets
+    languages: {
+      "en-GB": "https://falcoon.in",
+    },
   },
 
   robots: {
@@ -65,7 +80,20 @@ export const metadata = {
 
   verification: {
     google: "wmeKQp8rNpuVbdsm0s7OthyTLKw21J10-xRqGc4IV7s",
+    // Add your Bing Webmaster Tools verification code here once generated
+    // other: { "msvalidate.01": "YOUR_BING_CODE" },
   },
+
+  // Icons — Next.js metadata API handles these more reliably than manual <link> tags
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+
+  manifest: "/site.webmanifest",
 
   // ─────────────────────────────────────────────
   // Open Graph
@@ -109,8 +137,22 @@ export const metadata = {
       "https://falcoon.in/assets/images/falcoon_og.png",
     ],
 
+    site: "@falcoon_in",
     creator: "@falcoon_in",
   },
+};
+
+// ─────────────────────────────────────────────
+// Viewport / Theme (Next.js 14+ requires this as a
+// separate export — themeColor no longer lives in metadata)
+// ─────────────────────────────────────────────
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 // ─────────────────────────────────────────────
@@ -122,19 +164,31 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-
       "@id": "https://falcoon.in/#organization",
 
       name: "Falcoon",
-
       url: "https://falcoon.in",
-
       logo: "https://falcoon.in/assets/images/falcoon_logo.png",
-
       image: "https://falcoon.in/assets/images/falcoon_og.png",
 
       description:
         "Falcoon is a fitness funnel and website agency serving UK fitness professionals with high-converting websites, funnels and automation systems.",
+
+      // TODO: fill these in — real contact/address data is a strong
+      // trust + local-SEO signal for UK searches
+      email: "hello@falcoon.in",
+      telephone: "+44-XXXX-XXXXXX",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "GB",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "Customer Service",
+        email: "hello@falcoon.in",
+        areaServed: "GB",
+        availableLanguage: ["English"],
+      },
 
       areaServed: {
         "@type": "Country",
@@ -152,23 +206,44 @@ const jsonLd = {
         "Payment Systems",
       ],
 
-      sameAs: [],
+      // TODO: add your real social profile URLs — empty sameAs wastes
+      // an easy entity-verification signal for Google
+      sameAs: [
+        // "https://www.linkedin.com/company/falcoon",
+        // "https://www.instagram.com/falcoon_in",
+      ],
     },
 
     {
       "@type": "WebSite",
-
       "@id": "https://falcoon.in/#website",
 
       url: "https://falcoon.in",
-
       name: "Falcoon",
-
       publisher: {
         "@id": "https://falcoon.in/#organization",
       },
-
       inLanguage: "en-GB",
+    },
+
+    {
+      "@type": "Service",
+      "@id": "https://falcoon.in/#service",
+
+      serviceType: "Fitness Website & Funnel Development",
+      provider: {
+        "@id": "https://falcoon.in/#organization",
+      },
+      areaServed: {
+        "@type": "Country",
+        name: "United Kingdom",
+      },
+      audience: {
+        "@type": "Audience",
+        audienceType: "Fitness Professionals",
+      },
+      description:
+        "High-converting websites, sales funnels and automation systems built specifically for UK personal trainers, fitness coaches and gym owners.",
     },
   ],
 };
@@ -180,7 +255,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en-GB">
       <head>
-
         {/* Font Awesome */}
         <link
           rel="stylesheet"
@@ -190,17 +264,12 @@ export default function RootLayout({ children }) {
         />
 
         {/* Google Fonts */}
-        <link
-          rel="preconnect"
-          href="https://fonts.googleapis.com"
-        />
-
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-
         <link
           href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Karla:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
@@ -210,29 +279,6 @@ export default function RootLayout({ children }) {
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-        />
-
-        {/* Favicon */}
-        <link
-          rel="icon"
-          href="/favicon.ico"
-          sizes="any"
-        />
-
-        <link
-          rel="icon"
-          href="/favicon.svg"
-          type="image/svg+xml"
-        />
-
-        <link
-          rel="apple-touch-icon"
-          href="/apple-touch-icon.png"
-        />
-
-        <link
-          rel="manifest"
-          href="/site.webmanifest"
         />
 
         {/* JSON-LD */}
@@ -256,10 +302,7 @@ export default function RootLayout({ children }) {
         {/* ─────────────────────────────────────────
             Tawk.to Live Chat
         ───────────────────────────────────────── */}
-        <Script
-          id="tawk-to"
-          strategy="afterInteractive"
-        >
+        <Script id="tawk-to" strategy="afterInteractive">
           {`
             var Tawk_API = Tawk_API || {};
             var Tawk_LoadStart = new Date();
@@ -282,13 +325,8 @@ export default function RootLayout({ children }) {
             Floating Quotation CTA
         ───────────────────────────────────────── */}
         <div className="left_cta_wrapper">
-          <Link
-            href="/pricing"
-            className="left_cta_tab"
-          >
-            <span className="left_cta_text">
-              Get Free Quotation
-            </span>
+          <Link href="/pricing" className="left_cta_tab">
+            <span className="left_cta_text">Get Free Quotation</span>
           </Link>
         </div>
       </body>
