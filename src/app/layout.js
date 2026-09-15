@@ -1,4 +1,3 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import Header from "./components/header";
@@ -7,43 +6,54 @@ import SupportFloat from "./components/supportfloat";
 import Link from "next/link";
 
 // ─────────────────────────────────────────────
-// ✅ LEVEL SEO - Full Metadata (Next.js 14+)
+// UK SEO Metadata
 // ─────────────────────────────────────────────
 export const metadata = {
-  // 🔷 Core
   metadataBase: new URL("https://falcoon.in"),
+
   title: {
     default:
-      "Falcoon - Fitness Funnel Agency India | Websites & Automation for Coaches",
+      "Falcoon | Fitness Funnel & Website Agency for UK Fitness Professionals",
     template: "%s | Falcoon",
   },
+
   description:
-    "We build high-converting funnels, landing pages & WhatsApp automation for fitness coaches in India. 50+ projects delivered. Book a free strategy call today.",
+    "Falcoon builds high-converting websites, funnels and automation systems for UK fitness professionals. Attract leads, book clients, take payments and sell fitness services online.",
+
   keywords: [
-    "fitness funnel agency India",
-    "website for personal trainer India",
-    "fitness coach automation India",
-    "landing page for fitness coach",
-    "WhatsApp automation for gym",
-    "gym website design India",
-    "online fitness coach website",
-    "fitness business automation Jalandhar",
-    "digital marketing for fitness coaches",
-    "falcoon",
+    "fitness funnel agency UK",
+    "fitness website agency UK",
+    "personal trainer website UK",
+    "fitness coach website UK",
+    "online coach website UK",
+    "gym website design UK",
+    "fitness business automation UK",
+    "fitness funnel builder UK",
+    "landing page for personal trainer UK",
+    "online fitness business UK",
+    "fitness marketing funnels UK",
+    "fitness sales automation UK",
+    "Falcoon",
   ],
-  authors: [{ name: "Falcoon", url: "https://falcoon.in" }],
+
+  authors: [
+    {
+      name: "Falcoon",
+      url: "https://falcoon.in",
+    },
+  ],
+
   creator: "Falcoon",
   publisher: "Falcoon",
 
-  // 🔷 Canonical
   alternates: {
     canonical: "https://falcoon.in",
   },
 
-  // 🔷 Robots
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -53,99 +63,125 @@ export const metadata = {
     },
   },
 
-  // 🔷 Google Site Verification
   verification: {
     google: "wmeKQp8rNpuVbdsm0s7OthyTLKw21J10-xRqGc4IV7s",
   },
 
-  // 🔷 Open Graph (Facebook, WhatsApp, LinkedIn previews)
+  // ─────────────────────────────────────────────
+  // Open Graph
+  // ─────────────────────────────────────────────
   openGraph: {
     type: "website",
-    locale: "en_IN",
+    locale: "en_GB",
     url: "https://falcoon.in",
     siteName: "Falcoon",
+
     title:
-      "Falcoon - Fitness Funnel Agency India | Websites & Automation for Coaches",
+      "Falcoon | Fitness Funnel & Website Agency for UK Fitness Professionals",
+
     description:
-      "We build high-converting funnels, landing pages & WhatsApp automation for fitness coaches in India. 50+ projects delivered. Book a free strategy call.",
+      "High-converting websites, funnels and automation systems for UK fitness professionals.",
+
     images: [
       {
-        url: "https://falcoon.in/assets/images/falcoon_og.png", // ⚠️ Upload a 1200×630px OG image
+        url: "https://falcoon.in/assets/images/falcoon_og.png",
         width: 1200,
         height: 630,
-        alt: "Falcoon - Fitness Funnel Agency India",
+        alt:
+          "Falcoon - Fitness Funnel and Website Agency for UK Fitness Professionals",
       },
     ],
   },
 
-  // 🔷 Twitter / X Card
+  // ─────────────────────────────────────────────
+  // Twitter / X
+  // ─────────────────────────────────────────────
   twitter: {
     card: "summary_large_image",
-    title: "Falcoon - Fitness Funnel Agency India",
+
+    title:
+      "Falcoon | Fitness Funnel Agency for UK Fitness Professionals",
+
     description:
-      "High-converting funnels, landing pages & WhatsApp automation for fitness coaches. 50+ projects. Book a free call.",
-    images: ["https://falcoon.in/assets/images/falcoon_og.png"], // ⚠️ Same OG image
-    creator: "@falcoon_in", // update if you have a Twitter handle
+      "Websites, funnels and automation systems built for UK fitness professionals.",
+
+    images: [
+      "https://falcoon.in/assets/images/falcoon_og.png",
+    ],
+
+    creator: "@falcoon_in",
   },
 };
 
 // ─────────────────────────────────────────────
-// ✅ JSON-LD Structured Data - LocalBusiness + WebSite
+// JSON-LD Structured Data
 // ─────────────────────────────────────────────
 const jsonLd = {
   "@context": "https://schema.org",
+
   "@graph": [
     {
-      "@type": "LocalBusiness",
-      "@id": "https://falcoon.in/#business",
+      "@type": "Organization",
+
+      "@id": "https://falcoon.in/#organization",
+
       name: "Falcoon",
+
       url: "https://falcoon.in",
+
       logo: "https://falcoon.in/assets/images/falcoon_logo.png",
+
       image: "https://falcoon.in/assets/images/falcoon_og.png",
+
       description:
-        "Falcoon is a fitness funnel agency based in Jalandhar, India. We build high-converting websites, funnels, and WhatsApp automation for fitness coaches.",
-      telephone: "+91-7888467258",
-      email: "thesatishjassal@gmail.com",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Jalandhar",
-        addressRegion: "Punjab",
-        addressCountry: "IN",
+        "Falcoon is a fitness funnel and website agency serving UK fitness professionals with high-converting websites, funnels and automation systems.",
+
+      areaServed: {
+        "@type": "Country",
+        name: "United Kingdom",
       },
-      areaServed: "IN",
-      priceRange: "₹₹",
-      sameAs: [
-        // Add your social URLs here:
-        // "https://www.instagram.com/falcoon_in",
-        // "https://www.facebook.com/falcoon.in",
+
+      knowsAbout: [
+        "Fitness Websites",
+        "Sales Funnels",
+        "Landing Pages",
+        "Fitness Business Automation",
+        "Online Fitness Businesses",
+        "Lead Generation",
+        "Booking Systems",
+        "Payment Systems",
       ],
+
+      sameAs: [],
     },
+
     {
       "@type": "WebSite",
+
       "@id": "https://falcoon.in/#website",
+
       url: "https://falcoon.in",
+
       name: "Falcoon",
-      publisher: { "@id": "https://falcoon.in/#business" },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: "https://falcoon.in/?s={search_term_string}",
-        },
-        "query-input": "required name=search_term_string",
+
+      publisher: {
+        "@id": "https://falcoon.in/#organization",
       },
+
+      inLanguage: "en-GB",
     },
   ],
 };
 
 // ─────────────────────────────────────────────
-// ✅ Root Layout
+// Root Layout
 // ─────────────────────────────────────────────
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <head>
-        {/* ✅ Font Awesome */}
+
+        {/* Font Awesome */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
@@ -153,58 +189,106 @@ export default function RootLayout({ children }) {
           referrerPolicy="no-referrer"
         />
 
-        {/* ✅ Google Fonts */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Karla:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-      />
+        {/* Google Fonts */}
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+        />
 
-        {/* ✅ Material Icons */}
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Karla:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+
+        {/* Material Symbols */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
         />
 
-        {/* ✅ Favicon - add these files to /public */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
+        {/* Favicon */}
+        <link
+          rel="icon"
+          href="/favicon.ico"
+          sizes="any"
+        />
 
-        {/* ✅ JSON-LD Structured Data */}
+        <link
+          rel="icon"
+          href="/favicon.svg"
+          type="image/svg+xml"
+        />
+
+        <link
+          rel="apple-touch-icon"
+          href="/apple-touch-icon.png"
+        />
+
+        <link
+          rel="manifest"
+          href="/site.webmanifest"
+        />
+
+        {/* JSON-LD */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
         />
       </head>
 
       <body>
         <Header />
+
         {children}
+
         <SupportFloat />
+
         <Footer />
 
-        {/* ✅ Tawk.to Live Chat */}
-        <Script id="tawk-to" strategy="afterInteractive">
+        {/* ─────────────────────────────────────────
+            Tawk.to Live Chat
+        ───────────────────────────────────────── */}
+        <Script
+          id="tawk-to"
+          strategy="afterInteractive"
+        >
           {`
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/69f5eeb382a2b91c3a6307b8/1jnkaorrr';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
+            var Tawk_API = Tawk_API || {};
+            var Tawk_LoadStart = new Date();
+
+            (function () {
+              var s1 = document.createElement("script");
+              var s0 = document.getElementsByTagName("script")[0];
+
+              s1.async = true;
+              s1.src = "https://embed.tawk.to/69f5eeb382a2b91c3a6307b8/1jnkaorrr";
+              s1.charset = "UTF-8";
+              s1.setAttribute("crossorigin", "*");
+
+              s0.parentNode.insertBefore(s1, s0);
+            })();
           `}
         </Script>
 
-        {/* ✅ Floating CTA */}
+        {/* ─────────────────────────────────────────
+            Floating Quotation CTA
+        ───────────────────────────────────────── */}
         <div className="left_cta_wrapper">
-          <Link href="/pricing" className="left_cta_tab">
-            <span className="left_cta_text">Get Free Quotation</span>
+          <Link
+            href="/pricing"
+            className="left_cta_tab"
+          >
+            <span className="left_cta_text">
+              Get Free Quotation
+            </span>
           </Link>
         </div>
       </body>
