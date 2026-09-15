@@ -10425,4 +10425,6 @@ a {
     padding: 8px 16px;
     font-size: 13px;
   }
+}.summary button.btn-primary.btn-icon {
+    display: none;
 }

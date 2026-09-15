@@ -192,9 +192,9 @@ function AddonRow({ item, active, recommended, onToggle }) {
 function QuoteCTAs({ onSendQuote, onBookCall }) {
   return (
     <div className="quote-ctas">
-      <button className="btn-primary btn-icon" onClick={onSendQuote}>
-        <SendIcon /> Send me this quotation
-      </button>
+        <button className="btn-primary btn-icon" onClick={onSendQuote}>
+          <SendIcon /> Send me this quotation
+        </button>
       <button className="btn-outline btn-icon" onClick={onBookCall}>
         <CalendarIcon /> Book a free call with Satish
       </button>
