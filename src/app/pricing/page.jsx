@@ -1053,7 +1053,7 @@ export default function PricingPage() {
           ref={heroRef}
         >
           <div className="hero-eyebrow">
-            Built for UK 🇬🇧 fitness brands 
+            Built for UK fitness brands 
           </div>
 
           <h1>
@@ -1639,7 +1639,7 @@ export default function PricingPage() {
 
             <div className="summary-trust">
               Fixed pricing · No hidden fees ·
-              Built for UK 🇬🇧 fitness brands 
+              Built for UK fitness brands 
             </div>
           </div>
         </div>

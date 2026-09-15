@@ -80,7 +80,7 @@ export default function ContactPage() {
       <div className="classic-wrap">
         {/* HERO */}
         <div className="classic-contact-hero">
-          <div className="classic-eyebrow">★ Built for UK 🇬🇧 fitness brands </div>
+          <div className="classic-eyebrow">★ Built for UK fitness brands </div>
           <h1>Contact our team</h1>
           <p>
             Got any questions about your business or scaling? We&apos;re here

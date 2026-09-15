@@ -49,7 +49,7 @@ export default function FAQPage() {
       <div className="classic-wrap">
         {/* HERO */}
         <div className="classic-faq-hero">
-          <div className="classic-eyebrow">★ Built for UK 🇬🇧 fitness brands </div>
+          <div className="classic-eyebrow">★ Built for UK fitness brands </div>
           <h1>Frequently asked questions</h1>
           <p>Everything you need to know before getting started</p>
         </div>
