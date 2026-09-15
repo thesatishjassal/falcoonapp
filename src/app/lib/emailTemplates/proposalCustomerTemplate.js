@@ -1,99 +1,105 @@
+const CALENDLY_URL = "https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call";
+const WHATSAPP_URL = "https://wa.me/917888467258";
+const LOGO_URL =
+  "https://d3v0px0pttie1i.cloudfront.net/uploads/branding/logo/8969127b-f40f-4ec1-beef-4e20cdc207b4/d189eed8.png";
+
+const currency = (n) => "£" + Number(n || 0).toLocaleString("en-GB");
+
 export function getProposalCustomerTemplate({ selections, total }) {
-  const name = selections.contact.name;
-  const date = new Date().toLocaleDateString("en-IN");
-  const quoteId = "FAL-" + Math.floor(Math.random() * 10000);
+  const { contact, audience, core, addons = [], support } = selections;
+  const name = contact?.name || "there";
+  const date = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const quoteId = "FAL-" + Math.floor(1000 + Math.random() * 9000);
 
   return `
-  <div style="background:#f6f7fb;padding:40px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
-    
+  <div style="background:#f7f1e4;padding:40px 0;font-family:Georgia,'Times New Roman',serif;">
+
     <table width="100%" cellpadding="0" cellspacing="0">
       <tr>
         <td align="center">
 
-          <table width="640" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:12px;padding:32px;">
-            
+          <table width="620" cellpadding="0" cellspacing="0" style="background:#fffdf7;border-radius:14px;overflow:hidden;border:1px solid #ece2cc;">
+
             <!-- HEADER -->
             <tr>
-              <td>
+              <td style="background:#241f1c;padding:28px 32px;">
                 <table width="100%">
                   <tr>
-                    <td>
-                      <img src="https://d3v0px0pttie1i.cloudfront.net/uploads/branding/logo/8969127b-f40f-4ec1-beef-4e20cdc207b4/d189eed8.png" style="height:50px;" />
-                    </td>
+                    <td><img src="${LOGO_URL}" alt="Falcoon" style="height:34px;" /></td>
                     <td align="right">
-                      <p style="margin:0;font-size:12px;color:#9aa0a6;">QUOTATION</p>
-                      <h2 style="margin:4px 0 0;font-size:18px;">#${quoteId}</h2>
+                      <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:0.06em;color:#c39a56;">QUOTATION</p>
+                      <p style="margin:4px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#f7f1e4;">#${quoteId}</p>
                     </td>
                   </tr>
                 </table>
+              </td>
+            </tr>
+
+            <!-- INTRO -->
+            <tr>
+              <td style="padding:32px 32px 0;">
+                <h1 style="margin:0 0 8px;font-size:22px;font-weight:600;color:#241f1c;">Hi ${name}, here's your funnel</h1>
+                <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#5b5148;line-height:1.6;">
+                  Thanks for building this out with us. Below is exactly what's included and what it costs —
+                  nothing hidden, nothing added without your say-so.
+                </p>
               </td>
             </tr>
 
             <!-- META -->
             <tr>
-              <td style="padding-top:24px;">
-                <table width="100%">
+              <td style="padding:24px 32px 0;">
+                <table width="100%" style="background:#f7f1e4;border-radius:10px;">
                   <tr>
-                    <td>
-                      <p style="margin:0;font-size:12px;color:#9aa0a6;">Prepared For</p>
-                      <p style="margin:4px 0;font-weight:500;">${name}</p>
-                      <p style="margin:0;font-size:13px;color:#5f6368;">${selections.contact.email}</p>
+                    <td style="padding:16px 18px;font-family:Arial,Helvetica,sans-serif;">
+                      <p style="margin:0;font-size:11px;color:#96702f;text-transform:uppercase;letter-spacing:0.04em;">Prepared for</p>
+                      <p style="margin:4px 0 0;font-size:14px;font-weight:700;color:#241f1c;">${name}</p>
+                      <p style="margin:2px 0 0;font-size:12.5px;color:#5b5148;">${contact?.email || ""}${contact?.phone ? " · " + contact.phone : ""}</p>
                     </td>
-                    <td align="right">
-                      <p style="margin:0;font-size:12px;color:#9aa0a6;">Date</p>
-                      <p style="margin:4px 0;">${date}</p>
+                    <td align="right" style="padding:16px 18px;font-family:Arial,Helvetica,sans-serif;">
+                      <p style="margin:0;font-size:11px;color:#96702f;text-transform:uppercase;letter-spacing:0.04em;">Date</p>
+                      <p style="margin:4px 0 0;font-size:14px;color:#241f1c;">${date}</p>
+                      ${audience ? `<p style="margin:6px 0 0;font-size:11px;color:#96702f;text-transform:uppercase;letter-spacing:0.04em;">Selling</p><p style="margin:2px 0 0;font-size:13px;color:#241f1c;">${audience.label}</p>` : ""}
                     </td>
                   </tr>
                 </table>
               </td>
             </tr>
 
-            <!-- DIVIDER -->
+            <!-- BUILD TABLE -->
             <tr>
-              <td style="padding:20px 0;">
-                <div style="height:1px;background:#eaecef;"></div>
-              </td>
-            </tr>
-
-            <!-- TABLE -->
-            <tr>
-              <td>
-                <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
-                  
-                  <tr style="background:#f8f9fa;">
-                    <th align="left" style="padding:12px;font-size:12px;color:#9aa0a6;">ITEM</th>
-                    <th align="right" style="padding:12px;font-size:12px;color:#9aa0a6;">PRICE</th>
+              <td style="padding:24px 32px 0;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">
+                  <tr>
+                    <th align="left" style="padding:10px 4px;font-size:11px;letter-spacing:0.04em;color:#96702f;border-bottom:1.5px solid #241f1c;">YOUR BUILD</th>
+                    <th align="right" style="padding:10px 4px;font-size:11px;letter-spacing:0.04em;color:#96702f;border-bottom:1.5px solid #241f1c;">PRICE</th>
                   </tr>
-
-                  ${row("Launch Setup", selections.launch.label, selections.launch.price)}
-                  ${row("Payment Integration", selections.payment.label, selections.payment.price)}
-                  ${row("Automation", selections.automation.label || "Not Included", selections.automation.price)}
-                  ${row("Hosting", selections.hosting.label, selections.hosting.price)}
-
-                  ${
-                    selections.addons.clientDashboard
-                      ? row("Client Dashboard", "Included", 2999)
-                      : ""
-                  }
-
+                  ${row(core?.label || "Core Funnel Build", "Landing, checkout & thank-you page", core?.price)}
+                  ${addons.map((a) => row(a.name, "Add-on", a.price)).join("")}
                 </table>
               </td>
             </tr>
 
-            <!-- TOTAL -->
+            <!-- TOTALS -->
             <tr>
-              <td style="padding-top:20px;">
-                <table width="100%">
+              <td style="padding:20px 32px 0;">
+                <table width="100%" style="font-family:Arial,Helvetica,sans-serif;">
                   <tr>
                     <td></td>
-                    <td width="200">
+                    <td width="230">
                       <table width="100%">
                         <tr>
-                          <td style="font-size:13px;color:#5f6368;">Total</td>
-                          <td align="right" style="font-size:22px;font-weight:600;">
-                            ₹${total}
-                          </td>
+                          <td style="padding:4px 0;font-size:13px;color:#5b5148;">One-time build</td>
+                          <td align="right" style="padding:4px 0;font-size:24px;font-weight:700;color:#241f1c;">${currency(total)}</td>
                         </tr>
+                        ${
+                          support
+                            ? `<tr>
+                                <td style="padding:4px 0;font-size:13px;color:#5b5148;">${support.name}</td>
+                                <td align="right" style="padding:4px 0;font-size:14px;font-weight:700;color:#96702f;">${currency(support.price)}${support.period}</td>
+                              </tr>`
+                            : ""
+                        }
                       </table>
                     </td>
                   </tr>
@@ -103,41 +109,42 @@ export function getProposalCustomerTemplate({ selections, total }) {
 
             <!-- MESSAGE -->
             <tr>
-              <td style="padding-top:24px;">
-                <p style="font-size:14px;color:#5f6368;line-height:1.6;">
-                  We’ll review your requirements and connect with you shortly to move forward.
+              <td style="padding:26px 32px 0;">
+                <p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#5b5148;line-height:1.6;margin:0;">
+                  We'll follow up by email within one working day. If you'd rather talk it through first,
+                  grab a free 20-minute slot with Satish below.
                 </p>
               </td>
             </tr>
 
             <!-- CTA -->
             <tr>
-              <td style="padding-top:20px;">
-                <a href="https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call"
-                  style="display:inline-block;padding:12px 20px;background:#530A4E;color:#fff;
-                  border-radius:8px;text-decoration:none;font-size:14px;margin-right:10px;">
-                  Schedule Call
+              <td style="padding:20px 32px 0;">
+                <a href="${CALENDLY_URL}"
+                  style="display:inline-block;padding:13px 22px;background:#241f1c;color:#f7f1e4;
+                  border-radius:999px;text-decoration:none;font-family:Arial,Helvetica,sans-serif;
+                  font-size:14px;font-weight:700;margin-right:10px;">
+                  Book a free call
                 </a>
-
-                <a href="https://wa.me/917888467258"
-                  style="display:inline-block;padding:12px 20px;background:#f1f3f4;
-                  color:#202124;border-radius:8px;text-decoration:none;font-size:14px;">
-                  WhatsApp
+                <a href="${WHATSAPP_URL}"
+                  style="display:inline-block;padding:13px 22px;background:transparent;
+                  border:1.5px solid #96702f;color:#241f1c;border-radius:999px;text-decoration:none;
+                  font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;">
+                  Message on WhatsApp
                 </a>
               </td>
             </tr>
 
             <!-- FOOTER -->
             <tr>
-              <td style="padding-top:30px;">
-                <div style="height:1px;background:#eaecef;"></div>
+              <td style="padding:30px 32px 0;">
+                <div style="height:1px;background:#ece2cc;"></div>
               </td>
             </tr>
-
             <tr>
-              <td style="padding-top:12px;">
-                <p style="font-size:12px;color:#9aa0a6;margin:0;">
-                  Falcoon • Build • Automate • Scale
+              <td style="padding:14px 32px 28px;">
+                <p style="font-family:Arial,Helvetica,sans-serif;font-size:11.5px;color:#96702f;margin:0;">
+                  Falcoon · Fitness funnels for UK fitness brands · Fixed pricing, no hidden fees
                 </p>
               </td>
             </tr>
@@ -154,12 +161,12 @@ export function getProposalCustomerTemplate({ selections, total }) {
 function row(title, subtitle, price) {
   return `
     <tr>
-      <td style="padding:12px;border-bottom:1px solid #eee;">
-        <p style="margin:0;font-size:14px;">${title}</p>
-        <p style="margin:2px 0 0;font-size:12px;color:#9aa0a6;">${subtitle}</p>
+      <td style="padding:12px 4px;border-bottom:1px solid #ece2cc;">
+        <p style="margin:0;font-size:14px;color:#241f1c;font-weight:700;">${title}</p>
+        <p style="margin:2px 0 0;font-size:12px;color:#96702f;">${subtitle}</p>
       </td>
-      <td align="right" style="padding:12px;border-bottom:1px solid #eee;">
-        ₹${price}
+      <td align="right" style="padding:12px 4px;border-bottom:1px solid #ece2cc;font-size:14px;color:#241f1c;white-space:nowrap;">
+        ${currency(price)}
       </td>
     </tr>
   `;

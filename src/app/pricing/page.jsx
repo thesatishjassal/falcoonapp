@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const CORE_PRICE = 249;
+const CALENDLY_URL = "https://calendly.com/thesatishjassal/falcoon-fitness-business-strategy-call";
 
 const ADS = [
   {
@@ -141,6 +142,22 @@ const STEPS = [
 
 const currency = (n) => "£" + n.toLocaleString("en-GB");
 
+const SendIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="22" y1="2" x2="11" y2="13" />
+    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+  </svg>
+);
+
+const CalendarIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
+
 function AddonRow({ item, active, recommended, onToggle }) {
   return (
     <div
@@ -171,6 +188,20 @@ function AddonRow({ item, active, recommended, onToggle }) {
   );
 }
 
+// Two real CTAs used in the panel, the sidebar, and the mobile sheet
+function QuoteCTAs({ onSendQuote, onBookCall }) {
+  return (
+    <div className="quote-ctas">
+      <button className="btn-primary btn-icon" onClick={onSendQuote}>
+        <SendIcon /> Send me this quotation
+      </button>
+      <button className="btn-outline btn-icon" onClick={onBookCall}>
+        <CalendarIcon /> Book a free call with Satish
+      </button>
+    </div>
+  );
+}
+
 export default function PricingPage() {
   const [audience, setAudience] = useState(null);
   const [addons, setAddons] = useState(new Set());
@@ -179,7 +210,13 @@ export default function PricingPage() {
   const [coreOpen, setCoreOpen] = useState(false);
   const [showMiniBar, setShowMiniBar] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
-  const [checkoutState, setCheckoutState] = useState("idle");
+
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const [quoteForm, setQuoteForm] = useState({ name: "", email: "", phone: "" });
+  const [quoteErrors, setQuoteErrors] = useState({});
+  const [quoteStatus, setQuoteStatus] = useState("idle"); // idle | loading | success | error
+  const [quoteErrorMsg, setQuoteErrorMsg] = useState("");
+
   const heroRef = useRef(null);
   const panelRef = useRef(null);
 
@@ -200,6 +237,13 @@ export default function PricingPage() {
     }
   }, [step]);
 
+  useEffect(() => {
+    if (!quoteOpen) return;
+    const onKey = (e) => e.key === "Escape" && closeQuoteModal();
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [quoteOpen]);
+
   const toggleAddon = (id) => {
     setAddons((prev) => {
       const next = new Set(prev);
@@ -208,9 +252,7 @@ export default function PricingPage() {
     });
   };
 
-  const selectAudience = (id) => {
-    setAudience(id);
-  };
+  const selectAudience = (id) => setAudience(id);
 
   const applyBundle = () => {
     if (!audience) return;
@@ -240,21 +282,72 @@ export default function PricingPage() {
 
   const goStep = (i) => setStep(Math.max(0, Math.min(STEPS.length - 1, i)));
 
-  const runCheckout = () => {
-    setCheckoutState("loading");
-    setTimeout(() => setCheckoutState("done"), 900);
+  const openQuoteModal = () => {
+    setQuoteStatus("idle");
+    setQuoteErrors({});
+    setQuoteOpen(true);
+  };
+  const closeQuoteModal = () => setQuoteOpen(false);
+
+  const openCalendly = () => window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
+
+  const selections = useMemo(
+    () => ({
+      contact: quoteForm,
+      audience: audience ? { id: audience, label: AUDIENCE_LABEL[audience] } : null,
+      core: { label: "Core Funnel Build", price: CORE_PRICE },
+      addons: ALL_ADDONS.filter((a) => addons.has(a.id)).map((a) => ({
+        id: a.id,
+        name: a.name,
+        price: a.price,
+      })),
+      support:
+        activePlan && activePlan.price > 0
+          ? { id: activePlan.id, name: activePlan.name, price: activePlan.price, period: activePlan.period }
+          : null,
+    }),
+    [quoteForm, audience, addons, activePlan]
+  );
+
+  const validateQuoteForm = () => {
+    const errs = {};
+    if (!quoteForm.name.trim()) errs.name = "Enter your name";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(quoteForm.email.trim())) errs.email = "Enter a valid email";
+    if (quoteForm.phone.trim().length < 7) errs.phone = "Enter a valid phone number";
+    setQuoteErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  const submitQuote = async (e) => {
+    e.preventDefault();
+    if (!validateQuoteForm()) return;
+    setQuoteStatus("loading");
+    setQuoteErrorMsg("");
+    try {
+      const res = await fetch("/api/proposal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ selections, total: oneTime }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.error || "Something went wrong — please try again.");
+      setQuoteStatus("success");
+    } catch (err) {
+      setQuoteStatus("error");
+      setQuoteErrorMsg(err.message);
+    }
   };
 
   return (
     <>
-      {/* STICKY MINI BAR — always know your price */}
+      {/* STICKY MINI BAR */}
       <div className={`mini-bar ${showMiniBar ? "show" : ""}`}>
         <div className="mini-bar-inner">
           <span className="mini-bar-brand">Falcoon</span>
           <div className="mini-bar-right">
             <span className="mini-bar-total">{currency(oneTime)}</span>
-            <button className="mini-bar-btn" onClick={runCheckout}>
-              Get started
+            <button className="mini-bar-btn" onClick={openQuoteModal}>
+              Get quotation
             </button>
           </div>
         </div>
@@ -270,7 +363,7 @@ export default function PricingPage() {
           </p>
         </div>
 
-        {/* CORE FUNNEL — collapsed banner, not a full step */}
+        {/* CORE FUNNEL */}
         <div className="core-banner">
           <div className="core-banner-left">
             <span className="core-check">✓</span>
@@ -281,11 +374,7 @@ export default function PricingPage() {
           </div>
           <div className="core-banner-right">
             <span className="core-banner-price">{currency(CORE_PRICE)}</span>
-            <button
-              className="core-banner-toggle"
-              onClick={() => setCoreOpen((v) => !v)}
-              aria-expanded={coreOpen}
-            >
+            <button className="core-banner-toggle" onClick={() => setCoreOpen((v) => !v)} aria-expanded={coreOpen}>
               {coreOpen ? "Hide details" : "See details"}
             </button>
           </div>
@@ -451,20 +540,12 @@ export default function PricingPage() {
                     ))}
                   </div>
 
-                  <div className="step-actions">
+                  <div className="step-actions step-actions-column">
                     <button className="btn-secondary" onClick={() => goStep(1)}>
                       Back
                     </button>
-                    <button className="btn-primary" onClick={runCheckout}>
-                      {checkoutState === "loading" ? "Preparing checkout…" : `Get started — ${currency(oneTime)}`}
-                    </button>
+                    <QuoteCTAs onSendQuote={openQuoteModal} onBookCall={openCalendly} />
                   </div>
-
-                  {checkoutState === "done" && (
-                    <div className="checkout-note">
-                      This is a demo — wire this button to your real payment step whenever you're ready.
-                    </div>
-                  )}
                 </div>
               )}
             </div>
@@ -498,24 +579,113 @@ export default function PricingPage() {
               {activePlan && activePlan.price > 0 ? `+ ${currency(activePlan.price)}${activePlan.period} ongoing support` : ""}
             </div>
 
-            <button className="summary-btn" onClick={runCheckout}>
-              {checkoutState === "loading" ? "Preparing checkout…" : `Get started — ${currency(oneTime)}`}
-            </button>
+            <QuoteCTAs onSendQuote={openQuoteModal} onBookCall={openCalendly} />
             <div className="summary-trust">Fixed pricing · No hidden fees · Built for UK fitness brands</div>
           </div>
         </div>
       </div>
 
-      {/* MOBILE STICKY CHECKOUT BAR */}
+      {/* MOBILE STICKY BAR */}
       <div className="mobile-bar">
-        <div className="mobile-bar-total">
-          <small>Your total</small>
-          {currency(oneTime)}
+        <div className="mobile-bar-top">
+          <div className="mobile-bar-total">
+            <small>Your total</small>
+            {currency(oneTime)}
+          </div>
         </div>
-        <button className="mobile-bar-btn" onClick={runCheckout}>
-          {checkoutState === "loading" ? "…" : "Get started"}
-        </button>
+        <div className="mobile-bar-actions">
+          <button className="btn-primary btn-icon" onClick={openQuoteModal}>
+            <SendIcon /> Quotation
+          </button>
+          <button className="btn-outline btn-icon" onClick={openCalendly}>
+            <CalendarIcon /> Book call
+          </button>
+        </div>
       </div>
+
+      {/* QUOTE MODAL */}
+      {quoteOpen && (
+        <div className="modal-overlay" onClick={closeQuoteModal}>
+          <div
+            className="modal-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="quote-modal-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="modal-close" onClick={closeQuoteModal} aria-label="Close">
+              ×
+            </button>
+
+            {quoteStatus === "success" ? (
+              <div className="modal-success">
+                <div className="modal-success-icon">✓</div>
+                <h3 id="quote-modal-title" className="modal-title">Quotation sent</h3>
+                <p className="modal-sub">
+                  Check {quoteForm.email} for your full breakdown ({currency(oneTime)}). We'll follow up shortly.
+                </p>
+                <button className="btn-outline btn-icon" style={{ width: "100%" }} onClick={openCalendly}>
+                  <CalendarIcon /> Or book a free call now
+                </button>
+              </div>
+            ) : (
+              <>
+                <h3 id="quote-modal-title" className="modal-title">Get your quotation</h3>
+                <p className="modal-sub">
+                  We'll email you a full breakdown of {currency(oneTime)} and follow up shortly.
+                </p>
+
+                {quoteStatus === "error" && <div className="modal-error-banner">{quoteErrorMsg}</div>}
+
+                <form onSubmit={submitQuote} noValidate>
+                  <div className="form-field">
+                    <label htmlFor="qf-name">Full name</label>
+                    <input
+                      id="qf-name"
+                      type="text"
+                      value={quoteForm.name}
+                      onChange={(e) => setQuoteForm((f) => ({ ...f, name: e.target.value }))}
+                      autoComplete="name"
+                    />
+                    {quoteErrors.name && <div className="form-error">{quoteErrors.name}</div>}
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="qf-email">Email</label>
+                    <input
+                      id="qf-email"
+                      type="email"
+                      value={quoteForm.email}
+                      onChange={(e) => setQuoteForm((f) => ({ ...f, email: e.target.value }))}
+                      autoComplete="email"
+                    />
+                    {quoteErrors.email && <div className="form-error">{quoteErrors.email}</div>}
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="qf-phone">Phone</label>
+                    <input
+                      id="qf-phone"
+                      type="tel"
+                      value={quoteForm.phone}
+                      onChange={(e) => setQuoteForm((f) => ({ ...f, phone: e.target.value }))}
+                      autoComplete="tel"
+                      placeholder="+44 ..."
+                    />
+                    {quoteErrors.phone && <div className="form-error">{quoteErrors.phone}</div>}
+                  </div>
+
+                  <button type="submit" className="btn-primary btn-icon modal-submit" disabled={quoteStatus === "loading"}>
+                    {quoteStatus === "loading" ? "Sending…" : (
+                      <>
+                        <SendIcon /> Send my quotation
+                      </>
+                    )}
+                  </button>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       <style jsx global>{`
         :root {
@@ -556,6 +726,7 @@ export default function PricingPage() {
           font-family: var(--sans);
         }
         button:focus-visible,
+        input:focus-visible,
         [role="radio"]:focus-visible,
         [role="switch"]:focus-visible,
         [role="tab"]:focus-visible {
@@ -616,11 +787,6 @@ export default function PricingPage() {
           padding: 9px 16px;
           border-radius: var(--radius-pill);
           cursor: pointer;
-        }
-        @media (max-width: 700px) {
-          .mini-bar-btn {
-            display: none;
-          }
         }
 
         .hero {
@@ -785,7 +951,6 @@ export default function PricingPage() {
           }
         }
 
-        /* STEP TRACK */
         .step-track {
           display: flex;
           gap: 8px;
@@ -942,6 +1107,13 @@ export default function PricingPage() {
           margin-top: 24px;
           flex-wrap: wrap;
         }
+        .step-actions-column {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .step-actions-column .btn-secondary {
+          align-self: flex-start;
+        }
         .step-skip-hint {
           font-size: 13px;
           color: var(--ink-soft);
@@ -960,6 +1132,10 @@ export default function PricingPage() {
         .btn-primary:hover {
           background: var(--gold-dark);
         }
+        .btn-primary:disabled {
+          opacity: 0.65;
+          cursor: not-allowed;
+        }
         .btn-secondary {
           border: 1px solid var(--line);
           background: transparent;
@@ -973,6 +1149,34 @@ export default function PricingPage() {
         }
         .btn-secondary:hover {
           border-color: var(--gold);
+        }
+        .btn-outline {
+          border: 1.5px solid var(--gold-dark);
+          background: transparent;
+          color: var(--ink);
+          font-weight: 700;
+          font-size: 14px;
+          padding: 13px 20px;
+          border-radius: var(--radius-pill);
+          cursor: pointer;
+          min-height: 46px;
+        }
+        .btn-outline:hover {
+          background: var(--gold-pale);
+        }
+        .btn-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          width: 100%;
+        }
+
+        .quote-ctas {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-top: 22px;
         }
 
         .bundle-btn {
@@ -1166,15 +1370,6 @@ export default function PricingPage() {
           border-radius: var(--radius-pill);
         }
 
-        .checkout-note {
-          margin-top: 16px;
-          font-size: 12.5px;
-          color: var(--ink-soft);
-          background: var(--ivory-deep);
-          padding: 12px 14px;
-          border-radius: 10px;
-        }
-
         /* SUMMARY */
         .summary {
           position: sticky;
@@ -1242,23 +1437,7 @@ export default function PricingPage() {
           font-size: 12.5px;
           color: var(--gold-dark);
           font-weight: 600;
-          margin-bottom: 20px;
           min-height: 16px;
-        }
-        .summary-btn {
-          width: 100%;
-          padding: 15px;
-          border: none;
-          border-radius: var(--radius-pill);
-          background: var(--ink);
-          color: var(--ivory);
-          font-weight: 700;
-          font-size: 14.5px;
-          cursor: pointer;
-          min-height: 48px;
-        }
-        .summary-btn:hover {
-          background: var(--gold-dark);
         }
         .summary-trust {
           text-align: center;
@@ -1275,23 +1454,27 @@ export default function PricingPage() {
         /* MOBILE BOTTOM BAR */
         .mobile-bar {
           display: none;
+          flex-direction: column;
+          gap: 10px;
           position: fixed;
           left: 0;
           right: 0;
           bottom: 0;
           background: var(--cream-card);
           border-top: 1px solid var(--line);
-          padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
+          padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
           box-shadow: 0 -8px 24px rgba(36, 31, 28, 0.12);
           z-index: 55;
-          align-items: center;
-          justify-content: space-between;
-          gap: 14px;
+        }
+        .mobile-bar-top {
+          display: flex;
+          justify-content: center;
         }
         .mobile-bar-total {
           font-family: var(--serif);
           font-size: 19px;
           font-weight: 700;
+          text-align: center;
         }
         .mobile-bar-total small {
           font-family: var(--sans);
@@ -1300,24 +1483,129 @@ export default function PricingPage() {
           font-weight: 500;
           display: block;
         }
-        .mobile-bar-btn {
-          padding: 13px 22px;
-          border: none;
-          border-radius: var(--radius-pill);
-          background: var(--ink);
-          color: var(--ivory);
-          font-weight: 700;
-          font-size: 14px;
-          cursor: pointer;
-          min-height: 46px;
+        .mobile-bar-actions {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        .mobile-bar-actions .btn-primary,
+        .mobile-bar-actions .btn-outline {
+          padding: 12px 10px;
+          font-size: 13px;
         }
         @media (max-width: 960px) {
           .mobile-bar {
             display: flex;
           }
           .panel {
-            margin-bottom: 90px;
+            margin-bottom: 130px;
           }
+        }
+
+        /* QUOTE MODAL */
+        .modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(36, 31, 28, 0.55);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 100;
+          padding: 20px;
+        }
+        .modal-card {
+          background: var(--cream-card);
+          border-radius: var(--radius);
+          max-width: 420px;
+          width: 100%;
+          padding: 28px;
+          position: relative;
+          box-shadow: var(--shadow-lift);
+        }
+        .modal-close {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          background: transparent;
+          border: none;
+          font-size: 22px;
+          line-height: 1;
+          cursor: pointer;
+          color: var(--ink-soft);
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+        }
+        .modal-close:hover {
+          background: var(--ivory-deep);
+        }
+        .modal-title {
+          font-family: var(--serif);
+          font-size: 21px;
+          font-weight: 600;
+          margin: 0 0 6px;
+        }
+        .modal-sub {
+          font-size: 13.5px;
+          color: var(--ink-soft);
+          margin: 0 0 20px;
+          line-height: 1.5;
+        }
+        .form-field {
+          margin-bottom: 14px;
+        }
+        .form-field label {
+          display: block;
+          font-size: 12.5px;
+          font-weight: 700;
+          color: var(--ink);
+          margin-bottom: 6px;
+        }
+        .form-field input {
+          width: 100%;
+          padding: 12px 14px;
+          border: 1.5px solid var(--line);
+          border-radius: 10px;
+          font-size: 14px;
+          font-family: var(--sans);
+          background: #fff;
+        }
+        .form-field input:focus {
+          outline: none;
+          border-color: var(--gold-dark);
+        }
+        .form-error {
+          font-size: 12px;
+          color: #b3261e;
+          margin-top: 4px;
+        }
+        .modal-submit {
+          margin-top: 6px;
+        }
+        .modal-error-banner {
+          background: #fdecea;
+          color: #b3261e;
+          font-size: 13px;
+          padding: 10px 12px;
+          border-radius: 8px;
+          margin-bottom: 14px;
+        }
+        .modal-success {
+          text-align: center;
+          padding: 8px 0 0;
+        }
+        .modal-success-icon {
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          background: var(--ink);
+          color: var(--ivory);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 14px;
+          font-size: 22px;
+          font-weight: 700;
         }
       `}</style>
     </>
