@@ -55,7 +55,7 @@ export default function AboutUs() {
       <section className="classic-hero">
         <div className="classic-wrap">
           <div className="classic-hero-inner">
-            <div className="classic-eyebrow">★ Built for UK fitness brands</div>
+            <div className="classic-eyebrow">★ Built for UK 🇬🇧 fitness brands </div>
             <h1 className="classic-hero-title">About Falcoon</h1>
             <p className="classic-hero-desc">
               We help fitness professionals across the UK sell and launch
