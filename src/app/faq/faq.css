@@ -24,7 +24,7 @@
 }
 
 .classic-faq {
-  background: var(--ivory);
+  /* background: var(--ivory); */
   color: var(--ink);
   font-family: var(--sans);
   padding: 72px 0 80px;

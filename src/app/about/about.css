@@ -22,7 +22,7 @@
 }
 
 .classic-about {
-  background: var(--ivory);
+  /* background: var(--ivory); */
   color: var(--ink);
   font-family: var(--sans);
 }
