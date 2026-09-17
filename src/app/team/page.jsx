@@ -32,8 +32,8 @@ const TEAM = [
     bio: "Keeps your brand active across social while also building out the tech behind your funnel.",
   },
   {
-    id: "hoshima",
-    name: "Hoshima Mahey",
+    id: "hoshia",
+    name: "Hoshia Mahey",
     role: "Sr. Sales Executive",
     bio: "Talks new clients through what a funnel needs before the team ever starts building.",
   },
@@ -42,6 +42,12 @@ const TEAM = [
     name: "Ashima",
     role: "Full Stack Developer",
     bio: "Builds the checkout, hosting, and integrations so every funnel loads fast and never drops a sale.",
+  },
+  {
+    id: "munit",
+    name: "Munit Ralh",
+    role: "Content Writer",
+    bio: "Writes the copy that carries each funnel — landing pages, emails, and ad scripts that actually get read.",
   },
 ];
 
