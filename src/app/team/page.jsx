@@ -10,7 +10,7 @@ const TEAM = [
   {
     id: "satish",
     name: "Satish Jassal",
-    role: "CEO & Strategy Engineer",
+    role: "Founder & Strategy Engineer",
     bio: "Plans the funnel before a single page gets built — audience, offer, and the numbers that need to work.",
   },
   {
