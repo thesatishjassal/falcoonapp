@@ -108,7 +108,7 @@ export default function FAQPage() {
               <div className="classic-faq-contact-item">
                 <div className="classic-faq-contact-left">
                   <i className="fas fa-phone"></i>
-                  <span>+44 7888 467258</span>
+                  <span>+91 7888 467258</span>
                 </div>
 
                 <a href="tel:+447888467258" className="classic-faq-arrow">

@@ -44,7 +44,7 @@ export default function Header() {
     font-style="italic"
     font-weight="600"
     font-size="56"
-    fill="#241f1c"
+    fill="#ffffff"
   >f</text>
   <text
     x="30" y="41"
@@ -52,7 +52,7 @@ export default function Header() {
     font-weight="600"
     font-size="30"
     letter-spacing="0.2"
-    fill="#241f1c"
+    fill="#ffffff"
   >alcoon</text>
 </svg>
           </Link>
@@ -85,10 +85,10 @@ export default function Header() {
             </Link>
 
             <Link
-              href="/faq"
+              href="/team"
               className="classic-header-link"
             >
-              FAQ
+              Team
             </Link>
 
           </nav>

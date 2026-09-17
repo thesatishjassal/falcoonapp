@@ -27,10 +27,10 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(247, 241, 228, 0.92);
+  background: rgba(24, 20, 18, 0.94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line-soft);
+  border-bottom: 1px solid rgba(247, 241, 228, 0.1);
   font-family: var(--sans);
 }
 
@@ -80,13 +80,13 @@
   gap: 5px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--ink-soft);
+  color: rgba(247, 241, 228, 0.75);
   text-decoration: none;
   transition: color 0.2s ease;
   position: relative;
 }
 .classic-header-link:hover {
-  color: var(--ink);
+  color: var(--ivory);
 }
 .classic-header-link::after {
   content: "";
@@ -111,9 +111,9 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(247, 241, 228, 0.35);
   font-size: 10px;
-  color: var(--ink-soft);
+  color: rgba(247, 241, 228, 0.75);
 }
 
 .classic-header-btn {
@@ -122,8 +122,8 @@
   gap: 9px;
   padding: 11px 20px;
   border-radius: var(--radius-pill);
-  background: var(--ink);
-  color: var(--ivory);
+  background: var(--gold);
+  color: var(--ink);
   font-family: var(--sans);
   font-weight: 700;
   font-size: 13.5px;
@@ -134,6 +134,7 @@
 }
 .classic-header-btn:hover {
   background: var(--gold-dark);
+  color: var(--ivory);
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(150, 112, 47, 0.3);
 }
@@ -141,8 +142,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  filter: invert(93%) sepia(9%) saturate(400%) hue-rotate(345deg)
-    brightness(103%);
+  filter: none;
 }
 
 /* ── Burger toggle ── */
