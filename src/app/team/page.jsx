@@ -26,14 +26,8 @@ const TEAM = [
     bio: "Cuts the VSLs, ad creative, and social clips that carry your funnel's message.",
   },
   {
-    id: "ashima",
-    name: "Ashima",
-    role: "Social Media Marketer & Full-Stack Developer",
-    bio: "Keeps your brand active across social while also building out the tech behind your funnel.",
-  },
-  {
-    id: "hoshia",
-    name: "Hoshia Mahey",
+    id: "hoshima",
+    name: "Hoshima Mahey",
     role: "Sr. Sales Executive",
     bio: "Talks new clients through what a funnel needs before the team ever starts building.",
   },
