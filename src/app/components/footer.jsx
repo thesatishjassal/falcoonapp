@@ -1,10 +1,20 @@
 "use client";
 
 import Link from "next/link";
-
+import { usePathname } from "next/navigation";
+const HIDDEN_ON = ["/pricing"];
+ 
 export default function Footer() {
-  return (
-    <footer className="falcoon-footer">
+ 
+    const pathname = usePathname();
+ 
+  const shouldHide = HIDDEN_ON.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`)
+  );
+ 
+  if (shouldHide) return null;
+ 
+  return  <><footer className="falcoon-footer">
       <div className="falcoon-container">
 
         {/* TOP */}
@@ -108,6 +118,5 @@ export default function Footer() {
         </div>
 
       </div>
-    </footer>
-  );
+    </footer></>
 }
