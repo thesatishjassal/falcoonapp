@@ -1058,7 +1058,7 @@ useEffect(() => {
             <SendIcon />
             Quotation
           </button> */}
-          <button
+          {/* <button
   type="button"
   className="mobile-continue-btn"
   onClick={() => {
@@ -1079,7 +1079,7 @@ useEffect(() => {
           <button className="btn-outline btn-icon" onClick={openCalendly} type="button">
             <CalendarIcon />
             Book call
-          </button>
+          </button> */}
         </div>
       {/* </div> */}
 
