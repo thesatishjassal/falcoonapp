@@ -2904,7 +2904,7 @@ export default function PricingPage() {
             gap: 10px;
           }
           .audience-card {
-            display: flex;
+            display: block;
             align-items: center;
             gap: 14px;
             min-height: auto;
