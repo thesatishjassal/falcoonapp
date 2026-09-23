@@ -1054,10 +1054,28 @@ useEffect(() => {
         </div>
 
         <div className="mobile-bar-actions">
-          <button className="btn-primary btn-icon" onClick={openQuoteModal} type="button">
+          {/* <button className="btn-primary btn-icon" onClick={openQuoteModal} type="button">
             <SendIcon />
             Quotation
-          </button>
+          </button> */}
+          <button
+  type="button"
+  className="mobile-continue-btn"
+  onClick={() => {
+    if (step < 2) {
+      goStep(step + 1);
+    } else {
+      setQuoteOpen(true);
+    }
+  }}
+>
+  <span>
+    {step < 2 ? "Continue" : "Get Quote"}
+  </span>
+  <span className="mobile-continue-arrow" aria-hidden="true">
+    →
+  </span>
+</button>
           <button className="btn-outline btn-icon" onClick={openCalendly} type="button">
             <CalendarIcon />
             Book call
@@ -1435,7 +1453,45 @@ useEffect(() => {
           outline: 2.5px solid var(--gold-dark);
           outline-offset: 2px;
         }
+.mobile-continue-btn {
+  height: 46px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 12px;
+  background: #530a4e;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
 
+.mobile-continue-btn:hover {
+  background: #43083f;
+  transform: translateY(-1px);
+}
+
+.mobile-continue-btn:active {
+  transform: translateY(0);
+}
+
+.mobile-continue-arrow {
+  font-size: 17px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.mobile-continue-btn:hover .mobile-continue-arrow {
+  transform: translateX(3px);
+}
         .wrap {
           max-width: 1180px;
           margin: 0 auto;
