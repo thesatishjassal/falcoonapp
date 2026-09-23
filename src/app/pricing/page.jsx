@@ -3112,6 +3112,7 @@ c
           .mobile-bar {
             padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
             box-shadow: 0 -4px 18px rgba(36, 31, 28, 0.08);
+            dispaly:none;
           }
           .mobile-bar-total {
             font-size: 17px;
