@@ -324,11 +324,11 @@ export default function RootLayout({ children }) {
         {/* ─────────────────────────────────────────
             Floating Quotation CTA
         ───────────────────────────────────────── */}
-        <div className="left_cta_wrapper">
+        {/* <div className="left_cta_wrapper">
           <Link href="/pricing" className="left_cta_tab">
             <span className="left_cta_text">Get Free Quotation</span>
           </Link>
-        </div>
+        </div> */}
       </body>
     </html>
   );
