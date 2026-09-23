@@ -530,11 +530,21 @@ export default function PricingPage() {
     return () => obs.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (panelRef.current) {
-      panelRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }, [step]);
+const isFirstStepRender = useRef(true);
+
+useEffect(() => {
+  if (isFirstStepRender.current) {
+    isFirstStepRender.current = false;
+    return;
+  }
+
+  if (panelRef.current) {
+    panelRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+}, [step]);
 
   useEffect(() => {
     if (!quoteOpen) return;
