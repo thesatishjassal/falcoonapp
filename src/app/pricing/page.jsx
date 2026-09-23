@@ -1042,7 +1042,7 @@ useEffect(() => {
 
       {/* MOBILE BOTTOM BAR */}
       <div className="mobile-bar">
-        <div className="mobile-bar-top">
+        {/* <div className="mobile-bar-top">
           <div className="mobile-bar-total">
             <small>Your plan</small>
             {currency(oneTimeTotal)}
@@ -1051,9 +1051,9 @@ useEffect(() => {
               <span className="mobile-bar-addons">+ {currency(monthlyTotal)}/mo support</span>
             )}
           </div>
-        </div>
+        </div> */}
 
-        <div className="mobile-bar-actions">
+        {/* <div className="mobile-bar-actions">
           {/* <button className="btn-primary btn-icon" onClick={openQuoteModal} type="button">
             <SendIcon />
             Quotation
@@ -1081,7 +1081,7 @@ useEffect(() => {
             Book call
           </button>
         </div>
-      </div>
+      {/* </div> */}
 
       {/* QUOTE MODAL */}
       {quoteOpen && (
@@ -1444,7 +1444,7 @@ useEffect(() => {
         button {
           font-family: var(--sans);
         }
-
+c 
         button:focus-visible,
         input:focus-visible,
         [role="radio"]:focus-visible,
