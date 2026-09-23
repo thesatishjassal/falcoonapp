@@ -2962,7 +2962,7 @@ div#funnelModal
 .summary-row {
   display: flex;
   justify-content: space-between;
-  padding: 9px 0;
+  padding: 4px 0;
   font-size: 1.02rem;
 }
 
