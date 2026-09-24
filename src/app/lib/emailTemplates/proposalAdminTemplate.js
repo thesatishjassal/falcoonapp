@@ -13,9 +13,16 @@ const escapeHtml = (value = "") =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 
+/**
+ * NOTE: the pricing page posts { selections, oneTimeTotal, monthlyTotal, addonsTotal }
+ * to /api/proposal — NOT a single `total`. This template now reads oneTimeTotal /
+ * monthlyTotal directly (with a `total` fallback for backward compatibility).
+ */
 export function getProposalAdminTemplate({
   selections,
-  total,
+  oneTimeTotal,
+  monthlyTotal,
+  total, // legacy fallback, kept so older callers don't break
 }) {
   const {
     contact = {},
@@ -24,6 +31,12 @@ export function getProposalAdminTemplate({
     addons = [],
     support,
   } = selections || {};
+
+  const resolvedOneTime =
+    oneTimeTotal ?? total ?? 0;
+
+  const resolvedMonthly =
+    monthlyTotal ?? support?.price ?? 0;
 
   const name = escapeHtml(
     contact?.name || "—"
@@ -51,6 +64,14 @@ export function getProposalAdminTemplate({
 
   const safeAudience =
     escapeHtml(audience?.label || "");
+
+  const coreLabel = escapeHtml(
+    core?.label || "Core Plan"
+  );
+
+  const coreIncluded = Array.isArray(core?.included)
+    ? core.included
+    : [];
 
   return `
   <div style="
@@ -276,17 +297,37 @@ export function getProposalAdminTemplate({
                     font-size:14px;
                     color:#241f1c;
                   ">
-                    <strong>
-                      ${
-                        escapeHtml(
-                          core?.label ||
-                            "Core Funnel Build"
-                        )
-                      }
-                    </strong>
-
+                    <strong>${coreLabel}</strong>
                     — ${currency(core?.price)}
+                    <span style="color:#96702f;font-size:11.5px;">
+                      (one-time)
+                    </span>
                   </p>
+
+                  ${
+                    coreIncluded.length
+                      ? `
+                        <ul style="
+                          margin:0 0 10px;
+                          padding-left:18px;
+                        ">
+                          ${coreIncluded
+                            .map(
+                              (item) => `
+                                <li style="
+                                  font-size:12px;
+                                  color:#5b5148;
+                                  margin-bottom:3px;
+                                ">
+                                  ${escapeHtml(item)}
+                                </li>
+                              `
+                            )
+                            .join("")}
+                        </ul>
+                      `
+                      : ""
+                  }
 
                   ${
                     addons.length
@@ -384,12 +425,11 @@ export function getProposalAdminTemplate({
                     font-family:Georgia,'Times New Roman',serif;
                     font-size:28px;
                   ">
-                    ${currency(total)}
+                    ${currency(resolvedOneTime)}
                   </h2>
 
                   ${
-                    support &&
-                    support.price > 0
+                    resolvedMonthly > 0
                       ? `
                         <p style="
                           margin:6px 0 0;
@@ -397,11 +437,9 @@ export function getProposalAdminTemplate({
                           font-size:11px;
                         ">
                           +
-                          ${currency(
-                            support.price
-                          )}
+                          ${currency(resolvedMonthly)}
                           ${escapeHtml(
-                            support.period || ""
+                            support?.period || "/mo"
                           )}
                           ongoing support
                         </p>

@@ -19,9 +19,16 @@ const escapeHtml = (value = "") =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 
+/**
+ * NOTE: the pricing page posts { selections, oneTimeTotal, monthlyTotal, addonsTotal }
+ * to /api/proposal — NOT a single `total`. This template now reads oneTimeTotal /
+ * monthlyTotal directly (with a `total` fallback for backward compatibility).
+ */
 export function getProposalCustomerTemplate({
   selections,
-  total,
+  oneTimeTotal,
+  monthlyTotal,
+  total, // legacy fallback, kept so older callers don't break
 }) {
   const {
     contact = {},
@@ -30,6 +37,12 @@ export function getProposalCustomerTemplate({
     addons = [],
     support,
   } = selections || {};
+
+  const resolvedOneTime =
+    oneTimeTotal ?? total ?? 0;
+
+  const resolvedMonthly =
+    monthlyTotal ?? support?.price ?? 0;
 
   const name = escapeHtml(
     contact?.name || "there"
@@ -52,15 +65,13 @@ export function getProposalCustomerTemplate({
     contact?.phone || ""
   );
 
-  const date =
-    new Date().toLocaleDateString(
-      "en-GB",
-      {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }
-    );
+  const coreLabel = escapeHtml(
+    core?.label || "Core Plan"
+  );
+
+  const coreIncluded = Array.isArray(core?.included)
+    ? core.included
+    : [];
 
   const quoteId =
     "FAL-" +
@@ -390,9 +401,8 @@ export function getProposalCustomerTemplate({
                   </tr>
 
                   ${row(
-                    core?.label ||
-                      "Core Funnel Build",
-                    "Landing, checkout & thank-you page",
+                    coreLabel,
+                    "Landing, checkout & thank-you page — hosting & domain included free for year one",
                     core?.price
                   )}
 
@@ -407,6 +417,56 @@ export function getProposalCustomerTemplate({
                     .join("")}
 
                 </table>
+
+                ${
+                  coreIncluded.length
+                    ? `
+                      <div style="
+                        margin-top:14px;
+                        padding:14px 16px;
+                        background:#faf8f4;
+                        border:1px solid #ece6dc;
+                        border-radius:11px;
+                        font-family:Arial,Helvetica,sans-serif;
+                      ">
+                        <p style="
+                          margin:0 0 8px;
+                          font-size:10px;
+                          color:#96702f;
+                          text-transform:uppercase;
+                          letter-spacing:.06em;
+                          font-weight:700;
+                        ">
+                          What's included in ${coreLabel}
+                        </p>
+                        <table cellpadding="0" cellspacing="0" width="100%">
+                          ${coreIncluded
+                            .map(
+                              (item) => `
+                                <tr>
+                                  <td style="
+                                    padding:3px 0;
+                                    font-size:12.5px;
+                                    color:#241f1c;
+                                    vertical-align:top;
+                                    width:18px;
+                                  ">✓</td>
+                                  <td style="
+                                    padding:3px 0;
+                                    font-size:12.5px;
+                                    color:#5b5148;
+                                  ">
+                                    ${escapeHtml(item)}
+                                  </td>
+                                </tr>
+                              `
+                            )
+                            .join("")}
+                        </table>
+                      </div>
+                    `
+                    : ""
+                }
 
               </td>
             </tr>
@@ -449,13 +509,13 @@ export function getProposalCustomerTemplate({
                               color:#111111;
                             "
                           >
-                            ${currency(total)}
+                            ${currency(resolvedOneTime)}
                           </td>
 
                         </tr>
 
                         ${
-                          support
+                          support && resolvedMonthly > 0
                             ? `
                               <tr>
 
@@ -478,12 +538,10 @@ export function getProposalCustomerTemplate({
                                     color:#96702f;
                                   "
                                 >
-                                  ${currency(
-                                    support.price
-                                  )}
+                                  ${currency(resolvedMonthly)}
                                   ${escapeHtml(
                                     support.period ||
-                                      ""
+                                      "/mo"
                                   )}
                                 </td>
 
