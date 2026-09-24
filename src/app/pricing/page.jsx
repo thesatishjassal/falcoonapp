@@ -2183,14 +2183,14 @@ c
           color: var(--ink-soft);
           margin-bottom: 18px;
         }
-        .summary-list {
-          display: flex;
-          flex-direction: column;
-          gap: 9px;
-          margin-bottom: 8px;
-          max-height: 300px;
-          overflow-y: auto;
-        }
+.summary-list {
+    flex-direction: column;
+    gap: 0px;
+    max-height: 300px;
+    margin-bottom: 8px;
+    display: flex;
+    overflow-y: auto;
+}
         .summary-row {
           display: flex;
           justify-content: space-between;
