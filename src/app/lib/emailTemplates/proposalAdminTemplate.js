@@ -32,11 +32,21 @@ export function getProposalAdminTemplate({
     support,
   } = selections || {};
 
+  const addonsSum = (addons || []).reduce(
+    (sum, a) => sum + Number(a?.price || 0),
+    0
+  );
+
+  const computedOneTime =
+    Number(core?.price || 0) + addonsSum;
+
+  // Prefer whatever the caller passed, but never trust a 0/undefined/null
+  // value over a total we can compute ourselves from the line items.
   const resolvedOneTime =
-    oneTimeTotal ?? total ?? 0;
+    oneTimeTotal || total || computedOneTime || 0;
 
   const resolvedMonthly =
-    monthlyTotal ?? support?.price ?? 0;
+    monthlyTotal || support?.price || 0;
 
   const name = escapeHtml(
     contact?.name || "—"
