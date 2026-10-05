@@ -499,14 +499,14 @@ function MobileStepperDemo({ currentStep, stepperContent, setCurrentStep }) {
               <p className="phone__content-title">{data.title}</p>
               <p className="phone__content-sub">{data.sub}</p>
 
-              {data.body.map((item, i) => (
+              {/* {data.body.map((item, i) => (
                 <div key={i} className="phone__fake-card">
                   <span className="phone__fake-card-icon">{item.icon}</span>
                   <span style={{ font-size: "13px", font-weight: "600" }}>
                     {item.text}
                   </span>
                 </div>
-              ))}
+              ))} */}
 
               <div className="phone__cta">
                 <button className="btn btn--primary btn--block">
