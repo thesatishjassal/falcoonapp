@@ -1,0 +1,63 @@
+/* Hand-drawn underline highlight (underline, not strikethrough) */
+.prc-ul {
+  font-weight: inherit;
+  padding-bottom: 0.18em;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 0.45em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.prc-ul.prc-green {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M1 4 C14 8 24 2 38 6 S60 2 74 6 S90 3 99 6' fill='none' stroke='%231f9d5c' stroke-width='3' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+
+/* Pricing FAQ */
+.prc-faq {
+  padding-top: 8px;
+  padding-bottom: 72px;
+  max-width: 820px;
+}
+.prc-faq h2 {
+  font-family: var(--serif);
+  font-size: clamp(24px, 3.4vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 18px;
+}
+.prc-faq details {
+  border-bottom: 1px solid var(--line);
+}
+.prc-faq details:first-of-type {
+  border-top: 1px solid var(--line);
+}
+.prc-faq summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+}
+.prc-faq summary::-webkit-details-marker {
+  display: none;
+}
+.prc-faq summary::after {
+  content: "+";
+  color: var(--gold-dark);
+  font-family: var(--sans);
+  font-size: 20px;
+}
+.prc-faq details[open] summary::after {
+  content: "−";
+}
+.prc-faq p {
+  margin: 0;
+  padding: 0 36px 20px 0;
+  color: var(--ink-soft);
+  font-size: 14.5px;
+  line-height: 1.7;
+}

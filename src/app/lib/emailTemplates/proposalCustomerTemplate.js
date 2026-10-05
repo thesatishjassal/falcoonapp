@@ -1,15 +1,12 @@
 const CALENDLY_URL =
   "https://calendly.com/thesatishjassal/free-strategy-call-uk";
 
-const WHATSAPP_URL =
-  "https://wa.me/917888467258";
+const WHATSAPP_URL = "https://wa.me/917888467258";
 
 const LOGO_URL =
   "https://d3v0px0pttie1i.cloudfront.net/uploads/branding/logo/8969127b-f40f-4ec1-beef-4e20cdc207b4/d189eed8.png";
 
-const currency = (n) =>
-  "£" +
-  Number(n || 0).toLocaleString("en-GB");
+const currency = (n) => "£" + Number(n || 0).toLocaleString("en-GB");
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -40,54 +37,32 @@ export function getProposalCustomerTemplate({
 
   const addonsSum = (addons || []).reduce(
     (sum, a) => sum + Number(a?.price || 0),
-    0
+    0,
   );
 
-  const computedOneTime =
-    Number(core?.price || 0) + addonsSum;
+  const computedOneTime = Number(core?.price || 0) + addonsSum;
 
   // Prefer whatever the caller passed, but never trust a 0/undefined/null
   // value over a total we can compute ourselves from the line items.
-  const resolvedOneTime =
-    oneTimeTotal || total || computedOneTime || 0;
+  const resolvedOneTime = oneTimeTotal || total || computedOneTime || 0;
 
-  const resolvedMonthly =
-    monthlyTotal || support?.price || 0;
+  const resolvedMonthly = monthlyTotal || support?.price || 0;
 
-  const name = escapeHtml(
-    contact?.name || "there"
-  );
+  const name = escapeHtml(contact?.name || "there");
 
-  const email = escapeHtml(
-    contact?.email || ""
-  );
+  const email = escapeHtml(contact?.email || "");
 
-  const country = escapeHtml(
-    contact?.country ||
-      "United Kingdom"
-  );
+  const country = escapeHtml(contact?.country || "United Kingdom");
 
-  const city = escapeHtml(
-    contact?.city || ""
-  );
+  const city = escapeHtml(contact?.city || "");
 
-  const phone = escapeHtml(
-    contact?.phone || ""
-  );
+  const phone = escapeHtml(contact?.phone || "");
 
-  const coreLabel = escapeHtml(
-    core?.label || "Core Plan"
-  );
+  const coreLabel = escapeHtml(core?.label || "Core Plan");
 
-  const coreIncluded = Array.isArray(core?.included)
-    ? core.included
-    : [];
+  const coreIncluded = Array.isArray(core?.included) ? core.included : [];
 
-  const quoteId =
-    "FAL-" +
-    Math.floor(
-      1000 + Math.random() * 9000
-    );
+  const quoteId = "FAL-" + Math.floor(1000 + Math.random() * 9000);
 
   return `
   <div style="
@@ -353,9 +328,7 @@ export function getProposalCustomerTemplate({
                         font-size:12px;
                         font-weight:700;
                       ">
-                        ${escapeHtml(
-                          audience.label
-                        )}
+                        ${escapeHtml(audience.label)}
                       </div>
 
                     </td>
@@ -413,18 +386,10 @@ export function getProposalCustomerTemplate({
                   ${row(
                     coreLabel,
                     "Landing, checkout & thank-you page — hosting & domain included free for year one",
-                    core?.price
+                    core?.price,
                   )}
 
-                  ${addons
-                    .map((a) =>
-                      row(
-                        a.name,
-                        "Add-on",
-                        a.price
-                      )
-                    )
-                    .join("")}
+                  ${addons.map((a) => row(a.name, "Add-on", a.price)).join("")}
 
                 </table>
 
@@ -469,7 +434,7 @@ export function getProposalCustomerTemplate({
                                     ${escapeHtml(item)}
                                   </td>
                                 </tr>
-                              `
+                              `,
                             )
                             .join("")}
                         </table>
@@ -534,9 +499,7 @@ export function getProposalCustomerTemplate({
                                   font-size:13px;
                                   color:#5b5148;
                                 ">
-                                  ${escapeHtml(
-                                    support.name
-                                  )}
+                                  ${escapeHtml(support.name)}
                                 </td>
 
                                 <td
@@ -549,10 +512,7 @@ export function getProposalCustomerTemplate({
                                   "
                                 >
                                   ${currency(resolvedMonthly)}
-                                  ${escapeHtml(
-                                    support.period ||
-                                      "/mo"
-                                  )}
+                                  ${escapeHtml(support.period || "/mo")}
                                 </td>
 
                               </tr>

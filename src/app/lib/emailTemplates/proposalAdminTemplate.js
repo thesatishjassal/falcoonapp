@@ -1,9 +1,7 @@
 const LOGO_URL =
   "https://d3v0px0pttie1i.cloudfront.net/uploads/branding/logo/8969127b-f40f-4ec1-beef-4e20cdc207b4/d189eed8.png";
 
-const currency = (n) =>
-  "£" +
-  Number(n || 0).toLocaleString("en-GB");
+const currency = (n) => "£" + Number(n || 0).toLocaleString("en-GB");
 
 const escapeHtml = (value = "") =>
   String(value)
@@ -34,54 +32,34 @@ export function getProposalAdminTemplate({
 
   const addonsSum = (addons || []).reduce(
     (sum, a) => sum + Number(a?.price || 0),
-    0
+    0,
   );
 
-  const computedOneTime =
-    Number(core?.price || 0) + addonsSum;
+  const computedOneTime = Number(core?.price || 0) + addonsSum;
 
   // Prefer whatever the caller passed, but never trust a 0/undefined/null
   // value over a total we can compute ourselves from the line items.
-  const resolvedOneTime =
-    oneTimeTotal || total || computedOneTime || 0;
+  const resolvedOneTime = oneTimeTotal || total || computedOneTime || 0;
 
-  const resolvedMonthly =
-    monthlyTotal || support?.price || 0;
+  const resolvedMonthly = monthlyTotal || support?.price || 0;
 
-  const name = escapeHtml(
-    contact?.name || "—"
-  );
+  const name = escapeHtml(contact?.name || "—");
 
-  const email = escapeHtml(
-    contact?.email || "—"
-  );
+  const email = escapeHtml(contact?.email || "—");
 
-  const country = escapeHtml(
-    contact?.country || "United Kingdom"
-  );
+  const country = escapeHtml(contact?.country || "United Kingdom");
 
-  const countryCode = escapeHtml(
-    contact?.countryCode || "GB"
-  );
+  const countryCode = escapeHtml(contact?.countryCode || "GB");
 
-  const city = escapeHtml(
-    contact?.city || "—"
-  );
+  const city = escapeHtml(contact?.city || "—");
 
-  const phone = escapeHtml(
-    contact?.phone || "—"
-  );
+  const phone = escapeHtml(contact?.phone || "—");
 
-  const safeAudience =
-    escapeHtml(audience?.label || "");
+  const safeAudience = escapeHtml(audience?.label || "");
 
-  const coreLabel = escapeHtml(
-    core?.label || "Core Plan"
-  );
+  const coreLabel = escapeHtml(core?.label || "Core Plan");
 
-  const coreIncluded = Array.isArray(core?.included)
-    ? core.included
-    : [];
+  const coreIncluded = Array.isArray(core?.included) ? core.included : [];
 
   return `
   <div style="
@@ -145,11 +123,7 @@ export function getProposalAdminTemplate({
                   letter-spacing:.05em;
                 ">
                   UK Fitness Professional
-                  ${
-                    safeAudience
-                      ? " · " + safeAudience
-                      : ""
-                  }
+                  ${safeAudience ? " · " + safeAudience : ""}
                 </p>
               </td>
             </tr>
@@ -331,7 +305,7 @@ export function getProposalAdminTemplate({
                                 ">
                                   ${escapeHtml(item)}
                                 </li>
-                              `
+                              `,
                             )
                             .join("")}
                         </ul>
@@ -349,14 +323,10 @@ export function getProposalAdminTemplate({
                                 font-size:13.5px;
                                 color:#5b5148;
                               ">
-                                + ${escapeHtml(
-                                  a.name
-                                )}
-                                — ${currency(
-                                  a.price
-                                )}
+                                + ${escapeHtml(a.name)}
+                                — ${currency(a.price)}
                               </p>
-                            `
+                            `,
                           )
                           .join("")
                       : `
@@ -380,16 +350,10 @@ export function getProposalAdminTemplate({
                           font-weight:700;
                         ">
                           Support:
-                          ${escapeHtml(
-                            support.name
-                          )}
+                          ${escapeHtml(support.name)}
                           —
-                          ${currency(
-                            support.price
-                          )}
-                          ${escapeHtml(
-                            support.period || ""
-                          )}
+                          ${currency(support.price)}
+                          ${escapeHtml(support.period || "")}
                         </p>
                       `
                       : `
@@ -448,9 +412,7 @@ export function getProposalAdminTemplate({
                         ">
                           +
                           ${currency(resolvedMonthly)}
-                          ${escapeHtml(
-                            support?.period || "/mo"
-                          )}
+                          ${escapeHtml(support?.period || "/mo")}
                           ongoing support
                         </p>
                       `
@@ -486,9 +448,7 @@ export function getProposalAdminTemplate({
                   contact?.phone
                     ? `
                       <a
-                        href="tel:${escapeHtml(
-                          contact.phone
-                        )}"
+                        href="tel:${escapeHtml(contact.phone)}"
                         style="
                           display:inline-block;
                           padding:11px 18px;

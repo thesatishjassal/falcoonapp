@@ -1,0 +1,433 @@
+/* =========================================================
+   FALCOON · MOCK UI
+   Video-call window, booking page, calendar card
+========================================================= */
+
+.fc-win {
+  background: #1d1d1b;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--fc-white);
+}
+
+.fc-win__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+}
+
+.fc-win__title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fc-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.fc-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.fc-badge {
+  padding: 4px 8px;
+  background: rgba(208, 180, 119, 0.16);
+  color: var(--fc-gold-light);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---------- tiles ---------- */
+
+.fc-tiles {
+  display: grid;
+  gap: 6px;
+  height: 300px;
+  padding: 6px;
+}
+
+.fc-tiles--one {
+  grid-template-columns: 1fr 1fr;
+}
+
+.fc-tiles--group {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.fc-tile {
+  --c1: #3d3830;
+  --c2: #1f1d1a;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--c1), var(--c2));
+  transition: box-shadow 0.3s ease;
+}
+
+.fc-tile--2 { --c1: #4a4137; --c2: #24201b; }
+.fc-tile--3 { --c1: #36403e; --c2: #1a201f; }
+.fc-tile--4 { --c1: #413a4a; --c2: #1e1b24; }
+.fc-tile--5 { --c1: #4a3d38; --c2: #231c19; }
+.fc-tile--6 { --c1: #38414a; --c2: #1a1f24; }
+
+/* person silhouette */
+.fc-tile::before,
+.fc-tile::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s ease;
+}
+
+.fc-tile::before {
+  top: 22%;
+  width: 24%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.fc-tile::after {
+  top: 56%;
+  width: 52%;
+  height: 70%;
+  border-radius: 50% 50% 0 0;
+  background: rgba(255, 255, 255, 0.17);
+}
+
+.fc-tile.is-speaking {
+  box-shadow: inset 0 0 0 2px var(--fc-gold-light);
+}
+
+.fc-tile.is-off::before,
+.fc-tile.is-off::after {
+  opacity: 0;
+}
+
+.fc-tile__name {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  z-index: 2;
+  padding: 3px 8px;
+  background: rgba(0, 0, 0, 0.6);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.fc-tile__off {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 11px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.fc-tile.is-off .fc-tile__off {
+  opacity: 1;
+}
+
+/* ---------- controls ---------- */
+
+.fc-ctrls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fc-ctrls button,
+.fc-ctrls span {
+  padding: 7px 11px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 10px;
+}
+
+.fc-ctrls button {
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s var(--fc-ease);
+}
+
+.fc-ctrls button:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.fc-ctrls button:active {
+  transform: scale(0.94);
+}
+
+.fc-ctrls button.is-off {
+  background: rgba(184, 56, 43, 0.35);
+}
+
+.fc-ctrls .end {
+  background: #b8382b;
+  color: #fff;
+}
+
+/* ---------- booking page ---------- */
+
+.fc-book {
+  display: flex;
+  flex-direction: column;
+  min-height: 396px;
+  padding: 24px 22px 22px;
+  background: var(--fc-white);
+  color: var(--fc-text);
+}
+
+.fc-book h4 {
+  font-family: var(--fc-serif);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.fc-book__sub {
+  margin: 6px 0 16px;
+  color: var(--fc-muted);
+  font-size: 12px;
+}
+
+.fc-book__row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.fc-book__row--slots {
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 14px;
+}
+
+.fc-book__row button,
+.fc-book__methods button {
+  padding: 9px 4px;
+  background: transparent;
+  border: 1px solid var(--fc-border);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    transform 0.15s var(--fc-ease);
+}
+
+.fc-book__row button:hover,
+.fc-book__methods button:hover {
+  border-color: var(--fc-black);
+}
+
+.fc-book__row button:active,
+.fc-book__methods button:active {
+  transform: scale(0.95);
+}
+
+.fc-book__row button[aria-pressed="true"] {
+  background: var(--fc-black);
+  border-color: var(--fc-black);
+  color: var(--fc-white);
+}
+
+.fc-book__total {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 1px solid var(--fc-border);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.fc-book__methods {
+  display: flex;
+  gap: 6px;
+  margin: 2px 0 14px;
+}
+
+.fc-book__methods button {
+  flex: 1;
+  color: var(--fc-muted);
+}
+
+.fc-book__methods button[aria-pressed="true"] {
+  border-color: var(--fc-black);
+  color: var(--fc-black);
+  box-shadow: inset 0 0 0 1px var(--fc-black);
+}
+
+.fc-book__pay {
+  margin-top: auto;
+  padding: 14px;
+  background: var(--fc-black);
+  border: 0;
+  color: var(--fc-white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.15s var(--fc-ease);
+}
+
+.fc-book__pay:hover {
+  background: var(--fc-gold);
+  color: var(--fc-black);
+}
+
+.fc-book__pay:active {
+  transform: scale(0.98);
+}
+
+/* confirmation state */
+.fc-book--done {
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  animation: fc-in 0.4s var(--fc-ease) both;
+}
+
+.fc-book--done p {
+  max-width: 280px;
+  color: var(--fc-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.fc-book__check {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(47, 125, 79, 0.12);
+  color: var(--fc-green);
+  font-size: 24px;
+  animation: fc-pop 0.5s var(--fc-ease) both;
+}
+
+.fc-book__reset {
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid var(--fc-border);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.fc-book__reset:hover {
+  border-color: var(--fc-black);
+}
+
+@keyframes fc-pop {
+  from { transform: scale(0.4); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- calendar card ---------- */
+
+.fc-dash {
+  padding: 24px;
+  background: #1d1d1b;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--fc-white);
+}
+
+.fc-dash__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--fc-serif);
+  font-size: 22px;
+}
+
+.fc-dash__row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s var(--fc-ease);
+}
+
+.fc-dash__row:hover {
+  transform: translateX(4px);
+}
+
+.fc-dash__row time {
+  color: var(--fc-gold-light);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.fc-dash__row strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.fc-dash__row small {
+  display: block;
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+}
+
+.fc-dash__row em {
+  color: #7fcf9f;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.fc-dash__foot {
+  padding-top: 16px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .fc-tiles {
+    height: 260px;
+  }
+
+  .fc-dash {
+    padding: 18px;
+  }
+
+  .fc-dash__row {
+    grid-template-columns: 48px 1fr;
+  }
+
+  .fc-dash__row em {
+    grid-column: 2;
+  }
+}

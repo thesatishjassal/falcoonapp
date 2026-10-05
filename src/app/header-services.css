@@ -1,0 +1,129 @@
+/* Services dropdown (desktop) */
+.classic-services {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Reset the button so it matches the other nav links.
+   If your .classic-header-link already sets font, colour and size,
+   those values still apply because of "inherit". */
+.classic-services-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.classic-services-caret {
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.classic-services.open .classic-services-caret,
+.classic-services:hover .classic-services-caret {
+  transform: rotate(225deg);
+  margin-top: 3px;
+}
+
+.classic-services-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 50;
+  width: 340px;
+  padding: 8px;
+  margin-top: 18px;
+  background: #151513;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 6px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s;
+}
+
+/* Invisible bridge so the menu doesn't close when the cursor crosses the gap */
+.classic-services-menu::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+}
+
+.classic-services.open .classic-services-menu,
+.classic-services:hover .classic-services-menu,
+.classic-services:focus-within .classic-services-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.classic-services-item {
+  display: block;
+  padding: 14px 16px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.classic-services-item + .classic-services-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.classic-services-item strong {
+  display: block;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.classic-services-item span {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.classic-services-item:hover,
+.classic-services-item:focus-visible {
+  background: rgba(208, 180, 119, 0.12);
+}
+
+.classic-services-item:hover strong,
+.classic-services-item:focus-visible strong {
+  color: #d0b477;
+}
+
+/* Services group (mobile drawer) */
+.classic-mobile-drawer-group {
+  padding: 6px 0;
+}
+
+.classic-mobile-drawer-label {
+  padding: 14px 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d0b477;
+}
+
+.classic-mobile-drawer-sub {
+  padding-left: 14px;
+}

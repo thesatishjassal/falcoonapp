@@ -1,10 +1,38 @@
-"use client";
-
+import { DM_Sans, Fraunces } from "next/font/google";
 import "./team.css";
 
-/* ─────────────────────────────────────────────
-   TEAM DATA
-───────────────────────────────────────────── */
+const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
+const DESCRIPTION =
+  "Meet the Falcoon team: the strategist, designer, developer, writer and video editor who build funnels for UK fitness professionals.";
+
+export const metadata = {
+  title: "Our Team | Falcoon",
+  description: DESCRIPTION,
+  alternates: { canonical: "/team" },
+  openGraph: {
+    title: "Our Team | Falcoon",
+    description: DESCRIPTION,
+    locale: "en_GB",
+    type: "website",
+    siteName: "Falcoon",
+  },
+};
 
 const TEAM = [
   {
@@ -45,52 +73,73 @@ const TEAM = [
   },
 ];
 
-/* ─────────────────────────────────────────────
-   TEAM CARD
-───────────────────────────────────────────── */
-
 function TeamCard({ member }) {
   const initials = member.name
     .split(" ")
     .map((part) => part[0])
+    .slice(0, 2)
     .join("");
 
   return (
-    <div className="team-card">
-      <div className="team-avatar">{initials}</div>
-
-      <h3 className="team-name">{member.name}</h3>
-      <div className="team-role">{member.role}</div>
-
-      <p className="team-bio">{member.bio}</p>
-    </div>
+    <article className="tm-card">
+      <div className="tm-avatar" aria-hidden="true">
+        {initials}
+      </div>
+      <h2 className="tm-name">{member.name}</h2>
+      <div className="tm-role">{member.role}</div>
+      <p className="tm-bio">{member.bio}</p>
+    </article>
   );
 }
 
-/* ─────────────────────────────────────────────
-   TEAM PAGE
-───────────────────────────────────────────── */
-
 export default function TeamPage() {
   return (
-    <div className="wrap">
-      <div className="hero">
-        <div className="hero-eyebrow">The people behind Falcoon</div>
+    <main className={`tm-page ${dmSans.variable} ${fraunces.variable}`}>
+      {/* HERO */}
+      <section className="tm-hero">
+        <div className="tm-c">
+          <div className="tm-eyebrow">The people behind Falcoon</div>
+          <h1 className="tm-h1">
+            One team, <em>start to finish.</em>
+          </h1>
+          <p>
+            No handoffs between departments. The same {TEAM.length} people who
+            scope your funnel are the ones who{" "}
+            <span className="tm-ul tm-green">design it, build it</span>, and
+            support it after launch.
+          </p>
+        </div>
+      </section>
 
-        <h1>One team, start to finish.</h1>
+      {/* TEAM */}
+      <section className="tm-sec">
+        <div className="tm-c">
+          <div className="tm-grid">
+            {TEAM.map((member) => (
+              <TeamCard key={member.id} member={member} />
+            ))}
+          </div>
+        </div>
+      </section>
 
-        <p>
-          No handoffs between departments. The same six people who scope
-          your funnel are the ones who design it, build it, and support it
-          after launch.
-        </p>
-      </div>
-
-      <div className="team-grid">
-        {TEAM.map((member) => (
-          <TeamCard key={member.id} member={member} />
-        ))}
-      </div>
-    </div>
+      {/* CTA */}
+      <section className="tm-cta">
+        <div className="tm-c">
+          <div className="tm-label">Work with us</div>
+          <h2>
+            Meet the team on a <em>free call.</em>
+          </h2>
+          <p>Fixed pricing, no hidden fees, no obligation.</p>
+          <a
+            href={CALENDLY}
+            className="tm-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Book Free Website Audit <span>→</span>
+          </a>
+        </div>
+      </section>
+    </main>
   );
 }

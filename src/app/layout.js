@@ -5,7 +5,16 @@ import Footer from "./components/footer";
 import SupportFloat from "./components/supportfloat";
 import Link from "next/link";
 
-// ─────────────────────────────────────────────
+import "./styles/base.css";
+import "./styles/components.css";
+import "./styles/mock.css";
+import "./styles/hero.css";
+import "./styles/sections.css";
+import "./styles/showcase.css";
+import "./styles/integrations.css";
+
+import { SITE } from "../app/lib/emailTemplates/config";
+
 // UK SEO Metadata
 // ─────────────────────────────────────────────
 export const metadata = {
@@ -115,8 +124,7 @@ export const metadata = {
         url: "https://falcoon.in/assets/images/falcoon_og.png",
         width: 1200,
         height: 630,
-        alt:
-          "Falcoon - Fitness Funnel and Website Agency for UK Fitness Professionals",
+        alt: "Falcoon - Fitness Funnel and Website Agency for UK Fitness Professionals",
       },
     ],
   },
@@ -127,15 +135,12 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title:
-      "Falcoon | Fitness Funnel Agency for UK Fitness Professionals",
+    title: "Falcoon | Fitness Funnel Agency for UK Fitness Professionals",
 
     description:
       "Websites, funnels and automation systems built for UK fitness professionals.",
 
-    images: [
-      "https://falcoon.in/assets/images/falcoon_og.png",
-    ],
+    images: ["https://falcoon.in/assets/images/falcoon_og.png"],
 
     site: "@falcoon_in",
     creator: "@falcoon_in",

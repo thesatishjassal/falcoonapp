@@ -1,0 +1,314 @@
+/* =========================================================
+   FALCOON · SECTIONS
+   Intro, problem, funnel, features, quote, partnership, CTA
+========================================================= */
+
+/* ---------- 01 intro ---------- */
+
+.fc-intro {
+  background: var(--fc-ivory);
+}
+
+.fc-intro__grid {
+  display: grid;
+  grid-template-columns: 0.55fr 1.45fr;
+  align-items: start;
+  gap: 60px;
+}
+
+.fc-intro__title {
+  max-width: 760px;
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.02;
+}
+
+.fc-intro__text {
+  display: grid;
+  gap: 18px;
+  max-width: 600px;
+  margin-top: 28px;
+  color: var(--fc-muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.fc-intro__text strong {
+  color: var(--fc-black);
+  font-weight: 600;
+}
+
+/* ---------- 02 problem ---------- */
+
+.fc-problem {
+  background: var(--fc-black);
+  color: var(--fc-white);
+}
+
+.fc-problem__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 80px;
+}
+
+.fc-problem .fc-label {
+  color: var(--fc-gold-light);
+}
+
+.fc-problem__title {
+  margin-top: 24px;
+  font-size: clamp(36px, 4.6vw, 62px);
+}
+
+.fc-problem__title em {
+  color: var(--fc-gold-light);
+}
+
+.fc-problem__copy {
+  max-width: 540px;
+}
+
+.fc-problem__copy > p {
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.67);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.fc-problem__copy .fc-acc {
+  margin-top: 32px;
+}
+
+/* ---------- 03 funnel ---------- */
+
+.fc-funnel {
+  background: var(--fc-paper);
+}
+
+.fc-funnel__grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  align-items: start;
+  gap: 80px;
+}
+
+.fc-funnel__head {
+  position: sticky;
+  top: 40px;
+}
+
+.fc-funnel__head .fc-h2 {
+  margin-top: 24px;
+  font-size: clamp(40px, 5vw, 66px);
+}
+
+.fc-funnel__head .fc-h2 em {
+  color: var(--fc-gold);
+}
+
+.fc-funnel__sub {
+  max-width: 320px;
+  margin-top: 22px;
+  color: var(--fc-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ---------- 04 features ---------- */
+
+.fc-features {
+  background: var(--fc-ivory);
+}
+
+.fc-features__head {
+  max-width: 720px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+
+.fc-features__head .fc-h2 {
+  margin: 22px 0 22px;
+}
+
+.fc-features__head p:last-child {
+  color: var(--fc-muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.fc-features__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.fc-feature {
+  padding: 40px 34px 44px;
+  background: var(--fc-white);
+  border-bottom: 2px solid transparent;
+  transition: transform 0.35s var(--fc-ease), box-shadow 0.35s var(--fc-ease),
+    border-color 0.35s ease;
+}
+
+.fc-feature:hover {
+  border-color: var(--fc-gold);
+  box-shadow: 0 22px 40px -22px rgba(11, 11, 10, 0.3);
+  transform: translateY(-6px);
+}
+
+.fc-feature__num {
+  display: block;
+  margin-bottom: 36px;
+  color: var(--fc-gold);
+  font-family: var(--fc-serif);
+  font-size: 28px;
+}
+
+.fc-feature h3 {
+  margin-bottom: 18px;
+  font-family: var(--fc-serif);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.fc-feature p {
+  color: var(--fc-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ---------- quote ---------- */
+
+.fc-quote {
+  background: var(--fc-paper);
+  text-align: center;
+}
+
+.fc-quote__mark {
+  display: block;
+  margin-bottom: 28px;
+  color: var(--fc-gold);
+  font-family: var(--fc-serif);
+  font-size: 90px;
+  line-height: 0.5;
+}
+
+.fc-quote__text {
+  max-width: 920px;
+  margin: auto;
+  font-size: clamp(36px, 5.2vw, 68px);
+}
+
+/* ---------- 07 partnership ---------- */
+
+.fc-partner {
+  background: var(--fc-dark);
+  color: var(--fc-white);
+}
+
+.fc-partner__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 80px;
+}
+
+.fc-partner .fc-label {
+  margin-bottom: 24px;
+  color: var(--fc-gold-light);
+}
+
+.fc-partner .fc-h2 {
+  margin-bottom: 28px;
+  font-size: clamp(36px, 4.2vw, 58px);
+  line-height: 0.98;
+}
+
+.fc-partner .fc-h2 em {
+  color: var(--fc-gold-light);
+}
+
+.fc-partner__content > p:not(.fc-label) {
+  max-width: 490px;
+  margin-bottom: 28px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.fc-checks {
+  display: grid;
+  gap: 13px;
+  margin-bottom: 36px;
+}
+
+.fc-checks li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+}
+
+.fc-checks li::before {
+  content: "✓";
+  color: var(--fc-gold-light);
+}
+
+/* ---------- final CTA ---------- */
+
+.fc-cta {
+  padding-block: clamp(72px, 9vw, 120px);
+  background: var(--fc-ivory);
+  text-align: center;
+}
+
+.fc-cta__title {
+  max-width: 900px;
+  margin: 26px auto 0;
+  font-size: clamp(42px, 5.8vw, 82px);
+  line-height: 0.92;
+}
+
+.fc-cta__text {
+  max-width: 520px;
+  margin: 30px auto 36px;
+  color: var(--fc-muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 900px) {
+  .fc-intro__grid,
+  .fc-problem__grid,
+  .fc-funnel__grid,
+  .fc-partner__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .fc-funnel__head {
+    position: static;
+  }
+
+  .fc-features__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fc-feature__num {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .fc-feature {
+    padding: 30px 24px 34px;
+  }
+
+  .fc-quote__mark {
+    font-size: 70px;
+  }
+}

@@ -85,7 +85,7 @@ export default function QuoteSelector() {
             rel="noopener noreferrer"
             className="falcoon-btn falcoon-btn--outline"
           >
-            Book Free Strategy Call →
+            Book Free Website Audit →
           </a>
         </div>
         <p className="falcoon-selector__note">

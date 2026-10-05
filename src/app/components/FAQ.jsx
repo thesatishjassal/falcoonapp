@@ -39,20 +39,19 @@ export default function FAQ() {
           </h2>
 
           <p className="classic-mini-faq-subtitle">
-            Still unsure? We&apos;ll walk you through everything on a free
-            call.
+            Still unsure? We&apos;ll walk you through everything on a free call.
           </p>
 
           <button
             onClick={() => {
               window.open(
                 "https://calendly.com/thesatishjassal/free-strategy-call-uk",
-                "_blank"
+                "_blank",
               );
             }}
             className="classic-mini-faq-cta"
           >
-            Book Free Strategy Call →
+            Book Free Website Audit →
           </button>
         </div>
 

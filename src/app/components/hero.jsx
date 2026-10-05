@@ -88,7 +88,7 @@ export default function Hero({ onOpenModal }) {
               href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
               className="classic-btn classic-btn--primary"
             >
-              Get Free Strategy Call
+              Book Free Website Audit
               <span className="classic-btn__arrow">
                 <img
                   src="/assets/images/calendar_month_white.svg"

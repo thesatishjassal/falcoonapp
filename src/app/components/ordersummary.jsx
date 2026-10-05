@@ -65,7 +65,7 @@ export default function OrderSummary({
               <span
                 style={{
                   color: r.price === 0 ? "#2e7d32" : "#202124",
-                  fontWeight: 600,
+                  font-weight: 600,
                 }}
               >
                 {fmt(r.price)}
@@ -78,7 +78,7 @@ export default function OrderSummary({
 
         <div className="summary__total">
           <span>Total</span>
-          <span style={{ color: "#530a4e", fontWeight: 700 }}>
+          <span style={{ color: "#530a4e", font-weight: 700 }}>
             ₹{total.toLocaleString("en-IN")}
           </span>
         </div>

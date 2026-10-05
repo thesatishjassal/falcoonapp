@@ -502,7 +502,7 @@ function MobileStepperDemo({ currentStep, stepperContent, setCurrentStep }) {
               {data.body.map((item, i) => (
                 <div key={i} className="phone__fake-card">
                   <span className="phone__fake-card-icon">{item.icon}</span>
-                  <span style={{ fontSize: "13px", fontWeight: "600" }}>
+                  <span style={{ font-size: "13px", font-weight: "600" }}>
                     {item.text}
                   </span>
                 </div>
