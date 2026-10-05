@@ -161,9 +161,9 @@ export default function HomePage() {
               >
                 Book Free Website Audit <span>→</span>
               </a>
-              <Link href="/work" className="hm-btn hm-g">
+              {/* <Link href="/work" className="hm-btn hm-g">
                 View our work
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="hm-hv" aria-hidden="true">
