@@ -1865,8 +1865,9 @@
 }
 @media (max-width: 600px) {
   .hm-steps,
-  .hm-tools-grid {
-    grid-template-columns: 1fr;
+  .hm-tools-grid,
+  .hm-chain {
+    grid-template-columns: -2fr;
   }
   .hm-chain {
     grid-template-columns: 1fr;
@@ -1877,5 +1878,1266 @@
   }
   .hm-sn {
     font-size: 36px;
+  }
+}
+/* ── APPEND to the end of home.css ─────────────────────────────
+   Animated hero visual. CSS only, so the page stays a server component.
+   One 18s loop = three 6s scenes (programmes, products, consultations). */
+
+.hm-vis {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 540px;
+}
+/* soft gold glow that breathes behind the phone */
+.hm-vis::before {
+  content: "";
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(208, 180, 119, 0.34),
+    transparent 65%
+  );
+  animation: hm-glow 6s ease-in-out infinite alternate;
+}
+@keyframes hm-glow {
+  from {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+.hm-frame {
+  position: relative;
+  z-index: 1;
+  width: min(330px, 100%);
+}
+.hm-live {
+  position: relative;
+  padding: 22px 16px 18px;
+  border-radius: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(170deg, #2a2620, #0f0e0c);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+}
+
+/* live badge with a pulsing dot */
+.hm-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.hm-pulse::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4cc788;
+  animation: hm-ping 1.6s ease-out infinite;
+}
+@keyframes hm-ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(76, 199, 136, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(76, 199, 136, 0);
+  }
+}
+
+/* tabs: the active one follows the scene */
+.hm-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.hm-tab {
+  padding: 8px 2px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  text-align: center;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  animation: hm-tab 18s infinite;
+}
+.hm-tab:nth-child(1),
+.hm-scene:nth-child(1) {
+  animation-delay: 0s;
+}
+.hm-tab:nth-child(2),
+.hm-scene:nth-child(2) {
+  animation-delay: -12s;
+}
+.hm-tab:nth-child(3),
+.hm-scene:nth-child(3) {
+  animation-delay: -6s;
+}
+@keyframes hm-tab {
+  0%,
+  31% {
+    background: var(--gold-l);
+    border-color: var(--gold-l);
+    color: var(--black);
+  }
+  34%,
+  100% {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* scenes crossfade every 6s */
+.hm-stage {
+  position: relative;
+  height: 268px;
+}
+.hm-scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  animation: hm-scene 18s infinite;
+}
+@keyframes hm-scene {
+  0% {
+    opacity: 0;
+  }
+  2%,
+  31% {
+    opacity: 1;
+  }
+  34%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* rows slide in one after another, then the result lands */
+.hm-lr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  padding: 11px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0;
+}
+.hm-lr strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #fff;
+}
+.hm-lr small {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.55);
+}
+.hm-lr-ico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--d, #888);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+.hm-r1 {
+  animation: hm-r1 6s ease-out infinite;
+}
+.hm-r2 {
+  animation: hm-r2 6s ease-out infinite;
+}
+.hm-r3 {
+  animation: hm-r3 6s ease-out infinite;
+}
+.hm-r4 {
+  animation: hm-r4 6s ease-out infinite;
+}
+@keyframes hm-r1 {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  5%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes hm-r2 {
+  0%,
+  22% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  28%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes hm-r3 {
+  0%,
+  45% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  51%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes hm-r4 {
+  0%,
+  68% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  76%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.hm-lres {
+  margin-top: 4px;
+  padding: 14px;
+  background: rgba(76, 199, 136, 0.12);
+  border: 1px solid rgba(76, 199, 136, 0.4);
+}
+.hm-lres strong {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: #7fcf9f;
+}
+
+/* the six-step flow: a spark travels along the rail */
+.hm-rail {
+  position: relative;
+  margin-top: 16px;
+}
+.hm-rail-line,
+.hm-rail-fill {
+  position: absolute;
+  top: 4px;
+  left: calc(100% / 12);
+  right: calc(100% / 12);
+  height: 2px;
+}
+.hm-rail-line {
+  background: rgba(255, 255, 255, 0.14);
+}
+.hm-rail-fill {
+  background: linear-gradient(90deg, var(--gold), var(--gold-l));
+  transform-origin: left;
+  animation: hm-fill 6s linear infinite;
+}
+@keyframes hm-fill {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  90% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  97%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+.hm-rail-spark {
+  position: absolute;
+  top: 0;
+  left: calc(100% / 12);
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--gold-l);
+  box-shadow: 0 0 12px 3px rgba(208, 180, 119, 0.8);
+  animation: hm-spark 6s linear infinite;
+}
+@keyframes hm-spark {
+  0% {
+    left: calc(100% / 12);
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  90% {
+    left: calc(100% * 11 / 12);
+    opacity: 1;
+  }
+  96%,
+  100% {
+    left: calc(100% * 11 / 12);
+    opacity: 0;
+  }
+}
+.hm-rail-steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+.hm-rail-steps span {
+  position: relative;
+  padding-top: 18px;
+  text-align: center;
+  font-size: 9px;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.6);
+}
+.hm-rail-steps span::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: #1d1d1b;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* floating tool chips */
+.hm-fchip {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  background: #fff;
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+  animation: hm-bob 5s ease-in-out infinite;
+}
+.hm-fchip i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--d, #888);
+}
+.hm-fc1 {
+  top: 46px;
+  left: -58px;
+}
+.hm-fc2 {
+  top: 112px;
+  right: -52px;
+  animation-delay: -1.5s;
+}
+.hm-fc3 {
+  bottom: 150px;
+  left: -62px;
+  animation-delay: -3s;
+}
+.hm-fc4 {
+  bottom: 74px;
+  right: -48px;
+  animation-delay: -2.2s;
+}
+@keyframes hm-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@media (max-width: 900px) {
+  .hm-vis {
+    min-height: 0;
+    padding: 24px 0;
+  }
+}
+@media (max-width: 600px) {
+  .hm-fc3,
+  .hm-fc4 {
+    display: none;
+  }
+  .hm-fc1 {
+    top: -14px;
+    left: 8px;
+  }
+  .hm-fc2 {
+    top: -14px;
+    right: 8px;
+  }
+}
+
+/* no motion: show the first scene, fully drawn */
+@media (prefers-reduced-motion: reduce) {
+  .hm-vis::before,
+  .hm-pulse::before,
+  .hm-fchip,
+  .hm-tab,
+  .hm-scene,
+  .hm-lr,
+  .hm-rail-fill,
+  .hm-rail-spark {
+    animation: none;
+  }
+  .hm-scene {
+    opacity: 0;
+  }
+  .hm-scene:first-child {
+    opacity: 1;
+  }
+  .hm-lr {
+    opacity: 1;
+  }
+  .hm-tab:first-child {
+    background: var(--gold-l);
+    border-color: var(--gold-l);
+    color: var(--black);
+  }
+  .hm-rail-fill {
+    transform: none;
+  }
+  .hm-rail-spark {
+    display: none;
+  }
+} /* ── APPEND to the end of home.css ─────────────────────────────
+   Tools section: interactive flow (radio tabs, no JS) + icon tiles.
+   Replaces the old .hm-tile rules visually; keep the older ones, these
+   come later and win. */
+
+/* ── interactive flow panel ───────────────────────────────── */
+.hm-tf {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 40px 40px 36px;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(
+      700px 300px at 15% 0%,
+      rgba(184, 150, 85, 0.22),
+      transparent 65%
+    ),
+    var(--black);
+}
+.hm-tf-r {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.hm-tf-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 28px;
+}
+.hm-tf-cap {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.4vw, 30px);
+  letter-spacing: -0.03em;
+}
+.hm-tf-cap em {
+  color: var(--gold-l);
+}
+.hm-tf-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hm-tf-tab {
+  cursor: pointer;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.75);
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+}
+.hm-tf-tab:hover {
+  border-color: var(--gold-l);
+  color: #fff;
+}
+#tf-video:checked ~ .hm-tf-top label[for="tf-video"],
+#tf-pay:checked ~ .hm-tf-top label[for="tf-pay"],
+#tf-auto:checked ~ .hm-tf-top label[for="tf-auto"] {
+  background: var(--gold-l);
+  border-color: var(--gold-l);
+  color: var(--black);
+}
+#tf-video:focus-visible ~ .hm-tf-top label[for="tf-video"],
+#tf-pay:focus-visible ~ .hm-tf-top label[for="tf-pay"],
+#tf-auto:focus-visible ~ .hm-tf-top label[for="tf-auto"] {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* scenes: only the checked one shows, and it re-plays on switch */
+.hm-tf-scene {
+  display: none;
+}
+#tf-video:checked ~ .hm-tf-stage .hm-sc-video,
+#tf-pay:checked ~ .hm-tf-stage .hm-sc-pay,
+#tf-auto:checked ~ .hm-tf-stage .hm-sc-auto {
+  display: block;
+  animation: hm-tf-in 0.5s ease-out;
+}
+@keyframes hm-tf-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* track: node, link, node, link ... */
+.hm-tf-track {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  margin-top: 40px;
+}
+.hm-tf-node {
+  flex: none;
+  width: 168px;
+  text-align: center;
+}
+.hm-tf-node strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.hm-tf-node small {
+  display: block;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.62);
+}
+.hm-tf-ico {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--c, var(--gold-l));
+  animation: hm-tf-pop 6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 1s - 0.5s);
+}
+@keyframes hm-tf-pop {
+  0%,
+  30%,
+  100% {
+    transform: none;
+    box-shadow: 0 0 0 0 transparent;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  8%,
+  20% {
+    transform: translateY(-5px) scale(1.07);
+    border-color: var(--c);
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--c) 22%, transparent);
+  }
+}
+/* "live" node gets a ring that keeps pulsing */
+.hm-tf-live .hm-tf-ico::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 22px;
+  border: 2px solid var(--c);
+  animation: hm-tf-ring 2.2s ease-out infinite;
+}
+@keyframes hm-tf-ring {
+  from {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* link between nodes: dashed line with a packet travelling along it */
+.hm-tf-link {
+  position: relative;
+  flex: 1;
+  min-width: 24px;
+  height: 68px;
+  container-type: inline-size;
+}
+.hm-tf-link::before {
+  content: "";
+  position: absolute;
+  top: 33px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.32) 0 6px,
+    transparent 6px 12px
+  );
+  animation: hm-tf-dash 0.8s linear infinite;
+}
+@keyframes hm-tf-dash {
+  to {
+    background-position-x: 12px;
+  }
+}
+.hm-tf-dot {
+  position: absolute;
+  top: 27px;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold-l);
+  box-shadow: 0 0 14px 3px rgba(208, 180, 119, 0.8);
+  opacity: 0;
+  animation: hm-tf-run 6s linear infinite;
+  animation-delay: calc(var(--i) * 1s + 0.2s);
+}
+.hm-tf-dot2 {
+  width: 8px;
+  height: 8px;
+  top: 30px;
+  margin-left: 3px;
+  box-shadow: 0 0 8px 2px rgba(208, 180, 119, 0.6);
+  animation-delay: calc(var(--i) * 1s + 0.4s);
+}
+@keyframes hm-tf-run {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  2% {
+    opacity: 1;
+  }
+  14% {
+    opacity: 1;
+    transform: translateX(calc(100cqw - 14px));
+  }
+  17%,
+  100% {
+    opacity: 0;
+    transform: translateX(calc(100cqw - 14px));
+  }
+}
+
+/* result pill */
+.hm-tf-res {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 34px;
+  padding: 14px 20px;
+  background: rgba(76, 199, 136, 0.12);
+  border: 1px solid rgba(76, 199, 136, 0.4);
+}
+.hm-tf-res strong {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: #7fcf9f;
+}
+.hm-tf-res span {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── tool tiles: icons + hover ────────────────────────────── */
+.hm-tile {
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.hm-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(11, 11, 10, 0.12);
+}
+.hm-tile h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hm-tile-ico {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #faf5ea;
+  border: 1px solid var(--gold);
+  color: #8a6b2e;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+.hm-tile-ico svg {
+  width: 20px;
+  height: 20px;
+}
+.hm-tile:hover .hm-tile-ico {
+  background: var(--black);
+  color: var(--gold-l);
+}
+.hm-chip {
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.hm-chip:hover {
+  border-color: var(--d);
+  background: color-mix(in srgb, var(--d) 8%, #fff);
+}
+.hm-chip:hover i {
+  animation: hm-ping-chip 1s ease-out infinite;
+}
+@keyframes hm-ping-chip {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--d) 60%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
+/* ── responsive: stack the flow vertically ────────────────── */
+@media (max-width: 800px) {
+  .hm-tf {
+    padding: 28px 22px;
+  }
+  .hm-tf-track {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+  }
+  .hm-tf-node {
+    width: 100%;
+  }
+  .hm-tf-link {
+    flex: none;
+    width: 100%;
+    height: 48px;
+    container-type: normal;
+  }
+  .hm-tf-link::before {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: auto;
+    width: 2px;
+    height: auto;
+    background: repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.32) 0 6px,
+      transparent 6px 12px
+    );
+    animation: none;
+  }
+  .hm-tf-dot {
+    top: 0;
+    left: 50%;
+    margin-left: -7px;
+    animation-name: hm-tf-runy;
+  }
+  .hm-tf-dot2 {
+    display: none;
+  }
+  .hm-tf-res {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+@keyframes hm-tf-runy {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  2% {
+    opacity: 1;
+  }
+  14% {
+    opacity: 1;
+    transform: translateY(34px);
+  }
+  17%,
+  100% {
+    opacity: 0;
+    transform: translateY(34px);
+  }
+}
+
+/* ── no motion: everything static and visible ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hm-tf-scene,
+  .hm-tf-ico,
+  .hm-tf-live .hm-tf-ico::after,
+  .hm-tf-link::before,
+  .hm-tf-dot,
+  .hm-chip:hover i {
+    animation: none !important;
+  }
+  .hm-tf-dot {
+    display: none;
+  }
+  .hm-tf-live .hm-tf-ico::after {
+    display: none;
+  }
+}
+/* ── APPEND to the end of home.css ─────────────────────────────
+   Final CTA. All classes prefixed hm-fin-, no clash with .hm-cta. */
+
+.hm-fin {
+  position: relative;
+  overflow: hidden;
+  padding: 110px 0 80px;
+  color: #fff;
+  border-top: 1px solid var(--gold);
+  background:
+    radial-gradient(
+      800px 420px at 82% 35%,
+      rgba(184, 150, 85, 0.28),
+      transparent 62%
+    ),
+    var(--black);
+}
+/* faint grid that slowly drifts and fades at the edges */
+.hm-fin::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 40%,
+    #000 15%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 15%, transparent 72%);
+  animation: hm-fin-grid 24s linear infinite;
+}
+@keyframes hm-fin-grid {
+  to {
+    background-position:
+      0 56px,
+      56px 0;
+  }
+}
+.hm-fin .hm-c {
+  position: relative;
+  z-index: 1;
+}
+.hm-fin-in {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: center;
+}
+
+/* copy */
+.hm-fin-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold-l);
+}
+.hm-fin-label::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4cc788;
+  animation: hm-ping 1.6s ease-out infinite;
+}
+.hm-fin h2 {
+  margin: 24px 0 0;
+  font-size: clamp(40px, 5.2vw, 76px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+.hm-fin h2 em {
+  color: var(--gold-l);
+}
+.hm-fin-copy > p {
+  max-width: 500px;
+  margin: 28px 0 34px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.72);
+}
+.hm-fin .hm-fine {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* visual: rings + notification stack */
+.hm-fin-vis {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 400px;
+}
+.hm-fin-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  margin: -130px 0 0 -130px;
+  border-radius: 50%;
+  border: 1px solid rgba(208, 180, 119, 0.55);
+  opacity: 0;
+  animation: hm-fin-ring 6s ease-out infinite;
+}
+.hm-fin-r2 {
+  animation-delay: 2s;
+}
+.hm-fin-r3 {
+  animation-delay: 4s;
+}
+@keyframes hm-fin-ring {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.1);
+  }
+}
+.hm-fin-cards {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+  width: min(380px, 100%);
+}
+.hm-fin-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(30, 28, 24, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  animation: hm-fin-card 10s ease-out infinite both;
+  animation-delay: calc(var(--i) * 1.3s);
+}
+@keyframes hm-fin-card {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  5%,
+  88% {
+    opacity: 1;
+    transform: none;
+  }
+  95%,
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+.hm-fin-card > div {
+  flex: 1;
+  min-width: 0;
+}
+.hm-fin-card strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+.hm-fin-card small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+}
+.hm-fin-card time {
+  flex: none;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.hm-fin-ico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--c) 20%, transparent);
+  color: var(--c);
+}
+.hm-fin-win {
+  background: rgba(24, 48, 36, 0.9);
+  border-color: rgba(76, 199, 136, 0.55);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.35),
+    0 0 32px rgba(76, 199, 136, 0.25);
+}
+.hm-fin-win strong {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: #7fcf9f;
+}
+
+/* day timeline */
+.hm-fin-days {
+  position: relative;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+  margin-top: 80px;
+}
+.hm-fin-days::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.22);
+}
+.hm-fin-line {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-l));
+  transform-origin: left;
+  animation: hm-fin-fill 8s linear infinite;
+}
+@keyframes hm-fin-fill {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  84% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  96%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+.hm-fin-days li {
+  position: relative;
+  padding-top: 26px;
+}
+.hm-fin-days li::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #2a2824;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+}
+.hm-fin-days li:nth-child(2)::before {
+  animation: hm-fin-d2 8s linear infinite;
+}
+.hm-fin-days li:nth-child(3)::before {
+  animation: hm-fin-d3 8s linear infinite;
+}
+.hm-fin-days li:nth-child(1)::before {
+  animation: hm-fin-d1 8s linear infinite;
+}
+@keyframes hm-fin-d1 {
+  0%,
+  94% {
+    background: var(--gold-l);
+    border-color: var(--gold-l);
+    box-shadow: 0 0 0 6px rgba(208, 180, 119, 0.25);
+  }
+  100% {
+    background: #2a2824;
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: none;
+  }
+}
+@keyframes hm-fin-d2 {
+  0%,
+  41% {
+    background: #2a2824;
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: none;
+  }
+  43%,
+  94% {
+    background: var(--gold-l);
+    border-color: var(--gold-l);
+    box-shadow: 0 0 0 6px rgba(208, 180, 119, 0.25);
+  }
+  100% {
+    background: #2a2824;
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: none;
+  }
+}
+@keyframes hm-fin-d3 {
+  0%,
+  82% {
+    background: #2a2824;
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: none;
+  }
+  84%,
+  94% {
+    background: #7fcf9f;
+    border-color: #7fcf9f;
+    box-shadow: 0 0 0 7px rgba(76, 199, 136, 0.3);
+  }
+  100% {
+    background: #2a2824;
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: none;
+  }
+}
+.hm-fin-d {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--serif);
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--gold-l);
+}
+.hm-fin-days strong {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 400;
+}
+.hm-fin-days small {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.62);
+}
+.hm-fin-days li:last-child .hm-fin-d {
+  color: #7fcf9f;
+}
+.hm-fin-note {
+  margin-top: 36px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 900px) {
+  .hm-fin {
+    padding: 72px 0 56px;
+  }
+  .hm-fin-in {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .hm-fin-vis {
+    min-height: 0;
+    padding: 20px 0;
+  }
+  .hm-fin-days {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 56px;
+  }
+  .hm-fin-line {
+    display: none;
+  }
+  .hm-fin-days li {
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hm-fin::before,
+  .hm-fin-label::before,
+  .hm-fin-ring,
+  .hm-fin-card,
+  .hm-fin-line,
+  .hm-fin-days li::before {
+    animation: none;
+  }
+  .hm-fin-ring {
+    display: none;
+  }
+  .hm-fin-card {
+    opacity: 1;
+  }
+  .hm-fin-days li::before {
+    background: var(--gold-l);
+    border-color: var(--gold-l);
   }
 }

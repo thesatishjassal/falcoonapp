@@ -1,8 +1,129 @@
 import Link from "next/link";
 import { DM_Sans, Fraunces } from "next/font/google";
 import "./home.css";
-
+import { Fragment } from "react";
+import ToolsSection from "./components/ToolsSection";
+import FinalCta from "./components/homeCta";
 const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
+// const SCENES = [
+//   {
+//     key: "programmes",
+//     tab: "Programmes",
+//     rows: [
+//       { ico: "W", color: "#25d366", title: "New lead from Instagram", sub: "“Is the 12-week programme right for me?”" },
+//       { ico: "W", color: "#25d366", title: "Auto-reply qualifies them", sub: "Goal and days a week, answered in seconds" },
+//       { ico: "C", color: "#006bff", title: "Call booked", sub: "Thu 10:00, added to your calendar" },
+//     ],
+//     result: { value: "5 leads this week", label: "Qualified while you were offline" },
+//   },
+//   {
+//     key: "products",
+//     tab: "Products",
+//     rows: [
+//       { ico: "P", color: "#003087", title: "Order: 12-week strength plan", sub: "£49, paid with PayPal" },
+//       { ico: "+", color: "#b89655", title: "Order bump added", sub: "Recipe book +£9 at checkout" },
+//       { ico: "E", color: "#ea4335", title: "Delivered instantly", sub: "Download link emailed, receipt sent" },
+//     ],
+//     result: { value: "£312 while you slept", label: "Orders delivered automatically" },
+//   },
+//   {
+//     key: "consultations",
+//     tab: "Consultations",
+//     rows: [
+//       { ico: "C", color: "#006bff", title: "Slot chosen", sub: "Strategy session, Tue 11:30" },
+//       { ico: "S", color: "#635bff", title: "Payment taken", sub: "£75 by card, before the call" },
+//       { ico: "Z", color: "#2d8cff", title: "Zoom link sent", sub: "Reminder queued, diary updated" },
+//     ],
+//     result: { value: "£225 paid", label: "Before the first call" },
+//   },
+// ];
+
+// const RAIL = ["Lead", "Book", "Pay", "Link", "Remind", "Follow-up"];
+const SCENES = [
+  {
+    key: "programmes",
+    tab: "Programmes",
+    rows: [
+      {
+        ico: "W",
+        color: "#25d366",
+        title: "New lead from Instagram",
+        sub: "“Is the 12-week programme right for me?”",
+      },
+      {
+        ico: "W",
+        color: "#25d366",
+        title: "Auto-reply qualifies them",
+        sub: "Goal and days a week, answered in seconds",
+      },
+      {
+        ico: "C",
+        color: "#006bff",
+        title: "Call booked",
+        sub: "Thu 10:00, added to your calendar",
+      },
+    ],
+    result: {
+      value: "5 leads this week",
+      label: "Qualified while you were offline",
+    },
+  },
+  {
+    key: "products",
+    tab: "Products",
+    rows: [
+      {
+        ico: "P",
+        color: "#003087",
+        title: "Order: 12-week strength plan",
+        sub: "£49, paid with PayPal",
+      },
+      {
+        ico: "+",
+        color: "#b89655",
+        title: "Order bump added",
+        sub: "Recipe book +£9 at checkout",
+      },
+      {
+        ico: "E",
+        color: "#ea4335",
+        title: "Delivered instantly",
+        sub: "Download link emailed, receipt sent",
+      },
+    ],
+    result: {
+      value: "£312 while you slept",
+      label: "Orders delivered automatically",
+    },
+  },
+  {
+    key: "consultations",
+    tab: "Consultations",
+    rows: [
+      {
+        ico: "C",
+        color: "#006bff",
+        title: "Slot chosen",
+        sub: "Strategy session, Tue 11:30",
+      },
+      {
+        ico: "S",
+        color: "#635bff",
+        title: "Payment taken",
+        sub: "£75 by card, before the call",
+      },
+      {
+        ico: "Z",
+        color: "#2d8cff",
+        title: "Zoom link sent",
+        sub: "Reminder queued, diary updated",
+      },
+    ],
+    result: { value: "£225 paid", label: "Before the first call" },
+  },
+];
+
+const RAIL = ["Lead", "Book", "Pay", "Link", "Remind", "Follow-up"];
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -166,34 +287,84 @@ export default function HomePage() {
               </Link> */}
             </div>
           </div>
-          <div className="hm-hv" aria-hidden="true">
-            <div className="hm-phone hm-dashphone">
-              <div className="hm-ph-h">
-                <b>This week</b>
-                <span className="hm-badge">Example</span>
-              </div>
-              <div className="hm-ds">
-                <div>
-                  <strong>Programmes</strong>
-                  <small>WhatsApp leads qualified</small>
+
+          <div
+            className="hm-hv"
+            role="img"
+            aria-label="Animated example of a Falcoon funnel. A lead arrives, books, pays, gets a meeting link and a reminder, shown for programmes, products and consultations."
+          >
+            <div className="hm-vis">
+              <div className="hm-frame">
+                <span className="hm-fchip hm-fc1" style={{ "--d": "#25d366" }}>
+                  <i></i>WhatsApp
+                </span>
+                <span className="hm-fchip hm-fc2" style={{ "--d": "#635bff" }}>
+                  <i></i>Stripe
+                </span>
+                <span className="hm-fchip hm-fc3" style={{ "--d": "#2d8cff" }}>
+                  <i></i>Zoom
+                </span>
+                <span className="hm-fchip hm-fc4" style={{ "--d": "#0f9d58" }}>
+                  <i></i>GoCardless
+                </span>
+
+                <div className="hm-live">
+                  <div className="hm-ph-h">
+                    <b>This week</b>
+                    <span className="hm-badge hm-pulse">Live example</span>
+                  </div>
+
+                  <div className="hm-tabs">
+                    {SCENES.map((s) => (
+                      <span className="hm-tab" key={s.key}>
+                        {s.tab}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="hm-stage">
+                    {SCENES.map((s) => (
+                      <div className="hm-scene" key={s.key}>
+                        {s.rows.map((r, i) => (
+                          <div className={`hm-lr hm-r${i + 1}`} key={r.title}>
+                            <span
+                              className="hm-lr-ico"
+                              style={{ "--d": r.color }}
+                            >
+                              {r.ico}
+                            </span>
+                            <div>
+                              <strong>{r.title}</strong>
+                              <small>{r.sub}</small>
+                            </div>
+                          </div>
+                        ))}
+                        <div className="hm-lr hm-lres hm-r4">
+                          <div>
+                            <strong>{s.result.value}</strong>
+                            <small>{s.result.label}</small>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="hm-rail">
+                    <span className="hm-rail-line"></span>
+                    <span className="hm-rail-fill"></span>
+                    <span className="hm-rail-spark"></span>
+                    <div className="hm-rail-steps">
+                      {RAIL.map((step) => (
+                        <span key={step}>{step}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="hm-lock-foot">
+                    All of it running without you
+                  </div>
                 </div>
-                <em>5 leads</em>
               </div>
-              <div className="hm-ds">
-                <div>
-                  <strong>Products</strong>
-                  <small>Orders delivered automatically</small>
-                </div>
-                <em>£312</em>
-              </div>
-              <div className="hm-ds">
-                <div>
-                  <strong>Counselling &amp; consultations</strong>
-                  <small>Zoom, Meet or Teams, paid first</small>
-                </div>
-                <em>£225</em>
-              </div>
-              <div className="hm-lock-foot">All of it running without you</div>
             </div>
           </div>
         </div>
@@ -469,150 +640,7 @@ export default function HomePage() {
       </section>
 
       {/* TOOLS & AUTOMATION */}
-      <section className="hm-sec hm-ivory" id="tools">
-        <div className="hm-c">
-          <div className="hm-head hm-center">
-            <div className="hm-label">05 — Tools &amp; automation</div>
-            <h2>
-              Every tool, one funnel. <em>Zero effort</em> from you.
-            </h2>
-            <p className="hm-lead">
-              We wire in the tools you already use. You don&apos;t set up a
-              thing.
-            </p>
-          </div>
-
-          <div className="hm-tools-grid">
-            <div className="hm-tile">
-              <h3>Video calls</h3>
-              <div className="hm-chips">
-                <span className="hm-chip" style={{ "--d": "#2d8cff" }}>
-                  <i></i>Zoom
-                </span>
-                <span className="hm-chip" style={{ "--d": "#00897b" }}>
-                  <i></i>Google Meet
-                </span>
-                <span className="hm-chip" style={{ "--d": "#5059c9" }}>
-                  <i></i>Microsoft Teams
-                </span>
-              </div>
-            </div>
-            <div className="hm-tile">
-              <h3>Booking</h3>
-              <div className="hm-chips">
-                <span className="hm-chip" style={{ "--d": "#006bff" }}>
-                  <i></i>Calendly
-                </span>
-                <span className="hm-chip" style={{ "--d": "#4285f4" }}>
-                  <i></i>Google Calendar
-                </span>
-                <span className="hm-chip" style={{ "--d": "#0078d4" }}>
-                  <i></i>Outlook
-                </span>
-              </div>
-            </div>
-            <div className="hm-tile">
-              <h3>Payments</h3>
-              <div className="hm-chips">
-                <span className="hm-chip" style={{ "--d": "#635bff" }}>
-                  <i></i>Stripe
-                </span>
-                <span className="hm-chip" style={{ "--d": "#003087" }}>
-                  <i></i>PayPal
-                </span>
-                <span className="hm-chip" style={{ "--d": "#0f9d58" }}>
-                  <i></i>GoCardless<em className="hm-uk">UK</em>
-                </span>
-              </div>
-            </div>
-            <div className="hm-tile">
-              <h3>Messaging</h3>
-              <div className="hm-chips">
-                <span className="hm-chip" style={{ "--d": "#25d366" }}>
-                  <i></i>WhatsApp Business
-                </span>
-                <span className="hm-chip" style={{ "--d": "#ea4335" }}>
-                  <i></i>Email
-                </span>
-                <span className="hm-chip" style={{ "--d": "#6b6b6b" }}>
-                  <i></i>SMS
-                </span>
-                <span className="hm-chip" style={{ "--d": "#ffb800" }}>
-                  <i></i>Mailchimp
-                </span>
-              </div>
-            </div>
-            <div className="hm-tile">
-              <h3>Automation</h3>
-              <div className="hm-chips">
-                <span className="hm-chip" style={{ "--d": "#ff4a00" }}>
-                  <i></i>Zapier
-                </span>
-                <span className="hm-chip" style={{ "--d": "#6d00cc" }}>
-                  <i></i>Make
-                </span>
-                <span className="hm-chip" style={{ "--d": "#ea4b71" }}>
-                  <i></i>n8n
-                </span>
-                <span className="hm-chip" style={{ "--d": "#ff7a59" }}>
-                  <i></i>HubSpot
-                </span>
-              </div>
-            </div>
-            <div className="hm-tile hm-tile-note">
-              <h3>UK tools too</h3>
-              <div className="hm-chips">
-                <span className="hm-chip" style={{ "--d": "#1f4e8c" }}>
-                  <i></i>FreeAgent<em className="hm-uk">UK</em>
-                </span>
-                <span className="hm-chip" style={{ "--d": "#222" }}>
-                  <i></i>PT Distinction<em className="hm-uk">UK</em>
-                </span>
-              </div>
-              <p>
-                Using something else? If it connects through Zapier or Make, we
-                can wire it in.
-              </p>
-            </div>
-          </div>
-
-          <div className="hm-chain-wrap">
-            <p className="hm-chain-cap">
-              Once live, every booking runs <em>like this.</em>
-            </p>
-            <ol className="hm-chain">
-              <li>
-                <strong>Lead arrives</strong>
-                <small>Page, ad or WhatsApp</small>
-              </li>
-              <li>
-                <strong>Time chosen</strong>
-                <small>Calendly or your calendar</small>
-              </li>
-              <li>
-                <strong>Payment taken</strong>
-                <small>Stripe, PayPal or GoCardless</small>
-              </li>
-              <li>
-                <strong>Link sent</strong>
-                <small>Zoom, Meet or Teams</small>
-              </li>
-              <li>
-                <strong>Reminders</strong>
-                <small>Email, WhatsApp or SMS</small>
-              </li>
-              <li>
-                <strong>Follow-up</strong>
-                <small>Zapier, Make or n8n</small>
-              </li>
-            </ol>
-          </div>
-
-          <a href="#prices" className="hm-bridge">
-            Now the numbers: what UK coaches charge <span>↓</span>
-          </a>
-        </div>
-      </section>
+      <ToolsSection />
       {/* PRICES */}
       <section className="hm-sec hm-dk" id="prices">
         <div className="hm-c">
@@ -876,29 +904,7 @@ export default function HomePage() {
         </div>
       </section>
       {/* FINAL CTA */}
-      <section className="hm-cta">
-        <div className="hm-c">
-          <div className="hm-label">Limited spots available this month</div>
-          <h2>
-            Get your first paying fitness client in days, <em>not months.</em>
-          </h2>
-          <p>
-            We build your complete funnel, content and automation so you can
-            focus on coaching.
-          </p>
-          <a
-            href={CALENDLY}
-            className="hm-btn hm-d"
-            target="_blank"
-            rel="noopener"
-          >
-            Book Free Website Audit <span>→</span>
-          </a>
-          <div className="hm-fine">
-            No commitment · Done-for-you system · Results-focused
-          </div>
-        </div>
-      </section>
+      <FinalCta />
     </div>
   );
 }

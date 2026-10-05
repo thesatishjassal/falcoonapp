@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DM_Sans, Fraunces } from "next/font/google";
 import "../sell-consultations.css";
+import ScnMotion from "../components/ScnMotion";
 
 const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
 
@@ -21,19 +22,14 @@ const fraunces = Fraunces({
 
 export const metadata = {
   title: "Sell Consultations Online | Falcoon",
-  description: (
-    <p>
-      Clients book and{" "}
-      <span className="scn-ul scn-green">pay before they talk to you</span>,
-      with no negotiation and no delays. We build the consultation funnel that
-      fills your diary with paid calls.
-    </p>
-  ),
+  description:
+    "Clients book and pay before they talk to you, with no negotiation and no delays. We build the consultation funnel that fills your diary with paid calls.",
 };
 
 export default function SellConsultationsPage() {
   return (
     <div className={`scn-page ${dmSans.variable} ${fraunces.variable}`}>
+      <ScnMotion />
       {/* HERO */}
       <section className="scn-hero">
         <div className="scn-c scn-hero-in">

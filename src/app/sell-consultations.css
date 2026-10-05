@@ -2,7 +2,7 @@
 .scn-page {
   --black: #0b0b0a;
   --dark: #151513;
-  --ivory: #f5f1e8;
+  --ivory: #8d7b51;
   --paper: #fbf9f4;
   --white: #fff;
   --gold: #b89655;
@@ -337,7 +337,7 @@
   padding: 100px 0;
 }
 .scn-ivory {
-  background: var(--ivory);
+  background: var(--white);
 }
 .scn-dk {
   background: var(--black);
@@ -450,7 +450,7 @@
   gap: 28px;
 }
 .scn-card {
-  background: #fff;
+  background: #f4f4f4;
   padding: 44px 38px 48px;
 }
 .scn-card small {
@@ -609,7 +609,7 @@
   background: var(--d, #888);
 }
 .scn-ic {
-  background: #fff;
+  background: #f4f4f4;
   padding: 34px 32px 38px;
 }
 .scn-ic small {
@@ -786,7 +786,7 @@
 /* cta + footer */
 .scn-cta {
   padding: 110px 0;
-  background: var(--ivory);
+  background: var(--white);
   text-align: center;
 }
 .scn-cta h2 {
@@ -1238,4 +1238,779 @@
 .scn-dk .scn-ul.scn-green,
 .scn-hero .scn-ul.scn-green {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M1 4 C14 8 24 2 38 6 S60 2 74 6 S90 3 99 6' fill='none' stroke='%234cc788' stroke-width='3' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+/* ============ MOTION + GRAPHIC POLISH ============ */
+
+/* Reveal: transform/opacity only, so it never causes layout shift.
+   Hidden state exists only when .scn-js is set, so no-JS and reduced-motion stay fully visible. */
+.scn-js .scn-r {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.scn-js .scn-r.scn-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Underline highlights draw themselves (the red/green "pain vs fix" cue) */
+.scn-js .scn-ul.scn-r {
+  opacity: 1;
+  transform: none;
+  transition: background-size 0.8s ease 0.3s;
+  background-size: 0% 0.5em;
+}
+.scn-js .scn-ul.scn-r.scn-in {
+  background-size: 100% 0.5em;
+}
+
+/* Buttons: arrow nudges forward */
+.scn-btn span {
+  display: inline-block;
+  transition: transform 0.25s;
+}
+.scn-btn:hover span {
+  transform: translateX(5px);
+}
+.scn-btn:active {
+  transform: translateY(0);
+}
+
+/* Hero phone: gentle float + "Paid" pop-in so the payment-first idea lands instantly */
+.scn-phone {
+  animation: scn-float 6s ease-in-out infinite;
+}
+@keyframes scn-float {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.scn-ds em {
+  display: inline-block;
+  animation: scn-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+.scn-ds:nth-of-type(1) em {
+  animation-delay: 0.6s;
+}
+.scn-ds:nth-of-type(2) em {
+  animation-delay: 1s;
+}
+.scn-ds:nth-of-type(3) em {
+  animation-delay: 1.4s;
+}
+@keyframes scn-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.scn-lock-foot {
+  animation: scn-fade 0.6s ease 1.9s both;
+}
+@keyframes scn-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Live dot on "Paid" badges */
+.scn-badge::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #7fcf9f;
+  animation: scn-pulse 1.8s infinite;
+}
+@keyframes scn-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(127, 207, 159, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(127, 207, 159, 0);
+  }
+}
+
+/* PROBLEM section: was text-only, now each pain point has a red ✕ */
+.scn-list .scn-li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition:
+    padding-left 0.25s,
+    color 0.25s;
+}
+.scn-list .scn-li::before {
+  content: "✕";
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 107, 96, 0.14);
+  color: #ff6b60;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+}
+.scn-list .scn-li:hover {
+  padding-left: 8px;
+}
+
+/* FUNNEL steps: gold line draws under each step, number lights up */
+.scn-fi {
+  position: relative;
+  transition: background 0.3s;
+}
+.scn-fi::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s ease 0.2s;
+}
+.scn-fi.scn-in::after {
+  transform: scaleX(1);
+}
+.scn-fi:hover {
+  background: rgba(184, 150, 85, 0.06);
+}
+.scn-fn {
+  transition: transform 0.3s;
+}
+.scn-fi:hover .scn-fn {
+  transform: translateX(6px);
+}
+
+/* FEATURE + INTEGRATION cards: gold top bar and lift */
+.scn-card,
+.scn-ic {
+  position: relative;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+.scn-card::before,
+.scn-ic::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.scn-card:hover,
+.scn-ic:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 44px rgba(11, 11, 10, 0.1);
+}
+.scn-card:hover::before,
+.scn-ic:hover::before {
+  transform: scaleX(1);
+}
+.scn-chip {
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.scn-chip:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.scn-chip i {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--d, #888) 18%, transparent);
+}
+
+/* Showcase mockups: lift on hover, selected slot/day pulses to hint "click here" */
+.scn-win {
+  transition:
+    transform 0.35s,
+    border-color 0.35s;
+}
+.scn-win:hover {
+  transform: translateY(-6px);
+  border-color: rgba(208, 180, 119, 0.5);
+}
+.scn-slots span.scn-on {
+  animation: scn-nudge 2.4s ease-in-out infinite;
+}
+@keyframes scn-nudge {
+  50% {
+    box-shadow: 0 0 0 4px rgba(11, 11, 10, 0.12);
+  }
+}
+.scn-pay {
+  transition: background 0.25s;
+}
+.scn-win:hover .scn-pay {
+  background: var(--gold);
+  color: var(--black);
+}
+
+/* AUTOMATION flow: nodes light up in sequence, arrows pulse along the path */
+.scn-node {
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+}
+.scn-node:hover {
+  border-color: var(--gold-l);
+  background: rgba(208, 180, 119, 0.06);
+}
+.scn-ar {
+  animation: scn-arrow 1.8s ease-in-out infinite;
+}
+.scn-ar:nth-of-type(2) {
+  animation-delay: 0.3s;
+}
+.scn-ar:nth-of-type(4) {
+  animation-delay: 0.6s;
+}
+.scn-ar:nth-of-type(6) {
+  animation-delay: 0.9s;
+}
+.scn-ar:nth-of-type(8) {
+  animation-delay: 1.2s;
+}
+.scn-ar:nth-of-type(10) {
+  animation-delay: 1.5s;
+}
+@keyframes scn-arrow {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* LEDGER rows */
+.scn-ledger > div {
+  transition:
+    background 0.25s,
+    padding-left 0.25s;
+}
+.scn-ledger > div:hover {
+  background: rgba(184, 150, 85, 0.08);
+  padding-left: 14px;
+}
+
+/* PARTNERSHIP checklist ticks are gold already; dashboard rows highlight on hover */
+.scn-dr {
+  transition: background 0.25s;
+}
+.scn-dr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* QUOTE section was visually flat: soft gold glow + larger mark */
+.scn-quote {
+  position: relative;
+  overflow: hidden;
+}
+.scn-quote::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 700px;
+  height: 420px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    closest-side,
+    rgba(184, 150, 85, 0.16),
+    transparent
+  );
+  pointer-events: none;
+}
+.scn-quote .scn-c {
+  position: relative;
+}
+
+/* CTA section: subtle ring behind the button */
+.scn-cta .scn-btn {
+  box-shadow: 0 0 0 0 rgba(11, 11, 10, 0.25);
+  animation: scn-ring 2.8s infinite;
+}
+@keyframes scn-ring {
+  70%,
+  100% {
+    box-shadow: 0 0 0 14px rgba(11, 11, 10, 0);
+  }
+}
+
+/* ============ SYMMETRY GUARDS (prevent layout breaking) ============ */
+.scn-grid3 > *,
+.scn-two > *,
+.scn-af > .scn-node {
+  min-width: 0;
+}
+.scn-grid3 > .scn-card,
+.scn-grid3 > .scn-ic {
+  height: 100%;
+}
+.scn-page h1,
+.scn-page h2,
+.scn-page h3,
+.scn-lead,
+.scn-fx {
+  overflow-wrap: break-word;
+}
+.scn-page img,
+.scn-page svg {
+  max-width: 100%;
+}
+.scn-af {
+  align-items: stretch;
+}
+
+/* Equal title heights so chips/text start on the same line across cards (desktop only) */
+@media (min-width: 901px) {
+  .scn-ic h3 {
+    min-height: 2.2em;
+    line-height: 1.1;
+  }
+  .scn-card h3 {
+    min-height: 2.1em;
+  }
+}
+/* Tablet: 2 columns for 3-card grids avoids cramped text; last odd card spans full width */
+@media (min-width: 601px) and (max-width: 900px) {
+  .scn-grid3:has(.scn-ic),
+  .scn-grid3:has(.scn-card) {
+    grid-template-columns: 1fr 1fr;
+  }
+  .scn-grid3 > .scn-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+/* Mobile: kill hover transforms and floats so nothing jumps while scrolling */
+@media (hover: none) {
+  .scn-card:hover,
+  .scn-ic:hover,
+  .scn-win:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+@media (max-width: 600px) {
+  .scn-phone {
+    animation: none;
+  }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scn-page *,
+  .scn-page *::before,
+  .scn-page *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+} /* ============ MOTION + GRAPHIC POLISH ============ */
+
+/* Reveal: transform/opacity only, so it never causes layout shift.
+   Hidden state exists only when .scn-js is set, so no-JS and reduced-motion stay fully visible. */
+.scn-js .scn-r {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.scn-js .scn-r.scn-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Underline highlights draw themselves (the red/green "pain vs fix" cue) */
+.scn-js .scn-ul.scn-r {
+  opacity: 1;
+  transform: none;
+  transition: background-size 0.8s ease 0.3s;
+  background-size: 0% 0.5em;
+}
+.scn-js .scn-ul.scn-r.scn-in {
+  background-size: 100% 0.5em;
+}
+
+/* Buttons: arrow nudges forward */
+.scn-btn span {
+  display: inline-block;
+  transition: transform 0.25s;
+}
+.scn-btn:hover span {
+  transform: translateX(5px);
+}
+.scn-btn:active {
+  transform: translateY(0);
+}
+
+/* Hero phone: gentle float + "Paid" pop-in so the payment-first idea lands instantly */
+.scn-phone {
+  animation: scn-float 6s ease-in-out infinite;
+}
+@keyframes scn-float {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.scn-ds em {
+  display: inline-block;
+  animation: scn-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+.scn-ds:nth-of-type(1) em {
+  animation-delay: 0.6s;
+}
+.scn-ds:nth-of-type(2) em {
+  animation-delay: 1s;
+}
+.scn-ds:nth-of-type(3) em {
+  animation-delay: 1.4s;
+}
+@keyframes scn-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.scn-lock-foot {
+  animation: scn-fade 0.6s ease 1.9s both;
+}
+@keyframes scn-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Live dot on "Paid" badges */
+.scn-badge::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #7fcf9f;
+  animation: scn-pulse 1.8s infinite;
+}
+@keyframes scn-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(127, 207, 159, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(127, 207, 159, 0);
+  }
+}
+
+/* PROBLEM section: was text-only, now each pain point has a red ✕ */
+.scn-list .scn-li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition:
+    padding-left 0.25s,
+    color 0.25s;
+}
+.scn-list .scn-li::before {
+  content: "✕";
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 107, 96, 0.14);
+  color: #ff6b60;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+}
+.scn-list .scn-li:hover {
+  padding-left: 8px;
+}
+
+/* FUNNEL steps: gold line draws under each step, number lights up */
+.scn-fi {
+  position: relative;
+  transition: background 0.3s;
+}
+.scn-fi::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s ease 0.2s;
+}
+.scn-fi.scn-in::after {
+  transform: scaleX(1);
+}
+.scn-fi:hover {
+  background: rgba(184, 150, 85, 0.06);
+}
+.scn-fn {
+  transition: transform 0.3s;
+}
+.scn-fi:hover .scn-fn {
+  transform: translateX(6px);
+}
+
+/* FEATURE + INTEGRATION cards: gold top bar and lift */
+.scn-card,
+.scn-ic {
+  position: relative;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+.scn-card::before,
+.scn-ic::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.scn-card:hover,
+.scn-ic:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 44px rgba(11, 11, 10, 0.1);
+}
+.scn-card:hover::before,
+.scn-ic:hover::before {
+  transform: scaleX(1);
+}
+.scn-chip {
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.scn-chip:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.scn-chip i {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--d, #888) 18%, transparent);
+}
+
+/* Showcase mockups: lift on hover, selected slot/day pulses to hint "click here" */
+.scn-win {
+  transition:
+    transform 0.35s,
+    border-color 0.35s;
+}
+.scn-win:hover {
+  transform: translateY(-6px);
+  border-color: rgba(208, 180, 119, 0.5);
+}
+.scn-slots span.scn-on {
+  animation: scn-nudge 2.4s ease-in-out infinite;
+}
+@keyframes scn-nudge {
+  50% {
+    box-shadow: 0 0 0 4px rgba(11, 11, 10, 0.12);
+  }
+}
+.scn-pay {
+  transition: background 0.25s;
+}
+.scn-win:hover .scn-pay {
+  background: var(--gold);
+  color: var(--black);
+}
+
+/* AUTOMATION flow: nodes light up in sequence, arrows pulse along the path */
+.scn-node {
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+}
+.scn-node:hover {
+  border-color: var(--gold-l);
+  background: rgba(208, 180, 119, 0.06);
+}
+.scn-ar {
+  animation: scn-arrow 1.8s ease-in-out infinite;
+}
+.scn-ar:nth-of-type(2) {
+  animation-delay: 0.3s;
+}
+.scn-ar:nth-of-type(4) {
+  animation-delay: 0.6s;
+}
+.scn-ar:nth-of-type(6) {
+  animation-delay: 0.9s;
+}
+.scn-ar:nth-of-type(8) {
+  animation-delay: 1.2s;
+}
+.scn-ar:nth-of-type(10) {
+  animation-delay: 1.5s;
+}
+@keyframes scn-arrow {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* LEDGER rows */
+.scn-ledger > div {
+  transition:
+    background 0.25s,
+    padding-left 0.25s;
+}
+.scn-ledger > div:hover {
+  background: rgba(184, 150, 85, 0.08);
+  padding-left: 14px;
+}
+
+/* PARTNERSHIP checklist ticks are gold already; dashboard rows highlight on hover */
+.scn-dr {
+  transition: background 0.25s;
+}
+.scn-dr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* QUOTE section was visually flat: soft gold glow + larger mark */
+.scn-quote {
+  position: relative;
+  overflow: hidden;
+}
+.scn-quote::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 700px;
+  height: 420px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    closest-side,
+    rgba(184, 150, 85, 0.16),
+    transparent
+  );
+  pointer-events: none;
+}
+.scn-quote .scn-c {
+  position: relative;
+}
+
+/* CTA section: subtle ring behind the button */
+.scn-cta .scn-btn {
+  box-shadow: 0 0 0 0 rgba(11, 11, 10, 0.25);
+  animation: scn-ring 2.8s infinite;
+}
+@keyframes scn-ring {
+  70%,
+  100% {
+    box-shadow: 0 0 0 14px rgba(11, 11, 10, 0);
+  }
+}
+
+/* ============ SYMMETRY GUARDS (prevent layout breaking) ============ */
+.scn-grid3 > *,
+.scn-two > *,
+.scn-af > .scn-node {
+  min-width: 0;
+}
+.scn-grid3 > .scn-card,
+.scn-grid3 > .scn-ic {
+  height: 100%;
+}
+.scn-page h1,
+.scn-page h2,
+.scn-page h3,
+.scn-lead,
+.scn-fx {
+  overflow-wrap: break-word;
+}
+.scn-page img,
+.scn-page svg {
+  max-width: 100%;
+}
+.scn-af {
+  align-items: stretch;
+}
+
+/* Equal title heights so chips/text start on the same line across cards (desktop only) */
+@media (min-width: 901px) {
+  .scn-ic h3 {
+    min-height: 2.2em;
+    line-height: 1.1;
+  }
+  .scn-card h3 {
+    min-height: 2.1em;
+  }
+}
+/* Tablet: 2 columns for 3-card grids avoids cramped text; last odd card spans full width */
+@media (min-width: 601px) and (max-width: 900px) {
+  .scn-grid3:has(.scn-ic),
+  .scn-grid3:has(.scn-card) {
+    grid-template-columns: 1fr 1fr;
+  }
+  .scn-grid3 > .scn-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+/* Mobile: kill hover transforms and floats so nothing jumps while scrolling */
+@media (hover: none) {
+  .scn-card:hover,
+  .scn-ic:hover,
+  .scn-win:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+@media (max-width: 600px) {
+  .scn-phone {
+    animation: none;
+  }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scn-page *,
+  .scn-page *::before,
+  .scn-page *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
