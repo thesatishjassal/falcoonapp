@@ -209,6 +209,12 @@ export default function Header() {
             >
               Pricing
             </Link>
+            <Link href="/blog" className="hdr-link" {...linkProps("/blog")}>
+              Blog
+            </Link>
+            <Link href="/faq" className="hdr-link" {...linkProps("/faq")}>
+              FAQ
+            </Link>
             <Link href="/help" className="hdr-link" {...linkProps("/help")}>
               Support
             </Link>
@@ -273,12 +279,11 @@ export default function Header() {
               </Link>
             ))}
           </div>
-
           {[
             ["/pricing", "Pricing"],
-            ["/help", "Support"],
-            ["/team", "Team"],
+            ["/blog", "Blog"],
             ["/faq", "FAQ"],
+            ["/team", "Team"],
           ].map(([href, label]) => (
             <Link
               key={href}

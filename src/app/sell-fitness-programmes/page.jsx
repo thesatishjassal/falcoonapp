@@ -1,8 +1,10 @@
-import Link from "next/link";
 import { DM_Sans, Fraunces } from "next/font/google";
 import "../sell-fitness-programmes.css";
-
-const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
+import PrgCtaPair from "../components/PrgCtaPair";
+import PrgHeroPhone from "../components/PrgHeroPhone";
+import PrgBudgetCalc from "../components/Prgbudgetcalc";
+import PrgPricing from "../components/PrgPricing";
+import PrgFaq from "../components/PrgFaq";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -22,7 +24,7 @@ const fraunces = Fraunces({
 export const metadata = {
   title: "Sell Fitness Programmes Online | Falcoon",
   description:
-    "Turn your coaching into a system that brings clients daily, not randomly. Falcoon builds high-converting landing pages, clear offer positioning and WhatsApp lead automation for UK personal brand fitness coaches.",
+    "A client system that brings leads daily, not randomly. Landing pages, offer positioning and WhatsApp automation for UK fitness coaches. Core build £149 one-time.",
 };
 
 export default function SellFitnessProgrammesPage() {
@@ -43,37 +45,14 @@ export default function SellFitnessProgrammesPage() {
               build the pages, the offer and the WhatsApp automation that turn
               attention into booked calls.
             </p>
-            <a
-              href={CALENDLY}
-              className="prg-btn"
-              target="_blank"
-              rel="noopener"
-            >
-              Build my client system <span>→</span>
-            </a>
+            <PrgCtaPair />
+            <p className="prg-micro">
+              Free audit. No payment needed. Core build £149 one-time; WhatsApp,
+              booking and follow-ups are add-ons from £49.
+            </p>
           </div>
-          <div className="prg-hv" aria-hidden="true">
-            <div className="prg-phone prg-chatphone">
-              <div className="prg-chat-h">
-                <b>New lead</b>
-                <span>Today, 21:47</span>
-              </div>
-              <div className="prg-bub prg-in">
-                Hi, saw your 12-week programme. Is it right for me?
-              </div>
-              <div className="prg-bub prg-out">
-                Hi Sam! It&apos;s built for busy people who want to lose fat and
-                build strength. What&apos;s your goal, and how many days can you
-                train?
-              </div>
-              <div className="prg-bub prg-in">Lose 10kg, 4 days a week</div>
-              <div className="prg-bub prg-out">
-                Great fit. Free call with the coach: Thu 10:00 or Fri 17:30?
-              </div>
-              <div className="prg-lock-foot">
-                Qualified and booked while you were offline
-              </div>
-            </div>
+          <div className="prg-hv">
+            <PrgHeroPhone />
           </div>
         </div>
         <div className="prg-c prg-pillars">
@@ -131,6 +110,7 @@ export default function SellFitnessProgrammesPage() {
               <em>Comes back without you chasing</em>
             </div>
           </div>
+          <PrgCtaPair />
         </div>
       </section>
 
@@ -159,6 +139,7 @@ export default function SellFitnessProgrammesPage() {
                 Following up by hand, when you remember
               </div>
             </div>
+            <PrgCtaPair secondary="budget" />
           </div>
         </div>
       </section>
@@ -226,6 +207,7 @@ export default function SellFitnessProgrammesPage() {
               </div>
             </div>
           </div>
+          <PrgCtaPair />
         </div>
       </section>
 
@@ -266,6 +248,7 @@ export default function SellFitnessProgrammesPage() {
               </p>
             </article>
           </div>
+          <PrgCtaPair center />
         </div>
       </section>
 
@@ -397,6 +380,7 @@ export default function SellFitnessProgrammesPage() {
               </p>
             </div>
           </div>
+          <PrgCtaPair center />
         </div>
       </section>
 
@@ -542,6 +526,7 @@ export default function SellFitnessProgrammesPage() {
               </div>
             </div>
           </div>
+          <PrgCtaPair center />
         </div>
       </section>
 
@@ -613,17 +598,15 @@ export default function SellFitnessProgrammesPage() {
               <div className="prg-chk">Lead tracking and follow-ups</div>
               <div className="prg-chk">Mobile-first experience</div>
             </div>
-            <a
-              href={CALENDLY}
-              className="prg-btn"
-              target="_blank"
-              rel="noopener"
-            >
-              Book your strategy call <span>→</span>
-            </a>
+            <PrgCtaPair />
           </div>
         </div>
       </section>
+
+      {/* BUDGET CALCULATOR → PRICING → FAQ */}
+      <PrgBudgetCalc />
+      <PrgPricing />
+      <PrgFaq />
 
       {/* CTA */}
       <section className="prg-cta">
@@ -633,17 +616,10 @@ export default function SellFitnessProgrammesPage() {
             Let&apos;s build your <em>client system.</em>
           </h2>
           <p>
-            Book a free strategy call and we&apos;ll map out the pages, offer
+            Book a free website audit and we&apos;ll map out the pages, offer
             and automation that bring you clients every day.
           </p>
-          <a
-            href={CALENDLY}
-            className="prg-btn prg-d"
-            target="_blank"
-            rel="noopener"
-          >
-            Book a free strategy call <span>→</span>
-          </a>
+          <PrgCtaPair dark />
         </div>
       </section>
     </div>

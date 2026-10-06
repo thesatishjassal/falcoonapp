@@ -1,44 +1,68 @@
 import Link from "next/link";
 import { DM_Sans, Fraunces } from "next/font/google";
 import "./home.css";
-import { Fragment } from "react";
 import ToolsSection from "./components/ToolsSection";
 import FinalCta from "./components/homeCta";
-const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
-// const SCENES = [
-//   {
-//     key: "programmes",
-//     tab: "Programmes",
-//     rows: [
-//       { ico: "W", color: "#25d366", title: "New lead from Instagram", sub: "“Is the 12-week programme right for me?”" },
-//       { ico: "W", color: "#25d366", title: "Auto-reply qualifies them", sub: "Goal and days a week, answered in seconds" },
-//       { ico: "C", color: "#006bff", title: "Call booked", sub: "Thu 10:00, added to your calendar" },
-//     ],
-//     result: { value: "5 leads this week", label: "Qualified while you were offline" },
-//   },
-//   {
-//     key: "products",
-//     tab: "Products",
-//     rows: [
-//       { ico: "P", color: "#003087", title: "Order: 12-week strength plan", sub: "£49, paid with PayPal" },
-//       { ico: "+", color: "#b89655", title: "Order bump added", sub: "Recipe book +£9 at checkout" },
-//       { ico: "E", color: "#ea4335", title: "Delivered instantly", sub: "Download link emailed, receipt sent" },
-//     ],
-//     result: { value: "£312 while you slept", label: "Orders delivered automatically" },
-//   },
-//   {
-//     key: "consultations",
-//     tab: "Consultations",
-//     rows: [
-//       { ico: "C", color: "#006bff", title: "Slot chosen", sub: "Strategy session, Tue 11:30" },
-//       { ico: "S", color: "#635bff", title: "Payment taken", sub: "£75 by card, before the call" },
-//       { ico: "Z", color: "#2d8cff", title: "Zoom link sent", sub: "Reminder queued, diary updated" },
-//     ],
-//     result: { value: "£225 paid", label: "Before the first call" },
-//   },
-// ];
 
-// const RAIL = ["Lead", "Book", "Pay", "Link", "Remind", "Follow-up"];
+const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
+
+// Inline CTA row used across sections (a plain helper, not a component file).
+// dark = section has a dark background (uses the base .hm-btn); otherwise .hm-d.
+const cta = (dark = false, center = false) => (
+  <div className={`hm-cta-row${center ? " hm-cc" : ""}`}>
+    <a
+      href={CALENDLY}
+      className={`hm-btn${dark ? "" : " hm-d"}`}
+      target="_blank"
+      rel="noopener"
+    >
+      Book Free Website Audit <span>→</span>
+    </a>
+    <Link href="/pricing" className="hm-ghost">
+      See pricing
+    </Link>
+  </div>
+);
+
+// Minimal, CSS-only motion. Everything is opt-in via prefers-reduced-motion
+// and the scroll-reveal is progressive (ignored by browsers without support).
+const MOTION_CSS = `
+.hm-cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:36px}
+.hm-cta-row.hm-cc{justify-content:center}
+.hm-ghost{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1.5px solid currentColor;border-radius:999px;color:inherit;font-weight:600;text-decoration:none;transition:background .2s}
+.hm-ghost:hover{background:color-mix(in srgb,currentColor 10%,transparent)}
+.hm-ghost:focus-visible,.hm-btn:focus-visible{outline:2px solid var(--gold,#b8893a);outline-offset:3px}
+.hm-micro{margin-top:14px;font-size:.9rem;opacity:.75}
+.hm-strip{padding-block:28px}
+
+@media (prefers-reduced-motion:no-preference){
+  .hm-btn span{display:inline-block;transition:transform .2s}
+  .hm-btn:hover span{transform:translateX(4px)}
+  .hm-btn{transition:transform .2s}
+  .hm-btn:active{transform:scale(.97)}
+
+  .hm-svc{transition:transform .25s ease,box-shadow .25s ease}
+  .hm-svc:hover{transform:translateY(-4px)}
+  .hm-tq,.hm-stats>div{transition:transform .25s ease}
+  .hm-tq:hover,.hm-stats>div:hover{transform:translateY(-3px)}
+  .hm-pf i{display:inline-block;transition:transform .25s ease}
+  .hm-pf:hover i{transform:translateX(6px)}
+  .hm-faq details[open] p{animation:hm-fade .3s ease}
+  .hm-bridge span{display:inline-block;animation:hm-bob 2s ease-in-out infinite}
+
+  @supports (animation-timeline:view()){
+    .hm-head,.hm-pf,.hm-svc,.hm-tq,.hm-steps li,.hm-stats>div,.hm-ledger>div{
+      animation:hm-rise linear both;
+      animation-timeline:view();
+      animation-range:entry 0% entry 35%;
+    }
+  }
+}
+@keyframes hm-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes hm-fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@keyframes hm-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+`;
+
 const SCENES = [
   {
     key: "programmes",
@@ -234,6 +258,7 @@ const jsonLd = {
 export default function HomePage() {
   return (
     <div className={`hm-page ${dmSans.variable} ${fraunces.variable}`}>
+      <style dangerouslySetInnerHTML={{ __html: MOTION_CSS }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -282,10 +307,13 @@ export default function HomePage() {
               >
                 Book Free Website Audit <span>→</span>
               </a>
-              {/* <Link href="/work" className="hm-btn hm-g">
-                View our work
-              </Link> */}
+              <Link href="/pricing" className="hm-ghost">
+                See pricing
+              </Link>
             </div>
+            <p className="hm-micro">
+              Free audit. No payment needed. Funnels from £149 one-time.
+            </p>
           </div>
 
           <div
@@ -473,6 +501,7 @@ export default function HomePage() {
               </p>
             </div>
           </div>
+          {cta()}
         </div>
       </section>
 
@@ -535,6 +564,7 @@ export default function HomePage() {
               <em>Payment taken at booking</em>
             </div>
           </div>
+          {cta()}
           <p className="hm-note">
             Market figures: ukactive and 4GLOBAL, UK Health and Fitness Market
             Report 2026.
@@ -641,6 +671,10 @@ export default function HomePage() {
 
       {/* TOOLS & AUTOMATION */}
       <ToolsSection />
+      <section className="hm-sec hm-strip">
+        <div className="hm-c">{cta(false, true)}</div>
+      </section>
+
       {/* PRICES */}
       <section className="hm-sec hm-dk" id="prices">
         <div className="hm-c">
@@ -716,6 +750,7 @@ export default function HomePage() {
               Direct Debit costs £1.70.
             </span>
           </div>
+          {cta(true)}
           <p className="hm-note hm-light">
             Prices and fees are typical ranges from public UK sources, checked
             October 2026. They vary by location, provider and account, so
@@ -789,6 +824,7 @@ export default function HomePage() {
               </p>
             </li>
           </ol>
+          {cta(true)}
 
           <a href="#tools" className="hm-bridge">
             Every step runs on tools you already use <span>↓</span>
@@ -805,9 +841,19 @@ export default function HomePage() {
           <p className="hm-lead">
             Get pricing and a custom proposal for your business in minutes.
           </p>
-          <Link href="/pricing" className="hm-btn hm-d">
-            View pricing &amp; get proposal →
-          </Link>
+          <div className="hm-cta-row hm-cc">
+            <Link href="/pricing" className="hm-btn hm-d">
+              View pricing &amp; get proposal <span>→</span>
+            </Link>
+            <a
+              href={CALENDLY}
+              className="hm-ghost"
+              target="_blank"
+              rel="noopener"
+            >
+              Book Free Website Audit
+            </a>
+          </div>
         </div>
       </section>
 
@@ -868,6 +914,7 @@ export default function HomePage() {
               </figcaption>
             </figure>
           </div>
+          {cta(true)}
         </div>
       </section>
 
@@ -890,7 +937,7 @@ export default function HomePage() {
               target="_blank"
               rel="noopener"
             >
-              Book Free Website Audit →
+              Book Free Website Audit <span>→</span>
             </a>
           </div>
           <div className="hm-faq">

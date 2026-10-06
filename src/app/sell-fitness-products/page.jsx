@@ -1,6 +1,10 @@
-import Link from "next/link";
 import { DM_Sans, Fraunces } from "next/font/google";
 import "../sell-fitness-products.css";
+import SfpCtaPair from "../components/SfpCtaPair";
+import SfpBudgetCalc from "../components/SfpBudgetCalc";
+import SfpPricing from "../components/SfpPricing";
+import SfpFaq from "../components/SfpFaq";
+import SfpHeroPhone from "../components/SfpHeroPhone";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -20,7 +24,7 @@ const fraunces = Fraunces({
 export const metadata = {
   title: "Sell Fitness Products Online | Falcoon",
   description:
-    "Sell supplements, plans and digital fitness products 24/7, even while you sleep. Falcoon builds the product store, checkout flow and upsell system for UK personal brand fitness coaches.",
+    "Sell supplements, plans and digital fitness products 24/7. Falcoon builds the product store, checkout and upsell system for UK fitness coaches. Core build £149 one-time.",
 };
 
 export default function SellFitnessProductsPage() {
@@ -43,45 +47,14 @@ export default function SellFitnessProductsPage() {
               build the store, checkout and upsell system, so every order is
               paid for and delivered without you.
             </p>
-            <a
-              href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
-              className="sfp-btn"
-              target="_blank"
-              rel="noopener"
-            >
-              Build my product store <span>→</span>
-            </a>
+            <SfpCtaPair />
+            <p className="sfp-micro">
+              Free audit. No payment needed. Core build £149 one-time; store,
+              delivery and upsells are add-ons from £29.
+            </p>
           </div>
-          <div className="sfp-hv" aria-hidden="true">
-            <div className="sfp-phone">
-              <div className="sfp-lock-time">02:14</div>
-              <div className="sfp-lock-date">Tuesday 13 January</div>
-              <div className="sfp-note">
-                <div className="sfp-nh">
-                  <span>Your store</span>
-                  <span>now</span>
-                </div>
-                <strong>New order · £59.00</strong>
-                <span>Starter bundle, paid with Apple Pay</span>
-              </div>
-              <div className="sfp-note">
-                <div className="sfp-nh">
-                  <span>Your store</span>
-                  <span>1h ago</span>
-                </div>
-                <strong>New order · £49.00</strong>
-                <span>12-week strength plan, delivered</span>
-              </div>
-              <div className="sfp-note">
-                <div className="sfp-nh">
-                  <span>Your store</span>
-                  <span>3h ago</span>
-                </div>
-                <strong>New order · £34.99</strong>
-                <span>Whey protein, sent to fulfilment</span>
-              </div>
-              <div className="sfp-lock-foot">£142.99 while you slept</div>
-            </div>
+          <div className="sfp-hv">
+            <SfpHeroPhone />
           </div>
         </div>
         <div className="sfp-c sfp-pillars">
@@ -141,6 +114,7 @@ export default function SellFitnessProductsPage() {
               <em>Delivered together</em>
             </div>
           </div>
+          <SfpCtaPair />
         </div>
       </section>
 
@@ -165,6 +139,7 @@ export default function SellFitnessProductsPage() {
               <div className="sfp-li">Bank transfers and chasing payments</div>
               <div className="sfp-li">One product per buyer, no add-ons</div>
             </div>
+            <SfpCtaPair secondary="budget" />
           </div>
         </div>
       </section>
@@ -233,6 +208,7 @@ export default function SellFitnessProductsPage() {
               </div>
             </div>
           </div>
+          <SfpCtaPair />
         </div>
       </section>
 
@@ -274,6 +250,7 @@ export default function SellFitnessProductsPage() {
               </p>
             </article>
           </div>
+          <SfpCtaPair center />
         </div>
       </section>
 
@@ -420,6 +397,7 @@ export default function SellFitnessProductsPage() {
               </p>
             </div>
           </div>
+          <SfpCtaPair center />
         </div>
       </section>
 
@@ -572,6 +550,7 @@ export default function SellFitnessProductsPage() {
               </div>
             </div>
           </div>
+          <SfpCtaPair center />
         </div>
       </section>
 
@@ -647,17 +626,15 @@ export default function SellFitnessProductsPage() {
               <div className="sfp-chk">Receipts, reminders and follow-ups</div>
               <div className="sfp-chk">Mobile-first experience</div>
             </div>
-            <a
-              href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
-              className="sfp-btn"
-              target="_blank"
-              rel="noopener"
-            >
-              Book your strategy call <span>→</span>
-            </a>
+            <SfpCtaPair />
           </div>
         </div>
       </section>
+
+      {/* BUDGET CALCULATOR → PRICING → FAQ */}
+      <SfpBudgetCalc />
+      <SfpPricing />
+      <SfpFaq />
 
       {/* CTA */}
       <section className="sfp-cta">
@@ -667,17 +644,10 @@ export default function SellFitnessProductsPage() {
             Let&apos;s build your <em>product store.</em>
           </h2>
           <p>
-            Book a free strategy call and we&apos;ll map out the store, checkout
+            Book a free website audit and we&apos;ll map out the store, checkout
             and upsell system that sells your products 24/7.
           </p>
-          <a
-            href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
-            className="sfp-btn sfp-d"
-            target="_blank"
-            rel="noopener"
-          >
-            Book a free strategy call <span>→</span>
-          </a>
+          <SfpCtaPair dark />
         </div>
       </section>
     </div>

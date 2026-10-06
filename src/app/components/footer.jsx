@@ -32,7 +32,6 @@ const SERVICES = [
 const COMPANY = [
   { href: "/about", label: "About" },
   { href: "/team", label: "Team" },
-  { href: "/contact", label: "Contact" },
 ];
 
 const SUPPORT = [

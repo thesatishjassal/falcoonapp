@@ -1,136 +1,279 @@
 "use client";
-import { useState } from "react";
+
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import { DM_Sans, Fraunces } from "next/font/google";
 import "./faq.css";
 
-const faqs = [
+const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
+// Keep these in one place and make sure the displayed and dialled numbers match.
+const PHONE_DISPLAY = "+91 7888 467258";
+const PHONE_TEL = "+917888467258";
+const WHATSAPP = "917888467258";
+const EMAIL = "hello@falcoon.in";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
+const CATS = [
+  ["all", "All"],
+  ["start", "Getting started"],
+  ["pay", "Pricing & payments"],
+  ["tools", "Tools & automation"],
+  ["results", "Results & support"],
+];
+
+const FAQS = [
   {
+    id: "help",
+    cat: "start",
     q: "How will Falcoon help me get more fitness clients?",
-    a: "Falcoon builds a complete client acquisition system for you — including landing pages, booking flows, follow-ups, and automation. This means no missed leads and more consistent client bookings.",
+    a: "We build a client system around your offer: landing pages, booking flows, follow-ups and automation. That means fewer leads slipping through and a clearer path from follower to paying client.",
   },
   {
-    q: "Is this only for online fitness coaches?",
-    a: "No. Falcoon works for personal trainers, gym owners, online coaches, yoga instructors, and nutritionists — both online and offline businesses.",
+    id: "who",
+    cat: "start",
+    q: "Who is Falcoon for?",
+    a: "UK personal trainers, online coaches, programme creators, gym and studio owners, yoga instructors, nutritionists, and counsellors or therapists who book and take payment online. It works for online and in-person businesses.",
   },
   {
-    q: "Do I need technical skills to use Falcoon?",
-    a: "Not at all. Everything is set up for you. You just focus on training clients while Falcoon handles leads, bookings, and follow-ups automatically.",
+    id: "tech",
+    cat: "start",
+    q: "Do I need technical skills?",
+    a: "No. We build the pages, connect your payments, booking and WhatsApp, and test everything, so you can focus on your clients.",
   },
   {
-    q: "Can I automate WhatsApp, email, and reminders?",
-    a: "Yes. Falcoon automates WhatsApp messages, emails, booking confirmations, and reminders — so your clients stay engaged without manual effort.",
+    id: "cost",
+    cat: "pay",
+    q: "How much does it cost?",
+    a: "The core build is £149 one-time, with hosting and your domain free for the first year. Add-ons such as booking, WhatsApp automation or a product store start from £29, and optional support is from £39 a month.",
+    link: ["See full pricing", "/pricing"],
   },
   {
+    id: "payments",
+    cat: "pay",
+    q: "Can I take payments through Stripe, PayPal or GoCardless?",
+    a: "Yes. We connect your own Stripe, PayPal or GoCardless account so payments land straight with you. GoCardless Direct Debit suits monthly coaching plans. Each provider charges its own fees.",
+  },
+  {
+    id: "contract",
+    cat: "pay",
+    q: "Is there a contract?",
+    a: "The core build is a one-time payment with no recurring core fee. Support is optional, from £39 a month. Ask us about support terms on your call.",
+  },
+  {
+    id: "automate",
+    cat: "tools",
+    q: "Can I automate WhatsApp, email and reminders?",
+    a: "Yes. We can set up WhatsApp replies, qualifying questions, call booking, email and SMS reminders, and follow-ups for leads who go quiet. Each is a one-time add-on, and tool subscriptions are billed by their providers.",
+  },
+  {
+    id: "page",
+    cat: "tools",
     q: "Will I get a custom landing page or funnel?",
-    a: "Yes. You get a high-converting landing page tailored for your fitness niche, designed to turn visitors into paying clients.",
+    a: "Yes. Your core build includes a landing page, checkout page and thank-you page, with copy written for your niche and designed mobile-first.",
   },
   {
+    id: "leads",
+    cat: "results",
     q: "How quickly can I start getting leads?",
-    a: "Most fitness professionals start seeing inquiries within days once traffic is driven to their funnel. Results depend on your outreach or ads.",
+    a: "Once traffic is going to your funnel, enquiries can start within days. Results depend on your offer, your traffic and how you follow up, so we can't promise a number of clients.",
   },
   {
-    q: "Can I integrate payments like Stripe or GoCardless?",
-    a: "Yes. You can accept payments directly through your funnel using Stripe, GoCardless, or other supported UK payment platforms.",
-  },
-  {
-    q: "What kind of support do you provide?",
-    a: "We provide full support — from setup to scaling. You'll get guidance on improving conversions and getting more clients.",
-  },
-  {
-    q: "Is there a contract or can I cancel anytime?",
-    a: "There are no long-term contracts. You can cancel anytime without hidden charges.",
+    id: "support",
+    cat: "results",
+    q: "What support do you provide?",
+    a: "Setup is done for you, including connecting your tools and testing. If you'd like help after launch, optional support starts from £39 a month.",
   },
 ];
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function FAQPage() {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(FAQS[0].id);
+  const [cat, setCat] = useState("all");
+  const [query, setQuery] = useState("");
+
+  const list = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return FAQS.filter(
+      (f) =>
+        (cat === "all" || f.cat === cat) &&
+        (!q || `${f.q} ${f.a}`.toLowerCase().includes(q)),
+    );
+  }, [cat, query]);
 
   return (
-    <section className="classic-faq">
-      <div className="classic-wrap">
-        {/* HERO */}
-        <div className="classic-faq-hero">
-          <div className="classic-eyebrow">★ Built for UK fitness brands </div>
-          <h1>Frequently asked questions</h1>
-          <p>Everything you need to know before getting started</p>
+    <section className={`fq ${dmSans.variable} ${fraunces.variable}`}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="fq-c">
+        {/* HEADER */}
+        <header className="fq-head">
+          <div className="fq-eyebrow">Built for UK fitness brands</div>
+          <h1>
+            Frequently asked <em>questions.</em>
+          </h1>
+          <p>Everything you need to know before getting started.</p>
+        </header>
+
+        {/* TOOLBAR */}
+        <div className="fq-bar">
+          <div className="fq-tabs" role="group" aria-label="Filter by topic">
+            {CATS.map(([id, label]) => (
+              <button
+                type="button"
+                key={id}
+                className={cat === id ? "on" : undefined}
+                aria-pressed={cat === id}
+                onClick={() => setCat(id)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <div className="fq-search">
+            <label className="fq-sr" htmlFor="fq-search">
+              Search questions
+            </label>
+            <input
+              id="fq-search"
+              type="search"
+              placeholder="Search questions"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
         </div>
 
         {/* GRID */}
-        <div className="classic-faq-grid">
-          {/* LEFT SIDE */}
-          <div className="classic-faq-left">
-            {faqs.map((item, i) => (
-              <div
-                key={i}
-                className={`classic-faq-item ${active === i ? "active" : ""}`}
-                onClick={() => setActive(active === i ? -1 : i)}
-              >
-                <div className="classic-faq-question">
-                  <span>{item.q}</span>
-                  <span className="icon">{active === i ? "−" : "+"}</span>
-                </div>
+        <div className="fq-grid">
+          <div>
+            <p className="fq-count" aria-live="polite">
+              {list.length} of {FAQS.length} questions
+            </p>
 
-                {active === i && (
-                  <div className="classic-faq-answer">{item.a}</div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* RIGHT SIDE (CTA CARD) */}
-          <div className="classic-faq-card">
-            {/* TOP IMAGE (calendar style) */}
-            <div className="classic-faq-card-visual">
-              <div className="classic-calendar">
-                <div className="classic-calendar-top"></div>
-                <div className="classic-calendar-body">
-                  <span></span>
-                  <span></span>
-                  <span className="active"></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-            </div>
-
-            <h3>Still have questions?</h3>
-            <p>Book a call or reach us anytime.</p>
-
-            <a
-              href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
-              className="classic-faq-cta-btn"
-            >
-              Schedule a Call <i className="fa-solid fa-calendar"></i>
-            </a>
-
-            {/* CONTACT LIST */}
-            <div className="classic-faq-contact">
-              <div className="classic-faq-contact-item">
-                <div className="classic-faq-contact-left">
-                  <i className="fas fa-phone"></i>
-                  <span>+91 7888 467258</span>
-                </div>
-
-                <a href="tel:+447888467258" className="classic-faq-arrow">
-                  <i className="fa-solid fa-angle-right"></i>
-                </a>
-              </div>
-
-              <div className="classic-faq-contact-item">
-                <div className="classic-faq-contact-left">
-                  <i className="fas fa-envelope"></i>
-                  <span>hello@falcoon.co.uk</span>
-                </div>
-
-                <a
-                  href="mailto:hello@falcoon.co.uk"
-                  className="classic-faq-arrow"
+            {list.length === 0 ? (
+              <div className="fq-empty">
+                <strong>No questions match &ldquo;{query}&rdquo;.</strong>
+                <p>Try a different word, or ask us on a free call.</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuery("");
+                    setCat("all");
+                  }}
                 >
-                  <i className="fa-solid fa-angle-right"></i>
-                </a>
+                  Clear search
+                </button>
               </div>
-            </div>
+            ) : (
+              <div className="fq-list">
+                {list.map((f) => {
+                  const open = active === f.id;
+                  return (
+                    <div className={`fq-item${open ? " open" : ""}`} key={f.id}>
+                      <h3>
+                        <button
+                          type="button"
+                          className="fq-q"
+                          id={`q-${f.id}`}
+                          aria-expanded={open}
+                          aria-controls={`a-${f.id}`}
+                          onClick={() => setActive(open ? null : f.id)}
+                        >
+                          <span>{f.q}</span>
+                          <i className="fq-ico" aria-hidden="true"></i>
+                        </button>
+                      </h3>
+                      <div
+                        className="fq-a"
+                        id={`a-${f.id}`}
+                        role="region"
+                        aria-labelledby={`q-${f.id}`}
+                      >
+                        <div>
+                          <p>{f.a}</p>
+                          {f.link && (
+                            <Link href={f.link[1]} className="fq-link">
+                              {f.link[0]} →
+                            </Link>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
+
+          {/* CTA CARD */}
+          <aside className="fq-card">
+            <h2>Still have questions?</h2>
+            <p>
+              Book a free website audit and we&apos;ll answer them on a call.
+            </p>
+            <a
+              href={CALENDLY}
+              className="fq-btn"
+              target="_blank"
+              rel="noopener"
+            >
+              Book free website audit <span>→</span>
+            </a>
+            <Link href="/pricing" className="fq-ghost">
+              See pricing
+            </Link>
+            <p className="fq-micro">Free audit. No payment needed.</p>
+
+            <ul className="fq-contact">
+              <li>
+                <a
+                  href={`https://wa.me/${WHATSAPP}`}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <small>WhatsApp</small>
+                  <span>{PHONE_DISPLAY}</span>
+                </a>
+              </li>
+              <li>
+                <a href={`tel:${PHONE_TEL}`}>
+                  <small>Call</small>
+                  <span>{PHONE_DISPLAY}</span>
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${EMAIL}`}>
+                  <small>Email</small>
+                  <span>{EMAIL}</span>
+                </a>
+              </li>
+            </ul>
+          </aside>
         </div>
       </div>
     </section>

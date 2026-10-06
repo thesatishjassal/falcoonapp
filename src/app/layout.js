@@ -1,9 +1,7 @@
 import "./globals.css";
-import Script from "next/script";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import SupportFloat from "./components/supportfloat";
-import Link from "next/link";
 
 import "./styles/base.css";
 import "./styles/components.css";
@@ -13,71 +11,79 @@ import "./styles/sections.css";
 import "./styles/showcase.css";
 import "./styles/integrations.css";
 
-import { SITE } from "../app/lib/emailTemplates/config";
+const URL_BASE = "https://falcoon.in";
+const OG_IMAGE = `${URL_BASE}/assets/images/falcoon_og.png`;
 
-// UK SEO Metadata
-// ─────────────────────────────────────────────
+// Title <= 60 chars, description <= 155 chars so Google doesn't truncate.
+const TITLE = "Fitness Websites & Funnels for UK Personal Trainers | Falcoon";
+const DESCRIPTION =
+  "Done-for-you websites, funnels and booking for UK personal trainers and online coaches. Get clients booked and paid. Fixed price, no hidden fees.";
+
 export const metadata = {
-  metadataBase: new URL("https://falcoon.in"),
+  metadataBase: new URL(URL_BASE),
 
-  title: {
-    default:
-      "Falcoon | Fitness Funnel & Website Agency for UK Fitness Professionals",
-    template: "%s | Falcoon",
-  },
+  // `default` is for the homepage only; inner pages use the template.
+  title: { default: TITLE, template: "%s | Falcoon" },
+  description: DESCRIPTION,
 
-  description:
-    "Falcoon builds high-converting websites, funnels and automation systems for UK fitness professionals. Attract leads, book clients, take payments and sell fitness services online.",
-
+  // Google ignores the keywords tag. Kept for Bing/other crawlers and as a
+  // single source of truth. The real work is in page copy (see playbook).
   keywords: [
-    "fitness funnel agency UK",
-    "fitness website agency UK",
+    // Solution-aware (core money terms)
     "personal trainer website UK",
-    "fitness coach website UK",
-    "online coach website UK",
-    "gym website design UK",
-    "fitness business automation UK",
-    "fitness funnel builder UK",
-    "landing page for personal trainer UK",
-    "online fitness business UK",
-    "fitness marketing funnels UK",
-    "fitness sales automation UK",
+    "website for personal trainers UK",
+    "online coaching website UK",
+    "fitness coach website design UK",
+    "fitness website agency UK",
+    "fitness funnel agency UK",
+    "fitness landing page UK",
+    "done for you fitness funnel",
+    // Problem-aware (what they type when stuck)
+    "how to get more personal training clients online UK",
+    "get personal training clients without Instagram",
+    "how to start an online coaching business UK",
+    "how to sell online fitness programmes UK",
+    "sell workout plans online UK",
+    // Booking, payments, no-shows
+    "booking system for personal trainers UK",
+    "take payments online personal trainer UK",
+    "get paid before session personal trainer",
+    "reduce client no-shows personal trainer",
+    "Direct Debit for personal trainers UK",
+    "GoCardless for fitness coaches",
+    "Stripe checkout fitness coach UK",
+    // Commercial / price anxiety
+    "personal trainer website cost UK",
+    "fixed price fitness website UK",
+    "fitness website no monthly fees",
+    "affordable website for online coach UK",
+    // Comparison / alternatives
+    "best website builder for personal trainers UK",
+    "Trainerize alternative UK",
+    "Wix vs custom website personal trainer",
+    "ClickFunnels alternative UK",
+    // Adjacent audiences
+    "nutrition coach website UK",
+    "gym studio owner website UK",
+    "counsellor website UK",
+    "therapist booking website UK",
     "Falcoon",
   ],
 
-  authors: [
-    {
-      name: "Falcoon",
-      url: "https://falcoon.in",
-    },
-  ],
-
+  authors: [{ name: "Falcoon", url: URL_BASE }],
   creator: "Falcoon",
   publisher: "Falcoon",
-
-  // Helps some search engines classify the site/business type
   category: "Business & Marketing Services",
-
   applicationName: "Falcoon",
+  formatDetection: { telephone: true, email: true, address: true },
 
-  formatDetection: {
-    telephone: true,
-    email: true,
-    address: true,
-  },
-
-  alternates: {
-    canonical: "https://falcoon.in",
-    // Explicit UK-locale signal — prevents ambiguity with other en-* markets
-    languages: {
-      "en-GB": "https://falcoon.in",
-    },
-  },
+  // NOTE: no root-level canonical. Child pages that don't set their own
+  // would wrongly inherit "/" as canonical. Set alternates on app/page.js:
+  //   alternates: { canonical: "/", languages: { "en-GB": "/" } }
 
   robots: {
     index: true,
     follow: true,
-
     googleBot: {
       index: true,
       follow: true,
@@ -89,11 +95,9 @@ export const metadata = {
 
   verification: {
     google: "wmeKQp8rNpuVbdsm0s7OthyTLKw21J10-xRqGc4IV7s",
-    // Add your Bing Webmaster Tools verification code here once generated
     // other: { "msvalidate.01": "YOUR_BING_CODE" },
   },
 
-  // Icons — Next.js metadata API handles these more reliably than manual <link> tags
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -101,56 +105,37 @@ export const metadata = {
     ],
     apple: "/apple-touch-icon.png",
   },
-
   manifest: "/site.webmanifest",
 
-  // ─────────────────────────────────────────────
-  // Open Graph
-  // ─────────────────────────────────────────────
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: "https://falcoon.in",
+    url: URL_BASE,
     siteName: "Falcoon",
-
-    title:
-      "Falcoon | Fitness Funnel & Website Agency for UK Fitness Professionals",
-
+    title: TITLE,
     description:
-      "High-converting websites, funnels and automation systems for UK fitness professionals.",
-
+      "Websites, funnels and automation for UK personal trainers, coaches and counsellors. Fixed price, no hidden fees.",
     images: [
       {
-        url: "https://falcoon.in/assets/images/falcoon_og.png",
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Falcoon - Fitness Funnel and Website Agency for UK Fitness Professionals",
+        alt: "Falcoon: fitness websites and funnels for UK personal trainers and coaches",
       },
     ],
   },
 
-  // ─────────────────────────────────────────────
-  // Twitter / X
-  // ─────────────────────────────────────────────
   twitter: {
     card: "summary_large_image",
-
-    title: "Falcoon | Fitness Funnel Agency for UK Fitness Professionals",
-
+    title: TITLE,
     description:
-      "Websites, funnels and automation systems built for UK fitness professionals.",
-
-    images: ["https://falcoon.in/assets/images/falcoon_og.png"],
-
+      "Websites, funnels and automation for UK personal trainers and coaches.",
+    images: [OG_IMAGE],
     site: "@falcoon_in",
     creator: "@falcoon_in",
   },
 };
 
-// ─────────────────────────────────────────────
-// Viewport / Theme (Next.js 14+ requires this as a
-// separate export — themeColor no longer lives in metadata)
-// ─────────────────────────────────────────────
 export const viewport = {
   width: "device-width",
   initialScale: 1,
@@ -160,115 +145,117 @@ export const viewport = {
   ],
 };
 
-// ─────────────────────────────────────────────
-// JSON-LD Structured Data
-// ─────────────────────────────────────────────
+// JSON-LD. Only include facts that are visible on the site (Google policy).
 const jsonLd = {
   "@context": "https://schema.org",
-
   "@graph": [
     {
-      "@type": "Organization",
-      "@id": "https://falcoon.in/#organization",
-
+      "@type": ["Organization", "ProfessionalService"],
+      "@id": `${URL_BASE}/#organization`,
       name: "Falcoon",
-      url: "https://falcoon.in",
-      logo: "https://falcoon.in/assets/images/falcoon_logo.png",
-      image: "https://falcoon.in/assets/images/falcoon_og.png",
-
+      url: URL_BASE,
+      logo: `${URL_BASE}/assets/images/falcoon_logo.png`,
+      image: OG_IMAGE,
       description:
-        "Falcoon is a fitness funnel and website agency serving UK fitness professionals with high-converting websites, funnels and automation systems.",
-
-      // TODO: fill these in — real contact/address data is a strong
-      // trust + local-SEO signal for UK searches
+        "Falcoon builds websites, sales funnels, booking and payment systems for UK personal trainers, online coaches and counsellors.",
       email: "hello@falcoon.in",
-      telephone: "+44-XXXX-XXXXXX",
-      address: {
-        "@type": "PostalAddress",
-        addressCountry: "GB",
-      },
+      // Placeholder phone removed: an invalid number can cause rich-result errors.
+      // Add `telephone` only when you have a real, monitored number.
       contactPoint: {
         "@type": "ContactPoint",
-        contactType: "Customer Service",
+        contactType: "Sales",
         email: "hello@falcoon.in",
         areaServed: "GB",
         availableLanguage: ["English"],
       },
-
-      areaServed: {
-        "@type": "Country",
-        name: "United Kingdom",
-      },
-
+      areaServed: { "@type": "Country", name: "United Kingdom" },
       knowsAbout: [
-        "Fitness Websites",
-        "Sales Funnels",
-        "Landing Pages",
-        "Fitness Business Automation",
-        "Online Fitness Businesses",
-        "Lead Generation",
-        "Booking Systems",
-        "Payment Systems",
+        "Personal trainer websites",
+        "Online coaching funnels",
+        "Landing pages",
+        "Booking systems",
+        "Online payments and Direct Debit",
+        "Fitness business automation",
+        "Lead generation",
       ],
-
-      // TODO: add your real social profile URLs — empty sameAs wastes
-      // an easy entity-verification signal for Google
+      // Add real profiles: each one strengthens entity recognition.
       sameAs: [
         // "https://www.linkedin.com/company/falcoon",
         // "https://www.instagram.com/falcoon_in",
       ],
     },
-
     {
       "@type": "WebSite",
-      "@id": "https://falcoon.in/#website",
-
-      url: "https://falcoon.in",
+      "@id": `${URL_BASE}/#website`,
+      url: URL_BASE,
       name: "Falcoon",
-      publisher: {
-        "@id": "https://falcoon.in/#organization",
-      },
+      publisher: { "@id": `${URL_BASE}/#organization` },
       inLanguage: "en-GB",
     },
-
     {
       "@type": "Service",
-      "@id": "https://falcoon.in/#service",
-
-      serviceType: "Fitness Website & Funnel Development",
-      provider: {
-        "@id": "https://falcoon.in/#organization",
-      },
-      areaServed: {
-        "@type": "Country",
-        name: "United Kingdom",
-      },
+      "@id": `${URL_BASE}/#service`,
+      serviceType: "Fitness website and funnel development",
+      provider: { "@id": `${URL_BASE}/#organization` },
+      areaServed: { "@type": "Country", name: "United Kingdom" },
       audience: {
         "@type": "Audience",
-        audienceType: "Fitness Professionals",
+        audienceType:
+          "Personal trainers, online coaches, studio owners, counsellors",
       },
       description:
-        "High-converting websites, sales funnels and automation systems built specifically for UK personal trainers, fitness coaches and gym owners.",
+        "Done-for-you funnels for selling fitness programmes, products and consultations, with fixed pricing and no hidden fees.",
+      // Matches the "£249 fixed funnel build" shown on /about. Keep in sync.
+      offers: {
+        "@type": "Offer",
+        price: "249",
+        priceCurrency: "GBP",
+        description: "Fixed-price funnel build, no hidden fees",
+      },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Falcoon funnels",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Sell fitness programmes funnel",
+              url: `${URL_BASE}/sell-fitness-programmes`,
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Sell fitness products funnel",
+              url: `${URL_BASE}/sell-fitness-products`,
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Sell consultations funnel",
+              url: `${URL_BASE}/sell-consultations`,
+            },
+          },
+        ],
+      },
     },
   ],
 };
 
-// ─────────────────────────────────────────────
-// Root Layout
-// ─────────────────────────────────────────────
 export default function RootLayout({ children }) {
   return (
     <html lang="en-GB">
       <head>
-        {/* Font Awesome */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-
-        {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -279,61 +266,20 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Karla:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
-
-        {/* Material Symbols */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
         />
-
-        {/* JSON-LD */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-
       <body>
         <Header />
-
         {children}
-
         <SupportFloat />
-
         <Footer />
-
-        {/* ─────────────────────────────────────────
-            Tawk.to Live Chat
-        ───────────────────────────────────────── */}
-        {/* <Script id="tawk-to" strategy="afterInteractive">
-          {`
-            var Tawk_API = Tawk_API || {};
-            var Tawk_LoadStart = new Date();
-
-            (function () {
-              var s1 = document.createElement("script");
-              var s0 = document.getElementsByTagName("script")[0];
-
-              s1.async = true;
-              s1.src = "https://embed.tawk.to/69f5eeb382a2b91c3a6307b8/1jnkaorrr";
-              s1.charset = "UTF-8";
-              s1.setAttribute("crossorigin", "*");
-
-              s0.parentNode.insertBefore(s1, s0);
-            })();
-          `}
-        </Script> */}
-
-        {/* ─────────────────────────────────────────
-            Floating Quotation CTA
-        ───────────────────────────────────────── */}
-        {/* <div className="left_cta_wrapper">
-          <Link href="/pricing" className="left_cta_tab">
-            <span className="left_cta_text">Get Free Quotation</span>
-          </Link>
-        </div> */}
       </body>
     </html>
   );

@@ -1177,3 +1177,487 @@
 .prg-mock .prg-bub:last-of-type {
   margin-bottom: 14px;
 }
+/* Adapts to light/dark sections via currentColor. Swap --prgx-accent for your gold token if different. */
+.prg-page {
+  --prgx-accent: var(--gold, #b8893a);
+}
+
+.prg-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* CTA pair */
+.prg-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-top: 32px;
+}
+.prg-ctas-c {
+  justify-content: center;
+}
+.prg-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.prg-btn-ghost:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.prg-btn:focus-visible,
+.prg-btn-ghost:focus-visible,
+.prg-faq summary:focus-visible,
+.prg-opt input:focus-visible {
+  outline: 2px solid var(--prgx-accent);
+  outline-offset: 3px;
+}
+.prg-micro {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+.prg-micro a {
+  color: inherit;
+  text-decoration: underline;
+}
+.prg-note {
+  max-width: 62ch;
+  margin: 28px auto 0;
+  text-align: center;
+}
+
+/* Calculator */
+.prg-calc fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.prg-opt {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  cursor: pointer;
+}
+.prg-opt input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--prgx-accent);
+}
+.prg-opt small,
+.prg-addons small,
+.prg-ex small {
+  display: block;
+  opacity: 0.7;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+.prg-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 20px 0 4px;
+  font-size: 1.1rem;
+}
+.prg-total b {
+  font-family: var(--font-fraunces), serif;
+  font-size: 2.4rem;
+  font-weight: 500;
+}
+
+/* Pricing */
+.prg-price-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 32px;
+  margin-top: 40px;
+  align-items: start;
+}
+.prg-core {
+  padding: 28px;
+  border: 1.5px solid var(--prgx-accent);
+  border-radius: 16px;
+}
+.prg-core-p {
+  font-family: var(--font-fraunces), serif;
+  font-size: 3rem;
+  font-weight: 500;
+  margin: 6px 0 16px;
+}
+.prg-core-p span {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+.prg-core ul {
+  margin: 0;
+  padding-left: 1.1em;
+  display: grid;
+  gap: 8px;
+}
+.prg-addons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.prg-addons li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+.prg-ex-h {
+  margin: 48px 0 16px;
+  font-family: var(--font-fraunces), serif;
+  font-weight: 500;
+}
+.prg-ex {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.prg-ex > div {
+  padding: 18px 0;
+  border-top: 1.5px solid currentColor;
+}
+.prg-ex b {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-fraunces), serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+/* FAQ */
+.prg-faq-list {
+  max-width: 760px;
+  margin: 40px auto 0;
+}
+.prg-faq details {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  padding: 18px 0;
+}
+.prg-faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style-position: inside;
+}
+.prg-faq details p {
+  margin: 12px 0 0;
+  opacity: 0.85;
+  max-width: 62ch;
+}
+
+@media (max-width: 800px) {
+  .prg-price-grid,
+  .prg-ex {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Animated hero phone ===== */
+.prg-hv2 {
+  --gl: var(--gold-l, #e3c27a);
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 36px 34px 28px;
+}
+.prg-tilt {
+  position: relative;
+  transform: perspective(900px) rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg));
+  transition: transform 0.15s ease-out;
+}
+.prg-hv2-hint {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.prg-hv2-cart,
+.prg-hv2-bell,
+.prg-fl,
+.prg-coin {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  color: var(--gl);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  padding: 11px;
+  background: color-mix(in srgb, var(--gl) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gl) 40%, transparent);
+  backdrop-filter: blur(6px);
+}
+.prg-hv2-cart {
+  left: 4%;
+  top: 0;
+}
+.prg-hv2-bell {
+  right: 4%;
+  top: 0;
+}
+.prg-hv2-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--gl);
+  color: #1a1a1a;
+  font:
+    700 0.72rem/20px var(--font-dm-sans),
+    sans-serif;
+  text-align: center;
+  animation: prg-badge 0.45s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+.prg-hv2-bell i {
+  position: absolute;
+  top: 9px;
+  right: 11px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e5484d;
+}
+.prg-ring {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 10%;
+  animation: prg-ring 0.8s ease-in-out;
+}
+
+.prg-fl {
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  animation: prg-float var(--dur) ease-in-out var(--del) infinite;
+}
+.prg-fl-i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s;
+}
+.prg-fl:hover .prg-fl-i,
+.prg-fl:focus-visible .prg-fl-i {
+  transform: scale(1.18) rotate(-6deg);
+}
+.prg-fl:active .prg-fl-i {
+  transform: scale(0.9);
+}
+.prg-fl:focus-visible {
+  outline: 2px solid var(--gl);
+  outline-offset: 3px;
+}
+.prg-coin {
+  left: calc(50% - 24px);
+  bottom: 34px;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  animation: prg-spin 5s ease-in-out infinite;
+}
+
+.prg-note-in {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  animation: prg-slide 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.prg-note-in > div {
+  flex: 1;
+  min-width: 0;
+}
+.prg-ni {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 7px;
+  border-radius: 10px;
+  color: var(--gl);
+  background: color-mix(in srgb, var(--gl) 22%, transparent);
+}
+.prg-lock-foot {
+  font-variant-numeric: tabular-nums;
+}
+.prg-pop {
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  z-index: 3;
+  font:
+    700 1.1rem var(--font-dm-sans),
+    sans-serif;
+  color: var(--gl);
+  pointer-events: none;
+  animation: prg-pop 1.4s ease-out forwards;
+}
+
+@keyframes prg-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-12px) rotate(4deg);
+  }
+}
+@keyframes prg-spin {
+  0%,
+  70%,
+  100% {
+    transform: rotateY(0);
+  }
+  85% {
+    transform: rotateY(180deg);
+  }
+}
+@keyframes prg-ring {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(18deg);
+  }
+  35% {
+    transform: rotate(-16deg);
+  }
+  55% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-6deg);
+  }
+}
+@keyframes prg-badge {
+  from {
+    transform: scale(0.4);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes prg-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes prg-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -70px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prg-fl,
+  .prg-coin,
+  .prg-ring,
+  .prg-note-in,
+  .prg-hv2-badge,
+  .prg-pop {
+    animation: none;
+  }
+  .prg-tilt {
+    transition: none;
+  }
+}
+
+/* ===== Chat hero additions ===== */
+.prg-steps {
+  display: flex;
+  gap: 6px;
+  margin: 4px 0 10px;
+}
+.prg-steps span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 99px;
+  opacity: 0.55;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  transition: all 0.3s;
+}
+.prg-steps span.on {
+  opacity: 1;
+  color: var(--gl);
+  border-color: var(--gl);
+  background: color-mix(in srgb, var(--gl) 24%, transparent);
+}
+.prg-bub-a {
+  animation: prg-slide 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.prg-typing {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+.prg-typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  animation: prg-dot 1s infinite;
+}
+.prg-typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.prg-typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes prg-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prg-bub-a,
+  .prg-typing i {
+    animation: none;
+  }
+}

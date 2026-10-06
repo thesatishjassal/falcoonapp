@@ -1122,3 +1122,617 @@
     max-width: 310px;
   }
 }
+/* Adapts to light/dark sections via currentColor. Swap --sfpx-accent for your gold token if different. */
+.sfp-page {
+  --sfpx-accent: var(--gold, #b8893a);
+}
+
+.sfp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* CTA pair */
+.sfp-ctas {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 32px;
+  display: flex;
+}
+.sfp-ctas-c {
+  justify-content: center;
+}
+.sfp-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.sfp-btn-ghost:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.sfp-btn:focus-visible,
+.sfp-btn-ghost:focus-visible,
+.sfp-faq summary:focus-visible,
+.sfp-opt input:focus-visible {
+  outline: 2px solid var(--sfpx-accent);
+  outline-offset: 3px;
+}
+.sfp-micro {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+.sfp-micro a {
+  color: inherit;
+  text-decoration: underline;
+}
+.sfp-note {
+  max-width: 62ch;
+  margin: 28px auto 0;
+  text-align: center;
+}
+
+/* Calculator */
+.sfp-calc fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.sfp-opt {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  cursor: pointer;
+}
+.sfp-opt input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--sfpx-accent);
+}
+.sfp-opt small,
+.sfp-addons small,
+.sfp-ex small {
+  display: block;
+  opacity: 0.7;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+.sfp-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 20px 0 4px;
+  font-size: 1.1rem;
+}
+.sfp-total b {
+  font-family: var(--font-fraunces), serif;
+  font-size: 2.4rem;
+  font-weight: 500;
+}
+
+/* Pricing */
+.sfp-price-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 32px;
+  margin-top: 40px;
+  align-items: start;
+}
+.sfp-core {
+  padding: 28px;
+  border: 1.5px solid var(--sfpx-accent);
+  border-radius: 16px;
+}
+.sfp-core-p {
+  font-family: var(--font-fraunces), serif;
+  font-size: 3rem;
+  font-weight: 500;
+  margin: 6px 0 16px;
+}
+.sfp-core-p span {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+.sfp-core ul {
+  margin: 0;
+  padding-left: 1.1em;
+  display: grid;
+  gap: 8px;
+}
+.sfp-addons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sfp-addons li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+.sfp-ex-h {
+  margin: 48px 0 16px;
+  font-family: var(--font-fraunces), serif;
+  font-weight: 500;
+}
+.sfp-ex {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.sfp-ex > div {
+  padding: 18px 0;
+  border-top: 1.5px solid currentColor;
+}
+.sfp-ex b {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-fraunces), serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+/* FAQ */
+.sfp-faq-list {
+  max-width: 760px;
+  margin: 40px auto 0;
+}
+.sfp-faq details {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  padding: 18px 0;
+}
+.sfp-faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style-position: inside;
+}
+.sfp-faq details p {
+  margin: 12px 0 0;
+  opacity: 0.85;
+  max-width: 62ch;
+}
+
+@media (max-width: 800px) {
+  .sfp-price-grid,
+  .sfp-ex {
+    grid-template-columns: 1fr;
+  }
+}
+/* Adapts to light/dark sections via currentColor. Swap --sfpx-accent for your gold token if different. */
+.sfp-page {
+  --sfpx-accent: var(--gold, #b8893a);
+}
+
+.sfp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* CTA pair */
+.sfp-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-top: 32px;
+}
+.sfp-ctas-c {
+  justify-content: center;
+}
+.sfp-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.sfp-btn-ghost:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.sfp-btn:focus-visible,
+.sfp-btn-ghost:focus-visible,
+.sfp-faq summary:focus-visible,
+.sfp-opt input:focus-visible {
+  outline: 2px solid var(--sfpx-accent);
+  outline-offset: 3px;
+}
+.sfp-micro {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+.sfp-micro a {
+  color: inherit;
+  text-decoration: underline;
+}
+.sfp-note {
+  max-width: 62ch;
+  margin: 28px auto 0;
+  text-align: center;
+}
+
+/* Calculator */
+.sfp-calc fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.sfp-opt {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  cursor: pointer;
+}
+.sfp-opt input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--sfpx-accent);
+}
+.sfp-opt small,
+.sfp-addons small,
+.sfp-ex small {
+  display: block;
+  opacity: 0.7;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+.sfp-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 20px 0 4px;
+  font-size: 1.1rem;
+}
+.sfp-total b {
+  font-family: var(--font-fraunces), serif;
+  font-size: 2.4rem;
+  font-weight: 500;
+}
+
+/* Pricing */
+.sfp-price-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 32px;
+  margin-top: 40px;
+  align-items: start;
+}
+.sfp-core {
+  padding: 28px;
+  border: 1.5px solid var(--sfpx-accent);
+  border-radius: 16px;
+}
+.sfp-core-p {
+  font-family: var(--font-fraunces), serif;
+  font-size: 3rem;
+  font-weight: 500;
+  margin: 6px 0 16px;
+}
+.sfp-core-p span {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+.sfp-core ul {
+  margin: 0;
+  padding-left: 1.1em;
+  display: grid;
+  gap: 8px;
+}
+.sfp-addons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sfp-addons li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+.sfp-ex-h {
+  margin: 48px 0 16px;
+  font-family: var(--font-fraunces), serif;
+  font-weight: 500;
+}
+.sfp-ex {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.sfp-ex > div {
+  padding: 18px 0;
+  border-top: 1.5px solid currentColor;
+}
+.sfp-ex b {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-fraunces), serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+/* FAQ */
+.sfp-faq-list {
+  max-width: 760px;
+  margin: 40px auto 0;
+}
+.sfp-faq details {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  padding: 18px 0;
+}
+.sfp-faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style-position: inside;
+}
+.sfp-faq details p {
+  margin: 12px 0 0;
+  opacity: 0.85;
+  max-width: 62ch;
+}
+
+@media (max-width: 800px) {
+  .sfp-price-grid,
+  .sfp-ex {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Animated hero phone ===== */
+.sfp-hv2 {
+  --gl: var(--gold-l, #e3c27a);
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 36px 34px 28px;
+}
+.sfp-tilt {
+  position: relative;
+  transform: perspective(900px) rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg));
+  transition: transform 0.15s ease-out;
+}
+.sfp-hv2-hint {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.sfp-hv2-cart,
+.sfp-hv2-bell,
+.sfp-fl,
+.sfp-coin {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  color: var(--gl);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  padding: 11px;
+  background: color-mix(in srgb, var(--gl) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gl) 40%, transparent);
+  backdrop-filter: blur(6px);
+}
+.sfp-hv2-cart {
+  left: 4%;
+  top: 0;
+}
+.sfp-hv2-bell {
+  right: 4%;
+  top: 0;
+}
+.sfp-hv2-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--gl);
+  color: #1a1a1a;
+  font:
+    700 0.72rem/20px var(--font-dm-sans),
+    sans-serif;
+  text-align: center;
+  animation: sfp-badge 0.45s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+.sfp-hv2-bell i {
+  position: absolute;
+  top: 9px;
+  right: 11px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e5484d;
+}
+.sfp-ring {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 10%;
+  animation: sfp-ring 0.8s ease-in-out;
+}
+
+.sfp-fl {
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  animation: sfp-float var(--dur) ease-in-out var(--del) infinite;
+}
+.sfp-fl-i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s;
+}
+.sfp-fl:hover .sfp-fl-i,
+.sfp-fl:focus-visible .sfp-fl-i {
+  transform: scale(1.18) rotate(-6deg);
+}
+.sfp-fl:active .sfp-fl-i {
+  transform: scale(0.9);
+}
+.sfp-fl:focus-visible {
+  outline: 2px solid var(--gl);
+  outline-offset: 3px;
+}
+.sfp-coin {
+  left: calc(50% - 24px);
+  bottom: 34px;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  animation: sfp-spin 5s ease-in-out infinite;
+}
+
+.sfp-note-in {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  animation: sfp-slide 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.sfp-note-in > div {
+  flex: 1;
+  min-width: 0;
+}
+.sfp-ni {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 7px;
+  border-radius: 10px;
+  color: var(--gl);
+  background: color-mix(in srgb, var(--gl) 22%, transparent);
+}
+.sfp-lock-foot {
+  font-variant-numeric: tabular-nums;
+}
+.sfp-pop {
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  z-index: 3;
+  font:
+    700 1.1rem var(--font-dm-sans),
+    sans-serif;
+  color: var(--gl);
+  pointer-events: none;
+  animation: sfp-pop 1.4s ease-out forwards;
+}
+
+@keyframes sfp-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-12px) rotate(4deg);
+  }
+}
+@keyframes sfp-spin {
+  0%,
+  70%,
+  100% {
+    transform: rotateY(0);
+  }
+  85% {
+    transform: rotateY(180deg);
+  }
+}
+@keyframes sfp-ring {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(18deg);
+  }
+  35% {
+    transform: rotate(-16deg);
+  }
+  55% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-6deg);
+  }
+}
+@keyframes sfp-badge {
+  from {
+    transform: scale(0.4);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes sfp-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sfp-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -70px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sfp-fl,
+  .sfp-coin,
+  .sfp-ring,
+  .sfp-note-in,
+  .sfp-hv2-badge,
+  .sfp-pop {
+    animation: none;
+  }
+  .sfp-tilt {
+    transition: none;
+  }
+}
