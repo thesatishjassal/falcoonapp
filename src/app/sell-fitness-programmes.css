@@ -1197,6 +1197,7 @@
   gap: 14px;
   align-items: center;
   margin-top: 32px;
+  justify-content: center;
 }
 .prg-ctas-c {
   justify-content: center;
@@ -1659,5 +1660,125 @@
   .prg-bub-a,
   .prg-typing i {
     animation: none;
+  }
+}
+/* Classical, restrained styling: hairline rules, thin line icons,
+   no gradients, no shadows. Import AFTER sell-fitness-programmes.css.
+   The hero is not touched. */
+
+/* Thin line icon, no tile */
+.prg-page .prg-ico {
+  flex: none;
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: #8a6d3b;
+}
+.prg-page .prg-dk .prg-ico {
+  color: #d9bf84;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+.prg-page .prg-ico svg {
+  width: 30px;
+  height: 30px;
+  stroke-width: 1.3;
+}
+
+/* PROBLEM: ruled list, two columns */
+.prg-page .prg-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 48px;
+  margin-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+.prg-page .prg-list .prg-li {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* JOURNEY: ruled grid, serif step labels */
+.prg-page .prg-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 48px;
+  margin-top: 44px;
+  border-top: 1px solid rgba(20, 20, 30, 0.28);
+}
+.prg-page .prg-flow .prg-fi {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 30px 0 34px;
+  border: 0;
+  border-bottom: 1px solid rgba(20, 20, 30, 0.14);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.prg-page .prg-flow .prg-fi::before,
+.prg-page .prg-flow .prg-fi::after {
+  display: none;
+}
+.prg-page .prg-flow .prg-fn {
+  margin-top: 10px;
+  padding: 0;
+  background: none;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #8a6d3b;
+}
+.prg-page .prg-flow .prg-ft {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.prg-page .prg-flow .prg-fx {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+/* "Works with" chip row */
+.prg-page #system .prg-sl {
+  text-align: center;
+  margin-bottom: 14px;
+}
+.prg-page #system .prg-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .prg-page .prg-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 32px;
+  }
+}
+@media (max-width: 600px) {
+  .prg-page .prg-list,
+  .prg-page .prg-flow {
+    grid-template-columns: 1fr;
   }
 }

@@ -58,7 +58,7 @@ const FAQS = [
     id: "cost",
     cat: "pay",
     q: "How much does it cost?",
-    a: "The core build is £149 one-time, with hosting and your domain free for the first year. Add-ons such as booking, WhatsApp automation or a product store start from £29, and optional support is from £39 a month.",
+    a: "The core build is £499 one-time, with hosting and your domain free for the first year. Add-ons such as booking, WhatsApp automation or a product store start from £29, and optional support is from £39 a month.",
     link: ["See full pricing", "/pricing"],
   },
   {

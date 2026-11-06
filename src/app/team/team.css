@@ -234,3 +234,65 @@
     transform: none;
   }
 }
+/* Team page refinement: ruled, classical, no shadows. Import AFTER team.css */
+.tm-page .tm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 56px;
+  border-top: 2px solid #1a1a22;
+}
+.tm-page .tm-card {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  column-gap: 20px;
+  align-items: start;
+  padding: 30px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(26, 26, 34, 0.16);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  text-align: left;
+}
+.tm-page .tm-avatar {
+  grid-row: 1 / span 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  border: 1px solid #8a6d3b;
+  border-radius: 50%;
+  background: none;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #8a6d3b;
+}
+.tm-page .tm-name {
+  margin: 0;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.tm-page .tm-role {
+  margin: 4px 0 10px;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #8a6d3b;
+}
+.tm-page .tm-bio {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  opacity: 0.82;
+}
+@media (max-width: 760px) {
+  .tm-page .tm-grid {
+    grid-template-columns: 1fr;
+  }
+}

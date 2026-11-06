@@ -1,7 +1,7 @@
 // Prices mirror falcoon.in/pricing → "Fitness products". Edit here only.
 export const CALENDLY =
   "https://calendly.com/thesatishjassal/free-strategy-call-uk";
-export const CORE_PRICE = 149;
+export const CORE_PRICE = 499;
 export const SUPPORT_FROM = 39;
 
 export const CORE_INCLUDES = [
@@ -56,7 +56,7 @@ export const ADS = {
   id: "ads",
   name: "Meta and Google Ads setup",
   tools: "Setup only · ad budget is paid to Meta or Google",
-  price: 149,
+  price: 499,
 };
 
 export const gbp = (n) => `£${n}`;

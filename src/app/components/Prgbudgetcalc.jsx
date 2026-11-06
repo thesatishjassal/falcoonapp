@@ -35,7 +35,7 @@ export default function PrgBudgetCalc() {
             Tick what you need. See what it <em>costs.</em>
           </h2>
           <p className="prg-lead">
-            Every client system starts with the £149 core build. Add only the
+            Every client system starts with the £499 core build. Add only the
             parts you need.
           </p>
         </div>
@@ -64,7 +64,7 @@ export default function PrgBudgetCalc() {
             <b>{gbp(total)}</b>
           </div>
           <p className="prg-micro">
-            Includes the £149 core build. Optional support is from £
+            Includes the £499 core build. Optional support is from £
             {SUPPORT_FROM} a month. Third-party tools and ad budgets are billed
             by their providers.
           </p>

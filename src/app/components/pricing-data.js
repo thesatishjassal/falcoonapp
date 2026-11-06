@@ -1,295 +1,347 @@
-/* Single source of truth for the pricing page.
-   Put this next to PricingClient.jsx (app/components/pricing-data.js) and have
-   PricingClient import from it, so the wizard, the static tables, the FAQ and
-   the JSON-LD can never drift apart.
+// components/pricing-data.js
+// Single source of truth for every price on the pricing page.
+// Change a number here and the page, schema markup, FAQs and bundles all update.
 
-   CONFIRMED  = taken from your live site (core £149, Care £39/mo, Growth £99/mo).
-   PROPOSED   = my UK-sized suggestion. I could not see the add-on prices inside
-                PricingClient, so check every PROPOSED number before publishing.
-   VERIFIED   = third-party fee, checked against public UK sources in October 2026. */
+export const CHECKED = "November 2026"; // re-verify provider rates before publishing
 
-export const CHECKED = "October 2026";
+/* ------------------------------------------------------------------ */
+/* CORE + MONTHLY SUPPORT                                              */
+/* ------------------------------------------------------------------ */
 
-/* CONFIRMED */
 export const CORE = {
-  price: 149,
+  price: 499, // was 499
   includes: [
-    "Complete funnel: landing page, checkout page and thank-you page",
-    "Hosting and domain free for your first year",
+    "Landing page, checkout page and thank-you page",
     "Professional copywriting for every page",
     "On-page SEO fundamentals",
     "Fully mobile responsive design",
-    "Email notifications set up and integrated",
+    "Email notifications set up and connected",
+    "Hosting and domain free for the first year",
   ],
 };
 
-/* CONFIRMED prices. Plan contents are not shown here because I could not see step 3 of the wizard. */
 export const SUPPORT = [
-  { id: "care", name: "Care Plan", price: 39 },
-  { id: "growth", name: "Growth Plan", price: 99 },
+  {
+    id: "care",
+    name: "Care",
+    price: 499,
+    blurb: "Keeps your funnel safe, fast and up to date.",
+    features: [
+      "Hosting, uptime and security monitoring",
+      "Software and plugin updates",
+      "Up to 2 small content edits a month",
+      "Email support, replies within 2 working days",
+    ],
+  },
+  {
+    id: "growth",
+    name: "Growth",
+    price: 199,
+    blurb: "Everything in Care, plus help getting more bookings.",
+    features: [
+      "Everything in Care",
+      "Up to 4 content or offer edits a month",
+      "Monthly conversion check and improvement ideas",
+      "Priority support, replies within 1 working day",
+    ],
+  },
 ];
 
-/* PROPOSED one-time add-on prices in GBP */
+/* ------------------------------------------------------------------ */
+/* EFFORT-BASED ADD-ON PRICING                                         */
+/* ------------------------------------------------------------------ */
+/*
+  Each add-on is scored on three things instead of picking a number by feel:
+    hours : realistic build + test time
+    apis  : how many third-party accounts / APIs we connect
+    logic : 0 = simple link, 1 = rules or webhooks, 2 = multi-step automation
+
+  price = hours x HOURLY + apis x PER_CONNECTION + logic x PER_LOGIC_LEVEL
+  then rounded up to the next £x9 so prices look clean (e.g. £129, £189).
+*/
+
+const HOURLY = 45;
+const PER_CONNECTION = 15;
+const PER_LOGIC_LEVEL = 20;
+
+const roundUpTo9 = (n) => Math.ceil((n + 1) / 10) * 10 - 1;
+
+export const priceFromEffort = ({ hours, apis, logic }) =>
+  roundUpTo9(hours * HOURLY + apis * PER_CONNECTION + logic * PER_LOGIC_LEVEL);
+
+export const effortLevel = (price) =>
+  price < 120 ? "Light" : price < 200 ? "Standard" : "Advanced";
+
+const addon = (id, name, tools, effort, why) => ({
+  id,
+  name,
+  tools,
+  effort,
+  why,
+  price: priceFromEffort(effort),
+  level: effortLevel(priceFromEffort(effort)),
+});
+
+const A = {
+  meet: addon(
+    "meet",
+    "Meeting links",
+    ["Zoom", "Google Meet", "Microsoft Teams"],
+    { hours: 1.5, apis: 1, logic: 0 },
+    "Unique link sent automatically after booking.",
+  ),
+  book: addon(
+    "book",
+    "Booking calendar",
+    ["Calendly"],
+    { hours: 2, apis: 1, logic: 1 },
+    "Embedded calendar, time zones and confirmation emails.",
+  ),
+  remind: addon(
+    "remind",
+    "Reminders and follow-ups",
+    ["Email", "SMS"],
+    { hours: 2, apis: 1, logic: 1 },
+    "Cuts no-shows with timed messages before each session.",
+  ),
+  wa: addon(
+    "wa",
+    "WhatsApp messaging",
+    ["WhatsApp"],
+    { hours: 3, apis: 1, logic: 1 },
+    "Click-to-chat plus automatic booking confirmations.",
+  ),
+  pay: addon(
+    "pay",
+    "Payments at checkout",
+    ["Stripe", "PayPal", "Apple Pay", "Google Pay"],
+    { hours: 3, apis: 2, logic: 1 },
+    "Your own accounts, tested end to end with real payments.",
+  ),
+  store: addon(
+    "store",
+    "Product store link-up",
+    ["Shopify", "WooCommerce", "Stan Store"],
+    { hours: 4, apis: 2, logic: 1 },
+    "Products, delivery and receipts joined to your funnel.",
+  ),
+  dd: addon(
+    "dd",
+    "Monthly Direct Debit",
+    ["GoCardless"],
+    { hours: 4, apis: 2, logic: 2 },
+    "Mandates, failed-payment handling and recurring plans.",
+  ),
+  crm: addon(
+    "crm",
+    "CRM and automation",
+    ["HubSpot", "Google Sheets", "Notion", "Zapier", "Make", "n8n"],
+    { hours: 5, apis: 3, logic: 2 },
+    "Every lead tracked and followed up without manual work.",
+  ),
+};
+
+export const ADS = {
+  id: "ads",
+  name: "Meta and Google Ads setup",
+  tools: ["Meta Ads", "Google Ads"],
+  note: "Your ad budget is paid directly to Meta or Google.",
+  price: priceFromEffort({ hours: 6, apis: 2, logic: 1 }),
+};
+
+/* ------------------------------------------------------------------ */
+/* AUDIENCES                                                           */
+/* ------------------------------------------------------------------ */
+
 export const AUDIENCES = [
   {
+    id: "coach",
+    name: "Fitness coaches",
+    blurb: "Book calls, take payment and keep clients on monthly plans.",
+    addons: [A.book, A.pay, A.dd, A.wa, A.remind, A.crm],
+  },
+  {
     id: "programme",
-    name: "Fitness programmes",
-    blurb:
-      "A client system: one page per programme, WhatsApp replies and booked calls.",
-    addons: [
-      { name: "Offer positioning session", price: 49, tools: [] },
-      {
-        name: "WhatsApp chat and auto-replies",
-        price: 89,
-        tools: ["WhatsApp Business"],
-      },
-      {
-        name: "Lead qualifying questions",
-        price: 49,
-        tools: ["WhatsApp Business", "Zapier", "Make"],
-      },
-      {
-        name: "Call booking and reminders",
-        price: 59,
-        tools: ["Calendly", "Google Calendar", "Zoom", "Email", "SMS"],
-      },
-      {
-        name: "Lead tracking and CRM",
-        price: 69,
-        tools: ["HubSpot", "Google Sheets", "Notion"],
-      },
-      {
-        name: "Follow-up sequence for quiet leads",
-        price: 79,
-        tools: ["Email", "WhatsApp", "Zapier", "Make"],
-      },
-    ],
+    name: "Programme creators",
+    blurb: "Sell courses and plans with instant delivery.",
+    addons: [A.pay, A.store, A.remind, A.wa, A.crm],
   },
   {
-    id: "product",
-    name: "Fitness products",
-    blurb: "A store that sells supplements, plans and ebooks while you sleep.",
-    addons: [
-      {
-        name: "Product store setup (up to 10 products)",
-        price: 129,
-        tools: ["Shopify", "WooCommerce", "Stan Store"],
-      },
-      { name: "Order bumps and bundles", price: 49, tools: [] },
-      {
-        name: "Instant digital delivery",
-        price: 39,
-        tools: ["Google Drive", "Dropbox", "Email"],
-      },
-      { name: "Apple Pay and Google Pay", price: 29, tools: ["Stripe"] },
-      {
-        name: "Fulfilment partner connection",
-        price: 69,
-        tools: ["Fulfilment partner"],
-      },
-      {
-        name: "Receipts and reorder reminders",
-        price: 79,
-        tools: ["Mailchimp", "Klaviyo"],
-      },
-    ],
-  },
-  {
-    id: "coaching",
-    name: "Coaching and counselling",
-    blurb:
-      "Clients book and pay before the call. We build the funnel only, never session content or client records.",
-    addons: [
-      {
-        name: "Paid booking page",
-        price: 59,
-        tools: ["Calendly", "Stripe", "PayPal"],
-      },
-      {
-        name: "Zoom, Meet or Teams links",
-        price: 39,
-        tools: ["Zoom", "Google Meet", "Microsoft Teams"],
-      },
-      {
-        name: "Calendar sync",
-        price: 29,
-        tools: ["Google Calendar", "Outlook", "Apple Calendar"],
-      },
-      {
-        name: "Direct Debit for monthly plans",
-        price: 69,
-        tools: ["GoCardless"],
-      },
-      {
-        name: "Reminders to cut no-shows",
-        price: 49,
-        tools: ["Email", "WhatsApp", "SMS"],
-      },
-      {
-        name: "Follow-up after the call",
-        price: 69,
-        tools: ["Zapier", "Make", "HubSpot"],
-      },
-    ],
+    id: "counsellor",
+    name: "Counsellors and therapists",
+    blurb: "Session booking, meeting links and secure payment.",
+    addons: [A.meet, A.book, A.pay, A.dd, A.remind],
   },
 ];
-
-/* PROPOSED. Available on every funnel type. */
-export const ADS = {
-  name: "Meta and Google Ads setup",
-  price: 149,
-  tools: ["Meta Ads", "Google Ads"],
-  note: "Setup only. Your ad budget is paid directly to Meta or Google.",
-};
 
 export const MIN_ADDON = Math.min(
   ...AUDIENCES.flatMap((a) => a.addons.map((x) => x.price)),
 );
 
-/* Everything the three service pages mention, plus GoCardless (the service pages leave it out). */
-export const INTEGRATIONS = [
+/* ------------------------------------------------------------------ */
+/* READY-MADE BUNDLES (computed, never typed by hand)                  */
+/* ------------------------------------------------------------------ */
+
+const BUNDLE_DEFS = [
   {
-    group: "Card and wallet payments",
-    tools: ["Stripe", "PayPal", "Apple Pay", "Google Pay"],
-    for: ["programme", "product", "coaching"],
+    id: "booking-coach",
+    name: "Booking-ready coach",
+    audience: "coach",
+    blurb: "Clients book, pay and get reminders.",
+    ids: ["book", "pay", "remind"],
   },
   {
-    group: "UK Direct Debit",
-    tools: ["GoCardless"],
-    for: ["programme", "product", "coaching"],
+    id: "monthly-coach",
+    name: "Monthly coaching",
+    audience: "coach",
+    blurb: "Direct Debit plans with WhatsApp and lead tracking.",
+    ids: ["book", "pay", "dd", "wa", "crm"],
   },
   {
-    group: "Video calls",
-    tools: ["Zoom", "Google Meet", "Microsoft Teams"],
-    for: ["programme", "coaching"],
+    id: "programme-launch",
+    name: "Programme launch",
+    audience: "programme",
+    blurb: "Sell and deliver your programme automatically.",
+    ids: ["pay", "store", "remind"],
   },
   {
-    group: "Booking and calendars",
-    tools: ["Calendly", "Google Calendar", "Outlook", "Apple Calendar"],
-    for: ["programme", "coaching"],
-  },
-  {
-    group: "Messaging",
-    tools: ["WhatsApp Business", "SMS", "Email"],
-    for: ["programme", "product", "coaching"],
-  },
-  {
-    group: "Email marketing",
-    tools: ["Mailchimp", "Klaviyo"],
-    for: ["product", "coaching"],
-  },
-  {
-    group: "CRM and tracking",
-    tools: ["HubSpot", "Google Sheets", "Notion"],
-    for: ["programme", "product", "coaching"],
-  },
-  {
-    group: "Automation",
-    tools: ["Zapier", "Make", "n8n"],
-    for: ["programme", "product", "coaching"],
-  },
-  {
-    group: "Online store",
-    tools: ["Shopify", "WooCommerce", "Stan Store"],
-    for: ["product"],
-  },
-  {
-    group: "Delivery and fulfilment",
-    tools: ["Google Drive", "Dropbox", "Fulfilment partner"],
-    for: ["product"],
-  },
-  {
-    group: "Traffic",
-    tools: ["Instagram", "TikTok", "Meta Ads", "Google Ads"],
-    for: ["programme", "product", "coaching"],
+    id: "counselling",
+    name: "Counselling practice",
+    audience: "counsellor",
+    blurb: "Booked sessions with meeting links and reminders.",
+    ids: ["meet", "book", "pay", "remind"],
   },
 ];
 
-/* VERIFIED UK payment fees, October 2026 */
+export const BUNDLES = BUNDLE_DEFS.map((b) => {
+  const items = b.ids.map((id) => A[id]);
+  const addonsTotal = items.reduce((s, x) => s + x.price, 0);
+  return { ...b, items, addonsTotal, total: CORE.price + addonsTotal };
+});
+
+/* ------------------------------------------------------------------ */
+/* INTEGRATIONS TABLE                                                  */
+/* ------------------------------------------------------------------ */
+
+export const INTEGRATIONS = [
+  {
+    group: "Meetings",
+    tools: ["Zoom", "Google Meet", "Microsoft Teams"],
+    for: ["counsellor"],
+  },
+  { group: "Calendars", tools: ["Calendly"], for: ["coach", "counsellor"] },
+  {
+    group: "Card and wallet payments",
+    tools: ["Stripe", "PayPal", "Apple Pay", "Google Pay"],
+    for: ["coach", "programme", "counsellor"],
+  },
+  {
+    group: "Direct Debit",
+    tools: ["GoCardless"],
+    for: ["coach", "counsellor"],
+  },
+  {
+    group: "Messaging",
+    tools: ["WhatsApp", "SMS", "Email"],
+    for: ["coach", "programme", "counsellor"],
+  },
+  {
+    group: "Product stores",
+    tools: ["Shopify", "WooCommerce", "Stan Store"],
+    for: ["programme"],
+  },
+  {
+    group: "Tracking and automation",
+    tools: ["HubSpot", "Google Sheets", "Notion", "Zapier", "Make", "n8n"],
+    for: ["coach", "programme"],
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* UK COSTS OUTSIDE OUR PRICE                                          */
+/* ------------------------------------------------------------------ */
+
 export const PAYMENT_FEES = [
   {
     id: "stripe",
     name: "Stripe",
     rate: "1.5% + 20p",
-    pct: 1.5,
+    pct: 0.015,
     fixed: 0.2,
-    detail:
-      "Standard UK cards. Premium UK cards 1.9% + 20p, EEA cards 2.5% + 20p, international cards 3.25% + 20p.",
+    detail: "Standard UK cards. Higher for international or premium cards.",
   },
   {
     id: "gocardless",
     name: "GoCardless",
     rate: "1% + 20p",
-    pct: 1,
+    pct: 0.01,
     fixed: 0.2,
     cap: 4,
-    detail:
-      "Direct Debit on the Standard plan, capped at £4 a payment. Excludes VAT. Suits monthly coaching plans.",
+    detail: "Per Direct Debit payment, capped at £4 (excluding VAT).",
   },
   {
     id: "paypal",
     name: "PayPal",
     rate: "2.9% + 30p",
-    pct: 2.9,
+    pct: 0.029,
     fixed: 0.3,
-    detail:
-      "Standard UK commercial payments. Other payment types can cost less.",
+    detail: "Standard UK payments.",
   },
 ];
 
-/* VERIFIED where a figure is given; otherwise billed by the provider */
 export const TOOL_COSTS = [
   {
     name: "Calendly",
-    cost: "Free plan available. Taking Stripe or PayPal payments at booking needs the Standard plan, from about $10 per user a month on annual billing ($12 monthly).",
+    cost: "Paid plan needed to take payments at booking. Standard starts at about $10 per user a month on annual billing.",
   },
   {
-    name: "Shopify",
-    cost: "Basic from about £19 a month on annual billing (around £25 monthly), plus card fees. Only needed if you choose a Shopify store.",
+    name: "Zoom, Meet and Teams",
+    cost: "Free plans work for most one-to-one sessions. Check each provider's limits.",
   },
   {
-    name: "Domain after year one",
-    cost: "Registrars typically charge about £10 to £15 a year for a .co.uk domain. Your first year is free with the core plan.",
+    name: "WhatsApp Business API",
+    cost: "Billed by your messaging provider, usually per conversation.",
   },
   {
     name: "Ad budgets",
-    cost: "Paid directly to Meta or Google. You set the budget.",
-  },
-  {
-    name: "WhatsApp, email, CRM and automation tools",
-    cost: "Billed by each provider. Many have free tiers, so check current rates before you subscribe.",
+    cost: "Paid directly to Meta or Google. You choose the amount.",
   },
 ];
 
 export const EXAMPLES = [
   {
-    label: "£75 consultation",
-    method: "Stripe, UK card",
-    amount: 75,
-    pct: 1.5,
-    fixed: 0.2,
+    label: "£60 coaching session",
+    method: "Stripe",
+    amount: 60,
+    provider: "stripe",
   },
   {
-    label: "£150 monthly coaching plan",
-    method: "GoCardless Direct Debit",
-    amount: 150,
-    pct: 1,
-    fixed: 0.2,
-    cap: 4,
+    label: "£499 monthly plan",
+    method: "GoCardless",
+    amount: 499,
+    provider: "gocardless",
   },
   {
-    label: "£49 training plan",
+    label: "£250 programme",
     method: "PayPal",
-    amount: 49,
-    pct: 2.9,
-    fixed: 0.3,
+    amount: 250,
+    provider: "paypal",
   },
 ];
 
-export const fee = ({ amount, pct, fixed, cap }) => {
-  const raw = (amount * pct) / 100 + fixed;
-  const capped = cap ? Math.min(raw, cap) : raw;
-  return Math.round((capped + 1e-9) * 100) / 100;
+export const fee = (e) => {
+  const p = PAYMENT_FEES.find((x) => x.id === e.provider);
+  const raw = e.amount * p.pct + p.fixed;
+  return p.cap ? Math.min(raw, p.cap) : raw;
 };
 
-export const gbp = (n) => `£${n.toFixed(2)}`;
+export const gbp = (n) =>
+  new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+    minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(n);
+
+export const VAT_NOTE =
+  "Prices are shown in pounds. VAT is added only if it applies to your business, and we confirm this on your quote.";

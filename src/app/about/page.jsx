@@ -20,14 +20,14 @@ const fraunces = Fraunces({
 });
 
 const DESCRIPTION =
-  "Falcoon helps UK fitness coaches, programme creators and counsellors sell online with done-for-you funnels, fixed pricing and no hidden fees.";
+  "Falcoon builds done-for-you funnels for UK fitness coaches, programme creators and counsellors, with fixed pricing and no hidden fees.";
 
 export const metadata = {
-  title: "About Falcoon | Funnels for UK Fitness Coaches & Counsellors",
+  title: "About Falcoon | Funnels for UK Fitness Coaches",
   description: DESCRIPTION,
   alternates: { canonical: "/about" },
   openGraph: {
-    title: "About Falcoon | Funnels for UK Fitness Coaches & Counsellors",
+    title: "About Falcoon | Funnels for UK Fitness Coaches",
     description: DESCRIPTION,
     locale: "en_GB",
     type: "website",
@@ -52,6 +52,84 @@ const jsonLd = {
   ],
 };
 
+/* Simple line icons (inherit colour, decorative) */
+const Ico = ({ children }) => (
+  <span className="abt-ico" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      width="30"
+      height="30"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {children}
+    </svg>
+  </span>
+);
+
+const ICONS = {
+  target: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1.2" />
+    </>
+  ),
+  eye: (
+    <>
+      <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </>
+  ),
+  programme: (
+    <>
+      <rect x="3.5" y="5" width="17" height="15" rx="2" />
+      <path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4" />
+    </>
+  ),
+  box: <path d="M12 3l8 4v10l-8 4-8-4V7zM4 7l8 4 8-4M12 11v10" />,
+  chat: <path d="M4 5h16v11H9l-5 4z" />,
+};
+
+const SERVICES = [
+  [
+    "programme",
+    "Sell Fitness Programmes",
+    "A client system that brings leads daily, not randomly.",
+    "/sell-fitness-programmes",
+    "Explore programmes",
+  ],
+  [
+    "box",
+    "Sell Fitness Products",
+    "A store and checkout that sell supplements, plans and digital products 24/7.",
+    "/sell-fitness-products",
+    "Explore products",
+  ],
+  [
+    "chat",
+    "Sell Consultations",
+    "Clients book and pay before they talk to you.",
+    "/sell-consultations",
+    "Explore consultations",
+  ],
+];
+
+const WORKS_WITH = [
+  ["Stripe", "#635bff"],
+  ["PayPal", "#003087"],
+  ["GoCardless", "#0f9d58"],
+  ["Zoom", "#2d8cff"],
+  ["Google Meet", "#00897b"],
+  ["Microsoft Teams", "#5059c9"],
+  ["WhatsApp", "#25d366"],
+  ["Zapier", "#ff4a00"],
+  ["Make", "#6d00cc"],
+];
+
 export default function AboutUs() {
   return (
     <main className={`abt-page ${dmSans.variable} ${fraunces.variable}`}>
@@ -59,6 +137,7 @@ export default function AboutUs() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
       {/* HERO */}
       <section className="abt-hero">
         <div className="abt-c abt-hero-in abt-solo">
@@ -71,7 +150,7 @@ export default function AboutUs() {
               We build the funnel. You keep <em>coaching.</em>
             </h1>
             <p>
-              We help fitness professionals across the UK sell and launch their
+              We build the funnel that lets UK fitness professionals sell their
               coaching, programmes, products and consultations online, with{" "}
               <span className="abt-ul abt-green">
                 fixed pricing and no hidden fees.
@@ -110,81 +189,41 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* PURPOSE */}
-      <section className="abt-sec abt-ivory">
-        <div className="abt-c">
-          <div className="abt-label">01 — What drives us</div>
-          <div className="abt-idea-top">
-            <h2>
-              Our <em>purpose.</em>
-            </h2>
-            <p className="abt-lead">
-              Three things we come back to every time we build something for a
-              coach, programme creator or counsellor.
-            </p>
-          </div>
-          <div className="abt-ledger">
-            <div>
-              <b>01 Mission</b>
-              <span>
-                Make it <strong>simple and easy</strong> for every UK fitness
-                professional to sell and launch online.
-              </span>
-              <em>Coaching, programmes, products and consultations.</em>
-            </div>
-            <div>
-              <b>02 Vision</b>
-              <span>
-                Become the UK&apos;s most trusted platform for coaches to build
-                successful online businesses.
-              </span>
-              <em>Nationwide, for every kind of practice.</em>
-            </div>
-            <div>
-              <b>03 Goal</b>
-              <span>
-                Empower <strong>1000+</strong> UK fitness professionals by 2027
-                to launch and sell online.
-              </span>
-              <em>One funnel at a time.</em>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* STORY */}
-      <section className="abt-sec abt-dk">
+      {/* STORY + PURPOSE */}
+      <section className="abt-sec abt-dk" aria-labelledby="abt-story-h">
         <div className="abt-c abt-two">
           <div>
-            <div className="abt-label">02 — Where it started</div>
-            <h2 style={{ marginTop: "20px" }}>
+            <h2 id="abt-story-h">
               Our <em>story.</em>
             </h2>
           </div>
           <div>
             <p className="abt-lead">
-              We created Falcoon to help talented fitness and wellbeing
-              professionals across the UK turn their expertise into successful
-              online businesses. Great coaching gets lost behind{" "}
+              We created Falcoon to help fitness and wellbeing professionals
+              across the UK turn their expertise into online businesses. Great
+              coaching gets lost behind{" "}
               <span className="abt-ul abt-red">bad funnels</span>, so we{" "}
               <span className="abt-ul abt-green">build the funnel</span> and you
-              keep coaching.
+              keep coaching. Falcoon is new, so every early client gets our full
+              attention.
             </p>
-            <div
-              className="abt-stats"
-              style={{ marginTop: "44px", marginBottom: 0 }}
-            >
+
+            <div className="abt-mv">
               <div>
-                <b>1000+</b>
-                <span>UK coaches by 2027</span>
+                <Ico>{ICONS.target}</Ico>
+                <h3>Mission</h3>
+                <p>
+                  Make it simple and easy for every UK fitness professional to
+                  sell and launch online.
+                </p>
               </div>
               <div>
-                <b>£249</b>
-                <span>Fixed funnel build</span>
-              </div>
-              <div>
-                <b>3 pages</b>
-                <span>Live in every build</span>
+                <Ico>{ICONS.eye}</Ico>
+                <h3>Vision</h3>
+                <p>
+                  Become the UK&apos;s most trusted partner for coaches building
+                  online businesses.
+                </p>
               </div>
             </div>
           </div>
@@ -192,157 +231,50 @@ export default function AboutUs() {
       </section>
 
       {/* WHAT WE BUILD */}
-      <section className="abt-sec">
+      <section className="abt-sec" aria-labelledby="abt-build-h">
         <div className="abt-c">
           <div className="abt-head abt-center">
-            <div className="abt-label">03 — What we build</div>
-            <h2>
+            <h2 id="abt-build-h">
               Three funnels. <em>One simple system.</em>
             </h2>
             <p className="abt-lead">
-              Whether you sell coaching, programmes, products or counselling
-              sessions, we build the funnel and connect every tool for you.
+              Whatever you sell, we build the funnel and connect every tool for
+              you.
             </p>
           </div>
-          <div className="abt-grid3">
-            <article className="abt-svc">
-              <h3>Sell Fitness Programmes</h3>
-              <p>
-                Turn your coaching into a system that brings clients daily, not
-                randomly.
-              </p>
-              <ul>
-                <li>High-converting landing pages</li>
-                <li>Clear offer positioning</li>
-                <li>WhatsApp + lead automation</li>
-              </ul>
-              <Link href="/sell-fitness-programmes" className="abt-more">
-                Explore programmes →
-              </Link>
-            </article>
-            <article className="abt-svc">
-              <h3>Sell Fitness Products</h3>
-              <p>
-                Sell supplements, plans and digital fitness products 24/7, even
-                while you sleep.
-              </p>
-              <ul>
-                <li>Product store setup</li>
-                <li>Checkout + payment flow</li>
-                <li>Upsell &amp; bundle system</li>
-              </ul>
-              <Link href="/sell-fitness-products" className="abt-more">
-                Explore products →
-              </Link>
-            </article>
-            <article className="abt-svc">
-              <h3>Sell Consultations</h3>
-              <p>
-                Clients book and pay before they talk to you, whether it&apos;s
-                coaching, a programme review or a counselling session.
-              </p>
-              <ul>
-                <li>Auto booking funnels</li>
-                <li>Paid Zoom/Meet integration</li>
-                <li>Smart calendar sync</li>
-              </ul>
-              <Link href="/sell-consultations" className="abt-more">
-                Explore consultations →
-              </Link>
-            </article>
-          </div>
-        </div>
-      </section>
 
-      {/* HOW WE WORK + TOOLS */}
-      <section className="abt-sec abt-ivory">
-        <div className="abt-c">
-          <div className="abt-head" style={{ maxWidth: "820px" }}>
-            <div className="abt-label">04 — How we work</div>
-            <h2>
-              Every tool connected, <em>zero effort</em> from you.
-            </h2>
-            <p className="abt-lead">
-              We wire the whole flow together, from the first click to the
-              follow-up, using the tools you already know.
-            </p>
+          <div className="abt-cols">
+            {SERVICES.map(([k, t, x, href, label]) => (
+              <article key={t}>
+                <Ico>{ICONS[k]}</Ico>
+                <h3>{t}</h3>
+                <p>{x}</p>
+                <Link href={href} className="abt-more">
+                  {label} →
+                </Link>
+              </article>
+            ))}
           </div>
-          <div className="abt-grid3">
-            <div className="abt-ic">
-              <small>Video calls</small>
-              <h3>Zoom, Meet or Teams</h3>
-              <div className="abt-chips">
-                <span className="abt-chip" style={{ "--d": "#2d8cff" }}>
-                  <i></i>Zoom
+
+          <div className="abt-works">
+            <div className="abt-sl">Works with the tools you already use</div>
+            <div className="abt-chips">
+              {WORKS_WITH.map(([n, c]) => (
+                <span className="abt-chip" style={{ "--d": c }} key={n}>
+                  <i></i>
+                  {n}
                 </span>
-                <span className="abt-chip" style={{ "--d": "#00897b" }}>
-                  <i></i>Google Meet
-                </span>
-                <span className="abt-chip" style={{ "--d": "#5059c9" }}>
-                  <i></i>Microsoft Teams
-                </span>
-              </div>
-            </div>
-            <div className="abt-ic">
-              <small>Payments</small>
-              <h3>Paid before the session</h3>
-              <div className="abt-chips">
-                <span className="abt-chip" style={{ "--d": "#635bff" }}>
-                  <i></i>Stripe
-                </span>
-                <span className="abt-chip" style={{ "--d": "#003087" }}>
-                  <i></i>PayPal
-                </span>
-                <span className="abt-chip" style={{ "--d": "#0f9d58" }}>
-                  <i></i>GoCardless<em className="abt-uk">UK</em>
-                </span>
-              </div>
-            </div>
-            <div className="abt-ic">
-              <small>Messaging &amp; automation</small>
-              <h3>Follow-ups on autopilot</h3>
-              <div className="abt-chips">
-                <span className="abt-chip" style={{ "--d": "#25d366" }}>
-                  <i></i>WhatsApp
-                </span>
-                <span className="abt-chip" style={{ "--d": "#ff4a00" }}>
-                  <i></i>Zapier
-                </span>
-                <span className="abt-chip" style={{ "--d": "#6d00cc" }}>
-                  <i></i>Make
-                </span>
-                <span className="abt-chip" style={{ "--d": "#ea4b71" }}>
-                  <i></i>n8n
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="abt-ledger" style={{ marginTop: "56px" }}>
-            <div>
-              <b>Fixed pricing</b>
-              <span>One fixed price to build your funnel</span>
-              <em>No hidden fees, no surprises</em>
-            </div>
-            <div>
-              <b>Done for you</b>
-              <span>We design, write, build and test it</span>
-              <em>You focus on your clients</em>
-            </div>
-            <div>
-              <b>UK first</b>
-              <span>Built around UK payments and Direct Debit</span>
-              <em>Stripe, PayPal and GoCardless</em>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* WHO WE HELP */}
-      <section className="abt-sec">
+      <section className="abt-sec abt-ivory" aria-labelledby="abt-who-h">
         <div className="abt-c abt-two">
           <div>
-            <div className="abt-label">05 — Who we help</div>
-            <h2 style={{ marginTop: "20px" }}>
+            <h2 id="abt-who-h">
               Built for UK professionals who sell their{" "}
               <em>time and expertise.</em>
             </h2>
@@ -368,13 +300,12 @@ export default function AboutUs() {
       {/* CTA */}
       <section className="abt-cta">
         <div className="abt-c">
-          <div className="abt-label">
-            For UK fitness &amp; wellbeing professionals
-          </div>
           <h2>
-            Ready to grow your business <em>across the UK?</em>
+            Ready to launch and sell <em>online?</em>
           </h2>
-          <p>Let&apos;s help you launch and sell successfully.</p>
+          <p>
+            Book a free audit and we&apos;ll show you the funnel for your offer.
+          </p>
           <a
             href={CALENDLY}
             className="abt-btn abt-d"

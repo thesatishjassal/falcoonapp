@@ -1142,6 +1142,7 @@
   gap: 14px;
   margin-top: 32px;
   display: flex;
+  justify-content: center;
 }
 .sfp-ctas-c {
   justify-content: center;
@@ -1734,5 +1735,125 @@
   }
   .sfp-tilt {
     transition: none;
+  }
+}
+/* Classical, restrained styling: hairline rules, thin line icons,
+   no gradients, no shadows. Import AFTER sell-fitness-products.css.
+   The hero is not touched. */
+
+/* Thin line icon, no tile */
+.sfp-page .sfp-ico {
+  flex: none;
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: #8a6d3b;
+}
+.sfp-page .sfp-dk .sfp-ico {
+  color: #d9bf84;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+.sfp-page .sfp-ico svg {
+  width: 30px;
+  height: 30px;
+  stroke-width: 1.3;
+}
+
+/* PROBLEM: ruled list, two columns */
+.sfp-page .sfp-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 48px;
+  margin-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+.sfp-page .sfp-list .sfp-li {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* JOURNEY: ruled grid, serif step labels */
+.sfp-page .sfp-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 48px;
+  margin-top: 44px;
+  border-top: 1px solid rgba(20, 20, 30, 0.28);
+}
+.sfp-page .sfp-flow .sfp-fi {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 30px 0 34px;
+  border: 0;
+  border-bottom: 1px solid rgba(20, 20, 30, 0.14);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.sfp-page .sfp-flow .sfp-fi::before,
+.sfp-page .sfp-flow .sfp-fi::after {
+  display: none;
+}
+.sfp-page .sfp-flow .sfp-fn {
+  margin-top: 10px;
+  padding: 0;
+  background: none;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #8a6d3b;
+}
+.sfp-page .sfp-flow .sfp-ft {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.sfp-page .sfp-flow .sfp-fx {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+/* "Works with" chip row */
+.sfp-page #system .sfp-sl {
+  text-align: center;
+  margin-bottom: 14px;
+}
+.sfp-page #system .sfp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .sfp-page .sfp-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 32px;
+  }
+}
+@media (max-width: 600px) {
+  .sfp-page .sfp-list,
+  .sfp-page .sfp-flow {
+    grid-template-columns: 1fr;
   }
 }

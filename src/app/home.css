@@ -1354,6 +1354,7 @@
   font-size: 20px;
   line-height: 1.45;
   margin-bottom: 26px;
+  color: #fff;
 }
 .hm-tq figcaption {
   display: grid;
@@ -3139,5 +3140,169 @@
   .hm-fin-days li::before {
     background: var(--gold-l);
     border-color: var(--gold-l);
+  }
+}
+/* Classical, restrained styling for the home page: hairline rules,
+   thin line icons, no gradients, no shadows. Import AFTER home.css.
+   The hero is not touched. */
+
+/* Thin line icon, no tile */
+.hm-page .hm-ico {
+  flex: none;
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: #8a6d3b;
+}
+.hm-page .hm-dk .hm-ico {
+  color: #d9bf84;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+.hm-page .hm-ico svg {
+  width: 30px;
+  height: 30px;
+  stroke-width: 1.3;
+}
+
+/* PROBLEM: one ruled ledger, "without" on the left, "with" on the right */
+.hm-page .hm-pcs {
+  display: block;
+  margin-top: 48px;
+  border-top: 2px solid #1a1a22;
+}
+.hm-page .hm-pc {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 0;
+  padding: 30px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(26, 26, 34, 0.16);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: inherit;
+}
+.hm-page .hm-pc p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.45;
+}
+.hm-page .hm-pc small {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.hm-page .hm-pc-no {
+  padding: 0 36px 0 0;
+  border: 0;
+  opacity: 1;
+  color: #6b6559;
+}
+.hm-page .hm-pc-no small {
+  color: #9b4a3a;
+}
+.hm-page .hm-pc-yes {
+  padding: 0 0 0 36px;
+  border-left: 1px solid rgba(26, 26, 34, 0.18);
+  font-weight: 600;
+  color: #1a1a22;
+}
+.hm-page .hm-pc-yes small {
+  color: #2f6b4a;
+}
+
+/* HOW IT WORKS: ruled columns on the dark section */
+.hm-page .hm-steps li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 30px 28px 0 0;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.hm-page .hm-steps li .hm-sn {
+  margin-top: 8px;
+  padding: 0;
+  background: none;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #d9bf84;
+}
+
+/* SERVICES: icon above the tag */
+.hm-page .hm-svc .hm-ico {
+  margin-bottom: 16px;
+}
+
+/* PRICING: thin tick marks instead of bullets */
+.hm-page .hm-plan ul {
+  list-style: none;
+  padding-left: 0;
+  gap: 10px;
+}
+.hm-page .hm-plan li {
+  position: relative;
+  padding-left: 28px;
+}
+.hm-page .hm-plan li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.28em;
+  width: 16px;
+  height: 16px;
+  background: #8a6d3b;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+
+/* TESTIMONIALS: outlined initials */
+.hm-page .hm-av {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 16px;
+  border: 1px solid #8a6d3b;
+  border-radius: 50%;
+  background: none;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #8a6d3b;
+}
+
+@media (max-width: 760px) {
+  .hm-page .hm-pc {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .hm-page .hm-pc-no {
+    padding-right: 0;
+  }
+  .hm-page .hm-pc-yes {
+    padding-left: 0;
+    border-left: 0;
   }
 }
