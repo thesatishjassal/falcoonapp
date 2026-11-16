@@ -3,7 +3,6 @@ import ScnMotion from "../components/ScnMotion";
 import ScnBudgetCalc, { ScnCtaPair } from "../components/ScnBudgetCalc";
 import ScnIntakeForm from "../components/ScnIntakeForm";
 
-
 export const metadata = {
   title: "Sell Paid Consultations Online | Falcoon",
   description:
