@@ -306,7 +306,8 @@ export default function SellConsultationsPage() {
             title={<>From click to <em>paid session.</em></>}
             lead="Follow one new client through your funnel. Every step runs on its own."
           />
-          <ol className="scv-steps">
+          <p className="scv-swipe" aria-hidden="true">Swipe to see each step <span>→</span></p>
+          <ol className="scv-steps scv-rail" tabIndex={0} aria-label="The six steps, scroll sideways on small screens">
             {STORY.map(([icon, step, head, text], i) => (
               <li key={step} className={i === 2 ? "scv-step scv-step-key" : "scv-step"}>
                 <span className="scv-ico"><Icon name={icon} /></span>
@@ -331,7 +332,7 @@ export default function SellConsultationsPage() {
             title={<>Everything, <em>A to Z.</em></>}
             lead="One package covers the whole journey, from a stranger finding your page to a paid, returning client."
           />
-          <ul className="scv-grid">
+          <ul className="scv-grid scv-grid-compact">
             {INCLUDED.map(([icon, title, text]) => (
               <li className="scv-tile" key={title}>
                 <span className="scv-ico"><Icon name={icon} /></span>
@@ -423,7 +424,8 @@ export default function SellConsultationsPage() {
             lead="Pay once to build it. Add Care if you'd rather never think about the tech."
             center
           />
-          <div className="scv-plans">
+          <p className="scv-swipe" aria-hidden="true">Swipe to compare plans <span>→</span></p>
+          <div className="scv-plans scv-rail" tabIndex={0} role="group" aria-label="Plans, scroll sideways on small screens">
             {PLANS.map((p) => (
               <article
                 key={p.id}
@@ -503,7 +505,8 @@ export default function SellConsultationsPage() {
             title={<>Private by <em>design.</em></>}
             lead="Your clients share something personal. The system collects as little as it can."
           />
-          <ul className="scv-grid scv-grid-4">
+          <p className="scv-swipe scv-swipe-dk" aria-hidden="true">Swipe <span>→</span></p>
+          <ul className="scv-grid scv-grid-4 scv-rail" tabIndex={0} aria-label="Privacy features, scroll sideways on small screens">
             {PRIVACY.map(([icon, title, text]) => (
               <li className="scv-tile scv-tile-dk" key={title}>
                 <span className="scv-ico"><Icon name={icon} /></span>
@@ -550,6 +553,17 @@ export default function SellConsultationsPage() {
           </div>
         </div>
       </section>
+
+      {/* Mobile-only sticky action bar */}
+      <nav className="scv-mbar" aria-label="Quick actions">
+        <a href="#pricing" className="scv-mbar-price">
+          <b>From £499</b>
+          <span>See plans</span>
+        </a>
+        <a className="scn-btn" href="#start">
+          Book free audit <span aria-hidden="true">→</span>
+        </a>
+      </nav>
     </div>
   );
 }
