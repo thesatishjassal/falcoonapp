@@ -1,4 +1,3 @@
-import { dmSans, fraunces } from "./fonts";
 import "../sell-consultations.css";
 import ScnMotion from "../components/ScnMotion";
 import ScnBudgetCalc, { ScnCtaPair } from "../components/ScnBudgetCalc";
