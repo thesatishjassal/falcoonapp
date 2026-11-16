@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const CORE_ONE_TIME = 149;
+const CORE_ONE_TIME = 499;
 
 const CALENDLY_URL =
   "https://calendly.com/thesatishjassal/free-strategy-call-uk";
@@ -915,7 +915,7 @@ export default function PricingPage() {
         <div className="hero" ref={heroRef}>
           <div className="hero-eyebrow">Built for UK fitness brands</div>
           <h1>
-            Every funnel starts from £149, paid once. What you add on top is up
+            Every funnel starts from £499, paid once. What you add on top is up
             to you.
           </h1>
           <p>
@@ -964,7 +964,7 @@ export default function PricingPage() {
                   <h2 className="step-title">What are you selling?</h2>
                   <p className="step-sub">
                     This tells us which add-ons to recommend — it never changes
-                    your £149 core plan.
+                    your £499 core plan.
                   </p>
 
                   <div
@@ -1213,7 +1213,7 @@ export default function PricingPage() {
             )}
 
             <div className="summary-trust">
-              From £149 one-time · Support from £39/mo · Built for UK fitness
+              From £499 one-time · Support from £39/mo · Built for UK fitness
               brands
             </div>
           </div>

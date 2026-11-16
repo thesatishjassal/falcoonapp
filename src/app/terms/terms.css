@@ -1,0 +1,424 @@
+/* Terms page. Prefix "tc-", scoped to .tc-page. Tokens match the About page. */
+.tc-page {
+  --black: #0b0b0a;
+  --ivory: #f5f1e8;
+  --paper: #fbf9f4;
+  --gold: #8a6d33;
+  --gold-l: #d0b477;
+  --text: #252421;
+  --muted: #5f5c55;
+  --border: rgba(11, 11, 10, 0.14);
+  --serif: var(--font-fraunces), Georgia, serif;
+  --sans: var(--font-dm-sans), Arial, sans-serif;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+.tc-page * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.tc-page a {
+  color: inherit;
+}
+.tc-page h1,
+.tc-page h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+}
+.tc-c {
+  width: min(1220px, calc(100% - 64px));
+  margin: 0 auto;
+}
+
+.tc-hero {
+  background:
+    radial-gradient(
+      900px 480px at 88% 15%,
+      rgba(184, 150, 85, 0.2),
+      transparent 60%
+    ),
+    var(--black);
+  color: #fff;
+  padding: 130px 0 70px;
+}
+.tc-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 28px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--gold-l);
+}
+.tc-eyebrow::before {
+  content: "";
+  width: 35px;
+  height: 1px;
+  background: var(--gold-l);
+}
+.tc-h1 {
+  font-size: clamp(46px, 5.4vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+.tc-h1 em {
+  color: var(--gold-l);
+  font-style: italic;
+}
+.tc-hero p {
+  margin-top: 24px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.tc-body {
+  padding: 90px 0 110px;
+  background: var(--ivory);
+}
+.tc-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.tc-toc {
+  position: sticky;
+  top: 32px;
+  border-top: 1px solid var(--black);
+}
+.tc-toc-t {
+  padding: 16px 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.tc-toc a {
+  display: block;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.tc-toc a:hover {
+  color: var(--black);
+}
+
+.tc-doc {
+  max-width: 720px;
+  border-top: 1px solid var(--black);
+}
+.tc-sec {
+  padding: 36px 0;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 32px;
+}
+.tc-sec h2 {
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 14px;
+}
+.tc-sec h2 span {
+  color: var(--gold);
+  margin-right: 14px;
+}
+.tc-sec p,
+.tc-sec li {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.tc-sec ul {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+.tc-sec li::before {
+  content: "✓";
+  color: var(--gold);
+  margin-right: 12px;
+}
+.tc-sec strong,
+.tc-sec a {
+  color: var(--black);
+  font-weight: 600;
+}
+.tc-sec a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--gold-l);
+}
+.tc-page :focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .tc-c {
+    width: min(100% - 40px, 700px);
+  }
+  .tc-hero {
+    padding: 110px 0 48px;
+  }
+  .tc-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .tc-toc {
+    position: static;
+  }
+}
+@media (max-width: 600px) {
+  .tc-c {
+    width: calc(100% - 32px);
+  }
+  .tc-body {
+    padding: 56px 0 70px;
+  }
+  .tc-sec h2 {
+    font-size: 26px;
+  }
+  .tc-h1 {
+    font-size: 46px;
+  }
+}
+/* Team page. Prefix "tm-", scoped to .tm-page. Tokens match the About page. */
+.tm-page {
+  --black: #0b0b0a;
+  --ivory: #f5f1e8;
+  --paper: #fbf9f4;
+  --gold: #8a6d33;
+  --gold-l: #d0b477;
+  --text: #252421;
+  --muted: #5f5c55;
+  --border: rgba(11, 11, 10, 0.14);
+  --serif: var(--font-fraunces), Georgia, serif;
+  --sans: var(--font-dm-sans), Arial, sans-serif;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+.tm-page * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.tm-page a {
+  text-decoration: none;
+}
+.tm-page em {
+  font-style: italic;
+}
+.tm-page h1,
+.tm-page h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+}
+.tm-c {
+  width: min(1220px, calc(100% - 64px));
+  margin: 0 auto;
+}
+
+/* hero */
+.tm-hero {
+  background:
+    radial-gradient(
+      900px 480px at 88% 15%,
+      rgba(184, 150, 85, 0.2),
+      transparent 60%
+    ),
+    var(--black);
+  color: #fff;
+  padding: 130px 0 80px;
+}
+.tm-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 28px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--gold-l);
+}
+.tm-eyebrow::before {
+  content: "";
+  width: 35px;
+  height: 1px;
+  background: var(--gold-l);
+}
+.tm-h1 {
+  font-size: clamp(46px, 5.4vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  max-width: 900px;
+}
+.tm-h1 em {
+  color: var(--gold-l);
+}
+.tm-hero p {
+  margin-top: 30px;
+  max-width: 620px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+/* hand-drawn underline */
+.tm-ul {
+  font-weight: 600;
+  padding-bottom: 0.2em;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 0.5em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.tm-ul.tm-green {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M1 4 C14 8 24 2 38 6 S60 2 74 6 S90 3 99 6' fill='none' stroke='%234cc788' stroke-width='3' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+
+/* grid */
+.tm-sec {
+  padding: 100px 0;
+  background: var(--ivory);
+}
+.tm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.tm-card {
+  background: #fff;
+  padding: 40px 34px 38px;
+  display: flex;
+  flex-direction: column;
+}
+.tm-avatar {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 30px;
+  background: var(--black);
+  color: var(--gold-l);
+  font-family: var(--serif);
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+.tm-name {
+  font-size: 30px;
+  line-height: 1.05;
+  margin-bottom: 10px;
+}
+.tm-role {
+  align-self: flex-start;
+  margin-bottom: 18px;
+  padding: 5px 10px;
+  background: #faf5ea;
+  border: 1px solid var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+}
+.tm-bio {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* cta */
+.tm-cta {
+  padding: 110px 0;
+  background: var(--paper);
+  text-align: center;
+}
+.tm-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.tm-cta h2 {
+  max-width: 950px;
+  margin: 28px auto 0;
+  font-size: clamp(42px, 5.6vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+.tm-cta p {
+  max-width: 520px;
+  margin: 32px auto 38px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 16px;
+}
+.tm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 17px 24px;
+  background: var(--black);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  transition: 0.25s;
+}
+.tm-btn:hover {
+  background: var(--gold-l);
+  color: var(--black);
+}
+.tm-page :focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .tm-c {
+    width: min(100% - 40px, 700px);
+  }
+  .tm-hero {
+    padding: 110px 0 56px;
+  }
+  .tm-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .tm-c {
+    width: calc(100% - 32px);
+  }
+  .tm-grid {
+    grid-template-columns: 1fr;
+  }
+  .tm-sec {
+    padding: 64px 0;
+  }
+  .tm-cta {
+    padding: 70px 0;
+  }
+  .tm-h1 {
+    font-size: 46px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tm-btn {
+    transition: none;
+  }
+}

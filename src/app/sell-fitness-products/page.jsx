@@ -1,6 +1,11 @@
-import Link from "next/link";
 import { DM_Sans, Fraunces } from "next/font/google";
 import "../sell-fitness-products.css";
+import SfpCtaPair from "../components/SfpCtaPair";
+import SfpBudgetCalc from "../components/SfpBudgetCalc";
+import SfpPricing from "../components/SfpPricing";
+import SfpFaq from "../components/SfpFaq";
+import SfpHeroPhone from "../components/SfpHeroPhone";
+import { CORE, AUDIENCES, gbp } from "../components/pricing-data";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -17,11 +22,100 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
+// Cheapest add-on a product seller is likely to need (payments, store, reminders, WhatsApp, CRM)
+const PROGRAMME = AUDIENCES.find((a) => a.id === "programme");
+const MIN_PRODUCT_ADDON = Math.min(...PROGRAMME.addons.map((x) => x.price));
+
 export const metadata = {
-  title: "Sell Fitness Products Online | Falcoon",
-  description:
-    "Sell supplements, plans and digital fitness products 24/7, even while you sleep. Falcoon builds the product store, checkout flow and upsell system for UK personal brand fitness coaches.",
+  title: "Sell Fitness Products Online | Store and Checkout | Falcoon",
+  description: `Sell supplements, plans and digital fitness products 24/7. Falcoon builds the store, checkout and upsells for UK fitness coaches. Core build ${gbp(CORE.price)} one-time.`,
 };
+
+/* Simple line icons (inherit colour, decorative) */
+const Ico = ({ children }) => (
+  <span className="sfp-ico" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      width="22"
+      height="22"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {children}
+    </svg>
+  </span>
+);
+
+const ICONS = {
+  dm: <path d="M4 5h16v11H9l-5 4z" />,
+  file: <path d="M7 3h7l4 4v14H7zM14 3v4h4" />,
+  bank: <path d="M3 9l9-5 9 5M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18" />,
+  box: <path d="M12 3l8 4v10l-8 4-8-4V7zM4 7l8 4 8-4M12 11v10" />,
+  store: <path d="M4 9l1.5-5h13L20 9M4 9v11h16V9M4 9h16M10 20v-6h4v6" />,
+  basket: <path d="M3 8h18l-2 11H5zM8 8l4-5 4 5" />,
+  card: (
+    <>
+      <rect x="3" y="6" width="18" height="13" rx="2" />
+      <path d="M3 11h18M7 15h4" />
+    </>
+  ),
+  layers: <path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5" />,
+  download: <path d="M12 4v11M7 11l5 5 5-5M5 20h14" />,
+  bell: <path d="M6 16v-5a6 6 0 0112 0v5l2 2H4zM10 21h4" />,
+};
+
+const PROBLEMS = [
+  ["dm", "Orders lost in DMs and inboxes"],
+  ["file", "Sending files and links by hand"],
+  ["bank", "Bank transfers and chasing payments"],
+  ["box", "One product per buyer, no add-ons"],
+];
+
+const JOURNEY_ICONS = ["store", "basket", "card", "layers", "download", "bell"];
+
+const JOURNEY = [
+  [
+    "Browse",
+    "A clean store in your brand, with clear product pages, photos and reviews.",
+  ],
+  [
+    "Add to basket",
+    "Buyers add supplements, plans or bundles in one tap, on mobile first.",
+  ],
+  [
+    "Check out",
+    "A short checkout with card, PayPal, Apple Pay and Google Pay.",
+  ],
+  [
+    "Upsell",
+    "Order bumps and bundle offers appear when buyers are ready to say yes.",
+  ],
+  [
+    "Deliver",
+    "Digital products arrive by instant download. Physical orders go to your fulfilment partner.",
+  ],
+  [
+    "Follow up",
+    "Receipts, usage tips and a reorder reminder go out without you lifting a finger.",
+  ],
+];
+
+// One compact row replaces the old five-card integrations section
+const WORKS_WITH = [
+  ["Shopify", "#95bf47"],
+  ["WooCommerce", "#21759b"],
+  ["Stan Store", "#222"],
+  ["Stripe", "#635bff"],
+  ["PayPal", "#003087"],
+  ["Apple Pay", "#111"],
+  ["Google Pay", "#4285f4"],
+  ["WhatsApp", "#25d366"],
+  ["Mailchimp", "#ffb800"],
+  ["Zapier", "#ff4a00"],
+];
 
 export default function SellFitnessProductsPage() {
   return (
@@ -31,7 +125,7 @@ export default function SellFitnessProductsPage() {
         <div className="sfp-c sfp-hero-in">
           <div>
             <div className="sfp-eyebrow">
-              For UK personal brand fitness coaches
+              For UK fitness coaches and creators
             </div>
             <h1>
               Sell products
@@ -40,142 +134,67 @@ export default function SellFitnessProductsPage() {
             </h1>
             <p>
               Sell supplements, plans and digital fitness products 24/7. We
-              build the store, checkout and upsell system, so every order is
-              paid for and delivered without you.
+              build the store, checkout and upsells, so every order is paid for
+              and delivered without you.
             </p>
-            <a
-              href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
-              className="sfp-btn"
-              target="_blank"
-              rel="noopener"
-            >
-              Build my product store <span>→</span>
-            </a>
+            <SfpCtaPair />
+            <p className="sfp-micro">
+              Free strategy call. Core build {gbp(CORE.price)} one-time. Store,
+              delivery and upsells are add-ons from {gbp(MIN_PRODUCT_ADDON)}.
+            </p>
           </div>
-          <div className="sfp-hv" aria-hidden="true">
-            <div className="sfp-phone">
-              <div className="sfp-lock-time">02:14</div>
-              <div className="sfp-lock-date">Tuesday 13 January</div>
-              <div className="sfp-note">
-                <div className="sfp-nh">
-                  <span>Your store</span>
-                  <span>now</span>
-                </div>
-                <strong>New order · £59.00</strong>
-                <span>Starter bundle, paid with Apple Pay</span>
-              </div>
-              <div className="sfp-note">
-                <div className="sfp-nh">
-                  <span>Your store</span>
-                  <span>1h ago</span>
-                </div>
-                <strong>New order · £49.00</strong>
-                <span>12-week strength plan, delivered</span>
-              </div>
-              <div className="sfp-note">
-                <div className="sfp-nh">
-                  <span>Your store</span>
-                  <span>3h ago</span>
-                </div>
-                <strong>New order · £34.99</strong>
-                <span>Whey protein, sent to fulfilment</span>
-              </div>
-              <div className="sfp-lock-foot">£142.99 while you slept</div>
-            </div>
+          <div className="sfp-hv">
+            <SfpHeroPhone />
           </div>
         </div>
         <div className="sfp-c sfp-pillars">
           <div>
-            <b>Product store setup</b>
+            <b>Product store</b>
             <span>A branded shop for supplements, plans and ebooks.</span>
           </div>
           <div>
-            <b>Checkout + payment flow</b>
+            <b>Fast checkout</b>
             <span>Card, PayPal and Apple Pay, with instant delivery.</span>
           </div>
           <div>
-            <b>Upsell &amp; bundle system</b>
-            <span>Order bumps and bundles that grow every basket.</span>
-          </div>
-        </div>
-      </section>
-
-      {/* INTRO */}
-      <section className="sfp-sec sfp-ivory">
-        <div className="sfp-c">
-          <div className="sfp-label">01 — The idea</div>
-          <div className="sfp-idea-top">
-            <h2>
-              You already have something people want. Let them buy it{" "}
-              <em>at 2am.</em>
-            </h2>
-            <p className="sfp-lead">
-              Right now buying from you means a DM, a wait and a bank transfer.
-              Most people give up before the reply arrives.
-              <br />
-              <br />
-              <strong>
-                Every product you sell should be one tap from checkout.
-              </strong>
-            </p>
-          </div>
-          <div className="sfp-ledger">
-            <div>
-              <b>Supplements</b>
-              <span>Ordered in two taps</span>
-              <em>Shipped by your fulfilment partner</em>
-            </div>
-            <div>
-              <b>Training plans</b>
-              <span>Paid at checkout</span>
-              <em>Downloaded in seconds</em>
-            </div>
-            <div>
-              <b>Recipe books &amp; guides</b>
-              <span>Added as an order bump</span>
-              <em>Emailed instantly</em>
-            </div>
-            <div>
-              <b>Bundles</b>
-              <span>Priced to raise the basket</span>
-              <em>Delivered together</em>
-            </div>
+            <b>Upsells and bundles</b>
+            <span>Order bumps that grow every basket.</span>
           </div>
         </div>
       </section>
 
       {/* PROBLEM */}
-      <section className="sfp-sec sfp-dk">
+      <section className="sfp-sec sfp-dk" aria-labelledby="sfp-problem-h">
         <div className="sfp-c sfp-two">
           <div>
-            <div className="sfp-label">02 — The problem</div>
-            <h2 style={{ marginTop: "20px" }}>
+            <h2 id="sfp-problem-h">
               Stop selling one DM at <em>a time.</em>
             </h2>
           </div>
           <div>
             <p className="sfp-lead">
-              Selling through Instagram DMs, link-in-bio pages and PDF
-              attachments loses sales you&apos;ve already earned. Buyers want to
-              check out now, not wait until you&apos;re back online.
+              Selling through DMs, link-in-bio pages and PDF attachments loses
+              sales you&apos;ve already earned. Buyers want to check out now,
+              not wait until you&apos;re back online.
             </p>
             <div className="sfp-list">
-              <div className="sfp-li">Orders lost in DMs and inboxes</div>
-              <div className="sfp-li">Sending files and links by hand</div>
-              <div className="sfp-li">Bank transfers and chasing payments</div>
-              <div className="sfp-li">One product per buyer, no add-ons</div>
+              {PROBLEMS.map(([k, t]) => (
+                <div className="sfp-li" key={t}>
+                  <Ico>{ICONS[k]}</Ico>
+                  <span>{t}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* FUNNEL */}
-      <section className="sfp-sec" id="system">
+      {/* JOURNEY */}
+      <section className="sfp-sec" id="system" aria-labelledby="sfp-journey-h">
         <div className="sfp-c">
           <div className="sfp-head sfp-sys-h">
             <div>
-              <div className="sfp-label">03 — The journey</div>
-              <h2 style={{ marginTop: "20px" }}>
+              <h2 id="sfp-journey-h">
                 From scroll to <em>delivered.</em>
               </h2>
             </div>
@@ -185,105 +204,36 @@ export default function SellFitnessProductsPage() {
             </p>
           </div>
           <div className="sfp-flow">
-            <div className="sfp-fi">
-              <div className="sfp-fn">01</div>
-              <div className="sfp-ft">Browse</div>
-              <div className="sfp-fx">
-                A clean store in your brand, with clear product pages, photos
-                and reviews.
+            {JOURNEY.map(([t, x], i) => (
+              <div className="sfp-fi" key={t}>
+                <Ico>{ICONS[JOURNEY_ICONS[i]]}</Ico>
+                <div className="sfp-fn">Step {i + 1}</div>
+                <div className="sfp-ft">{t}</div>
+                <div className="sfp-fx">{x}</div>
               </div>
-            </div>
-            <div className="sfp-fi">
-              <div className="sfp-fn">02</div>
-              <div className="sfp-ft">Add to basket</div>
-              <div className="sfp-fx">
-                Buyers add supplements, plans or bundles in one tap, on mobile
-                first.
-              </div>
-            </div>
-            <div className="sfp-fi">
-              <div className="sfp-fn">03</div>
-              <div className="sfp-ft">Check out</div>
-              <div className="sfp-fx">
-                A short checkout with card, PayPal, Apple Pay and Google Pay.
-              </div>
-            </div>
-            <div className="sfp-fi">
-              <div className="sfp-fn">04</div>
-              <div className="sfp-ft">Upsell</div>
-              <div className="sfp-fx">
-                Order bumps and bundle offers appear at the moment buyers are
-                ready to say yes.
-              </div>
-            </div>
-            <div className="sfp-fi">
-              <div className="sfp-fn">05</div>
-              <div className="sfp-ft">Deliver</div>
-              <div className="sfp-fx">
-                Digital products arrive by instant download. Physical orders go
-                to your fulfilment partner.
-              </div>
-            </div>
-            <div className="sfp-fi">
-              <div className="sfp-fn">06</div>
-              <div className="sfp-ft">Follow up</div>
-              <div className="sfp-fx">
-                Receipts, usage tips and a reorder reminder go out without you
-                lifting a finger.
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
-      </section>
 
-      {/* FEATURES */}
-      <section className="sfp-sec sfp-ivory" id="products">
-        <div className="sfp-c">
-          <div className="sfp-head sfp-center">
-            <div className="sfp-label">04 — Sell fitness products</div>
-            <h2>
-              A store that sells <em>around the clock.</em>
-            </h2>
-            <p className="sfp-lead">Here&apos;s what we build for you.</p>
-          </div>
-          <div className="sfp-grid3">
-            <article className="sfp-card">
-              <small>01</small>
-              <h3>Product store setup</h3>
-              <p>
-                A branded store for supplements, training plans, ebooks and
-                programmes. Product pages, categories and pricing are set up and
-                ready to sell.
-              </p>
-            </article>
-            <article className="sfp-card">
-              <small>02</small>
-              <h3>Checkout + payment flow</h3>
-              <p>
-                A fast, secure checkout that takes payment by card, PayPal or
-                Apple Pay. Digital products are delivered the moment the payment
-                clears.
-              </p>
-            </article>
-            <article className="sfp-card">
-              <small>03</small>
-              <h3>Upsell &amp; bundle system</h3>
-              <p>
-                Order bumps, bundles and post-purchase offers that raise the
-                value of every order, with no extra work from you.
-              </p>
-            </article>
+          <div style={{ marginTop: "40px" }}>
+            <div className="sfp-sl">Works with the tools you already use</div>
+            <div className="sfp-chips">
+              {WORKS_WITH.map(([n, c]) => (
+                <span className="sfp-chip" style={{ "--d": c }} key={n}>
+                  <i></i>
+                  {n}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* SHOWCASE */}
-      <section className="sfp-sec sfp-dk">
+      <section className="sfp-sec sfp-dk" aria-labelledby="sfp-show-h">
         <div className="sfp-c">
           <div className="sfp-head" style={{ maxWidth: "780px" }}>
-            <div className="sfp-label">05 — See it in action</div>
-            <h2>
-              One store. <em>Every kind</em> of product.
+            <h2 id="sfp-show-h">
+              Browse, buy, <em>delivered.</em>
             </h2>
             <p className="sfp-lead">
               Supplements, plans or bundles: shopping, payment and delivery all
@@ -293,7 +243,7 @@ export default function SellFitnessProductsPage() {
           <div className="sfp-grid3">
             <div>
               <div className="sfp-sl">Product page</div>
-              <div className="sfp-win">
+              <div className="sfp-win" aria-hidden="true">
                 <div className="sfp-bar">
                   <div className="sfp-dots">
                     <i></i>
@@ -326,14 +276,13 @@ export default function SellFitnessProductsPage() {
                 </div>
               </div>
               <p className="sfp-cap">
-                A product page that explains the result, shows the price and
-                makes buying obvious.
+                A page that explains the result and makes buying obvious.
               </p>
             </div>
 
             <div>
-              <div className="sfp-sl">Checkout + order bump</div>
-              <div className="sfp-win">
+              <div className="sfp-sl">Checkout and order bump</div>
+              <div className="sfp-win" aria-hidden="true">
                 <div className="sfp-bar">
                   <div className="sfp-dots">
                     <i></i>
@@ -366,7 +315,7 @@ export default function SellFitnessProductsPage() {
                     <span>PayPal</span>
                     <span>Apple Pay</span>
                   </div>
-                  <div className="sfp-pay">Pay &amp; download</div>
+                  <div className="sfp-pay">Pay and download</div>
                 </div>
               </div>
               <p className="sfp-cap">
@@ -376,7 +325,7 @@ export default function SellFitnessProductsPage() {
 
             <div>
               <div className="sfp-sl">Bundles</div>
-              <div className="sfp-win">
+              <div className="sfp-win" aria-hidden="true">
                 <div className="sfp-bar">
                   <div className="sfp-dots">
                     <i></i>
@@ -420,264 +369,26 @@ export default function SellFitnessProductsPage() {
               </p>
             </div>
           </div>
+          <SfpCtaPair center secondary="budget" />
         </div>
       </section>
 
-      {/* INTEGRATIONS */}
-      <section className="sfp-sec sfp-ivory" id="integrations">
-        <div className="sfp-c">
-          <div className="sfp-head sfp-center">
-            <div className="sfp-label">06 — Integrations</div>
-            <h2>
-              Plugs into the tools you <em>already use.</em>
-            </h2>
-            <p className="sfp-lead">
-              Store, payments, delivery and email, connected into one system
-              that runs without you.
-            </p>
-          </div>
-          <div className="sfp-grid3">
-            <div className="sfp-ic">
-              <small>Store</small>
-              <h3>Where you sell</h3>
-              <div className="sfp-chips">
-                <span className="sfp-chip" style={{ "--d": "#95bf47" }}>
-                  <i></i>Shopify
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#21759b" }}>
-                  <i></i>WooCommerce
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#222" }}>
-                  <i></i>Stan Store
-                </span>
-              </div>
-            </div>
-            <div className="sfp-ic">
-              <small>Payments</small>
-              <h3>Get paid at checkout</h3>
-              <div className="sfp-chips">
-                <span className="sfp-chip" style={{ "--d": "#635bff" }}>
-                  <i></i>Stripe
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#003087" }}>
-                  <i></i>PayPal
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#111" }}>
-                  <i></i>Apple Pay
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#4285f4" }}>
-                  <i></i>Google Pay
-                </span>
-              </div>
-            </div>
-            <div className="sfp-ic">
-              <small>Delivery</small>
-              <h3>Files and fulfilment</h3>
-              <div className="sfp-chips">
-                <span className="sfp-chip" style={{ "--d": "#4285f4" }}>
-                  <i></i>Google Drive
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#0061ff" }}>
-                  <i></i>Dropbox
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#8a6d3b" }}>
-                  <i></i>Fulfilment partner
-                </span>
-              </div>
-            </div>
-            <div className="sfp-ic">
-              <small>Email &amp; messaging</small>
-              <h3>Receipts and reminders</h3>
-              <div className="sfp-chips">
-                <span className="sfp-chip" style={{ "--d": "#ea4335" }}>
-                  <i></i>Email
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#25d366" }}>
-                  <i></i>WhatsApp
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#ffb800" }}>
-                  <i></i>Mailchimp
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#6b6b6b" }}>
-                  <i></i>Klaviyo
-                </span>
-              </div>
-            </div>
-            <div className="sfp-ic">
-              <small>Automation &amp; CRM</small>
-              <h3>Follow-ups on autopilot</h3>
-              <div className="sfp-chips">
-                <span className="sfp-chip" style={{ "--d": "#ff4a00" }}>
-                  <i></i>Zapier
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#6d00cc" }}>
-                  <i></i>Make
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#ff7a59" }}>
-                  <i></i>HubSpot
-                </span>
-                <span className="sfp-chip" style={{ "--d": "#0f9d58" }}>
-                  <i></i>Google Sheets
-                </span>
-              </div>
-            </div>
-            <div className="sfp-ic">
-              <small>Something else?</small>
-              <h3>Your own stack</h3>
-              <p>
-                Using another tool? If it connects through Zapier or Make, we
-                can wire it in.
-              </p>
-            </div>
-          </div>
-
-          <div className="sfp-auto">
-            <h3>
-              What happens <em>automatically.</em>
-            </h3>
-            <p>
-              From the moment a customer taps buy, nothing needs your attention.
-            </p>
-            <div className="sfp-af">
-              <div className="sfp-node">
-                <small>Store</small>
-                <strong>Order placed</strong>Basket, bundle or single product.
-              </div>
-              <div className="sfp-ar">→</div>
-              <div className="sfp-node">
-                <small>Stripe · PayPal</small>
-                <strong>Payment taken</strong>Secure, one-step checkout.
-              </div>
-              <div className="sfp-ar">→</div>
-              <div className="sfp-node">
-                <small>Email</small>
-                <strong>Product delivered</strong>Instant download or order sent
-                to fulfilment.
-              </div>
-              <div className="sfp-ar">→</div>
-              <div className="sfp-node">
-                <small>Checkout</small>
-                <strong>Upsell offered</strong>Bump or bundle added to the
-                order.
-              </div>
-              <div className="sfp-ar">→</div>
-              <div className="sfp-node">
-                <small>Email · WhatsApp</small>
-                <strong>Receipt sent</strong>Confirmation and usage tips.
-              </div>
-              <div className="sfp-ar">→</div>
-              <div className="sfp-node">
-                <small>CRM · Zapier</small>
-                <strong>Reorder triggered</strong>Reminder when stock runs low.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* QUOTE */}
-      <section className="sfp-quote">
-        <div className="sfp-c">
-          <div className="sfp-qm">“</div>
-          <h2>
-            Your best salesperson <em>never clocks off.</em>
-          </h2>
-        </div>
-      </section>
-
-      {/* PARTNERSHIP */}
-      <section className="sfp-sec sfp-part" id="partnership">
-        <div className="sfp-c sfp-two">
-          <div className="sfp-dash" aria-hidden="true">
-            <div className="sfp-dh">
-              <span>Overnight orders</span>
-              <span className="sfp-badge">Example</span>
-            </div>
-            <div className="sfp-dr">
-              <time>00:42</time>
-              <div>
-                <strong>Starter bundle</strong>
-                <small>Plan + recipes · Apple Pay</small>
-              </div>
-              <em>£59 · Paid</em>
-            </div>
-            <div className="sfp-dr">
-              <time>02:14</time>
-              <div>
-                <strong>Full kit + order bump</strong>
-                <small>Plan, recipes, protein · Card</small>
-              </div>
-              <em>£97 · Paid</em>
-            </div>
-            <div className="sfp-dr">
-              <time>06:55</time>
-              <div>
-                <strong>12-week strength plan</strong>
-                <small>Instant download · PayPal</small>
-              </div>
-              <em>£49 · Paid</em>
-            </div>
-            <div className="sfp-df">
-              3 orders · £205 · all delivered automatically
-            </div>
-          </div>
-
-          <div>
-            <div className="sfp-label" style={{ color: "var(--gold-l)" }}>
-              07 — The partnership
-            </div>
-            <h2>
-              You build the <em>brand.</em>
-              <br />
-              We build the <em>store.</em>
-            </h2>
-            <p>
-              Falcoon sets up your product store, checkout and upsell system, so
-              you can launch and start selling without touching the tech.
-            </p>
-            <div className="sfp-checks">
-              <div className="sfp-chk">Branded product store</div>
-              <div className="sfp-chk">
-                Checkout with every major payment method
-              </div>
-              <div className="sfp-chk">
-                Instant delivery of digital products
-              </div>
-              <div className="sfp-chk">Order bumps and bundles</div>
-              <div className="sfp-chk">Receipts, reminders and follow-ups</div>
-              <div className="sfp-chk">Mobile-first experience</div>
-            </div>
-            <a
-              href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
-              className="sfp-btn"
-              target="_blank"
-              rel="noopener"
-            >
-              Book your strategy call <span>→</span>
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* BUDGET CALCULATOR → PRICING → FAQ */}
+      <SfpBudgetCalc />
+      <SfpPricing />
+      <SfpFaq />
 
       {/* CTA */}
       <section className="sfp-cta">
         <div className="sfp-c">
-          <div className="sfp-label">For UK personal brand fitness coaches</div>
           <h2>
             Let&apos;s build your <em>product store.</em>
           </h2>
           <p>
             Book a free strategy call and we&apos;ll map out the store, checkout
-            and upsell system that sells your products 24/7.
+            and upsells that sell your products 24/7.
           </p>
-          <a
-            href="https://calendly.com/thesatishjassal/free-strategy-call-uk"
-            className="sfp-btn sfp-d"
-            target="_blank"
-            rel="noopener"
-          >
-            Book a free strategy call <span>→</span>
-          </a>
+          <SfpCtaPair dark />
         </div>
       </section>
     </div>

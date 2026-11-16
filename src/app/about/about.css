@@ -1624,3 +1624,100 @@
 .abt-dk .abt-ul.abt-red {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M1 6 C12 2 20 8 33 4 S55 8 68 4 S88 7 99 3' fill='none' stroke='%23ff6b60' stroke-width='3' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
 }
+/* About page: ruled, classical, no shadows. Import AFTER about.css */
+
+.abt-page .abt-ico {
+  display: inline-flex;
+  color: #8a6d3b;
+}
+.abt-page .abt-dk .abt-ico {
+  color: #d9bf84;
+}
+
+/* Mission and vision: two ruled columns */
+.abt-page .abt-mv {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 40px;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+.abt-page .abt-mv > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 28px 0 0;
+}
+.abt-page .abt-mv h3 {
+  margin: 4px 0 0;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #d9bf84;
+}
+.abt-page .abt-mv p {
+  margin: 0;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* What we build: three ruled columns */
+.abt-page .abt-cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 48px;
+  margin-top: 48px;
+  border-top: 2px solid #1a1a22;
+}
+.abt-page .abt-cols article {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 30px 0 34px;
+  border-bottom: 1px solid rgba(26, 26, 34, 0.16);
+}
+.abt-page .abt-cols h3 {
+  margin: 6px 0 0;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.abt-page .abt-cols p {
+  margin: 0;
+  line-height: 1.6;
+  opacity: 0.82;
+}
+.abt-page .abt-cols .abt-more {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+/* Works with */
+.abt-page .abt-works {
+  margin-top: 48px;
+  text-align: center;
+}
+.abt-page .abt-works .abt-sl {
+  margin-bottom: 14px;
+}
+.abt-page .abt-works .abt-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .abt-page .abt-cols {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .abt-page .abt-mv {
+    grid-template-columns: 1fr;
+  }
+}

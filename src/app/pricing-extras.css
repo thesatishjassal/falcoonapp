@@ -61,3 +61,84 @@
   font-size: 14.5px;
   line-height: 1.7;
 }
+/* Accordions for the simplified pricing page. Import AFTER pricing-ux.css. */
+
+.prx .pux-accs {
+  border-top: 2px solid #1a1a22;
+}
+.prx .pux-acc {
+  border-bottom: 1px solid rgba(26, 26, 34, 0.16);
+}
+.prx .pux-acc summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 40px 24px 0;
+  position: relative;
+  cursor: pointer;
+  list-style: none;
+}
+.prx .pux-acc summary::-webkit-details-marker {
+  display: none;
+}
+.prx .pux-acc summary::after {
+  content: "+";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: #8a6d3b;
+}
+.prx .pux-acc[open] summary::after {
+  content: "\2212";
+}
+.prx .pux-acc summary:focus-visible {
+  outline: 2px solid #8a6d3b;
+  outline-offset: 4px;
+}
+.prx .pux-acc-t {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.prx .pux-acc-s {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #8a6d3b;
+  text-align: right;
+}
+.prx .pux-acc > .prx-sub {
+  margin: 0 0 8px;
+  max-width: 60ch;
+}
+.prx .pux-acc > .prx-ledger {
+  margin: 0 0 28px;
+}
+
+/* dark section */
+.prx .prx-dk .pux-accs {
+  border-top-color: rgba(255, 255, 255, 0.35);
+}
+.prx .prx-dk .pux-acc {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+.prx .prx-dk .pux-acc-s,
+.prx .prx-dk .pux-acc summary::after {
+  color: #d9bf84;
+}
+
+@media (max-width: 600px) {
+  .prx .pux-acc summary {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .prx .pux-acc-s {
+    text-align: left;
+  }
+}

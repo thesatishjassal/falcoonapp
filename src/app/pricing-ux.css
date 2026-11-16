@@ -1,0 +1,271 @@
+/* pricing-ux.css: extra UX layer. Falls back to neutral colours if your
+   existing pricing CSS variables are not defined. */
+
+.prx {
+  --pux-ink: var(--ink, #1c2430);
+  --pux-muted: var(--muted, #5b6573);
+  --pux-line: var(--line, #dde2e8);
+  --pux-bg: var(--card, #ffffff);
+  --pux-accent: var(--accent, #1f5f4a);
+  --pux-accent-soft: color-mix(in srgb, var(--pux-accent) 10%, white);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+.prx section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* Sticky jump nav: one tap to any section on a phone */
+.pux-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--pux-bg) 94%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--pux-line);
+}
+.pux-nav ul {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;
+  max-width: 1120px;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.pux-nav ul::-webkit-scrollbar {
+  display: none;
+}
+.pux-nav a {
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  min-height: 44px;
+  line-height: 1.7;
+  border: 1px solid var(--pux-line);
+  border-radius: 999px;
+  color: var(--pux-ink);
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.pux-nav a:hover {
+  background: var(--pux-accent-soft);
+  border-color: var(--pux-accent);
+}
+
+/* Focus visibility everywhere */
+.pux-nav a:focus-visible,
+.pux-incl summary:focus-visible,
+.prx-scroll:focus-visible {
+  outline: 3px solid var(--pux-accent);
+  outline-offset: 2px;
+}
+
+/* Three-step overview */
+.pux-steps {
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0 1.25rem;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(3, 1fr);
+}
+.pux-steps li {
+  display: flex;
+  gap: 0.9rem;
+  padding: 1.25rem;
+  border: 1px solid var(--pux-line);
+  border-radius: 14px;
+  background: var(--pux-bg);
+}
+.pux-step-n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--pux-accent);
+  color: #fff;
+  font-weight: 600;
+}
+.pux-steps h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+.pux-steps p {
+  margin: 0.25rem 0 0;
+  color: var(--pux-muted);
+  font-size: 0.95rem;
+}
+.pux-steps .pux-big {
+  color: var(--pux-ink);
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.9rem;
+  line-height: 1.15;
+}
+
+.pux-incl {
+  border: 1px solid var(--pux-line);
+  border-radius: 12px;
+  background: var(--pux-bg);
+}
+.pux-incl summary {
+  padding: 0.9rem 1.1rem;
+  min-height: 44px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.pux-incl ul {
+  margin: 0;
+  padding: 0 1.1rem 1rem;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* Bundles */
+.pux-bundles {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+.pux-bundle {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  border: 1px solid var(--pux-line);
+  border-radius: 14px;
+  background: var(--pux-bg);
+}
+.pux-for {
+  margin: 0;
+  color: var(--pux-accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.pux-bundle h3 {
+  margin: 0.2rem 0 0.3rem;
+}
+.pux-blurb {
+  margin: 0 0 0.75rem;
+  color: var(--pux-muted);
+  font-size: 0.92rem;
+}
+.pux-total {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}
+.pux-total b {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.8rem;
+}
+.pux-bundle ul {
+  margin: auto 0 0;
+  padding: 0.75rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--pux-line);
+}
+.pux-bundle li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.25rem 0;
+  font-size: 0.88rem;
+  color: var(--pux-muted);
+}
+
+/* Add-on effort chips */
+.pux-chip {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.pux-light {
+  background: #e6f2ec;
+  color: #1d5a40;
+}
+.pux-standard {
+  background: #fdf1d9;
+  color: #7a5200;
+}
+.pux-advanced {
+  background: #e9e5f7;
+  color: #4a3a8c;
+}
+.pux-why {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+/* Support plans */
+.pux-support {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 820px;
+}
+.pux-plan {
+  padding: 1.5rem;
+  border: 1px solid var(--pux-line);
+  border-radius: 14px;
+  background: var(--pux-bg);
+}
+.pux-plan-pick {
+  border: 2px solid var(--pux-accent);
+}
+.pux-plan h3 {
+  margin: 0;
+}
+.pux-price {
+  margin: 0.25rem 0 0.5rem;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 2.2rem;
+  line-height: 1.1;
+}
+.pux-price small {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: var(--pux-muted);
+}
+.pux-plan ul {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* Tablet and phone */
+@media (max-width: 1000px) {
+  .pux-bundles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 720px) {
+  .pux-steps,
+  .pux-bundles,
+  .pux-support {
+    grid-template-columns: 1fr;
+  }
+  .prx-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,8 +1,10 @@
-import Link from "next/link";
 import { DM_Sans, Fraunces } from "next/font/google";
 import "../sell-fitness-programmes.css";
-
-const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
+import PrgCtaPair from "../components/PrgCtaPair";
+import PrgHeroPhone from "../components/PrgHeroPhone";
+import PrgBudgetCalc from "../components/Prgbudgetcalc";
+import PrgPricing from "../components/PrgPricing";
+import PrgFaq from "../components/PrgFaq";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -22,8 +24,112 @@ const fraunces = Fraunces({
 export const metadata = {
   title: "Sell Fitness Programmes Online | Falcoon",
   description:
-    "Turn your coaching into a system that brings clients daily, not randomly. Falcoon builds high-converting landing pages, clear offer positioning and WhatsApp lead automation for UK personal brand fitness coaches.",
+    "A client system that brings leads daily, not randomly. Landing pages, offer positioning and WhatsApp automation for UK fitness coaches. Core build £499 one-time.",
 };
+
+/* Simple line icons (inherit colour, decorative) */
+const Ico = ({ children }) => (
+  <span className="prg-ico" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      width="22"
+      height="22"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {children}
+    </svg>
+  </span>
+);
+
+const ICONS = {
+  trend: <path d="M3 17l6-6 4 4 8-8M15 7h6v6" />,
+  help: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.5 9.5a2.5 2.5 0 015 .5c0 1.5-2.5 2-2.5 3.5M12 17h.01" />
+    </>
+  ),
+  dm: <path d="M4 5h16v11H9l-5 4z" />,
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </>
+  ),
+  megaphone: (
+    <path d="M3 11v2a1 1 0 001 1h3l7 4V6L7 10H4a1 1 0 00-1 1zM18 9a4 4 0 010 6" />
+  ),
+  page: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <path d="M4 9h16M8 13h8" />
+    </>
+  ),
+  check: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M8 12l3 3 5-6" />
+    </>
+  ),
+  calendar: (
+    <>
+      <rect x="3.5" y="5" width="17" height="15" rx="2" />
+      <path d="M3.5 10h17M8 3v4M16 3v4" />
+    </>
+  ),
+  bell: <path d="M6 16v-5a6 6 0 0112 0v5l2 2H4zM10 21h4" />,
+};
+
+const PROBLEMS = [
+  ["trend", "Clients only when a post lands"],
+  ["help", "Followers who don't know what you sell"],
+  ["dm", "Leads going cold in your DMs"],
+  ["clock", "Following up by hand, when you remember"],
+];
+
+const JOURNEY = [
+  [
+    "Attract",
+    "Your content and ads send people to one link, not a bio full of options.",
+  ],
+  [
+    "Land",
+    "A page that says who the programme is for, what they get and what it costs.",
+  ],
+  ["Message", "One tap opens WhatsApp with their question already started."],
+  [
+    "Qualify",
+    "Automatic replies ask about goals and availability, so you only talk to good fits.",
+  ],
+  [
+    "Book",
+    "Qualified leads pick a time for a call, straight into your calendar.",
+  ],
+  [
+    "Follow up",
+    "Leads who go quiet get timely nudges until they book or say no.",
+  ],
+];
+
+const JOURNEY_ICONS = ["megaphone", "page", "dm", "check", "calendar", "bell"];
+
+// One compact row replaces the old six-card integrations section
+const WORKS_WITH = [
+  ["Instagram", "#e1306c"],
+  ["TikTok", "#111"],
+  ["Meta Ads", "#0866ff"],
+  ["Google Ads", "#4285f4"],
+  ["WhatsApp Business", "#25d366"],
+  ["Calendly", "#006bff"],
+  ["Zoom", "#2d8cff"],
+  ["HubSpot", "#ff7a59"],
+  ["Google Sheets", "#0f9d58"],
+  ["Zapier", "#ff4a00"],
+];
 
 export default function SellFitnessProgrammesPage() {
   return (
@@ -43,37 +149,14 @@ export default function SellFitnessProgrammesPage() {
               build the pages, the offer and the WhatsApp automation that turn
               attention into booked calls.
             </p>
-            <a
-              href={CALENDLY}
-              className="prg-btn"
-              target="_blank"
-              rel="noopener"
-            >
-              Build my client system <span>→</span>
-            </a>
+            <PrgCtaPair />
+            <p className="prg-micro">
+              Free audit. No payment needed. Core build £499 one-time; WhatsApp,
+              booking and follow-ups are add-ons from £49.
+            </p>
           </div>
-          <div className="prg-hv" aria-hidden="true">
-            <div className="prg-phone prg-chatphone">
-              <div className="prg-chat-h">
-                <b>New lead</b>
-                <span>Today, 21:47</span>
-              </div>
-              <div className="prg-bub prg-in">
-                Hi, saw your 12-week programme. Is it right for me?
-              </div>
-              <div className="prg-bub prg-out">
-                Hi Sam! It&apos;s built for busy people who want to lose fat and
-                build strength. What&apos;s your goal, and how many days can you
-                train?
-              </div>
-              <div className="prg-bub prg-in">Lose 10kg, 4 days a week</div>
-              <div className="prg-bub prg-out">
-                Great fit. Free call with the coach: Thu 10:00 or Fri 17:30?
-              </div>
-              <div className="prg-lock-foot">
-                Qualified and booked while you were offline
-              </div>
-            </div>
+          <div className="prg-hv">
+            <PrgHeroPhone />
           </div>
         </div>
         <div className="prg-c prg-pillars">
@@ -92,84 +175,39 @@ export default function SellFitnessProgrammesPage() {
         </div>
       </section>
 
-      {/* INTRO */}
-      <section className="prg-sec prg-ivory">
-        <div className="prg-c">
-          <div className="prg-label">01 — The idea</div>
-          <div className="prg-idea-top">
-            <h2>
-              Posting more won&apos;t fix it. A <em>system</em> will.
-            </h2>
-            <p className="prg-lead">
-              Most coaches get clients in bursts: a post goes well, enquiries
-              arrive, then it goes quiet. Daily clients need a path that works
-              every day, whatever you posted.
-              <br />
-              <br />
-              <strong>Every follower should have one clear next step.</strong>
-            </p>
-          </div>
-          <div className="prg-ledger">
-            <div>
-              <b>Instagram &amp; TikTok</b>
-              <span>Lands on a page for one programme</span>
-              <em>Opens a WhatsApp chat in one tap</em>
-            </div>
-            <div>
-              <b>Paid ads</b>
-              <span>Sees a clear offer, price and result</span>
-              <em>Gets a reply in seconds</em>
-            </div>
-            <div>
-              <b>Referrals &amp; DMs</b>
-              <span>Shares the same single link</span>
-              <em>Logged to your CRM automatically</em>
-            </div>
-            <div>
-              <b>Quiet leads</b>
-              <span>Receives a short follow-up sequence</span>
-              <em>Comes back without you chasing</em>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* PROBLEM */}
-      <section className="prg-sec prg-dk">
+      <section className="prg-sec prg-dk" aria-labelledby="prg-problem-h">
         <div className="prg-c prg-two">
           <div>
-            <div className="prg-label">02 — The problem</div>
-            <h2 style={{ marginTop: "20px" }}>
-              Feast, then <em>famine.</em>
+            <h2 id="prg-problem-h">
+              Posting more won&apos;t fix it. A <em>system</em> will.
             </h2>
           </div>
           <div>
             <p className="prg-lead">
               Without a system, your income follows your posting. A good week
               fills your diary. A bad one empties it, and every lead you reply
-              to late is a lead you may have lost.
+              to late is a lead you may have lost. Every follower should have
+              one clear next step.
             </p>
             <div className="prg-list">
-              <div className="prg-li">Clients only when a post lands</div>
-              <div className="prg-li">
-                Followers who don&apos;t know what you sell
-              </div>
-              <div className="prg-li">Leads going cold in your DMs</div>
-              <div className="prg-li">
-                Following up by hand, when you remember
-              </div>
+              {PROBLEMS.map(([k, t]) => (
+                <div className="prg-li" key={t}>
+                  <Ico>{ICONS[k]}</Ico>
+                  <span>{t}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* JOURNEY */}
-      <section className="prg-sec" id="system">
+      <section className="prg-sec" id="system" aria-labelledby="prg-system-h">
         <div className="prg-c">
           <div className="prg-head prg-sys-h">
             <div>
-              <div className="prg-label">03 — The system</div>
-              <h2 style={{ marginTop: "20px" }}>
+              <h2 id="prg-system-h">
                 From follower to <em>new client.</em>
               </h2>
             </div>
@@ -179,102 +217,35 @@ export default function SellFitnessProgrammesPage() {
             </p>
           </div>
           <div className="prg-flow">
-            <div className="prg-fi">
-              <div className="prg-fn">01</div>
-              <div className="prg-ft">Attract</div>
-              <div className="prg-fx">
-                Your content and ads send people to one link, not a bio full of
-                options.
+            {JOURNEY.map(([t, x], i) => (
+              <div className="prg-fi" key={t}>
+                <Ico>{ICONS[JOURNEY_ICONS[i]]}</Ico>
+                <div className="prg-fn">Step {i + 1}</div>
+                <div className="prg-ft">{t}</div>
+                <div className="prg-fx">{x}</div>
               </div>
-            </div>
-            <div className="prg-fi">
-              <div className="prg-fn">02</div>
-              <div className="prg-ft">Land</div>
-              <div className="prg-fx">
-                A page that says who the programme is for, what they get and
-                what it costs.
-              </div>
-            </div>
-            <div className="prg-fi">
-              <div className="prg-fn">03</div>
-              <div className="prg-ft">Message</div>
-              <div className="prg-fx">
-                One tap opens WhatsApp with their question already started.
-              </div>
-            </div>
-            <div className="prg-fi">
-              <div className="prg-fn">04</div>
-              <div className="prg-ft">Qualify</div>
-              <div className="prg-fx">
-                Automatic replies ask about goals and availability, so you only
-                talk to good fits.
-              </div>
-            </div>
-            <div className="prg-fi">
-              <div className="prg-fn">05</div>
-              <div className="prg-ft">Book</div>
-              <div className="prg-fx">
-                Qualified leads pick a time for a call, straight into your
-                calendar.
-              </div>
-            </div>
-            <div className="prg-fi">
-              <div className="prg-fn">06</div>
-              <div className="prg-ft">Follow up</div>
-              <div className="prg-fx">
-                Leads who go quiet get timely nudges until they book or say no.
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
-      </section>
 
-      {/* FEATURES */}
-      <section className="prg-sec prg-ivory" id="programmes">
-        <div className="prg-c">
-          <div className="prg-head prg-center">
-            <div className="prg-label">04 — Sell fitness programmes</div>
-            <h2>
-              A client system that runs <em>every day.</em>
-            </h2>
-            <p className="prg-lead">Here&apos;s what we build for you.</p>
-          </div>
-          <div className="prg-grid3">
-            <article className="prg-card">
-              <small>01</small>
-              <h3>High-converting landing pages</h3>
-              <p>
-                A fast, mobile-first page for each programme, written to turn a
-                visitor into an enquiry. One message and one action per page.
-              </p>
-            </article>
-            <article className="prg-card">
-              <small>02</small>
-              <h3>Clear offer positioning</h3>
-              <p>
-                We sharpen who your programme is for, the result it delivers and
-                why you are the one to choose, so people understand it in
-                seconds.
-              </p>
-            </article>
-            <article className="prg-card">
-              <small>03</small>
-              <h3>WhatsApp + lead automation</h3>
-              <p>
-                Instant replies, qualifying questions, call booking and
-                follow-ups on WhatsApp, with every lead tracked for you.
-              </p>
-            </article>
+          <div style={{ marginTop: "40px" }}>
+            <div className="prg-sl">Works with the tools you already use</div>
+            <div className="prg-chips">
+              {WORKS_WITH.map(([n, c]) => (
+                <span className="prg-chip" style={{ "--d": c }} key={n}>
+                  <i></i>
+                  {n}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* SHOWCASE */}
-      <section className="prg-sec prg-dk">
+      <section className="prg-sec prg-dk" aria-labelledby="prg-show-h">
         <div className="prg-c">
           <div className="prg-head" style={{ maxWidth: "780px" }}>
-            <div className="prg-label">05 — See it in action</div>
-            <h2>
+            <h2 id="prg-show-h">
               One page. One offer. <em>One clear step.</em>
             </h2>
             <p className="prg-lead">
@@ -285,7 +256,7 @@ export default function SellFitnessProgrammesPage() {
           <div className="prg-grid3">
             <div>
               <div className="prg-sl">Landing page</div>
-              <div className="prg-win">
+              <div className="prg-win" aria-hidden="true">
                 <div className="prg-bar">
                   <div className="prg-dots">
                     <i></i>
@@ -324,7 +295,7 @@ export default function SellFitnessProgrammesPage() {
 
             <div>
               <div className="prg-sl">Offer positioning</div>
-              <div className="prg-win">
+              <div className="prg-win" aria-hidden="true">
                 <div className="prg-bar">
                   <div className="prg-dots">
                     <i></i>
@@ -360,7 +331,7 @@ export default function SellFitnessProgrammesPage() {
 
             <div>
               <div className="prg-sl">WhatsApp automation</div>
-              <div className="prg-win">
+              <div className="prg-win" aria-hidden="true">
                 <div className="prg-bar">
                   <div className="prg-dots">
                     <i></i>
@@ -397,166 +368,16 @@ export default function SellFitnessProgrammesPage() {
               </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* INTEGRATIONS */}
-      <section className="prg-sec prg-ivory" id="integrations">
-        <div className="prg-c">
-          <div className="prg-head prg-center">
-            <div className="prg-label">06 — Integrations</div>
-            <h2>
-              Plugs into the tools you <em>already use.</em>
-            </h2>
-            <p className="prg-lead">
-              Traffic, messaging, booking and tracking, connected into one
-              system that runs without you.
-            </p>
-          </div>
-          <div className="prg-grid3">
-            <div className="prg-ic">
-              <small>Traffic</small>
-              <h3>Where leads come from</h3>
-              <div className="prg-chips">
-                <span className="prg-chip" style={{ "--d": "#e1306c" }}>
-                  <i></i>Instagram
-                </span>
-                <span className="prg-chip" style={{ "--d": "#111" }}>
-                  <i></i>TikTok
-                </span>
-                <span className="prg-chip" style={{ "--d": "#0866ff" }}>
-                  <i></i>Meta Ads
-                </span>
-                <span className="prg-chip" style={{ "--d": "#4285f4" }}>
-                  <i></i>Google Ads
-                </span>
-              </div>
-            </div>
-            <div className="prg-ic">
-              <small>Messaging</small>
-              <h3>Reply instantly</h3>
-              <div className="prg-chips">
-                <span className="prg-chip" style={{ "--d": "#25d366" }}>
-                  <i></i>WhatsApp Business
-                </span>
-                <span className="prg-chip" style={{ "--d": "#6b6b6b" }}>
-                  <i></i>SMS
-                </span>
-                <span className="prg-chip" style={{ "--d": "#ea4335" }}>
-                  <i></i>Email
-                </span>
-              </div>
-            </div>
-            <div className="prg-ic">
-              <small>Booking</small>
-              <h3>Calls in your diary</h3>
-              <div className="prg-chips">
-                <span className="prg-chip" style={{ "--d": "#006bff" }}>
-                  <i></i>Calendly
-                </span>
-                <span className="prg-chip" style={{ "--d": "#4285f4" }}>
-                  <i></i>Google Calendar
-                </span>
-                <span className="prg-chip" style={{ "--d": "#2d8cff" }}>
-                  <i></i>Zoom
-                </span>
-              </div>
-            </div>
-            <div className="prg-ic">
-              <small>CRM</small>
-              <h3>Every lead tracked</h3>
-              <div className="prg-chips">
-                <span className="prg-chip" style={{ "--d": "#ff7a59" }}>
-                  <i></i>HubSpot
-                </span>
-                <span className="prg-chip" style={{ "--d": "#0f9d58" }}>
-                  <i></i>Google Sheets
-                </span>
-                <span className="prg-chip" style={{ "--d": "#222" }}>
-                  <i></i>Notion
-                </span>
-              </div>
-            </div>
-            <div className="prg-ic">
-              <small>Automation</small>
-              <h3>Follow-ups on autopilot</h3>
-              <div className="prg-chips">
-                <span className="prg-chip" style={{ "--d": "#ff4a00" }}>
-                  <i></i>Zapier
-                </span>
-                <span className="prg-chip" style={{ "--d": "#6d00cc" }}>
-                  <i></i>Make
-                </span>
-                <span className="prg-chip" style={{ "--d": "#ffb800" }}>
-                  <i></i>Mailchimp
-                </span>
-              </div>
-            </div>
-            <div className="prg-ic">
-              <small>Something else?</small>
-              <h3>Your own stack</h3>
-              <p>
-                Using another tool? If it connects through Zapier or Make, we
-                can wire it in.
-              </p>
-            </div>
-          </div>
-
-          <div className="prg-auto">
-            <h3>
-              What happens <em>automatically.</em>
-            </h3>
-            <p>
-              From the moment someone enquires, the system works the lead until
-              they book.
-            </p>
-            <div className="prg-af">
-              <div className="prg-node">
-                <small>Page · Ad</small>
-                <strong>Lead arrives</strong>From any source, one link.
-              </div>
-              <div className="prg-ar">→</div>
-              <div className="prg-node">
-                <small>WhatsApp</small>
-                <strong>Instant reply</strong>Answered within seconds.
-              </div>
-              <div className="prg-ar">→</div>
-              <div className="prg-node">
-                <small>WhatsApp</small>
-                <strong>Lead qualified</strong>Goal and availability asked.
-              </div>
-              <div className="prg-ar">→</div>
-              <div className="prg-node">
-                <small>Calendly</small>
-                <strong>Call booked</strong>Added to your calendar.
-              </div>
-              <div className="prg-ar">→</div>
-              <div className="prg-node">
-                <small>Email · SMS</small>
-                <strong>Reminder sent</strong>Fewer no-shows.
-              </div>
-              <div className="prg-ar">→</div>
-              <div className="prg-node">
-                <small>CRM · Zapier</small>
-                <strong>Follow-up queued</strong>If they go quiet.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* QUOTE */}
-      <section className="prg-quote">
-        <div className="prg-c">
-          <div className="prg-qm">&ldquo;</div>
-          <h2>
-            Your income shouldn&apos;t depend on your best <em>post day.</em>
-          </h2>
+          <PrgCtaPair center secondary="budget" />
         </div>
       </section>
 
       {/* PARTNERSHIP */}
-      <section className="prg-sec prg-part" id="partnership">
+      <section
+        className="prg-sec prg-part"
+        id="partnership"
+        aria-labelledby="prg-part-h"
+      >
         <div className="prg-c prg-two">
           <div className="prg-dash" aria-hidden="true">
             <div className="prg-dh">
@@ -593,10 +414,7 @@ export default function SellFitnessProgrammesPage() {
           </div>
 
           <div>
-            <div className="prg-label" style={{ color: "var(--gold-l)" }}>
-              07 — The partnership
-            </div>
-            <h2>
+            <h2 id="prg-part-h">
               You coach the <em>clients.</em>
               <br />
               We build the <em>system.</em>
@@ -613,37 +431,26 @@ export default function SellFitnessProgrammesPage() {
               <div className="prg-chk">Lead tracking and follow-ups</div>
               <div className="prg-chk">Mobile-first experience</div>
             </div>
-            <a
-              href={CALENDLY}
-              className="prg-btn"
-              target="_blank"
-              rel="noopener"
-            >
-              Book your strategy call <span>→</span>
-            </a>
           </div>
         </div>
       </section>
 
+      {/* BUDGET CALCULATOR → PRICING → FAQ */}
+      <PrgBudgetCalc />
+      <PrgPricing />
+      <PrgFaq />
+
       {/* CTA */}
       <section className="prg-cta">
         <div className="prg-c">
-          <div className="prg-label">For UK personal brand fitness coaches</div>
           <h2>
             Let&apos;s build your <em>client system.</em>
           </h2>
           <p>
-            Book a free strategy call and we&apos;ll map out the pages, offer
+            Book a free website audit and we&apos;ll map out the pages, offer
             and automation that bring you clients every day.
           </p>
-          <a
-            href={CALENDLY}
-            className="prg-btn prg-d"
-            target="_blank"
-            rel="noopener"
-          >
-            Book a free strategy call <span>→</span>
-          </a>
+          <PrgCtaPair dark />
         </div>
       </section>
     </div>

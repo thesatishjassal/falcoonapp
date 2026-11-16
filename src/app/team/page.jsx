@@ -19,7 +19,7 @@ const fraunces = Fraunces({
 });
 
 const DESCRIPTION =
-  "Meet the Falcoon team: the strategist, designer, developer, writer and video editor who build funnels for UK fitness professionals.";
+  "Meet the Falcoon team: the strategist, designer, developer and sales lead who build funnels for UK fitness professionals.";
 
 export const metadata = {
   title: "Our Team | Falcoon",
@@ -39,37 +39,25 @@ const TEAM = [
     id: "satish",
     name: "Satish Jassal",
     role: "Founder & Strategy Engineer",
-    bio: "Plans the funnel before a single page gets built — audience, offer, and the numbers that need to work.",
+    bio: "Plans the funnel first: audience, offer and the numbers that need to work.",
   },
   {
     id: "parmod",
     name: "Parmod Aheer",
     role: "Graphic Designer & UI/UX Designer",
-    bio: "Turns your offer into a landing page people actually want to read to the end, and buy from.",
-  },
-  {
-    id: "twinkle",
-    name: "Twinkle Sharma",
-    role: "Video Editor",
-    bio: "Cuts the VSLs, ad creative, and social clips that carry your funnel's message.",
+    bio: "Designs landing pages people read to the end, and buy from.",
   },
   {
     id: "hoshima",
     name: "Hoshima Mahey",
     role: "Sr. Sales Executive",
-    bio: "Talks new clients through what a funnel needs before the team ever starts building.",
+    bio: "Walks new clients through what their funnel needs before we build.",
   },
   {
     id: "ashima-dev",
     name: "Ashima",
     role: "Full Stack Developer",
-    bio: "Builds the checkout, hosting, and integrations so every funnel loads fast and never drops a sale.",
-  },
-  {
-    id: "munit",
-    name: "Munit Ralh",
-    role: "Content Writer",
-    bio: "Writes the copy that carries each funnel — landing pages, emails, and ad scripts that actually get read.",
+    bio: "Builds checkout, hosting and integrations so every funnel loads fast and never drops a sale.",
   },
 ];
 
@@ -103,9 +91,8 @@ export default function TeamPage() {
             One team, <em>start to finish.</em>
           </h1>
           <p>
-            No handoffs between departments. The same {TEAM.length} people who
-            scope your funnel are the ones who{" "}
-            <span className="tm-ul tm-green">design it, build it</span>, and
+            No handoffs. The same {TEAM.length} people who scope your funnel{" "}
+            <span className="tm-ul tm-green">design it, build it</span> and
             support it after launch.
           </p>
         </div>
@@ -125,11 +112,10 @@ export default function TeamPage() {
       {/* CTA */}
       <section className="tm-cta">
         <div className="tm-c">
-          <div className="tm-label">Work with us</div>
           <h2>
             Meet the team on a <em>free call.</em>
           </h2>
-          <p>Fixed pricing, no hidden fees, no obligation.</p>
+          <p>Fixed pricing. No hidden fees.</p>
           <a
             href={CALENDLY}
             className="tm-btn"
