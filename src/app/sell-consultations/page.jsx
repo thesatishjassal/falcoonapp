@@ -1,4 +1,3 @@
-import { DM_Sans, Fraunces } from "next/font/google";
 import "../sell-consultations.css";
 import ScnMotion from "../components/ScnMotion";
 import ScnBudgetCalc, { ScnCtaPair } from "../components/ScnBudgetCalc";
