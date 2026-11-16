@@ -3,20 +3,6 @@ import ScnMotion from "../components/ScnMotion";
 import ScnBudgetCalc, { ScnCtaPair } from "../components/ScnBudgetCalc";
 import ScnIntakeForm from "../components/ScnIntakeForm";
 
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
 
 export const metadata = {
   title: "Sell Paid Consultations Online | Falcoon",
