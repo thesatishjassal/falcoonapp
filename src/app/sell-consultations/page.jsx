@@ -218,7 +218,7 @@ function SectionHead({ label, title, lead, center = false, id }) {
 
 export default function SellConsultationsPage() {
   return (
-    <div className={`scn-page ${dmSans.variable} ${fraunces.variable}`}>
+    <div>
       <ScnMotion />
 
       {/* HERO */}
