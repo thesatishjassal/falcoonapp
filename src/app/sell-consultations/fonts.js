@@ -1,7 +1,4 @@
 // app/sell-consultations/fonts.js
-// Font loaders live in their own module, each called once at the top level
-// and exported as a const. This is the pattern Next.js recommends and the
-// one Turbopack handles most reliably.
 import { DM_Sans, Fraunces } from "next/font/google";
 
 export const dmSans = DM_Sans({
