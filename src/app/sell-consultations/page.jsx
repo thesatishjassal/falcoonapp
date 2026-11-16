@@ -2,6 +2,7 @@ import "../sell-consultations.css";
 import ScnMotion from "../components/ScnMotion";
 import ScnBudgetCalc, { ScnCtaPair } from "../components/ScnBudgetCalc";
 import ScnIntakeForm from "../components/ScnIntakeForm";
+import { dmSans, fraunces } from "./fonts";
 
 export const metadata = {
   title: "Sell Paid Consultations Online | Falcoon",
@@ -218,7 +219,7 @@ function SectionHead({ label, title, lead, center = false, id }) {
 
 export default function SellConsultationsPage() {
   return (
-    <div>
+    <div className={`scn-page ${dmSans.variable} ${fraunces.variable}`}>
       <ScnMotion />
 
       {/* HERO */}
