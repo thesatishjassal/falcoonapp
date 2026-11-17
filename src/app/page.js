@@ -1,11 +1,12 @@
 import Link from "next/link";
 import "./home-v2.css";
+import "./home.css";
 // import { dmSans, fraunces, GOOGLE_FONTS_URL } from "./fonts";
 import { SERVICES, CARES, MIN_BUILD, MIN_TERM_MONTHS, ADS, gbp } from "./components/falcoon-pricing";
 
 const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
 
-// Every Falcoon price comes from components/falcoon-pricing.js.
+// Every Falcoonp rice comes from components/falcoon-pricing.js.
 const CARE = CARES.find((c) => c.id === "care");
 const GROWTH = CARES.find((c) => c.id === "growth");
 const MAX_BUILD = Math.max(...SERVICES.flatMap((s) => s.builds.map((b) => b.price)));
