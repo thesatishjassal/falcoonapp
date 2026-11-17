@@ -1,9 +1,10 @@
 import "../sell-fitness-programmes.css";
+
 import PrgCtaPair from "../components/PrgCtaPair";
 import PrgHeroPhone from "../components/PrgHeroPhone";
 import PrgPlanPicker from "../components/PrgPlanPicker";
 import PrgIntakeForm from "../components/PrgIntakeForm";
-// import { dmSans, fraunces } from "./fonts";
+import { dmSans, fraunces } from "./fonts";
 
 export const metadata = {
   title: "Sell Fitness Programmes Online | Falcoon",
@@ -142,7 +143,7 @@ function Head({ label, title, lead, center = false, id }) {
 
 export default function SellFitnessProgrammesPage() {
   return (
-    <div >
+    <div className={`prg-page ${dmSans.variable} ${fraunces.variable}`}>
       {/* HERO */}
       <section className="prg-hero" aria-labelledby="prg-hero-h">
         <div className="prg-c prg-hero-in">

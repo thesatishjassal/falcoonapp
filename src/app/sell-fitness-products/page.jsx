@@ -3,7 +3,7 @@ import SfpCtaPair from "../components/SfpCtaPair";
 import SfpHeroPhone from "../components/SfpHeroPhone";
 import SfpPlanPicker from "../components/SfpPlanPicker";
 import SfpIntakeForm from "../components/SfpIntakeForm";
-// import { dmSans, fraunces } from "./fonts";
+import { dmSans, fraunces } from "./fonts";
 
 export const metadata = {
   title: "Sell Fitness Products Online | Store and Checkout | Falcoon",
@@ -144,7 +144,7 @@ function Head({ label, title, lead, center = false, id }) {
 
 export default function SellFitnessProductsPage() {
   return (
-    <div>
+    <div className={`sfp-page ${dmSans.variable} ${fraunces.variable}`}>
       {/* HERO */}
       <section className="sfp-hero" aria-labelledby="sfp-hero-h">
         <div className="sfp-c sfp-hero-in">
