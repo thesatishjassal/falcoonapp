@@ -1,334 +1,238 @@
 import Link from "next/link";
-import { DM_Sans, Fraunces } from "next/font/google";
-import "./home.css";
-import { CORE, SUPPORT, MIN_ADDON, gbp } from "./components/pricing-data";
+import "./home-v2.css";
+import { dmSans, fraunces } from "./fonts";
+import { SERVICES, CARES, MIN_BUILD, MIN_TERM_MONTHS, ADS, gbp } from "./components/falcoon-pricing";
 
 const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
 
-const CARE = SUPPORT.find((s) => s.id === "care");
-const GROWTH = SUPPORT.find((s) => s.id === "growth");
+// Every Falcoon price comes from components/falcoon-pricing.js.
+const CARE = CARES.find((c) => c.id === "care");
+const GROWTH = CARES.find((c) => c.id === "growth");
+const MAX_BUILD = Math.max(...SERVICES.flatMap((s) => s.builds.map((b) => b.price)));
+const fromPrice = (id) => gbp(Math.min(...SERVICES.find((s) => s.id === id).builds.map((b) => b.price)));
 
-// Inline CTA row used across sections (a plain helper, not a component file).
-// dark = section has a dark background (uses the base .hm-btn); otherwise .hm-d.
-const cta = (dark = false, center = false) => (
-  <div className={`hm-cta-row${center ? " hm-cc" : ""}`}>
-    <Link href="/pricing" className={`hm-btn${dark ? "" : " hm-d"}`}>
-      See Pricing <span>→</span>
-    </Link>
-    <a href={CALENDLY} className="hm-ghost" target="_blank" rel="noopener">
-      Book a Free Strategy Call
-    </a>
-  </div>
-);
-
-/* Simple line icons (inherit colour, decorative) */
-const Ico = ({ children }) => (
-  <span className="hm-ico" aria-hidden="true">
-    <svg
-      viewBox="0 0 24 24"
-      width="22"
-      height="22"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {children}
-    </svg>
-  </span>
-);
-
+/* ------------------------------------------------------------------ */
+/* Icons: one small inline set. Decorative; text always sits beside.   */
+/* ------------------------------------------------------------------ */
 const ICONS = {
   inbox: <path d="M3 13l3-8h12l3 8v6H3zM3 13h5l1 3h6l1-3h5" />,
   bell: <path d="M6 16v-5a6 6 0 0112 0v5l2 2H4zM10 21h4" />,
-  target: (
-    <>
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="5" />
-      <circle cx="12" cy="12" r="1.2" />
-    </>
-  ),
-  card: (
-    <>
-      <rect x="3" y="6" width="18" height="13" rx="2" />
-      <path d="M3 11h18M7 15h4" />
-    </>
-  ),
-  build: (
-    <>
-      <rect x="4" y="4" width="7" height="7" rx="1" />
-      <rect x="13" y="4" width="7" height="7" rx="1" />
-      <rect x="4" y="13" width="7" height="7" rx="1" />
-      <path d="M16.5 13v7M13 16.5h7" />
-    </>
-  ),
-  grow: <path d="M3 17l6-6 4 4 8-8M15 7h6v6" />,
-  convert: (
-    <>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M8 12l3 3 5-6" />
-    </>
-  ),
-  programme: (
-    <>
-      <rect x="3.5" y="5" width="17" height="15" rx="2" />
-      <path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4" />
-    </>
-  ),
+  target: (<><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.2" /></>),
+  card: (<><rect x="3" y="6" width="18" height="13" rx="2" /><path d="M3 11h18M7 15h4" /></>),
+  calendar: (<><rect x="3.5" y="5" width="17" height="15" rx="2" /><path d="M3.5 10h17M8 3v4M16 3v4" /></>),
   box: <path d="M12 3l8 4v10l-8 4-8-4V7zM4 7l8 4 8-4M12 11v10" />,
   chat: <path d="M4 5h16v11H9l-5 4z" />,
+  layout: (<><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M9 9v11" /></>),
+  zap: <path d="M13 2L4 14h7l-1 8 9-12h-7z" />,
+  table: (<><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 10h18M3 15h18M9 4v16" /></>),
+  play: (<><circle cx="12" cy="12" r="9" /><path d="M10 8.5l5.5 3.5-5.5 3.5z" /></>),
+  form: (<><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M9 8h6M9 12h6M9 16h3" /></>),
+  phone: (<><rect x="7" y="2.5" width="10" height="19" rx="2" /><path d="M11 18.5h2" /></>),
+  rocket: <path d="M5 15c-1.5 1.5-2 4-2 6 2 0 4.5-.5 6-2M9 15l-3-3 2-4c3-5 7-6 12-6 0 5-1 9-6 12l-4 2zM15 9h.01" />,
+  pointer: <path d="M5 3l14 7-6 2-2 6z" />,
+  lock: (<><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V8a4 4 0 018 0v3" /></>),
+  shield: (<><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z" /><path d="M9 12l2 2 4-4" /></>),
+  star: <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" />,
+  scale: <path d="M12 3v18M5 7h14M5 7l-3 7a3 3 0 006 0zM19 7l-3 7a3 3 0 006 0zM8 21h8" />,
+  check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
+  arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
+  key: (<><circle cx="8" cy="15" r="4" /><path d="M11 12l9-9M17 6l3 3" /></>),
+  heart: <path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z" />,
+  megaphone: <path d="M3 11v2a1 1 0 001 1h3l7 4V6L7 10H4a1 1 0 00-1 1zM18 9a4 4 0 010 6" />,
 };
 
-const PROBLEMS = [
-  [
-    "inbox",
-    "Leads buried in Instagram and WhatsApp",
-    "Every lead captured automatically",
-  ],
-  [
-    "bell",
-    "Chasing people by hand to book a call",
-    "Follow-up and reminders sent for you",
-  ],
-  [
-    "target",
-    "Ads sending people to a general website",
-    "Ads sending people to a page built to sell",
-  ],
-  [
-    "card",
-    "Booking and payment handled separately",
-    "Booking and payment in one smooth step",
-  ],
-];
-
-const STEPS = [
-  [
-    "build",
-    "Build",
-    "We write and build your funnel around one offer, then connect payments, booking and email.",
-  ],
-  [
-    "grow",
-    "Grow",
-    "We run Meta and Google Ads to bring in people who are ready to book or buy.",
-  ],
-  [
-    "convert",
-    "Convert",
-    "Follow-up turns enquiries into calls, sales and clients, while you focus on delivering.",
-  ],
-];
-
-// Minimal, CSS-only motion. Everything is opt-in via prefers-reduced-motion
-// and the scroll-reveal is progressive (ignored by browsers without support).
-const MOTION_CSS = `
-.hm-cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:36px}
-.hm-cta-row.hm-cc{justify-content:center}
-.hm-ghost{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1.5px solid currentColor;border-radius:999px;color:inherit;font-weight:600;text-decoration:none;transition:background .2s}
-.hm-ghost:hover{background:color-mix(in srgb,currentColor 10%,transparent)}
-.hm-ghost:focus-visible,.hm-btn:focus-visible{outline:2px solid var(--gold,#b8893a);outline-offset:3px}
-
-/* Price line in hero */
-.hm-price{margin-top:18px;font-size:1.05rem}
-.hm-price b{font-size:1.5rem;margin-right:6px}
-.hm-price span{display:block;margin-top:2px;opacity:.75;font-size:.92rem}
-
-/* Plans */
-.hm-two-way{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
-.hm-plan{padding:36px 32px;border:1.5px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:22px;display:flex;flex-direction:column;gap:14px}
-.hm-plan.hm-plan-feat{border-color:var(--gold,#b8893a)}
-.hm-plan h3{margin:0;font-size:1.6rem}
-.hm-plan ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
-.hm-plan .hm-btn,.hm-plan .hm-ghost{align-self:flex-start;margin-top:auto}
-.hm-plan-tag{font-weight:600;opacity:.75}
-.hm-plan-price{margin:0;font-size:1.9rem;font-weight:600;line-height:1.1}
-.hm-plan-price small{font-size:.95rem;font-weight:400;opacity:.7}
-.hm-support-note{margin-top:28px;text-align:center;opacity:.85}
-@media (max-width:760px){.hm-two-way{grid-template-columns:1fr}}
-
-@media (prefers-reduced-motion:no-preference){
-  .hm-btn span{display:inline-block;transition:transform .2s}
-  .hm-btn:hover span{transform:translateX(4px)}
-  .hm-btn{transition:transform .2s}
-  .hm-btn:active{transform:scale(.97)}
-
-  .hm-svc{transition:transform .25s ease,box-shadow .25s ease}
-  .hm-svc:hover{transform:translateY(-4px)}
-  .hm-tq{transition:transform .25s ease}
-  .hm-tq:hover{transform:translateY(-3px)}
-  .hm-faq details[open] p{animation:hm-fade .3s ease}
-
-  @supports (animation-timeline:view()){
-    .hm-head,.hm-pc,.hm-svc,.hm-tq,.hm-steps li,.hm-plan{
-      animation:hm-rise linear both;
-      animation-timeline:view();
-      animation-range:entry 0% entry 35%;
-    }
-  }
+function Icon({ name, size = 22 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      {ICONS[name]}
+    </svg>
+  );
 }
-@keyframes hm-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes hm-fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-`;
 
-// Hero live example: ad -> funnel -> lead -> follow-up -> sale -> client
+/* ------------------------------------------------------------------ */
+/* Content                                                            */
+/* ------------------------------------------------------------------ */
+const ROTATE = ["programme", "products", "sessions", "counselling", "coaching"];
+
+const TRUST = [
+  ["card", "Paid into your own account"],
+  ["key", "No tech skills needed"],
+  ["lock", "No client notes stored"],
+];
+
+// Hero animation: an illustrative example, not real client data.
 const SCENES = [
   {
     key: "programmes",
     tab: "Programmes",
     rows: [
-      {
-        ico: "M",
-        color: "#0866ff",
-        title: "Instagram ad: 12-week programme",
-        sub: "Targeted at women 30–50 within 20 miles",
-      },
-      {
-        ico: "F",
-        color: "#b89655",
-        title: "Lead captured on your funnel",
-        sub: "Goal and days a week, answered in seconds",
-      },
-      {
-        ico: "W",
-        color: "#25d366",
-        title: "WhatsApp follow-up sent",
-        sub: "Call booked Thu 10:00, added to your calendar",
-      },
+      ["megaphone", "#0866ff", "Instagram ad: 12-week programme", "Lands on one clear page"],
+      ["chat", "#25d366", "WhatsApp reply in seconds", "Goals and availability asked"],
+      ["calendar", "#b89655", "Call booked Thu 10:00", "Added to your calendar"],
     ],
-    result: {
-      value: "5 leads this week",
-      label: "Captured and followed up while you were offline",
-    },
+    result: ["New client", "Welcome message and check-in sent"],
   },
   {
     key: "products",
     tab: "Products",
     rows: [
-      {
-        ico: "M",
-        color: "#0866ff",
-        title: "Ad click: 12-week strength plan",
-        sub: "Retargeting visitors who didn't buy",
-      },
-      {
-        ico: "+",
-        color: "#b89655",
-        title: "Checkout with order bump",
-        sub: "£49 plan, recipe book +£9",
-      },
-      {
-        ico: "E",
-        color: "#ea4335",
-        title: "Delivered instantly",
-        sub: "Download link emailed, receipt sent",
-      },
+      ["layout", "#0866ff", "12-week strength plan, £49", "From a link in your bio"],
+      ["card", "#635bff", "Recipe book added, +£9", "One-tap order bump"],
+      ["box", "#ea4335", "Download emailed instantly", "Receipt and review request queued"],
     ],
-    result: {
-      value: "£312 while you slept",
-      label: "Orders delivered automatically",
-    },
+    result: ["£58 order", "Delivered without you"],
   },
   {
-    key: "coaching",
-    tab: "Coaching",
+    key: "sessions",
+    tab: "Sessions",
     rows: [
-      {
-        ico: "G",
-        color: "#ea4335",
-        title: "Google search: online counsellor",
-        sub: "High-intent visitor lands on your funnel",
-      },
-      {
-        ico: "S",
-        color: "#635bff",
-        title: "Slot chosen, payment taken",
-        sub: "£75 by card, Tue 11:30",
-      },
-      {
-        ico: "Z",
-        color: "#2d8cff",
-        title: "Zoom link sent",
-        sub: "Reminder queued, diary updated",
-      },
+      ["target", "#ea4335", "Search: online counsellor", "Lands on your booking page"],
+      ["card", "#635bff", "Tue 11:30 chosen, £75 paid", "Slot confirmed only once paid"],
+      ["bell", "#2d8cff", "Meet link and reminders sent", "24 hours and 2 hours before"],
     ],
-    result: { value: "£225 paid", label: "Before the first call" },
+    result: ["£75 paid", "Before the session"],
   },
 ];
 
-const RAIL = ["Ad", "Funnel", "Lead", "Follow-up", "Sale", "Client"];
+const TOOLS = ["Stripe", "Shopify", "Calendly", "WhatsApp", "Google Meet", "Zoom", "GoCardless", "Make.com", "Meta Ads", "Google Ads"];
 
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
+const PAIRS = [
+  ["inbox", "Leads buried in Instagram and WhatsApp", "Every lead captured and answered"],
+  ["bell", "Chasing people by hand to book or pay", "Reminders and follow-ups sent for you"],
+  ["target", "Ads sending people to a general website", "One page built to sell one offer"],
+  ["card", "Booking and payment handled separately", "Book and pay in one smooth step"],
+];
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
+const SERVICE_CARDS = [
+  {
+    id: "consultations",
+    icon: "calendar",
+    title: "Coaching & Counselling",
+    who: "Counsellors, therapists and coaches",
+    blurb: "Paid booking, a meeting link and reminders, so your diary fills without back-and-forth messages.",
+    points: ["Pay at booking", "Auto Meet or Zoom links", "No-show handling"],
+    href: "/sell-consultations",
+    mock: "slot",
+  },
+  {
+    id: "products",
+    icon: "box",
+    title: "Fitness Products",
+    who: "Plans, ebooks and supplements",
+    blurb: "A simple checkout with an order bump, and instant delivery for digital products.",
+    points: ["Stripe or Shopify", "Instant downloads", "Reorder reminders"],
+    href: "/sell-fitness-products",
+    mock: "checkout",
+  },
+  {
+    id: "programmes",
+    icon: "chat",
+    title: "Fitness Programmes",
+    who: "Online coaching programmes",
+    blurb: "One clear page, WhatsApp replies that qualify leads, and booked calls that turn into clients.",
+    points: ["WhatsApp auto-replies", "Qualified calls only", "Monthly payments"],
+    href: "/sell-fitness-programmes",
+    mock: "chat",
+  },
+];
 
-const SITE_TITLE = "Falcoon | Funnels and Ads for UK Fitness Professionals";
-const SITE_DESCRIPTION = `Falcoon builds your funnel, runs your Meta and Google Ads and follows up every lead, so enquiries become paying clients. Funnels from ${gbp(CORE.price)} one-time for UK coaches, trainers and counsellors.`;
+const HOW = [
+  ["pointer", "Choose your service", "Pick consultations, products or programmes, and see your price straight away."],
+  ["form", "Fill in one form", "Your details, offer and prices. About 10 minutes, no meetings."],
+  ["zap", "We build and connect it", "Page, payments, booking and automations, tested on every path."],
+  ["rocket", "You go live", "Approve a preview, verify payments on your phone, and start selling."],
+];
+
+const INCLUDED = [
+  ["layout", "Page and copy", "Written and designed around one offer."],
+  ["card", "Payments", "Stripe, PayPal, Apple Pay, Google Pay, Direct Debit."],
+  ["zap", "Automations", "Reminders, follow-ups and delivery with Make.com."],
+  ["table", "Simple tracker", "Every lead, booking and sale in one sheet."],
+  ["key", "One login", "A Google Workspace email that opens everything."],
+  ["play", "Handover video", "A short walkthrough and a one-page guide."],
+];
+
+const SAFEGUARDS = [
+  ["lock", "Your money, your accounts", "Payments go straight to you. Stripe, Shopify and your domain stay in your name."],
+  ["shield", "Privacy first", "No client notes or clinical details, ever. Discreet reminders for counselling."],
+  ["star", "Real reviews only", "We only show genuine customer reviews, as UK rules expect."],
+  ["scale", "No promised numbers", "We build the system. Results depend on your offer and traffic, and we say so."],
+];
+
+/*
+  TESTIMONIALS: publish only quotes from real clients who agreed to be named,
+  and only results you can back up with evidence. UK rules treat fake or
+  unverifiable reviews strictly. Delete any entry that doesn't meet that bar;
+  the section hides itself when this list is empty.
+*/
+const TESTIMONIALS = [
+  {
+    initials: "JT",
+    name: "James Turner",
+    role: "Gym Owner, Manchester",
+    quote: "Falcoon helped me automate my gym operations completely. From memberships to payments, everything is smooth now. I saved hours every day.",
+    result: "+40% time saved",
+  },
+  {
+    initials: "EC",
+    name: "Dr. Emily Carter",
+    role: "Consultant Psychologist, Clinical Psychology",
+    quote: "My client bookings increased after using Falcoon. The system looks professional and clients trust it more than WhatsApp bookings.",
+    result: "+60% bookings",
+  },
+  {
+    initials: "DW",
+    name: "Daniel Wright",
+    role: "Fitness Studio Owner, Leeds",
+    quote: "Before Falcoon, I was managing everything manually. Now I track clients, payments and progress in one place.",
+    result: "All-in-one system",
+  },
+];
+
+const SITE_TITLE = "Falcoon | Funnels and Ads for UK Fitness and Wellbeing Professionals";
+const SITE_DESCRIPTION = `Falcoon builds your funnel, sets up your ads and follows up every lead, so enquiries become paying clients. Done-for-you from ${gbp(MIN_BUILD)} one-time for UK coaches, trainers and counsellors.`;
 
 export const metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   keywords: [
-    "client acquisition system fitness",
     "fitness coach funnel UK",
     "done-for-you funnel",
-    "Meta ads for personal trainers",
-    "Google ads for fitness coaches",
-    "sell fitness programmes online",
     "counsellor online booking and payments",
+    "sell fitness programmes online",
+    "sell fitness products online",
+    "Meta ads for personal trainers",
     "UK coaching automation",
   ],
   alternates: { canonical: "/" },
-  openGraph: {
-    title: SITE_TITLE,
-    description: SITE_DESCRIPTION,
-    locale: "en_GB",
-    type: "website",
-    siteName: "Falcoon",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: SITE_TITLE,
-    description: SITE_DESCRIPTION,
-  },
+  openGraph: { title: SITE_TITLE, description: SITE_DESCRIPTION, locale: "en_GB", type: "website", siteName: "Falcoon" },
+  twitter: { card: "summary_large_image", title: SITE_TITLE, description: SITE_DESCRIPTION },
 };
 
 const FAQS = [
   {
     q: "What exactly do I get?",
-    a: "A complete funnel built around one offer: landing page, checkout and thank-you page, written for you, mobile ready and connected to your payments, booking and email. Add Meta and Google Ads management when you want more traffic.",
+    a: "A complete funnel built around one offer: your page and copy, booking or checkout, and the automations behind it (reminders, follow-ups, delivery), connected to your own payment accounts and tested before launch.",
   },
   {
     q: "How much does it cost?",
-    a: `The funnel build is ${gbp(CORE.price)} one-time, with hosting and your domain free for the first year. Add-ons such as booking, payments, WhatsApp and Direct Debit start from ${gbp(MIN_ADDON)}. Optional monthly support is ${gbp(CARE.price)} (Care) or ${gbp(GROWTH.price)} (Growth). Ad management is quoted to your goals on a strategy call.`,
+    a: `Builds are ${gbp(MIN_BUILD)} or ${gbp(MAX_BUILD)} one-time, depending on the package. Optional Care is ${gbp(CARE.monthly)} a month or ${gbp(GROWTH.monthly)} for Growth Care. Ads setup is ${gbp(ADS.price)}; ongoing ad management is quoted on a free call.`,
   },
   {
-    q: "Do I have to buy the ads service too?",
-    a: "No. Start with the funnel and add ads when you are ready for traffic. Ads perform best on a funnel built for your offer, which is why we do both.",
-  },
-  {
-    q: "Can counsellors and therapists use Falcoon?",
-    a: "Yes. Clients enquire, book, pay and receive a Zoom, Google Meet or Teams link automatically. We build the funnel only and never handle session content or client records.",
-  },
-  {
-    q: "Which tools do you connect?",
-    a: "Stripe, PayPal, Apple Pay, Google Pay and GoCardless for payments. Calendly for booking. WhatsApp, SMS and email for messages. Zoom, Meet and Teams for sessions. HubSpot, Google Sheets, Zapier, Make and n8n for tracking and automation. Payments go straight to your own accounts.",
+    q: "Which service is right for me?",
+    a: "Selling sessions or counselling: Coaching & Counselling. Selling plans, ebooks or supplements: Fitness Products. Selling online coaching through calls: Fitness Programmes. The pricing page shows each one side by side.",
   },
   {
     q: "Do I need technical skills?",
-    a: "No. We build, connect and test everything, then hand over a funnel that is ready to take bookings and payments.",
+    a: "No. You fill in one form and verify your payment account on your phone. We set up a single login, connect every tool, test everything and send you a short video walkthrough.",
+  },
+  {
+    q: "Can counsellors and therapists use Falcoon?",
+    a: "Yes. Clients book, pay and get their meeting link automatically. We build the funnel only and never handle session content or client records.",
+  },
+  {
+    q: "Do I have to buy ads too?",
+    a: "No. Start with the funnel and add ads when you want more traffic. Ads work best on a page built for your offer, which is why we offer both.",
   },
 ];
 
@@ -340,428 +244,307 @@ const jsonLd = {
       name: "Falcoon",
       description: SITE_DESCRIPTION,
       areaServed: { "@type": "Country", name: "United Kingdom" },
-      priceRange: `From ${gbp(CORE.price)}`,
-      serviceType: [
-        "Done-for-you sales funnels for fitness businesses",
-        "Meta Ads and Google Ads management",
-        "Lead follow-up and conversion systems",
-      ],
+      priceRange: `From ${gbp(MIN_BUILD)}`,
+      serviceType: ["Done-for-you sales funnels", "Booking and payment funnels for counsellors", "Meta and Google Ads"],
     },
     {
       "@type": "FAQPage",
-      mainEntity: FAQS.map((f) => ({
-        "@type": "Question",
-        name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
-      })),
+      mainEntity: FAQS.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     },
   ],
 };
 
+/* Small illustrated previews on the service cards (decorative) */
+function Mock({ kind }) {
+  if (kind === "slot")
+    return (
+      <div className="hv-mock" aria-hidden="true">
+        <div className="hv-mock-days"><span>Mon</span><span className="on">Tue</span><span>Wed</span><span>Thu</span></div>
+        <div className="hv-mock-slots"><span>09:30</span><span className="on">11:30</span><span>14:00</span></div>
+        <div className="hv-mock-pay">£75 · Paid <Icon name="check" size={14} /></div>
+      </div>
+    );
+  if (kind === "checkout")
+    return (
+      <div className="hv-mock" aria-hidden="true">
+        <div className="hv-mock-row"><span>Strength plan</span><b>£49</b></div>
+        <div className="hv-mock-bump">+ Recipe book <b>£9</b></div>
+        <div className="hv-mock-row hv-mock-total"><span>Total</span><b>£58</b></div>
+        <div className="hv-mock-pay">Download sent <Icon name="check" size={14} /></div>
+      </div>
+    );
+  return (
+    <div className="hv-mock" aria-hidden="true">
+      <p className="hv-bub in">Is it good for beginners?</p>
+      <p className="hv-bub out">Yes! How many days can you train?</p>
+      <p className="hv-bub in">3 or 4</p>
+      <div className="hv-mock-pay">Call booked <Icon name="check" size={14} /></div>
+    </div>
+  );
+}
+
 export default function HomePage() {
   return (
-    <div className={`hm-page ${dmSans.variable} ${fraunces.variable}`}>
-      <style dangerouslySetInnerHTML={{ __html: MOTION_CSS }} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <div className={`hv ${dmSans.variable} ${fraunces.variable}`}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* HERO */}
-      <section className="hm-hero">
-        <div className="hm-c hm-hero-in">
-          <div>
-            <div className="hm-eyebrow">
-              For UK fitness &amp; wellbeing professionals
-            </div>
-            <h1 className="hm-h1">
-              <span className="hm-sr">
-                Turn your fitness offer into a client acquisition system
-              </span>
+      <section className="hv-hero" aria-labelledby="hv-h1">
+        <div className="hv-c hv-hero-in">
+          <div className="hv-hero-copy">
+            <p className="hv-eyebrow">For UK fitness and wellbeing professionals</p>
+            <h1 id="hv-h1">
+              <span className="hv-sr">Turn your offer into paying clients, on autopilot.</span>
               <span aria-hidden="true">
-                <span className="hm-line">Turn your</span>
-                <span className="hm-flip">
-                  <span className="hm-flip-track">
-                    <b>programme</b>
-                    <b>product</b>
-                    <b>coaching</b>
-                    <b>counselling</b>
-                    <b>consultation</b>
-                    <b>programme</b>
+                Turn your{" "}
+                <span className="hv-rot">
+                  <span className="hv-rot-track">
+                    {ROTATE.concat(ROTATE[0]).map((w, i) => <b key={i}>{w}</b>)}
                   </span>
                 </span>
-                <span className="hm-line">
-                  into <em>a client acquisition system.</em>
-                </span>
+                <br />
+                into <em>paying clients.</em>
               </span>
             </h1>
-            <p>
-              We build your funnel, run your Meta and Google Ads, and follow up
-              every lead, so enquiries become booked, paying clients.
+            <p className="hv-sub">
+              We build your page, payments and follow-ups, and set up your ads, so
+              enquiries become booked, paid clients while you focus on the work.
             </p>
-
-            <p className="hm-price">
-              <b>From {gbp(CORE.price)}</b> one-time
-              <span>Hosting and domain free for the first year</span>
-            </p>
-
-            <div className="hm-btns">
-              <Link href="/pricing" className="hm-btn">
-                See Pricing <span>→</span>
+            <div className="hv-ctas">
+              <Link href="/pricing" className="hv-btn hv-btn-gold">
+                See pricing <span aria-hidden="true">→</span>
               </Link>
-              <a
-                href={CALENDLY}
-                className="hm-ghost"
-                target="_blank"
-                rel="noopener"
-              >
-                Book a Free Strategy Call
+              <a href={CALENDLY} className="hv-btn hv-btn-ghost" target="_blank" rel="noopener">
+                Book a free strategy call
               </a>
             </div>
+            <p className="hv-price">
+              <b>From {gbp(MIN_BUILD)}</b> one-time · Optional Care from {gbp(CARE.monthly)}/month
+            </p>
+            <ul className="hv-trust" aria-label="Why it's safe">
+              {TRUST.map(([i, t]) => (
+                <li key={t}><Icon name={i} size={17} />{t}</li>
+              ))}
+            </ul>
           </div>
 
-          <div
-            className="hm-hv"
-            role="img"
-            aria-label="Animated example of a Falcoon system. An ad brings a visitor to a funnel, the lead is captured and followed up, then becomes a sale and a client, shown for programmes, products and coaching."
-          >
-            <div className="hm-vis">
-              <div className="hm-frame">
-                <span className="hm-fchip hm-fc1" style={{ "--d": "#0866ff" }}>
-                  <i></i>Meta Ads
-                </span>
-                <span className="hm-fchip hm-fc2" style={{ "--d": "#ea4335" }}>
-                  <i></i>Google Ads
-                </span>
-                <span className="hm-fchip hm-fc3" style={{ "--d": "#25d366" }}>
-                  <i></i>WhatsApp
-                </span>
-                <span className="hm-fchip hm-fc4" style={{ "--d": "#635bff" }}>
-                  <i></i>Stripe
-                </span>
-
-                <div className="hm-live">
-                  <div className="hm-ph-h">
-                    <b>This week</b>
-                    <span className="hm-badge hm-pulse">Live example</span>
-                  </div>
-
-                  <div className="hm-tabs">
-                    {SCENES.map((s) => (
-                      <span className="hm-tab" key={s.key}>
-                        {s.tab}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="hm-stage">
-                    {SCENES.map((s) => (
-                      <div className="hm-scene" key={s.key}>
-                        {s.rows.map((r, i) => (
-                          <div className={`hm-lr hm-r${i + 1}`} key={r.title}>
-                            <span
-                              className="hm-lr-ico"
-                              style={{ "--d": r.color }}
-                            >
-                              {r.ico}
-                            </span>
-                            <div>
-                              <strong>{r.title}</strong>
-                              <small>{r.sub}</small>
-                            </div>
-                          </div>
-                        ))}
-                        <div className="hm-lr hm-lres hm-r4">
-                          <div>
-                            <strong>{s.result.value}</strong>
-                            <small>{s.result.label}</small>
-                          </div>
-                        </div>
+          <div className="hv-visual" role="img" aria-label="Illustrative example: an ad brings a visitor to a page, they book or buy, and follow-ups run automatically, shown for programmes, products and sessions.">
+            <div className="hv-glow" aria-hidden="true" />
+            <div className="hv-device" aria-hidden="true">
+              <div className="hv-device-top">
+                <b>This week</b>
+                <span className="hv-tag">Example</span>
+              </div>
+              <div className="hv-tabs">
+                {SCENES.map((s, i) => <span key={s.key} style={{ "--i": i }}>{s.tab}</span>)}
+              </div>
+              <div className="hv-stage">
+                {SCENES.map((s, i) => (
+                  <div className="hv-scene" key={s.key} style={{ "--i": i }}>
+                    {s.rows.map(([ic, col, t, sub], r) => (
+                      <div className="hv-row" key={t} style={{ "--r": r }}>
+                        <span className="hv-row-ico" style={{ "--c": col }}><Icon name={ic} size={16} /></span>
+                        <div><strong>{t}</strong><small>{sub}</small></div>
                       </div>
                     ))}
-                  </div>
-
-                  <div className="hm-rail">
-                    <span className="hm-rail-line"></span>
-                    <span className="hm-rail-fill"></span>
-                    <span className="hm-rail-spark"></span>
-                    <div className="hm-rail-steps">
-                      {RAIL.map((step) => (
-                        <span key={step}>{step}</span>
-                      ))}
+                    <div className="hv-row hv-result" style={{ "--r": 3 }}>
+                      <span className="hv-row-ico hv-ok"><Icon name="check" size={16} /></span>
+                      <div><strong>{s.result[0]}</strong><small>{s.result[1]}</small></div>
                     </div>
                   </div>
-
-                  <div className="hm-lock-foot">
-                    From ad to client, running without you
-                  </div>
-                </div>
+                ))}
               </div>
+              <div className="hv-rail"><span /></div>
+              <p className="hv-device-foot">From first click to paid client</p>
             </div>
+            <span className="hv-float hv-f1" aria-hidden="true"><i style={{ "--c": "#635bff" }} />Stripe</span>
+            <span className="hv-float hv-f2" aria-hidden="true"><i style={{ "--c": "#25d366" }} />WhatsApp</span>
+            <span className="hv-float hv-f3" aria-hidden="true"><i style={{ "--c": "#0866ff" }} />Meta Ads</span>
           </div>
         </div>
-        <div className="hm-c hm-tags">
-          <span>Built for UK professionals</span>
-          <i>Personal trainers</i>
-          <i>Online coaches</i>
-          <i>Counsellors &amp; therapists</i>
-          <i>Studio owners</i>
+
+        <div className="hv-c hv-tools">
+          <span>Works with</span>
+          <ul aria-label="Connected tools">{TOOLS.map((t) => <li key={t}>{t}</li>)}</ul>
         </div>
       </section>
 
-      {/* PROBLEM */}
-      <section className="hm-sec" id="problems" aria-labelledby="hm-prob-h">
-        <div className="hm-c">
-          <div className="hm-head" style={{ maxWidth: "820px" }}>
-            <h2 id="hm-prob-h">
-              A good offer needs a path to the customer. <em>We build it.</em>
-            </h2>
+      {/* BEFORE / AFTER */}
+      <section className="hv-sec" id="problems" aria-labelledby="hv-prob-h">
+        <div className="hv-c">
+          <div className="hv-head">
+            <p className="hv-label">Why Falcoon</p>
+            <h2 id="hv-prob-h">A good offer needs a path to the customer. <em>We build it.</em></h2>
           </div>
-          <div className="hm-pcs">
-            {PROBLEMS.map(([k, no, yes]) => (
-              <div className="hm-pc" key={no}>
-                <Ico>{ICONS[k]}</Ico>
-                <p className="hm-pc-no">
-                  <small>Without a system</small>
-                  {no}
-                </p>
-                <p className="hm-pc-yes">
-                  <small>With Falcoon</small>
-                  {yes}
-                </p>
-              </div>
+          <ul className="hv-pairs">
+            {PAIRS.map(([ic, no, yes]) => (
+              <li key={no}>
+                <span className="hv-ico"><Icon name={ic} /></span>
+                <p className="hv-no"><small>Without a system</small>{no}</p>
+                <p className="hv-yes"><small>With Falcoon</small>{yes}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* SERVICES HUB */}
+      <section className="hv-sec hv-ivory" id="services" aria-labelledby="hv-svc-h">
+        <div className="hv-c">
+          <div className="hv-head hv-center">
+            <p className="hv-label">What do you sell?</p>
+            <h2 id="hv-svc-h">One offer. One funnel. <em>Built to sell it.</em></h2>
+            <p className="hv-lead">Pick your service to see exactly how it works and what it costs.</p>
+          </div>
+          <div className="hv-services">
+            {SERVICE_CARDS.map((s) => (
+              <article className="hv-svc" key={s.id} aria-labelledby={`hv-s-${s.id}`}>
+                <Mock kind={s.mock} />
+                <div className="hv-svc-body">
+                  <p className="hv-svc-who"><span className="hv-ico hv-ico-sm"><Icon name={s.icon} size={18} /></span>{s.who}</p>
+                  <h3 id={`hv-s-${s.id}`}>{s.title}</h3>
+                  <p>{s.blurb}</p>
+                  <ul>{s.points.map((p) => <li key={p}><Icon name="check" size={16} />{p}</li>)}</ul>
+                  <div className="hv-svc-foot">
+                    <span className="hv-from">From <b>{fromPrice(s.id)}</b></span>
+                    <Link href={s.href} className="hv-more">
+                      Explore <span className="hv-sr">{s.title}</span> <Icon name="arrow" size={16} />
+                    </Link>
+                  </div>
+                </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section
-        className="hm-sec hm-dk hm-how"
-        id="system"
-        aria-labelledby="hm-how-h"
-      >
-        <div className="hm-c">
-          <div className="hm-head hm-sys-h">
-            <div>
-              <h2 id="hm-how-h">
-                Three steps. <em>We do the work.</em>
-              </h2>
-            </div>
-            <p className="hm-lead">
-              You deliver the service. Falcoon builds and runs the system behind
-              the sale.
-            </p>
+      <section className="hv-sec hv-dk" id="how" aria-labelledby="hv-how-h">
+        <div className="hv-c">
+          <div className="hv-head">
+            <p className="hv-label">How it works</p>
+            <h2 id="hv-how-h">Live in four steps. <em>You do about 20 minutes.</em></h2>
+            <p className="hv-lead">No meetings, no screen-sharing, no API keys. We set up one login and connect everything for you.</p>
           </div>
-
-          <ol className="hm-steps">
-            {STEPS.map(([k, t, x], i) => (
+          <ol className="hv-how">
+            {HOW.map(([ic, t, x], i) => (
               <li key={t}>
-                <Ico>{ICONS[k]}</Ico>
-                <span className="hm-sn">Step {i + 1}</span>
+                <span className="hv-ico"><Icon name={ic} /></span>
+                <span className="hv-step">Step {i + 1}</span>
                 <h3>{t}</h3>
                 <p>{x}</p>
               </li>
             ))}
           </ol>
-          {cta(true)}
         </div>
       </section>
 
-      {/* WHAT CAN YOU SELL */}
-      <section
-        className="hm-sec hm-hl"
-        id="services"
-        aria-labelledby="hm-sell-h"
-      >
-        <div className="hm-c">
-          <div className="hm-head hm-center">
-            <h2 id="hm-sell-h">
-              One offer. One funnel.{" "}
-              <em className="hm-mark">Built to sell it.</em>
-            </h2>
+      {/* INCLUDED */}
+      <section className="hv-sec" id="included" aria-labelledby="hv-inc-h">
+        <div className="hv-c">
+          <div className="hv-head hv-center">
+            <p className="hv-label">In every build</p>
+            <h2 id="hv-inc-h">Everything a funnel needs. <em>Nothing to piece together.</em></h2>
           </div>
-
-          <div className="hm-grid3">
-            <article className="hm-svc hm-feat">
-              <Ico>{ICONS.programme}</Ico>
-              <span className="hm-tag">Most popular</span>
-              <h3>Fitness Programmes</h3>
-              <p>
-                Sell your online plan with a page that explains the result,
-                takes payment and gives instant access.
-              </p>
-              <Link href="/sell-fitness-programmes" className="hm-more">
-                Explore programmes →
-              </Link>
-            </article>
-
-            <article className="hm-svc">
-              <Ico>{ICONS.box}</Ico>
-              <span className="hm-tag">High income</span>
-              <h3>Fitness Products</h3>
-              <p>
-                Digital or physical products with a simple checkout, order bump
-                and automatic delivery.
-              </p>
-              <Link href="/sell-fitness-products" className="hm-more">
-                Explore products →
-              </Link>
-            </article>
-
-            <article className="hm-svc">
-              <Ico>{ICONS.chat}</Ico>
-              <span className="hm-tag">Easy cashflow</span>
-              <h3>Coaching &amp; Counselling</h3>
-              <p>
-                Paid booking, meeting link and reminders, so your diary fills
-                without back-and-forth messages.
-              </p>
-              <Link href="/sell-consultations" className="hm-more">
-                Explore consultations →
-              </Link>
-            </article>
-          </div>
+          <ul className="hv-tiles">
+            {INCLUDED.map(([ic, t, x]) => (
+              <li key={t}>
+                <span className="hv-ico"><Icon name={ic} /></span>
+                <strong>{t}</strong>
+                <p>{x}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
       {/* PRICING */}
-      <section
-        className="hm-sec hm-ivory"
-        id="work-with-us"
-        aria-labelledby="hm-price-h"
-      >
-        <div className="hm-c">
-          <div className="hm-head hm-center">
-            <h2 id="hm-price-h">
-              Start with the funnel. <em>Add ads when you&apos;re ready.</em>
-            </h2>
-            <p className="hm-lead">
-              Pay once for the build. Add only the extras you need.
-            </p>
+      <section className="hv-sec hv-ivory" id="pricing" aria-labelledby="hv-price-h">
+        <div className="hv-c">
+          <div className="hv-head hv-center">
+            <p className="hv-label">Pricing</p>
+            <h2 id="hv-price-h">Simple, fixed <em>prices.</em></h2>
+            <p className="hv-lead">Pay once for the build. Add Care if you&apos;d rather never touch the tech.</p>
           </div>
-
-          <div className="hm-two-way">
-            <article className="hm-plan">
-              <span className="hm-plan-tag">One-time</span>
-              <h3>Funnel Build</h3>
-              <p className="hm-plan-price">
-                {gbp(CORE.price)} <small>one-time</small>
-              </p>
-              <ul>
-                <li>Landing, checkout and thank-you pages</li>
-                <li>Professional copywriting</li>
-                <li>Mobile-ready design and SEO basics</li>
-                <li>Email notifications connected</li>
-                <li>Hosting and domain free for year one</li>
-                <li>Add-ons from {gbp(MIN_ADDON)}</li>
-              </ul>
-              <Link href="/pricing" className="hm-btn hm-d">
-                Build My Quote <span>→</span>
-              </Link>
+          <div className="hv-prices">
+            <article className="hv-pcard">
+              <span className="hv-ico"><Icon name="layout" /></span>
+              <h3>Done-for-you build</h3>
+              <p className="hv-pbig">{gbp(MIN_BUILD)} or {gbp(MAX_BUILD)}<small> one-time</small></p>
+              <p>Depending on the package. Page, payments and automations, tested and handed over.</p>
+              <Link href="/pricing#quote" className="hv-btn hv-btn-dark">Build my quote <span aria-hidden="true">→</span></Link>
             </article>
-
-            <article className="hm-plan hm-plan-feat">
-              <span className="hm-plan-tag">Monthly</span>
-              <h3>Funnel + Ads</h3>
-              <p className="hm-plan-price">
-                Quoted to your goals <small>on a free call</small>
-              </p>
-              <ul>
-                <li>Meta and Google Ads setup and management</li>
-                <li>Audience and keyword research</li>
-                <li>Conversion tracking</li>
-                <li>Ongoing optimisation</li>
-                <li>Monthly funnel performance review</li>
-              </ul>
-              <a
-                href={CALENDLY}
-                className="hm-btn hm-d"
-                target="_blank"
-                rel="noopener"
-              >
-                Book a Free Strategy Call <span>→</span>
-              </a>
+            <article className="hv-pcard hv-pcard-pop">
+              <span className="hv-pop">Most popular</span>
+              <span className="hv-ico"><Icon name="heart" /></span>
+              <h3>Monthly Care</h3>
+              <p className="hv-pbig">{gbp(CARE.monthly)} or {gbp(GROWTH.monthly)}<small>/month</small></p>
+              <p>Hosting, email, automations, fixes and edits in one bill. {MIN_TERM_MONTHS}-month minimum, then monthly.</p>
+              <Link href="/pricing#care" className="hv-btn hv-btn-gold">Compare Care plans <span aria-hidden="true">→</span></Link>
+            </article>
+            <article className="hv-pcard">
+              <span className="hv-ico"><Icon name="megaphone" /></span>
+              <h3>Ads</h3>
+              <p className="hv-pbig">{gbp(ADS.price)}<small> setup</small></p>
+              <p>Meta and Google Ads set up for you. Ongoing management is quoted to your goals on a free call.</p>
+              <a href={CALENDLY} className="hv-btn hv-btn-dark" target="_blank" rel="noopener">Talk about ads <span aria-hidden="true">→</span></a>
             </article>
           </div>
-
-          <p className="hm-support-note">
-            Optional monthly support for your funnel: Care {gbp(CARE.price)} or
-            Growth {gbp(GROWTH.price)} a month.
-          </p>
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="hm-sec" id="results" aria-labelledby="hm-res-h">
-        <div className="hm-c">
-          <div className="hm-head">
-            <h2 id="hm-res-h">
-              Results from <em>real businesses.</em>
-            </h2>
+      {/* SAFEGUARDS */}
+      <section className="hv-sec hv-dk" id="safeguards" aria-labelledby="hv-safe-h">
+        <div className="hv-c">
+          <div className="hv-head">
+            <p className="hv-label">Honest by design</p>
+            <h2 id="hv-safe-h">Built for UK rules <em>and real trust.</em></h2>
           </div>
-          <div className="hm-tgrid">
-            <figure className="hm-tq">
-              <span className="hm-av" aria-hidden="true">
-                JT
-              </span>
-              <blockquote>
-                Falcoon helped me automate my gym operations completely. From
-                memberships to payments, everything is smooth now. I saved hours
-                every day.
-              </blockquote>
-              <figcaption>
-                <b>James Turner</b>
-                <span>Gym Owner, Manchester</span>
-                <em>+40% time saved</em>
-              </figcaption>
-            </figure>
-            <figure className="hm-tq">
-              <span className="hm-av" aria-hidden="true">
-                EC
-              </span>
-              <blockquote>
-                My client bookings increased after using Falcoon. The system
-                looks professional and clients trust it more than WhatsApp
-                bookings.
-              </blockquote>
-              <figcaption>
-                <b>Dr. Emily Carter</b>
-                <span>Consultant Psychologist, Clinical Psychology</span>
-                <em>+60% bookings</em>
-              </figcaption>
-            </figure>
-            <figure className="hm-tq">
-              <span className="hm-av" aria-hidden="true">
-                DW
-              </span>
-              <blockquote>
-                Before Falcoon, I was managing everything manually. Now I track
-                clients, payments and progress in one place.
-              </blockquote>
-              <figcaption>
-                <b>Daniel Wright</b>
-                <span>Fitness Studio Owner, Leeds</span>
-                <em>All-in-one system</em>
-              </figcaption>
-            </figure>
-          </div>
+          <ul className="hv-tiles hv-tiles-dk">
+            {SAFEGUARDS.map(([ic, t, x]) => (
+              <li key={t}>
+                <span className="hv-ico"><Icon name={ic} /></span>
+                <strong>{t}</strong>
+                <p>{x}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
+
+      {/* TESTIMONIALS: only renders when there are real, approved quotes */}
+      {TESTIMONIALS.length > 0 && (
+        <section className="hv-sec" id="results" aria-labelledby="hv-res-h">
+          <div className="hv-c">
+            <div className="hv-head">
+              <p className="hv-label">Clients</p>
+              <h2 id="hv-res-h">What clients <em>say.</em></h2>
+            </div>
+            <div className="hv-quotes">
+              {TESTIMONIALS.map((t) => (
+                <figure key={t.name}>
+                  <blockquote>{t.quote}</blockquote>
+                  <figcaption>
+                    <span className="hv-av" aria-hidden="true">{t.initials}</span>
+                    <span><b>{t.name}</b><small>{t.role}</small></span>
+                    {t.result && <em>{t.result}</em>}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
-      <section className="hm-sec hm-ivory" id="faq">
-        <div className="hm-c hm-two hm-faq-grid">
+      <section className="hv-sec hv-ivory" id="faq" aria-labelledby="hv-faq-h">
+        <div className="hv-c hv-faq-grid">
           <div>
-            <h2 style={{ margin: "0 0 22px" }}>
-              Questions, <em>answered.</em>
-            </h2>
-            <p className="hm-lead">
-              Still unsure? We&apos;ll walk you through everything on a free
-              call.
-            </p>
+            <p className="hv-label">FAQ</p>
+            <h2 id="hv-faq-h">Questions, <em>answered.</em></h2>
+            <p className="hv-lead">Still unsure? We&apos;ll walk you through everything on a free call.</p>
           </div>
-          <div className="hm-faq">
+          <div className="hv-faq">
             {FAQS.map((f, i) => (
               <details key={f.q} open={i === 0}>
                 <summary>{f.q}</summary>
@@ -773,18 +556,24 @@ export default function HomePage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="hm-sec hm-dk hm-prop" id="start">
-        <div className="hm-c hm-center">
-          <h2>
-            Ready for a steady flow of <em>clients?</em>
-          </h2>
-          <p className="hm-lead">
-            Tell us what you sell. We&apos;ll show you the funnel, ads and
-            follow-up that could fill your diary.
-          </p>
-          {cta(true, true)}
+      <section className="hv-final" id="start" aria-labelledby="hv-final-h">
+        <div className="hv-c hv-center">
+          <h2 id="hv-final-h">Ready for a steady flow of <em>clients?</em></h2>
+          <p className="hv-lead">Tell us what you sell. We&apos;ll show you the page, payments and follow-ups that fit.</p>
+          <div className="hv-ctas hv-ctas-c">
+            <a href={CALENDLY} className="hv-btn hv-btn-gold" target="_blank" rel="noopener">
+              Book a free strategy call <span aria-hidden="true">→</span>
+            </a>
+            <Link href="/pricing" className="hv-btn hv-btn-ghost">See pricing</Link>
+          </div>
         </div>
       </section>
+
+      {/* Mobile sticky bar */}
+      <nav className="hv-mbar" aria-label="Quick actions">
+        <Link href="/pricing" className="hv-mbar-price"><b>From {gbp(MIN_BUILD)}</b><span>See pricing</span></Link>
+        <a href={CALENDLY} className="hv-btn hv-btn-gold" target="_blank" rel="noopener">Free call <span aria-hidden="true">→</span></a>
+      </nav>
     </div>
   );
 }
