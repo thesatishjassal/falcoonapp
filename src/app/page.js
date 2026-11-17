@@ -1,6 +1,6 @@
 import Link from "next/link";
 import "./home-v2.css";
-import { dmSans, fraunces, GOOGLE_FONTS_URL } from "./fonts";
+// import { dmSans, fraunces, GOOGLE_FONTS_URL } from "./fonts";
 import { SERVICES, CARES, MIN_BUILD, MIN_TERM_MONTHS, ADS, gbp } from "./components/falcoon-pricing";
 
 const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
@@ -285,11 +285,11 @@ function Mock({ kind }) {
 
 export default function HomePage() {
   return (
-    <div className={`hv ${dmSans.variable} ${fraunces.variable}`}>
+    <div>
       {/* Fonts load in the browser, so the build never has to reach Google */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link rel="stylesheet" href={GOOGLE_FONTS_URL} precedence="default" />
+      {/* <link rel="stylesheet" href={GOOGLE_FONTS_URL} precedence="default" /> */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* HERO */}
