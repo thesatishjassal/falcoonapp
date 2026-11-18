@@ -1,12 +1,14 @@
 import Link from "next/link";
 import "./home-v2.css";
-import "./home.css";
-// import { dmSans, fraunces, GOOGLE_FONTS_URL } from "./fonts";
 import { SERVICES, CARES, MIN_BUILD, MIN_TERM_MONTHS, ADS, gbp } from "./components/falcoon-pricing";
+
+// Fonts load in the browser (no next/font), so the build never has to reach Google.
+const GOOGLE_FONTS_URL =
+  "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap";
 
 const CALENDLY = "https://calendly.com/thesatishjassal/free-strategy-call-uk";
 
-// Every Falcoonp rice comes from components/falcoon-pricing.js.
+// Every Falcoon price comes from components/falcoon-pricing.js.
 const CARE = CARES.find((c) => c.id === "care");
 const GROWTH = CARES.find((c) => c.id === "growth");
 const MAX_BUILD = Math.max(...SERVICES.flatMap((s) => s.builds.map((b) => b.price)));
@@ -286,11 +288,11 @@ function Mock({ kind }) {
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="hv">
       {/* Fonts load in the browser, so the build never has to reach Google */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      {/* <link rel="stylesheet" href={GOOGLE_FONTS_URL} precedence="default" /> */}
+      <link rel="stylesheet" href={GOOGLE_FONTS_URL} precedence="default" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* HERO */}
