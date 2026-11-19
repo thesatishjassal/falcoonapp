@@ -279,7 +279,7 @@
 @keyframes hv-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .hv-logo {
   display: flex; align-items: center; justify-content: center;
-  height: 44px; padding: 0 38px; position: relative;
+  height: 70px; padding: 0 38px; position: relative;
 }
 /* a small gold diamond between logos, like a printed divider */
 .hv-logo::after {
