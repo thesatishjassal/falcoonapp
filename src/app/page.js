@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "./home-v2.css";
+import HvToolLogo from "./components/HvToolLogo";
 import { SERVICES, CARES, MIN_BUILD, MIN_TERM_MONTHS, ADS, gbp } from "./components/falcoon-pricing";
 
 // Fonts load in the browser (no next/font), so the build never has to reach Google.
@@ -41,6 +42,7 @@ const ICONS = {
   arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
   key: (<><circle cx="8" cy="15" r="4" /><path d="M11 12l9-9M17 6l3 3" /></>),
   heart: <path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z" />,
+  x: <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" />,
   megaphone: <path d="M3 11v2a1 1 0 001 1h3l7 4V6L7 10H4a1 1 0 00-1 1zM18 9a4 4 0 010 6" />,
 };
 
@@ -97,14 +99,50 @@ const SCENES = [
   },
 ];
 
-const TOOLS = ["Stripe", "Shopify", "Calendly", "WhatsApp", "Google Meet", "Zoom", "GoCardless", "Make.com", "Meta Ads", "Google Ads"];
-
-const PAIRS = [
-  ["inbox", "Leads buried in Instagram and WhatsApp", "Every lead captured and answered"],
-  ["bell", "Chasing people by hand to book or pay", "Reminders and follow-ups sent for you"],
-  ["target", "Ads sending people to a general website", "One page built to sell one offer"],
-  ["card", "Booking and payment handled separately", "Book and pay in one smooth step"],
+/*
+  "Works with" logo carousel.
+  Logos load from Simple Icons (simpleicons.org) by `slug`. To host a logo
+  yourself instead, save it in public/logos/ and set `src: "/logos/stripe.svg"`.
+  If a logo can't load, the brand name still shows. Use logos as each brand's
+  guidelines allow.
+*/
+const TOOLS = [
+  { name: "Stripe", slug: "stripe" },
+  { name: "Shopify", slug: "shopify" },
+  { name: "Calendly", slug: "calendly" },
+  { name: "WhatsApp", slug: "whatsapp" },
+  { name: "Google Meet", slug: "googlemeet" },
+  { name: "Zoom", slug: "zoom" },
+  { name: "GoCardless", slug: "gocardless" },
+  { name: "Make.com", slug: "make" },
+  { name: "Meta Ads", slug: "meta" },
+  { name: "Google Ads", slug: "googleads" },
 ];
+
+function ToolItem({ tool, hidden }) {
+  return (
+    <li className="hv-logo" aria-hidden={hidden || undefined}>
+      <HvToolLogo name={tool.name} slug={tool.slug} src={tool.src} />
+    </li>
+  );
+}
+
+// Before / after: short labels to scan; the pictures do the explaining.
+const MESS_MSGS = [
+  ["#e1306c", "Hi, how much is it?", "Instagram · 2 days, no reply"],
+  ["#25d366", "Are you free Tuesday?", "WhatsApp · unanswered"],
+  ["#25d366", "Did you get my payment?", "WhatsApp · check bank app"],
+  ["#ea4335", "Sorry, can't make it today", "Email · slot lost"],
+];
+const MESS = ["Lost DMs", "Chasing payments", "No-shows", "Generic website"];
+const CALM_STEPS = [
+  ["megaphone", "Ad click"],
+  ["layout", "Lands on your page"],
+  ["card", "Pays £75 upfront"],
+  ["bell", "Reminders sent"],
+  ["check", "Client shows up"],
+];
+const CALM = ["Every lead answered", "Paid before the session", "Automatic reminders", "One page, one offer"];
 
 const SERVICE_CARDS = [
   {
@@ -146,20 +184,12 @@ const HOW = [
   ["rocket", "You go live", "Approve a preview, verify payments on your phone, and start selling."],
 ];
 
-const INCLUDED = [
-  ["layout", "Page and copy", "Written and designed around one offer."],
-  ["card", "Payments", "Stripe, PayPal, Apple Pay, Google Pay, Direct Debit."],
-  ["zap", "Automations", "Reminders, follow-ups and delivery with Make.com."],
-  ["table", "Simple tracker", "Every lead, booking and sale in one sheet."],
-  ["key", "One login", "A Google Workspace email that opens everything."],
-  ["play", "Handover video", "A short walkthrough and a one-page guide."],
-];
 
 const SAFEGUARDS = [
-  ["lock", "Your money, your accounts", "Payments go straight to you. Stripe, Shopify and your domain stay in your name."],
-  ["shield", "Privacy first", "No client notes or clinical details, ever. Discreet reminders for counselling."],
-  ["star", "Real reviews only", "We only show genuine customer reviews, as UK rules expect."],
-  ["scale", "No promised numbers", "We build the system. Results depend on your offer and traffic, and we say so."],
+  ["lock", "Your accounts, your money"],
+  ["shield", "No client notes stored"],
+  ["star", "Real reviews only"],
+  ["scale", "No promised results"],
 ];
 
 /*
@@ -257,31 +287,38 @@ const jsonLd = {
   ],
 };
 
-/* Small illustrated previews on the service cards (decorative) */
+/* Animated mini scenes on the service cards (decorative; one 8s loop).
+   hv-a1..hv-a5 appear one after another; reduced motion shows the end state. */
 function Mock({ kind }) {
   if (kind === "slot")
     return (
       <div className="hv-mock" aria-hidden="true">
-        <div className="hv-mock-days"><span>Mon</span><span className="on">Tue</span><span>Wed</span><span>Thu</span></div>
-        <div className="hv-mock-slots"><span>09:30</span><span className="on">11:30</span><span>14:00</span></div>
-        <div className="hv-mock-pay">£75 · Paid <Icon name="check" size={14} /></div>
+        <div className="hv-mock-bar"><Icon name="calendar" size={14} />Book a session<span>50 min · £75</span></div>
+        <div className="hv-mock-days"><span>Mon</span><span className="hv-pick1">Tue</span><span>Wed</span><span>Thu</span></div>
+        <div className="hv-mock-slots"><span>09:30</span><span className="hv-pick2">11:30</span><span>14:00</span></div>
+        <div className="hv-mock-pay hv-a3">£75 paid <Icon name="check" size={14} /></div>
+        <div className="hv-toast hv-a4"><Icon name="bell" size={13} />Meet link and reminders sent</div>
       </div>
     );
   if (kind === "checkout")
     return (
       <div className="hv-mock" aria-hidden="true">
-        <div className="hv-mock-row"><span>Strength plan</span><b>£49</b></div>
-        <div className="hv-mock-bump">+ Recipe book <b>£9</b></div>
-        <div className="hv-mock-row hv-mock-total"><span>Total</span><b>£58</b></div>
-        <div className="hv-mock-pay">Download sent <Icon name="check" size={14} /></div>
+        <div className="hv-mock-bar"><Icon name="card" size={14} />Checkout<span><Icon name="lock" size={12} />Secure</span></div>
+        <div className="hv-mock-row"><span>12-week strength plan</span><b>£49</b></div>
+        <div className="hv-mock-bump"><i className="hv-tick"><Icon name="check" size={12} /></i>Add the recipe book<b>+£9</b></div>
+        <div className="hv-mock-row hv-mock-total"><span>Total</span><b className="hv-sum"><span>£49</span><span>£58</span></b></div>
+        <div className="hv-mock-pay hv-a3">Paid with Apple Pay <Icon name="check" size={14} /></div>
+        <div className="hv-toast hv-a4"><Icon name="box" size={13} />Download emailed instantly</div>
       </div>
     );
   return (
     <div className="hv-mock" aria-hidden="true">
-      <p className="hv-bub in">Is it good for beginners?</p>
-      <p className="hv-bub out">Yes! How many days can you train?</p>
-      <p className="hv-bub in">3 or 4</p>
-      <div className="hv-mock-pay">Call booked <Icon name="check" size={14} /></div>
+      <div className="hv-mock-bar"><Icon name="chat" size={14} />WhatsApp<span className="hv-online">online</span></div>
+      <p className="hv-bub in hv-a1">Is it good for beginners?</p>
+      <p className="hv-typing"><i /><i /><i /></p>
+      <p className="hv-bub out hv-a2">Yes! How many days can you train?</p>
+      <p className="hv-bub in hv-a3">3 or 4</p>
+      <div className="hv-mock-pay hv-a4">Call booked · Thu 10:00 <Icon name="check" size={14} /></div>
     </div>
   );
 }
@@ -326,7 +363,7 @@ export default function HomePage() {
               </a>
             </div>
             <p className="hv-price">
-              <b>From {gbp(MIN_BUILD)}</b> one-time · Optional Care from {gbp(CARE.monthly)}/month
+              <b>From {gbp(MIN_BUILD)}</b> one-time build
             </p>
             <ul className="hv-trust" aria-label="Why it's safe">
               {TRUST.map(([i, t]) => (
@@ -370,28 +407,59 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="hv-c hv-tools">
-          <span>Works with</span>
-          <ul aria-label="Connected tools">{TOOLS.map((t) => <li key={t}>{t}</li>)}</ul>
+        <div className="hv-tools">
+          <p className="hv-tools-label"><span>Works with the tools you already trust</span></p>
+          <div className="hv-marquee">
+            <ul className="hv-marquee-track" aria-label="Works with">
+              {TOOLS.map((t) => <ToolItem key={t.name} tool={t} />)}
+              {/* second copy makes the loop seamless; hidden from screen readers */}
+              {TOOLS.map((t) => <ToolItem key={`${t.name}-2`} tool={t} hidden />)}
+            </ul>
+          </div>
         </div>
       </section>
 
-      {/* BEFORE / AFTER */}
+      {/* BEFORE / AFTER: pictures first, a few words to scan */}
       <section className="hv-sec" id="problems" aria-labelledby="hv-prob-h">
         <div className="hv-c">
-          <div className="hv-head">
+          <div className="hv-head hv-center">
             <p className="hv-label">Why Falcoon</p>
             <h2 id="hv-prob-h">A good offer needs a path to the customer. <em>We build it.</em></h2>
           </div>
-          <ul className="hv-pairs">
-            {PAIRS.map(([ic, no, yes]) => (
-              <li key={no}>
-                <span className="hv-ico"><Icon name={ic} /></span>
-                <p className="hv-no"><small>Without a system</small>{no}</p>
-                <p className="hv-yes"><small>With Falcoon</small>{yes}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="hv-vs">
+            <figure className="hv-side hv-side-no">
+              <figcaption className="hv-side-tag"><Icon name="x" size={15} />Without a system</figcaption>
+              <div className="hv-mess" aria-hidden="true">
+                <div className="hv-mess-top"><b>Inbox</b><span className="hv-badge">12</span></div>
+                {MESS_MSGS.map(([c, t, sub], i) => (
+                  <div className={`hv-msg hv-a${i + 1}`} key={t}>
+                    <i style={{ "--c": c }} />
+                    <div><strong>{t}</strong><small>{sub}</small></div>
+                  </div>
+                ))}
+              </div>
+              <ul className="hv-chips">
+                {MESS.map((t) => <li key={t}><Icon name="x" size={14} />{t}</li>)}
+              </ul>
+            </figure>
+
+            <span className="hv-vs-arrow" aria-hidden="true"><Icon name="arrow" size={22} /></span>
+
+            <figure className="hv-side hv-side-yes">
+              <figcaption className="hv-side-tag"><Icon name="check" size={15} />With Falcoon</figcaption>
+              <ol className="hv-calm" aria-hidden="true">
+                {CALM_STEPS.map(([ic, t], i) => (
+                  <li className={`hv-l${i + 1}`} key={t}>
+                    <span className="hv-calm-ico"><Icon name={ic} size={16} /></span>
+                    {t}
+                  </li>
+                ))}
+              </ol>
+              <ul className="hv-chips">
+                {CALM.map((t) => <li key={t}><Icon name="check" size={14} />{t}</li>)}
+              </ul>
+            </figure>
+          </div>
         </div>
       </section>
 
@@ -446,25 +514,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* INCLUDED */}
-      <section className="hv-sec" id="included" aria-labelledby="hv-inc-h">
-        <div className="hv-c">
-          <div className="hv-head hv-center">
-            <p className="hv-label">In every build</p>
-            <h2 id="hv-inc-h">Everything a funnel needs. <em>Nothing to piece together.</em></h2>
-          </div>
-          <ul className="hv-tiles">
-            {INCLUDED.map(([ic, t, x]) => (
-              <li key={t}>
-                <span className="hv-ico"><Icon name={ic} /></span>
-                <strong>{t}</strong>
-                <p>{x}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       {/* PRICING */}
       <section className="hv-sec hv-ivory" id="pricing" aria-labelledby="hv-price-h">
         <div className="hv-c">
@@ -497,24 +546,8 @@ export default function HomePage() {
               <a href={CALENDLY} className="hv-btn hv-btn-dark" target="_blank" rel="noopener">Talk about ads <span aria-hidden="true">→</span></a>
             </article>
           </div>
-        </div>
-      </section>
-
-      {/* SAFEGUARDS */}
-      <section className="hv-sec hv-dk" id="safeguards" aria-labelledby="hv-safe-h">
-        <div className="hv-c">
-          <div className="hv-head">
-            <p className="hv-label">Honest by design</p>
-            <h2 id="hv-safe-h">Built for UK rules <em>and real trust.</em></h2>
-          </div>
-          <ul className="hv-tiles hv-tiles-dk">
-            {SAFEGUARDS.map(([ic, t, x]) => (
-              <li key={t}>
-                <span className="hv-ico"><Icon name={ic} /></span>
-                <strong>{t}</strong>
-                <p>{x}</p>
-              </li>
-            ))}
+          <ul className="hv-promise" aria-label="Our promises">
+            {SAFEGUARDS.map(([ic, t]) => <li key={t}><Icon name={ic} size={18} />{t}</li>)}
           </ul>
         </div>
       </section>
