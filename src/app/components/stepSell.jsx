@@ -1,0 +1,70 @@
+"use client";
+
+const SELL_OPTIONS = [
+  {
+    label: "Counselling",
+    icon: "🧠",
+    desc: "1:1 or group coaching sessions",
+    recommended: true,
+  },
+  {
+    label: "Fitness Program",
+    icon: "🏋️",
+    desc: "Sell online training programs",
+  },
+  {
+    label: "Product",
+    icon: "📦",
+    desc: "Sell physical or digital products",
+  },
+];
+
+export default function StepSell({ selected, onChange, onNext }) {
+  return (
+    <div className="launch">
+      <div className="mobile">
+        <h2 className="launch__title">What do you want to sell?</h2>
+        <p className="launch__subtitle">
+          We'll tailor your funnel copy and structure around this
+        </p>
+      </div>
+
+      <div className="launch__grid">
+        {SELL_OPTIONS.map((opt) => {
+          const isActive = selected?.label === opt.label;
+          const isRecommended = opt.recommended;
+
+          return (
+            <div
+              key={opt.label}
+              className={`launch__card ${
+                isActive ? "launch__card--active" : ""
+              } ${isRecommended ? "launch__card--recommended" : ""}`}
+              onClick={() => onChange({ label: opt.label })}
+            >
+              <div className="launch__icon">{opt.icon}</div>
+
+              <div className="launch__content">
+                <strong className="launch__label">
+                  {opt.label}
+                  {isRecommended && (
+                    <span className="launch__badge">Recommended</span>
+                  )}
+                </strong>
+                <p className="launch__desc">{opt.desc}</p>
+              </div>
+
+              {isActive && <span className="launch__check">✔</span>}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="launch__actions">
+        <button className="launch__btn" onClick={onNext}>
+          Continue →
+        </button>
+      </div>
+    </div>
+  );
+}
