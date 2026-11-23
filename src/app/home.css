@@ -3306,3 +3306,6 @@
     border-left: 0;
   }
 }
+a.scn-btn {
+  background: var(--gold-l);
+}
